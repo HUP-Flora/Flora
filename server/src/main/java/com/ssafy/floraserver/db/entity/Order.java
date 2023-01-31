@@ -24,25 +24,28 @@ public class Order extends BaseEntity{
 
     private LocalDate oDate;
 
+    @Enumerated(EnumType.STRING)
     private OrderStatus oStatus;
 
+    @Enumerated(EnumType.STRING)
     private OrderType oType;
 
     private int oPayment;
 
     private String oPaymentNum;
 
+    @Enumerated(EnumType.STRING)
     private PaymentStatus oPaymentStatus;
 
     // 연관관계 필요
-    private int uId;
+    private Long uId;
 
     // 연관관계 필요
-    private int revId;
+    private Long revId;
 
     // 연관관계 필요
-    private int sId;
+    private Long sId;
 
     // 연관관계 필요
-    private int pid;
+    private Long pId;
 }

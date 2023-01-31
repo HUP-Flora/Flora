@@ -1,5 +1,6 @@
 package com.ssafy.floraserver.db.entity;
 
+import com.ssafy.floraserver.db.entity.enums.OnAirType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,10 +19,10 @@ public class Store extends BaseEntity{
 
     // 연관관계 필요
     @Column(nullable = false)
-    private int uId;
+    private Long uId;
 
     @Column(nullable = false)
-    private String uBusinessLicense;
+    private String sBusinessLicense;
 
     @Column(nullable = false)
     private String sName;
@@ -50,17 +51,18 @@ public class Store extends BaseEntity{
     @Column(nullable = false)
     private String sDesc;
 
-    private String sIsOnair;
+    @Enumerated(EnumType.STRING)
+    private OnAirType sIsOnair;
 
     private String sHoliday;
 
     // 연관관계 필요
     @Column(nullable = false)
-    private int sStart;
+    private Long sStart;
 
     // 연관관계 필요
     @Column(nullable = false)
-    private int sEnd;
+    private Long sEnd;
 
     private String sImgOriginalName;
 

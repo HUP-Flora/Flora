@@ -27,7 +27,7 @@ public class Product {
 
     // 연관관계 필요
     @Column(nullable = false)
-    private int sId;
+    private Long sId;
 
     private String pImgOriginalName;
 

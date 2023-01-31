@@ -19,11 +19,12 @@ public class Receipt extends BaseEntity{
     private Long recId;
 
     // 연관관계 필요
-    private int oId;
+    private Long oId;
 
     // 연관관계 필요
-    private int sId;
+    private Long sId;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ReceiptType recType;
 
@@ -35,7 +36,7 @@ public class Receipt extends BaseEntity{
 
     private String recGiftMessage;
 
-    private String recRercipient;
+    private String recRecipient;
 
     private String recRecipientPhoneNumber;
 
@@ -43,5 +44,6 @@ public class Receipt extends BaseEntity{
 
     private String recDeliveryDestination;
 
+    @Enumerated(EnumType.STRING)
     private ReceiptStatus recStatus;
 }

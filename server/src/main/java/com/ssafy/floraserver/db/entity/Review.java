@@ -18,10 +18,10 @@ public class Review extends BaseEntity{
     private Long revId;
 
     // 연관관계 필요
-    private int uId;
+    private Long uId;
 
     // 연관관계 필요
-    private int sId;
+    private Long sId;
 
     @Column(nullable = false)
     private String revContent;

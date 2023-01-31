@@ -19,18 +19,19 @@ public class Conference extends BaseEntity{
     private Long conId;
 
     // 연관관계 필요
-    private int oId;
+    private Long oId;
 
     @Column(nullable = false)
     private LocalDate conReservationDate;
 
     // 연관관계 필요
-    private int conReservationTime;
+    private Long conReservationTime;
 
     private LocalTime conStartTime;
 
     @Column(nullable = false)
     private String conLink;
 
+    @Enumerated(EnumType.STRING)
     private ConferenceStatus conStatus;
 }

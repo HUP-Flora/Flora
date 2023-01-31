@@ -37,7 +37,7 @@ public class User extends BaseEntity {
     @Column(name = "u_withdrawal_date")
     private LocalDate uWithdrawalDate;
 
-    @Column(name = "u_soft_delete")
+    @Column(name = "u_soft_delete", columnDefinition = "TINYINT(1)")
     private boolean uSoftDelete;
 
     @Builder

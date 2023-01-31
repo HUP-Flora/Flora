@@ -27,9 +27,9 @@ public abstract class BaseEntity {
     private LocalDateTime createdAt;
 
     @LastModifiedBy
-    private Long updator;
+    private Long updater;
 
     @LastModifiedDate
-    private LocalDateTime modifiedDate;
+    private LocalDateTime updatedAt;
 
 }
