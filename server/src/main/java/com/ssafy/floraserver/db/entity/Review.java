@@ -1,5 +1,6 @@
 package com.ssafy.floraserver.db.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "reviews")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Review extends BaseEntity{
 

@@ -1,5 +1,6 @@
 package com.ssafy.floraserver.db.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -7,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "bookmarks")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Bookmark extends BaseEntity{
 

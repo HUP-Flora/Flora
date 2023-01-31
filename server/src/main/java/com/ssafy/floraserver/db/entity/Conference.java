@@ -1,6 +1,7 @@
 package com.ssafy.floraserver.db.entity;
 
 import com.ssafy.floraserver.db.entity.enums.ConferenceStatus;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,7 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "conferences")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Conference extends BaseEntity{
 

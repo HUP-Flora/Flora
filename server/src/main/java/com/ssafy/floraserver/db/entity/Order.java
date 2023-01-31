@@ -3,6 +3,7 @@ package com.ssafy.floraserver.db.entity;
 import com.ssafy.floraserver.db.entity.enums.OrderStatus;
 import com.ssafy.floraserver.db.entity.enums.OrderType;
 import com.ssafy.floraserver.db.entity.enums.PaymentStatus;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "orders")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Order extends BaseEntity{
 

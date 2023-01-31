@@ -2,6 +2,7 @@ package com.ssafy.floraserver.db.entity;
 
 import com.ssafy.floraserver.db.entity.enums.ReceiptStatus;
 import com.ssafy.floraserver.db.entity.enums.ReceiptType;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "receipts")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Receipt extends BaseEntity{
 

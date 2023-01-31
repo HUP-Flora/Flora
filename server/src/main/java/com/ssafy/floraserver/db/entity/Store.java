@@ -1,6 +1,7 @@
 package com.ssafy.floraserver.db.entity;
 
 import com.ssafy.floraserver.db.entity.enums.OnAirType;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "stores")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Store extends BaseEntity{
 
