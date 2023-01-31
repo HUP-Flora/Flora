@@ -26,9 +26,11 @@ public class Product {
     @Column(nullable = false)
     private int pPrice;
 
-    // 연관관계 필요
-    @Column(nullable = false)
-    private Long sId;
+    // 상품 - 가게
+    // 다대일 단방향
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "s_id", nullable = false)
+    private Store sId;
 
     private String pImgOriginalName;
 

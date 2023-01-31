@@ -16,9 +16,15 @@ public class Bookmark extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bId;
 
-    // 연관관계 필요
-    private Long uId;
-    
-    // 연관관계 필요
-    private Long sId;
+    // 꽃갈피 - 사용자
+    // 다대일 단방향
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "u_id", nullable = false)
+    private User uId;
+
+    // 꽃갈피 - 가게
+    // 다대일 단방향
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "s_id", nullable = false)
+    private Store sId;
 }

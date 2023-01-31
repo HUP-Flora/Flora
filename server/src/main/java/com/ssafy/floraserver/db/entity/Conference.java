@@ -19,14 +19,20 @@ public class Conference extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long conId;
 
-    // 연관관계 필요
-    private Long oId;
+    // 화상미팅 - 주문
+    // 다대일 단방향
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "o_id", nullable = false)
+    private Order oId;
 
     @Column(nullable = false)
     private LocalDate conReservationDate;
 
-    // 연관관계 필요
-    private Long conReservationTime;
+    // 화상미팅 - 시간단위
+    // 다대일 단방향
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "o_id", nullable = false)
+    private TimeUnit conReservationTime;
 
     private LocalTime conStartTime;
 

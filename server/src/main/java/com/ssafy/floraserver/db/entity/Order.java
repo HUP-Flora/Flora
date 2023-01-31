@@ -38,15 +38,27 @@ public class Order extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private PaymentStatus oPaymentStatus;
 
-    // 연관관계 필요
-    private Long uId;
+    // 주문 - 사용자
+    // 다대일 단방향
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "u_id", nullable = false)
+    private User uId;
 
-    // 연관관계 필요
-    private Long revId;
+    // 주문 - 리뷰
+    // 다대일 단방향
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rev_id")
+    private Review revId;
 
-    // 연관관계 필요
-    private Long sId;
+    // 주문 - 가게
+    // 다대일 단방향
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "s_id", nullable = false)
+    private Store sId;
 
-    // 연관관계 필요
-    private Long pId;
+    // 주문 - 상품
+    // 다대일 단방향
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "p_id", nullable = false)
+    private Product pId;
 }

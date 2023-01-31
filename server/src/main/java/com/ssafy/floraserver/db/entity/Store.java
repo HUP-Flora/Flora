@@ -18,9 +18,11 @@ public class Store extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sId;
 
-    // 연관관계 필요
-    @Column(nullable = false)
-    private Long uId;
+    // 가게 - 사용자
+    // 다대일 단방향
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "u_id", nullable = false)
+    private User uId;
 
     @Column(nullable = false)
     private String sBusinessLicense;
@@ -57,13 +59,17 @@ public class Store extends BaseEntity{
 
     private String sHoliday;
 
-    // 연관관계 필요
-    @Column(nullable = false)
-    private Long sStart;
+    // 가게 - 시간단위
+    // 다대일 단방향
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tu_id", nullable = false)
+    private TimeUnit sStart;
 
-    // 연관관계 필요
-    @Column(nullable = false)
-    private Long sEnd;
+    // 가게 - 시간단위
+    // 다대일 단방향
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tu_id", nullable = false)
+    private TimeUnit sEnd;
 
     private String sImgOriginalName;
 

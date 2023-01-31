@@ -18,11 +18,17 @@ public class Review extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long revId;
 
-    // 연관관계 필요
-    private Long uId;
+    // 리뷰 - 사용자
+    // 다대일 단방향
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "u_id", nullable = false)
+    private User uId;
 
-    // 연관관계 필요
-    private Long sId;
+    // 리뷰 - 가게
+    // 다대일 단방향
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "s_id", nullable = false)
+    private Store sId;
 
     @Column(nullable = false)
     private String revContent;
