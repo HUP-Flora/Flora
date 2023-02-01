@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import Flolive from "../pages/flolive/Flolive";
+import Flolive from "./pages/flolive/Flolive";
 
 function AppRouter() {
 	return (
