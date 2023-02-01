@@ -1,8 +1,9 @@
 import React from "react";
-// import FirstForm from "./forms/FirstForm";
-// import SecondDeliveryForm from "./forms/SecondDeliveryForm";
-// import SecondPickUpForm from "./forms/SecondPickUpForm";
-// import ThirdPickUpForm from "./forms/ThirdPickUpForm";
+import FirstForm from "./forms/FirstForm";
+import SecondDeliveryForm from "./forms/SecondDeliveryForm";
+import ThirdDeliveryForm from "./forms/ThirdDeliveryForm";
+import SecondPickUpForm from "./forms/SecondPickUpForm";
+import ThirdPickUpForm from "./forms/ThirdPickUpForm";
 import { useRecoilValue } from "recoil";
 import { nameState } from "../../../../recoil/chatting";
 import {
@@ -41,11 +42,11 @@ function Message({ message: { user, text, type, time }}) {
           </MessageTime>
         </YourMessageContainer>
       )}
-      {/*{type === 'firstForm' && <FirstForm time={time} />}*/}
-      {/*{type === 'secondDeliveryForm' && <SecondDeliveryForm time={time}/>}*/}
-      {/*{type === 'secondPickUpForm' && <SecondPickUpForm time={time}/>}*/}
-      {/*{type === 'thirdPickUpForm' && <ThirdPickUpForm time={time}/>}*/}
-      {/*{type === 'thirdDeliveryForm' && <ThirdPickUpForm time={time}/>}*/}
+      {type === 'firstForm' && <FirstForm time={time} />}
+      {type === 'secondDeliveryForm' && <SecondDeliveryForm time={time}/>}
+      {type === 'secondPickUpForm' && <SecondPickUpForm time={time}/>}
+      {type === 'thirdPickUpForm' && <ThirdPickUpForm time={time}/>}
+      {type === 'thirdDeliveryForm' && <ThirdDeliveryForm time={time}/>}
     </div>
   )
 }

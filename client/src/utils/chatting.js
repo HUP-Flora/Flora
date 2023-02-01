@@ -27,27 +27,27 @@ export const listenMessage = (setMessages) => {
   })
 }
 
-export const firstFormSendMessage = (event) => {
+export const sendFormMessage = (event) => {
   event.preventDefault()
   socket.emit('sendMessage', 'firstForm', () => {})
 }
 
-export const secondDeliveryFormSendMessage = (event) => {
+export const sendSecondDeliveryFormMessage = (event) => {
   event.preventDefault()
   socket.emit('sendMessage', 'secondDeliveryForm', () => {})
 }
 
-export const secondPickUpFormSendMessage = (event) => {
+export const sendSecondPickUpFormMessage = (event) => {
   event.preventDefault()
   socket.emit('sendMessage', 'secondPickUpForm', () => {})
 }
 
-export const ThirdPickUpFormSendMessage = (event) => {
+export const sendThirdPickUpFormMessage = (event) => {
   event.preventDefault()
   socket.emit('sendMessage', 'thirdPickUpForm', () => {})
 }
 
-export const ThirdDeliveryFormSendMessage = (event) => {
+export const sendThirdDeliveryFormMessage = (event) => {
   event.preventDefault()
   socket.emit('sendMessage', 'thirdDeliveryForm', () => {})
 }

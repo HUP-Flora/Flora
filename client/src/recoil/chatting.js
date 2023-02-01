@@ -15,7 +15,7 @@ export const giftCardState = atom({
   default: '',
 });
 
-export const paymenAmountState = atom({
+export const paymentAmountState = atom({
   key: 'paymenAmountState',
   default: '',
 });
@@ -32,11 +32,6 @@ export const receiveUserPhoneState = atom({
 
 export const receiveUserAddressState = atom({
   key: 'receiveUserAddressState',
-  default: '',
-});
-
-export const paymentAmountState = atom({
-  key: 'paymentAmountState',
   default: '',
 });
 
