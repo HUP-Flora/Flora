@@ -1,19 +1,11 @@
-import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import { RecoilRoot } from "recoil";
-import { GlobalFonts } from "./fonts/fonts";
-import ReactDOM from "react-dom/client";
-import "./styles/common/App.css";
-import App from "./App";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<React.StrictMode>
-		<RecoilRoot>
-			<GlobalFonts />
-			<Router>
-				<App />
-			</Router>
-		</RecoilRoot>
-	</React.StrictMode>
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
