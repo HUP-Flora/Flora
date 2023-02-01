@@ -62,13 +62,13 @@ public class Store extends BaseEntity{
     // 가게 - 시간단위
     // 다대일 단방향
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tu_id", nullable = false)
+    @JoinColumn(name = "s_start", nullable = false)
     private TimeUnit sStart;
 
     // 가게 - 시간단위
     // 다대일 단방향
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tu_id", nullable = false)
+    @JoinColumn(name = "s_end", nullable = false)
     private TimeUnit sEnd;
 
     private String sImgOriginalName;

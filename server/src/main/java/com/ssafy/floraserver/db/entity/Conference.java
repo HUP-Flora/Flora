@@ -21,7 +21,7 @@ public class Conference extends BaseEntity{
 
     // 화상미팅 - 주문
     // 다대일 단방향
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "o_id", nullable = false)
     private Order oId;
 
@@ -31,7 +31,7 @@ public class Conference extends BaseEntity{
     // 화상미팅 - 시간단위
     // 다대일 단방향
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "o_id", nullable = false)
+    @JoinColumn(name = "con_reservation_time", nullable = false)
     private TimeUnit conReservationTime;
 
     private LocalTime conStartTime;

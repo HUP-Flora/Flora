@@ -21,15 +21,9 @@ public class Receipt extends BaseEntity{
 
     // 수령 - 주문
     // 다대일 단방향
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "o_id", nullable = false)
     private Order oId;
-
-    // 수령 - 가게
-    // 다대일 단방향
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "s_id", nullable = false)
-    private Store sId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

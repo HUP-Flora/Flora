@@ -45,8 +45,8 @@ public class Order extends BaseEntity{
     private User uId;
 
     // 주문 - 리뷰
-    // 다대일 단방향
-    @ManyToOne(fetch = FetchType.LAZY)
+    // 일대일 단방향
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rev_id")
     private Review revId;
 
