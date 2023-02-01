@@ -8,7 +8,7 @@ export const Primary50Button = styled.button`
 
 	// width: ${props => props.width || 168}px;
 	width: 46.927%;
-	height: ${props => (props.isSmall ? 32 : 44)}px;
+	height: ${props => props.isSmall || 44}px;
 
 	background-color: var(--primary-50);
 	color: var(--primary-400);
@@ -33,6 +33,7 @@ export const Primary400Button = styled.button`
 	background-color: var(--primary-400);
 	color: white;
 
+	border: none;
 	border-radius: 10px;
 
 	font-weight: bold;
@@ -61,6 +62,52 @@ export const WhiteButton = styled.button`
 
 	&:active {
 		background-color: var(--primary-50);
+	}
+`;
+
+export const Primary50LargeButton = styled.button`
+	margin-top: ${props => props.top || 0}px;
+	margin-bottom: ${props => props.bottom || 0}px;
+	margin-left: ${props => props.left || 0}px;
+	margin-right: ${props => props.right || 0}px;
+
+	// width: ${props => props.width || 168}px;
+	width: 100%;
+	height: 88px;
+
+	background-color: var(--primary-50);
+	color: var(--primary-400);
+
+	border: none;
+	border-radius: 10px;
+
+	position: relative;
+
+	&:active {
+		background-color: var(--primary-100);
+	}
+`;
+
+export const Primary400LargeButton = styled.button`
+	margin-top: ${props => props.top || 0}px;
+	margin-bottom: ${props => props.bottom || 0}px;
+	margin-left: ${props => props.left || 0}px;
+	margin-right: ${props => props.right || 0}px;
+
+	width: 100%;
+	height: ${props => (props.isSmall ? 32 : 44)}px;
+
+	background-color: var(--primary-400);
+	color: white;
+
+	border: none;
+	border-radius: 10px;
+
+	font-weight: bold;
+	font-size: 16px;
+
+	&:active {
+		background-color: var(--primary-500);
 	}
 `;
 
