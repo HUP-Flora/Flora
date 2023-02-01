@@ -1,5 +1,5 @@
 import AppRouter from "./AppRouter";
-import { AppContainer } from "./styles/common/AppStyle";
+import { AppContainer } from "./styles/common/CommonStyle";
 
 function App() {
 	return (

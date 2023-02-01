@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
-import { KakaoPaymentFrame } from "../styles/payment/KakaoPaymentStyle";
+import { KakaoPaymentFrame } from "../../styles/payment/KakaoPaymentStyle";
 
 export function KakaoPayment() {
 	const [redirectUrl, setRedirectUrl] = useState("");
