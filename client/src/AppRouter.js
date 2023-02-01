@@ -4,7 +4,7 @@ import { KakaoPaymentSuccess } from "./pages//kakaoPayment/KakaoPaymentSuccess";
 
 import Flolive from "./pages/flolive/Flolive";
 import { Main } from "./pages/Main";
-import { Login } from "./pages/Login";
+// import { Login } from "./pages/Login";
 
 function AppRouter() {
 	return (
