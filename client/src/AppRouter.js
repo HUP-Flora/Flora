@@ -4,7 +4,8 @@ import { KakaoPaymentSuccess } from "./pages//kakaoPayment/KakaoPaymentSuccess";
 
 import Flolive from "./pages/flolive/Flolive";
 import { Main } from "./pages/Main";
-// import { Login } from "./pages/Login";
+import { Login } from "./pages/auth/Login";
+import { Signup } from "./pages/auth/Signup";
 
 // 채팅 테스트용 페이지
 import Chatting from "./components/chatting/Chatting";
@@ -15,6 +16,8 @@ function AppRouter() {
 		<Router>
 			<Routes>
 				<Route path="/" exact={true} element={<Main />} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/signup" element={<Signup />} />
 				<Route path="/flolive" element={<Flolive />} />
 				<Route path="/kakao-payment" element={<KakaoPayment />} />
 				<Route path="/kakao-payment/success" element={<KakaoPaymentSuccess />} />

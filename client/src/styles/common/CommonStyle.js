@@ -10,11 +10,11 @@ export const AppContainer = styled.div`
 	font-size: 16px;
 `;
 
-export const BlankContainer = styled.div`
+export const BlankSection = styled.div`
 	height: ${props => props.height || 0};
 `;
 
-export const BoldTextDiv = styled.div`
+export const BoldText = styled.div`
 	font-weight: bold;
 	font-size: ${props => props.size || 16}px;
 `;

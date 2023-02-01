@@ -15,6 +15,7 @@ export const BorderTopButtonToolBar = styled.div`
 `;
 
 export const ButtonToolBar = styled.div`
+	border: 1px solid white;
 	background-color: white;
 	width: calc(100% - 32px);
 	position: fixed;
