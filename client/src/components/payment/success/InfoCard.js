@@ -1,10 +1,10 @@
-import { BoldTextDiv } from "../../../styles/common/BoldTextStyle";
+import { BoldTextDiv } from "../../../styles/common/CommonStyle";
 import {
 	InfoCardHr,
 	InfoCardSection,
 	TableMargin,
 	TableTh,
-} from "../../../styles/payment/success/InfoCardStyle";
+} from "../../../styles/payment/card/CardStyle";
 
 export function InfoCard({ type, content1, content2, content3 }) {
 	let titles;
