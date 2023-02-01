@@ -1,4 +1,4 @@
-import { BoldTextDiv } from "../../../styles/common/CommonStyle";
+import { BoldText } from "../../../styles/common/CommonStyle";
 import {
 	InfoCardHr,
 	InfoCardSection,
@@ -17,7 +17,7 @@ export function InfoCard({ type, content1, content2, content3 }) {
 	return (
 		<InfoCardSection>
 			<>
-				<BoldTextDiv size="19">{type}</BoldTextDiv>
+				<BoldText size="19">{type}</BoldText>
 				<InfoCardHr />
 				<table>
 					<tbody>

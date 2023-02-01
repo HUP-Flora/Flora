@@ -12,9 +12,3 @@ export const KakaoPaymentFrame = styled.iframe`
 	right: 0px;
 	bottom: 0px;
 `;
-
-export const KakaoPaymentSuccessContainer = styled.div`
-	height: 100%;
-	width: 100%;
-	background-color: #f8f9fa;
-`;

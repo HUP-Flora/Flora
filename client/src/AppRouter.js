@@ -6,6 +6,8 @@ import Flolive from "./pages/flolive/Flolive";
 import { Main } from "./pages/Main";
 import { Login } from "./pages/auth/Login";
 import { Signup } from "./pages/auth/Signup";
+import { SignupOwner } from "./pages/auth/SignupOwner";
+import { SignupUser } from "./pages/auth/SignupUser";
 
 // 채팅 테스트용 페이지
 import Chatting from "./components/chatting/Chatting";
@@ -18,6 +20,8 @@ function AppRouter() {
 				<Route path="/" exact={true} element={<Main />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/signup" element={<Signup />} />
+				<Route path="/signup/owner" element={<SignupOwner />} />
+				<Route path="/signup/user" element={<SignupUser />} />
 				<Route path="/flolive" element={<Flolive />} />
 				<Route path="/kakao-payment" element={<KakaoPayment />} />
 				<Route path="/kakao-payment/success" element={<KakaoPaymentSuccess />} />
