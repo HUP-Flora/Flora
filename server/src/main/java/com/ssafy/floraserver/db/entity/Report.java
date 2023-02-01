@@ -23,11 +23,11 @@ public class Report {
     private Order oId;
 
     @JoinColumn(nullable = false)
-    private LocalDateTime repDate;
+    private LocalDateTime date;
 
     @Builder
-    public Report(Order oId, LocalDateTime repDate) {
+    public Report(Order oId, LocalDateTime date) {
         this.oId = oId;
-        this.repDate = repDate;
+        this.date = date;
     }
 }

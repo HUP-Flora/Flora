@@ -32,34 +32,34 @@ public class Review extends BaseEntity{
     private Store sId;
 
     @Column(nullable = false)
-    private String revContent;
+    private String content;
 
     @Column(nullable = false)
-    private LocalDate revCreateDate;
+    private LocalDate createDate;
 
-    private String revImgOriginalName;
+    private String imgOriginalName;
 
-    private String revImgNewName;
+    private String imgNewName;
 
-    private int revImgSize;
+    private int imgSize;
 
-    private String revImgPath;
+    private String imgPath;
 
-    private String revImgField;
+    private String imgField;
 
-    private LocalDateTime revImgUploadTime;
+    private LocalDateTime imgUploadTime;
 
     @Builder
-    public Review(User uId, Store sId, String revContent, LocalDate revCreateDate, String revImgOriginalName, String revImgNewName, int revImgSize, String revImgPath, String revImgField, LocalDateTime revImgUploadTime) {
+    public Review(User uId, Store sId, String content, LocalDate createDate, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
         this.uId = uId;
         this.sId = sId;
-        this.revContent = revContent;
-        this.revCreateDate = revCreateDate;
-        this.revImgOriginalName = revImgOriginalName;
-        this.revImgNewName = revImgNewName;
-        this.revImgSize = revImgSize;
-        this.revImgPath = revImgPath;
-        this.revImgField = revImgField;
-        this.revImgUploadTime = revImgUploadTime;
+        this.content = content;
+        this.createDate = createDate;
+        this.imgOriginalName = imgOriginalName;
+        this.imgNewName = imgNewName;
+        this.imgSize = imgSize;
+        this.imgPath = imgPath;
+        this.imgField = imgField;
+        this.imgUploadTime = imgUploadTime;
     }
 }

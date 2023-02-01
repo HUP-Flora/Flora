@@ -27,29 +27,29 @@ public class Conference extends BaseEntity{
     private Order oId;
 
     @Column(nullable = false)
-    private LocalDate conReservationDate;
+    private LocalDate reservationDate;
 
     // 화상미팅 - 시간단위
     // 다대일 단방향
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "con_reservation_time", nullable = false)
-    private TimeUnit conReservationTime;
+    private TimeUnit reservationTime;
 
-    private LocalTime conStartTime;
+    private LocalTime startTime;
 
     @Column(nullable = false)
-    private String conLink;
+    private String link;
 
     @Enumerated(EnumType.STRING)
-    private ConferenceStatus conStatus;
+    private ConferenceStatus status;
 
     @Builder
-    public Conference(Order oId, LocalDate conReservationDate, TimeUnit conReservationTime, LocalTime conStartTime, String conLink, ConferenceStatus conStatus){
+    public Conference(Order oId, LocalDate reservationDate, TimeUnit reservationTime, LocalTime startTime, String link, ConferenceStatus status){
         this.oId = oId;
-        this.conReservationDate = conReservationDate;
-        this.conReservationTime = conReservationTime;
-        this.conStartTime = conStartTime;
-        this.conLink = conLink;
-        this.conStatus = conStatus;
+        this.reservationDate = reservationDate;
+        this.reservationTime = reservationTime;
+        this.startTime = startTime;
+        this.link = link;
+        this.status = status;
     }
 }

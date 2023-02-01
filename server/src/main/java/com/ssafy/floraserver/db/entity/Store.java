@@ -26,86 +26,86 @@ public class Store extends BaseEntity{
     private User uId;
 
     @Column(nullable = false)
-    private String sBusinessLicense;
+    private String businessLicense;
 
     @Column(nullable = false)
-    private String sName;
+    private String name;
 
     @Column(nullable = false)
-    private String sPhoneNumber;
+    private String phoneNumber;
 
     @Column(nullable = false)
-    private String sSido;
+    private String sido;
 
     @Column(nullable = false)
-    private String sGugun;
+    private String gugun;
 
     @Column(nullable = false)
-    private String sDong;
+    private String dong;
 
     @Column(nullable = false)
-    private String sDetailedAddress;
+    private String detailedAddress;
 
     @Column(nullable = false)
-    private float sLat;
+    private float lat;
 
     @Column(nullable = false)
-    private float sLng;
+    private float lng;
 
     @Column(nullable = false)
-    private String sDesc;
+    private String desc;
 
     @Enumerated(EnumType.STRING)
-    private OnAirType sIsOnair;
+    private OnAirType isOnair;
 
-    private String sHoliday;
+    private String holiday;
 
     // 가게 - 시간단위
     // 다대일 단방향
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "s_start", nullable = false)
-    private TimeUnit sStart;
+    private TimeUnit start;
 
     // 가게 - 시간단위
     // 다대일 단방향
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "s_end", nullable = false)
-    private TimeUnit sEnd;
+    private TimeUnit end;
 
-    private String sImgOriginalName;
+    private String imgOriginalName;
 
-    private String sImgNewName;
+    private String imgNewName;
 
-    private int sImgSize;
+    private int imgSize;
 
-    private String sImgPath;
+    private String imgPath;
 
-    private String sImgField;
+    private String imgField;
 
-    private LocalDateTime sImgUploadTime;
+    private LocalDateTime imgUploadTime;
 
     @Builder
-    public Store(User uId, String sBusinessLicense, String sName, String sPhoneNumber, String sSido, String sGugun, String sDong, String sDetailedAddress, float sLat, float sLng, String sDesc, OnAirType sIsOnair, String sHoliday, TimeUnit sStart, TimeUnit sEnd, String sImgOriginalName, String sImgNewName, int sImgSize, String sImgPath, String sImgField, LocalDateTime sImgUploadTime) {
+    public Store(User uId, String businessLicense, String name, String sPhoneNumber, String sido, String gugun, String dong, String detailedAddress, float lat, float lng, String desc, OnAirType isOnair, String holiday, TimeUnit start, TimeUnit end, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
         this.uId = uId;
-        this.sBusinessLicense = sBusinessLicense;
-        this.sName = sName;
-        this.sPhoneNumber = sPhoneNumber;
-        this.sSido = sSido;
-        this.sGugun = sGugun;
-        this.sDong = sDong;
-        this.sDetailedAddress = sDetailedAddress;
-        this.sLat = sLat;
-        this.sLng = sLng;
-        this.sDesc = sDesc;
-        this.sIsOnair = sIsOnair;
-        this.sHoliday = sHoliday;
-        this.sStart = sStart;
-        this.sEnd = sEnd;
-        this.sImgOriginalName = sImgOriginalName;
-        this.sImgNewName = sImgNewName;
-        this.sImgSize = sImgSize;
-        this.sImgPath = sImgPath;
-        this.sImgField = sImgField;
-        this.sImgUploadTime = sImgUploadTime;
+        this.businessLicense = businessLicense;
+        this.name = name;
+        this.phoneNumber = sPhoneNumber;
+        this.sido = sido;
+        this.gugun = gugun;
+        this.dong = dong;
+        this.detailedAddress = detailedAddress;
+        this.lat = lat;
+        this.lng = lng;
+        this.desc = desc;
+        this.isOnair = isOnair;
+        this.holiday = holiday;
+        this.start = start;
+        this.end = end;
+        this.imgOriginalName = imgOriginalName;
+        this.imgNewName = imgNewName;
+        this.imgSize = imgSize;
+        this.imgPath = imgPath;
+        this.imgField = imgField;
+        this.imgUploadTime = imgUploadTime;
     }
 }

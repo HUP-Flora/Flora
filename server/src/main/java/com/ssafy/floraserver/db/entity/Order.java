@@ -22,22 +22,22 @@ public class Order extends BaseEntity{
     private Long oId;
 
     @Column(nullable = false)
-    private String oNum;
+    private String num;
 
-    private LocalDate oDate;
-
-    @Enumerated(EnumType.STRING)
-    private OrderStatus oStatus;
+    private LocalDate date;
 
     @Enumerated(EnumType.STRING)
-    private OrderType oType;
-
-    private int oPayment;
-
-    private String oPaymentNum;
+    private OrderStatus status;
 
     @Enumerated(EnumType.STRING)
-    private PaymentStatus oPaymentStatus;
+    private OrderType type;
+
+    private int payment;
+
+    private String paymentNum;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
 
     // 주문 - 사용자
     // 다대일 단방향
@@ -64,14 +64,14 @@ public class Order extends BaseEntity{
     private Product pId;
 
     @Builder
-    public Order(String oNum, LocalDate oDate, OrderStatus oStatus, OrderType oType, int oPayment, String oPaymentNum, PaymentStatus oPaymentStatus, User uId, Review revId, Store sId, Product pId) {
-        this.oNum = oNum;
-        this.oDate = oDate;
-        this.oStatus = oStatus;
-        this.oType = oType;
-        this.oPayment = oPayment;
-        this.oPaymentNum = oPaymentNum;
-        this.oPaymentStatus = oPaymentStatus;
+    public Order(String num, LocalDate date, OrderStatus status, OrderType type, int payment, String paymentNum, PaymentStatus paymentStatus, User uId, Review revId, Store sId, Product pId) {
+        this.num = num;
+        this.date = date;
+        this.status = status;
+        this.type = type;
+        this.payment = payment;
+        this.paymentNum = paymentNum;
+        this.paymentStatus = paymentStatus;
         this.uId = uId;
         this.revId = revId;
         this.sId = sId;

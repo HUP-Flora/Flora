@@ -19,13 +19,13 @@ public class Product {
     private Long pId;
 
     @Column(nullable = false)
-    private String pName;
+    private String name;
 
     @Column(nullable = false)
-    private String pDesc;
+    private String desc;
 
     @Column(nullable = false)
-    private int pPrice;
+    private int price;
 
     // 상품 - 가게
     // 다대일 단방향
@@ -33,29 +33,29 @@ public class Product {
     @JoinColumn(name = "s_id", nullable = false)
     private Store sId;
 
-    private String pImgOriginalName;
+    private String imgOriginalName;
 
-    private String pImgNewName;
+    private String imgNewName;
 
-    private int pImgSize;
+    private int imgSize;
 
-    private String pImgPath;
+    private String imgPath;
 
-    private String pImgField;
+    private String imgField;
 
-    private LocalDateTime pImgUploadTime;
+    private LocalDateTime imgUploadTime;
 
     @Builder
-    public Product(String pName, String pDesc, int pPrice, Store sId, String pImgOriginalName, String pImgNewName, int pImgSize, String pImgPath, String pImgField, LocalDateTime pImgUploadTime) {
-        this.pName = pName;
-        this.pDesc = pDesc;
-        this.pPrice = pPrice;
+    public Product(String pName, String pDesc, int price, Store sId, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
+        this.name = pName;
+        this.desc = pDesc;
+        this.price = price;
         this.sId = sId;
-        this.pImgOriginalName = pImgOriginalName;
-        this.pImgNewName = pImgNewName;
-        this.pImgSize = pImgSize;
-        this.pImgPath = pImgPath;
-        this.pImgField = pImgField;
-        this.pImgUploadTime = pImgUploadTime;
+        this.imgOriginalName = imgOriginalName;
+        this.imgNewName = imgNewName;
+        this.imgSize = imgSize;
+        this.imgPath = imgPath;
+        this.imgField = imgField;
+        this.imgUploadTime = imgUploadTime;
     }
 }

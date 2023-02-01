@@ -28,38 +28,38 @@ public class Receipt extends BaseEntity{
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ReceiptType recType;
+    private ReceiptType type;
 
     @Column(nullable = false)
-    private String recOrderer;
+    private String orderer;
 
     @Column(nullable = false)
-    private String recOrdererPhoneNumber;
+    private String ordererPhoneNumber;
 
-    private String recGiftMessage;
+    private String giftMessage;
 
-    private String recRecipient;
+    private String recipient;
 
-    private String recRecipientPhoneNumber;
+    private String recipientPhoneNumber;
 
-    private LocalDate recReceiptDate;
+    private LocalDate receiptDate;
 
-    private String recDeliveryDestination;
+    private String deliveryDestination;
 
     @Enumerated(EnumType.STRING)
-    private ReceiptStatus recStatus;
+    private ReceiptStatus status;
 
     @Builder
-    public Receipt(Order oId, ReceiptType recType, String recOrderer, String recOrdererPhoneNumber, String recGiftMessage, String recRecipient, String recRecipientPhoneNumber, LocalDate recReceiptDate, String recDeliveryDestination, ReceiptStatus recStatus) {
+    public Receipt(Order oId, ReceiptType type, String orderer, String ordererPhoneNumber, String giftMessage, String recipient, String recipientPhoneNumber, LocalDate receiptDate, String deliveryDestination, ReceiptStatus status) {
         this.oId = oId;
-        this.recType = recType;
-        this.recOrderer = recOrderer;
-        this.recOrdererPhoneNumber = recOrdererPhoneNumber;
-        this.recGiftMessage = recGiftMessage;
-        this.recRecipient = recRecipient;
-        this.recRecipientPhoneNumber = recRecipientPhoneNumber;
-        this.recReceiptDate = recReceiptDate;
-        this.recDeliveryDestination = recDeliveryDestination;
-        this.recStatus = recStatus;
+        this.type = type;
+        this.orderer = orderer;
+        this.ordererPhoneNumber = ordererPhoneNumber;
+        this.giftMessage = giftMessage;
+        this.recipient = recipient;
+        this.recipientPhoneNumber = recipientPhoneNumber;
+        this.receiptDate = receiptDate;
+        this.deliveryDestination = deliveryDestination;
+        this.status = status;
     }
 }

@@ -18,10 +18,10 @@ public class TimeUnit extends BaseEntity{
     private Long tuId;
 
     @Column(nullable = false)
-    private String tuTime;
+    private String time;
 
     @Builder
-    public TimeUnit(String tuTime) {
-        this.tuTime = tuTime;
+    public TimeUnit(String time) {
+        this.time = time;
     }
 }

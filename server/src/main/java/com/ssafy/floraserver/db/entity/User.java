@@ -21,30 +21,30 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UserType uType;
+    private UserType type;
 
     @Column(nullable = false, unique = true)
-    private String uEmail;
+    private String email;
 
     @Column(unique = true)
-    private String uNickname;
+    private String nickname;
 
-    private String uPhoneNumber;
+    private String phoneNumber;
 
-    private String uRefreshToken;
+    private String refreshToken;
 
-    private LocalDate uWithdrawalDate;
+    private LocalDate withdrawalDate;
 
     @Column(columnDefinition = "TINYINT(1)")
-    private boolean uSoftDelete;
+    private boolean softDelete;
 
     @Builder
-    public User(Long uId, UserType uType, String uEmail, String uNickname, String uPhoneNumber ){
+    public User(Long uId, UserType type, String email, String nickname, String phoneNumber){
         this.uId = uId;
-        this.uType = uType;
-        this.uEmail = uEmail;
-        this.uNickname = uNickname;
-        this.uPhoneNumber = uPhoneNumber;
+        this.type = type;
+        this.email = email;
+        this.nickname = nickname;
+        this.phoneNumber = phoneNumber;
     }
 
 }
