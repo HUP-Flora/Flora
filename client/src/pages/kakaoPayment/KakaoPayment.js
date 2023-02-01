@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { KakaoPaymentFrame } from "../../styles/payment/KakaoPaymentStyle";
+import { KakaoPaymentButton } from "../../styles/button/ButtonStyle";
+import KakaoPayLogoImg from "../../assets/kakao/KakaoPayLogo.png";
+import { KakaoPayLogo, KakaoPayText } from "../../styles/common/CommonStyle";
 
 export function KakaoPayment() {
 	const [redirectUrl, setRedirectUrl] = useState("");
@@ -50,7 +53,10 @@ export function KakaoPayment() {
 					<br />
 					<br />
 
-					<button onClick={handleKakaoPayment}>카카오 결제</button>
+					<KakaoPaymentButton onClick={handleKakaoPayment}>
+						<KakaoPayLogo src={KakaoPayLogoImg} alt="KakaoPayLogo" />
+						<KakaoPayText>결제 및 종료</KakaoPayText>
+					</KakaoPaymentButton>
 				</>
 			)}
 		</>
