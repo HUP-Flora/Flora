@@ -3,6 +3,7 @@ package com.ssafy.floraserver.db.entity;
 import com.ssafy.floraserver.db.entity.enums.ReceiptStatus;
 import com.ssafy.floraserver.db.entity.enums.ReceiptType;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -47,4 +48,18 @@ public class Receipt extends BaseEntity{
 
     @Enumerated(EnumType.STRING)
     private ReceiptStatus recStatus;
+
+    @Builder
+    public Receipt(Order oId, ReceiptType recType, String recOrderer, String recOrdererPhoneNumber, String recGiftMessage, String recRecipient, String recRecipientPhoneNumber, LocalDate recReceiptDate, String recDeliveryDestination, ReceiptStatus recStatus) {
+        this.oId = oId;
+        this.recType = recType;
+        this.recOrderer = recOrderer;
+        this.recOrdererPhoneNumber = recOrdererPhoneNumber;
+        this.recGiftMessage = recGiftMessage;
+        this.recRecipient = recRecipient;
+        this.recRecipientPhoneNumber = recRecipientPhoneNumber;
+        this.recReceiptDate = recReceiptDate;
+        this.recDeliveryDestination = recDeliveryDestination;
+        this.recStatus = recStatus;
+    }
 }

@@ -4,6 +4,7 @@ import com.ssafy.floraserver.db.entity.enums.OrderStatus;
 import com.ssafy.floraserver.db.entity.enums.OrderType;
 import com.ssafy.floraserver.db.entity.enums.PaymentStatus;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -61,4 +62,19 @@ public class Order extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "p_id", nullable = false)
     private Product pId;
+
+    @Builder
+    public Order(String oNum, LocalDate oDate, OrderStatus oStatus, OrderType oType, int oPayment, String oPaymentNum, PaymentStatus oPaymentStatus, User uId, Review revId, Store sId, Product pId) {
+        this.oNum = oNum;
+        this.oDate = oDate;
+        this.oStatus = oStatus;
+        this.oType = oType;
+        this.oPayment = oPayment;
+        this.oPaymentNum = oPaymentNum;
+        this.oPaymentStatus = oPaymentStatus;
+        this.uId = uId;
+        this.revId = revId;
+        this.sId = sId;
+        this.pId = pId;
+    }
 }

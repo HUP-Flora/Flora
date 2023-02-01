@@ -2,6 +2,7 @@ package com.ssafy.floraserver.db.entity;
 
 import com.ssafy.floraserver.db.entity.enums.ConferenceStatus;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -41,4 +42,14 @@ public class Conference extends BaseEntity{
 
     @Enumerated(EnumType.STRING)
     private ConferenceStatus conStatus;
+
+    @Builder
+    public Conference(Order oId, LocalDate conReservationDate, TimeUnit conReservationTime, LocalTime conStartTime, String conLink, ConferenceStatus conStatus){
+        this.oId = oId;
+        this.conReservationDate = conReservationDate;
+        this.conReservationTime = conReservationTime;
+        this.conStartTime = conStartTime;
+        this.conLink = conLink;
+        this.conStatus = conStatus;
+    }
 }

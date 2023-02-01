@@ -1,6 +1,7 @@
 package com.ssafy.floraserver.db.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,4 +19,9 @@ public class TimeUnit extends BaseEntity{
 
     @Column(nullable = false)
     private String tuTime;
+
+    @Builder
+    public TimeUnit(String tuTime) {
+        this.tuTime = tuTime;
+    }
 }

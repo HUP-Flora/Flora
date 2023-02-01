@@ -1,6 +1,7 @@
 package com.ssafy.floraserver.db.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -43,4 +44,18 @@ public class Product {
     private String pImgField;
 
     private LocalDateTime pImgUploadTime;
+
+    @Builder
+    public Product(String pName, String pDesc, int pPrice, Store sId, String pImgOriginalName, String pImgNewName, int pImgSize, String pImgPath, String pImgField, LocalDateTime pImgUploadTime) {
+        this.pName = pName;
+        this.pDesc = pDesc;
+        this.pPrice = pPrice;
+        this.sId = sId;
+        this.pImgOriginalName = pImgOriginalName;
+        this.pImgNewName = pImgNewName;
+        this.pImgSize = pImgSize;
+        this.pImgPath = pImgPath;
+        this.pImgField = pImgField;
+        this.pImgUploadTime = pImgUploadTime;
+    }
 }

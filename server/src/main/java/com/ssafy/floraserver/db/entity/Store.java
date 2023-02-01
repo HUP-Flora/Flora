@@ -2,6 +2,7 @@ package com.ssafy.floraserver.db.entity;
 
 import com.ssafy.floraserver.db.entity.enums.OnAirType;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -82,4 +83,29 @@ public class Store extends BaseEntity{
     private String sImgField;
 
     private LocalDateTime sImgUploadTime;
+
+    @Builder
+    public Store(User uId, String sBusinessLicense, String sName, String sPhoneNumber, String sSido, String sGugun, String sDong, String sDetailedAddress, float sLat, float sLng, String sDesc, OnAirType sIsOnair, String sHoliday, TimeUnit sStart, TimeUnit sEnd, String sImgOriginalName, String sImgNewName, int sImgSize, String sImgPath, String sImgField, LocalDateTime sImgUploadTime) {
+        this.uId = uId;
+        this.sBusinessLicense = sBusinessLicense;
+        this.sName = sName;
+        this.sPhoneNumber = sPhoneNumber;
+        this.sSido = sSido;
+        this.sGugun = sGugun;
+        this.sDong = sDong;
+        this.sDetailedAddress = sDetailedAddress;
+        this.sLat = sLat;
+        this.sLng = sLng;
+        this.sDesc = sDesc;
+        this.sIsOnair = sIsOnair;
+        this.sHoliday = sHoliday;
+        this.sStart = sStart;
+        this.sEnd = sEnd;
+        this.sImgOriginalName = sImgOriginalName;
+        this.sImgNewName = sImgNewName;
+        this.sImgSize = sImgSize;
+        this.sImgPath = sImgPath;
+        this.sImgField = sImgField;
+        this.sImgUploadTime = sImgUploadTime;
+    }
 }

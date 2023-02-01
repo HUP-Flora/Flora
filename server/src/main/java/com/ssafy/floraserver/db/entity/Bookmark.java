@@ -1,6 +1,7 @@
 package com.ssafy.floraserver.db.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,4 +28,10 @@ public class Bookmark extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "s_id", nullable = false)
     private Store sId;
+
+    @Builder
+    public Bookmark(User uId, Store sId){
+        this.uId = uId;
+        this.sId = sId;
+    }
 }

@@ -1,6 +1,7 @@
 package com.ssafy.floraserver.db.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -48,5 +49,17 @@ public class Review extends BaseEntity{
 
     private LocalDateTime revImgUploadTime;
 
-
+    @Builder
+    public Review(User uId, Store sId, String revContent, LocalDate revCreateDate, String revImgOriginalName, String revImgNewName, int revImgSize, String revImgPath, String revImgField, LocalDateTime revImgUploadTime) {
+        this.uId = uId;
+        this.sId = sId;
+        this.revContent = revContent;
+        this.revCreateDate = revCreateDate;
+        this.revImgOriginalName = revImgOriginalName;
+        this.revImgNewName = revImgNewName;
+        this.revImgSize = revImgSize;
+        this.revImgPath = revImgPath;
+        this.revImgField = revImgField;
+        this.revImgUploadTime = revImgUploadTime;
+    }
 }

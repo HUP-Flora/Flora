@@ -1,6 +1,7 @@
 package com.ssafy.floraserver.db.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,4 +24,10 @@ public class Report {
 
     @JoinColumn(nullable = false)
     private LocalDateTime repDate;
+
+    @Builder
+    public Report(Order oId, LocalDateTime repDate) {
+        this.oId = oId;
+        this.repDate = repDate;
+    }
 }
