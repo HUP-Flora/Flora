@@ -88,3 +88,14 @@ export const KakaoLoginButton = styled.button`
 
 	font-weight: bold;
 `;
+
+export const KakaoPaymentButton = styled.button`
+	width: 168px;
+	height: 32px;
+	border: none;
+	border-radius: 5px;
+	background-color: var(--primary-400);
+	color: white;
+
+	position: relative;
+`;

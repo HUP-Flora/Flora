@@ -45,9 +45,24 @@ export const OnOff = styled.div`
 			: "drop-shadow(0px 0px 5px #CED4DA)"};
 `;
 
-export const KakaoLogoImg = styled.img`
+export const KakaoLogo = styled.img`
 	position: absolute;
 	top: 50%;
 	left: 10%;
+	transform: translate(-50%, -50%);
+`;
+
+export const KakaoPayLogo = styled.img`
+	position: absolute;
+	top: 50%;
+	left: 20%;
+	transform: translate(-50%, -50%);
+`;
+
+export const KakaoPayText = styled.div`
+	white-space: nowrap;
+	position: absolute;
+	top: 50%;
+	left: 63%;
 	transform: translate(-50%, -50%);
 `;
