@@ -18,7 +18,6 @@ io.on('connection', (socket) => {
   socket.on('join', ({name, room}, callback) => {
     const { error, user } = addUser({ id: socket.id, name, room })
     if (error) callback({error : '에러가 발생했습니다.'})
-
     io.to(user.room).emit('roomData', {
       room: user.room,
       users: getUsersInRoom(user.room),
