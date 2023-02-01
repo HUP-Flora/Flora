@@ -11,6 +11,7 @@ function AppRouter() {
 		<Router>
 			<Routes>
 				<Route path="/" exact={true} element={<Main />} />
+				<Route path="/login" element={<Login />} />
 				<Route path="/flolive" element={<Flolive />} />
 				<Route path="/kakao-payment" element={<KakaoPayment />} />
 				<Route path="/kakao-payment/success" element={<KakaoPaymentSuccess />} />
