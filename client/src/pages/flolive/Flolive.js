@@ -7,9 +7,9 @@ function Flolive(props) {
 	registerServiceWorker();
 
 	return (
-		<>
+		<div style={{ height: "100vh" }}>
 			<OpenVidu />
-		</>
+		</div>
 	);
 }
 

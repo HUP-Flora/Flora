@@ -2,8 +2,16 @@ import { OpenVidu } from "openvidu-browser";
 
 import axios from "axios";
 import React, { Component } from "react";
-// import "./App.css";
 import UserVideoComponent from "./UserVideoComponent";
+
+import {
+	SessionContainer,
+	OwnerVideo,
+	CustomerVideo,
+	LeaveSessionButton,
+	SessionWrapper,
+	SessionHeader,
+} from "../../../styles/openViduStyle";
 
 const APPLICATION_SERVER_URL =
 	process.env.NODE_ENV === "production" ? "" : "https://demos.openvidu.io/";
@@ -235,7 +243,7 @@ class OpenViduVideo extends Component {
 		const myUserName = this.state.myUserName;
 
 		return (
-			<div className="container">
+			<SessionContainer>
 				{this.state.session === undefined ? (
 					<div id="join">
 						<div id="img-div">
@@ -280,16 +288,17 @@ class OpenViduVideo extends Component {
 				) : null}
 
 				{this.state.session !== undefined ? (
-					<div id="session">
-						<div id="session-header">
-							<h1 id="session-title">{mySessionId}</h1>
+					<SessionWrapper>
+						<SessionHeader>
+							{/* <h1 id="session-title">{mySessionId}</h1> */}
 							<input
 								className="btn btn-large btn-danger"
 								type="button"
 								id="buttonLeaveSession"
 								onClick={this.leaveSession}
-								value="Leave session"
+								value="종료"
 							/>
+							<LeaveSessionButton onClick={this.leaveSession}>종료</LeaveSessionButton>
 							<input
 								className="btn btn-large btn-success"
 								type="button"
@@ -297,36 +306,38 @@ class OpenViduVideo extends Component {
 								onClick={this.switchCamera}
 								value="Switch Camera"
 							/>
-						</div>
+						</SessionHeader>
 
 						{this.state.mainStreamManager !== undefined ? (
-							<div id="main-video" className="col-md-6">
+							<OwnerVideo>
 								<UserVideoComponent streamManager={this.state.mainStreamManager} />
-							</div>
+							</OwnerVideo>
 						) : null}
 						<div id="video-container" className="col-md-6">
+							{/* 내 화면 */}
 							{this.state.publisher !== undefined ? (
-								<div
-									className="stream-container col-md-6 col-xs-6"
+								<CustomerVideo
+									// className="stream-container col-md-6 col-xs-6"
 									onClick={() => this.handleMainVideoStream(this.state.publisher)}
 								>
 									<UserVideoComponent streamManager={this.state.publisher} />
-								</div>
+								</CustomerVideo>
 							) : null}
+							{/* 다른 참여자 화면 */}
 							{this.state.subscribers.map((sub, i) => (
-								<div
+								<CustomerVideo
 									key={sub.id}
 									className="stream-container col-md-6 col-xs-6"
 									onClick={() => this.handleMainVideoStream(sub)}
 								>
 									<span>{sub.id}</span>
 									<UserVideoComponent streamManager={sub} />
-								</div>
+								</CustomerVideo>
 							))}
 						</div>
-					</div>
+					</SessionWrapper>
 				) : null}
-			</div>
+			</SessionContainer>
 		);
 	}
 
