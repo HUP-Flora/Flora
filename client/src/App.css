@@ -27,3 +27,7 @@
 body {
 	margin: 0px;
 }
+
+*::-webkit-scrollbar {
+	display: none;
+}
