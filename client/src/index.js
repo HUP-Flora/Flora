@@ -11,9 +11,7 @@ root.render(
 	<React.StrictMode>
 		<RecoilRoot>
 			<GlobalFonts />
-			<Router>
-				<App />
-			</Router>
+			<App />
 		</RecoilRoot>
 	</React.StrictMode>
 );
