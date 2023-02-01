@@ -1,11 +1,11 @@
 import React from "react";
 
-import WebRTC from "../../components/flolive/webRTC/WebRTC";
+import OpenVidu from "../../components/flolive/openVidu/OpenVidu";
 
 function Flolive(props) {
 	return (
 		<>
-			<WebRTC />
+			<OpenVidu />
 		</>
 	);
 }
