@@ -13,6 +13,7 @@ import { SignupUser } from "./pages/auth/SignupUser";
 import Chatting from "./components/chatting/Chatting";
 import Join from "./components/chatting/Join";
 import { SignupOwnerStore } from "./pages/auth/SignupOwnerStore";
+import { SearchStore } from "./pages/SearchStore";
 
 function AppRouter() {
 	return (
@@ -24,6 +25,7 @@ function AppRouter() {
 				<Route path="/signup/owner" element={<SignupOwner />} />
 				<Route path="/signup/owner/store" element={<SignupOwnerStore />} />
 				<Route path="/signup/user" element={<SignupUser />} />
+				<Route path="/search-store" element={<SearchStore />} />
 				<Route path="/flolive" element={<Flolive />} />
 				<Route path="/kakao-payment" element={<KakaoPayment />} />
 				<Route path="/kakao-payment/success" element={<KakaoPaymentSuccess />} />

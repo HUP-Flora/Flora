@@ -186,3 +186,7 @@ export const TimeOption = styled.option`
 export const ImageInput = styled.input`
 	display: none;
 `;
+
+export const WhiteLayout = styled.div`
+	padding: 16px;
+`;
