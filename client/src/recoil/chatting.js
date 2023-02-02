@@ -47,3 +47,9 @@ export const roomState = atom({
 	key: "roomState",
 	default: "",
 });
+
+export const isErrorModalShowState = atom({
+	key: 'isErrorModalShowState',
+	default: false,
+});
+

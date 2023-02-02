@@ -1,8 +1,9 @@
 import React from "react";
 import useInputValidate from "../../../../../hooks/use-inputValidate";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import {
 	giftCardState,
+	isErrorModalShowState,
 	paymentAmountState,
 	receiveUserAddressState,
 	receiveUserPhoneState,
@@ -22,12 +23,11 @@ import {
 	InputCounterContainer,
 	InputLabel,
 	MarginBottom16TextInput,
-	MarginBottom8TextInput, SearchAddressInput,
+	SearchAddressInput,
 	SubmitPaymentButton,
-	TextInput
+	TextInput,
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import searchIcon from "../../../../../assets/chatting/SearchAdressImage.png";
-
 
 function SecondDeliveryForm({ time }) {
 	const [sendUser, setSendUser] = useRecoilState(sendUserState);
@@ -37,6 +37,7 @@ function SecondDeliveryForm({ time }) {
 	const [receiveUserAddress, setReceiveUserAddress] = useRecoilState(receiveUserAddressState);
 	const [giftCard, setGiftCard] = useRecoilState(giftCardState);
 	const [paymentAmount, setPaymentAmount] = useRecoilState(paymentAmountState);
+	const setIsErrorModalShow = useSetRecoilState(isErrorModalShowState);
 
 	const phoneValidate = (target, type) => {
 		target.value = target.value
@@ -109,12 +110,13 @@ function SecondDeliveryForm({ time }) {
 			{ key: "paymentAmount", value: paymentAmount, toggleError: VpaymentAmountToggleHasError },
 		];
 
-		// for (const data of formData) {
-		//   if (!isNotEmpty(data.value)) {
-		//     data.toggleError();
-		//     return;
-		//   }
-		// }
+		for (const data of formData) {
+			if (!isNotEmpty(data.value)) {
+				data.toggleError();
+				setIsErrorModalShow(true);
+				return;
+			}
+		}
 
 		// if (receiveUserAddressHasError) {
 		//   alert('주소를 입력해주세요.');
@@ -189,7 +191,7 @@ function SecondDeliveryForm({ time }) {
 						HasError={VreceiveUserPhoneHasError}
 					/>
 					{VreceiveUserPhoneHasError && <ErrorMessage>전화번호를 입력해주세요.</ErrorMessage>}
-					<InputLabel htmlFor="receiveUserAddress" >배송지</InputLabel>
+					<InputLabel htmlFor="receiveUserAddress">배송지</InputLabel>
 					<SearchAddressInput
 						type="text"
 						id="receiveUserAddress"

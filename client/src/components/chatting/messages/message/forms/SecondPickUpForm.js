@@ -1,11 +1,11 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import {
 	giftCardState,
-	// isErrorModalShowState,
+	isErrorModalShowState,
 	paymentAmountState,
 	sendUserPhoneState,
-	sendUserState,
+	sendUserState
 } from "../../../../../recoil/chatting";
 import { sendThirdPickUpFormMessage } from "../../../../../utils/chatting";
 import {
@@ -31,8 +31,7 @@ function SecondPickUpForm({ time }) {
 	const [sendUserPhone, setSendUserPhone] = useRecoilState(sendUserPhoneState);
 	const [giftCard, setGiftCard] = useRecoilState(giftCardState);
 	const [paymentAmount, setPaymentAmount] = useRecoilState(paymentAmountState);
-
-	// const [isErrorModalShow, setIsErrorModalShow] = useRecoilState(isErrorModalShowState);
+	const setIsErrorModalShow = useSetRecoilState(isErrorModalShowState);
 
 	const phoneValidate = target => {
 		target.value = target.value
@@ -77,14 +76,13 @@ function SecondPickUpForm({ time }) {
 			{ key: "paymentAmount", value: paymentAmount, toggleError: VpaymentAmountToggleHasError },
 		];
 
-		// for (const data of formData) {
-		//   console.log(data);
-		//   if (!isNotEmpty(data.value)) {
-		//     data.toggleError();
-		//     // setIsErrorModalShow(true);
-		//     return;
-		//   }
-		// }
+		for (const data of formData) {
+		  if (!isNotEmpty(data.value)) {
+		    data.toggleError();
+		    setIsErrorModalShow(true);
+		    return;
+		  }
+		}
 		sendThirdPickUpFormMessage(e);
 	};
 
