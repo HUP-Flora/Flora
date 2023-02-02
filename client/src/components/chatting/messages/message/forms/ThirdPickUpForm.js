@@ -1,11 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import { useRecoilValue } from "recoil";
-import {
-	giftCardState,
-	paymentAmountState,
-	sendUserPhoneState,
-	sendUserState,
-} from "../../../../../recoil/chatting";
 import {
 	FormContent,
 	FormFooter,
@@ -20,19 +13,31 @@ import {
 	SubmitPaymentButton,
 	TextInput,
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
+import { useOrderStates } from "../../../../../hooks/use-orderStates";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { orderStatesState } from "../../../../../recoil/chatting";
 
 function ThirdPickUpForm({ time }) {
-	const sendUser = useRecoilValue(sendUserState);
-	const sendUserPhone = useRecoilValue(sendUserPhoneState);
-	const giftCard = useRecoilValue(giftCardState);
-	const paymentAmount = useRecoilValue(paymentAmountState);
-
 	const textarea = useRef();
+	const setOrderStates = useSetRecoilState(orderStatesState);
+	const orderStates = useRecoilValue(orderStatesState);
+
+	const { type, sendUser, sendUserPhone, giftCard, paymentAmount } = useOrderStates();
+
+	const sendUserPhoneNumber = sendUserPhone.replace(/-/gi, "");
 
 	useEffect(() => {
 		textarea.current.style.height = "auto"; //height 초기화
 		textarea.current.style.height = textarea.current.scrollHeight + "px";
-	}, []);
+
+		setOrderStates({
+			type,
+			sendUser,
+			sendUserPhoneNumber,
+			giftCard,
+			paymentAmount,
+		});
+	}, [setOrderStates, type, sendUser, sendUserPhoneNumber, giftCard, paymentAmount]);
 
 	const numberWithCommas = x => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -62,7 +67,7 @@ function ThirdPickUpForm({ time }) {
 						<FormFooterMessage>결제 금액</FormFooterMessage>
 						<FormFooterMessage>{OpaymentAmount}원</FormFooterMessage>
 					</FormFooterMessageContainer>
-					<SubmitPaymentButton>결제하기</SubmitPaymentButton>
+					<SubmitPaymentButton onClick={e => console.log(orderStates)}>결제하기</SubmitPaymentButton>
 				</FormFooter>
 			</FormWrapper>
 			<FormTime>{time}</FormTime>

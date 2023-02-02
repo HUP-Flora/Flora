@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
 	giftCardState,
 	isErrorModalShowState,
-	isSubmitState,
+	isSubmitState, orderTypeState,
 	paymentAmountState,
 	sendUserPhoneState,
-	sendUserState,
+	sendUserState
 } from "../../../../../recoil/chatting";
 import { sendThirdPickUpFormMessage } from "../../../../../utils/chatting";
 import {
@@ -26,12 +26,17 @@ import {
 import useInputValidate from "../../../../../hooks/use-inputValidate";
 
 function SecondPickUpForm({ time }) {
+	const setOrderType = useSetRecoilState(orderTypeState);
 	const [sendUser, setSendUser] = useRecoilState(sendUserState);
 	const [sendUserPhone, setSendUserPhone] = useRecoilState(sendUserPhoneState);
 	const [giftCard, setGiftCard] = useRecoilState(giftCardState);
 	const [paymentAmount, setPaymentAmount] = useRecoilState(paymentAmountState);
 	const setIsErrorModalShow = useSetRecoilState(isErrorModalShowState);
 	const setIsSubmit = useSetRecoilState(isSubmitState);
+
+	useEffect(() => {
+		setOrderType("PICKUP");
+	}, [setOrderType]);
 
 	const phoneValidate = target => {
 		target.value = target.value

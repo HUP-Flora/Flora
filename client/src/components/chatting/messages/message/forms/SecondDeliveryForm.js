@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import useInputValidate from "../../../../../hooks/use-inputValidate";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
@@ -6,6 +6,7 @@ import {
 	isDaumPostShowState,
 	isErrorModalShowState,
 	isSubmitState,
+	orderTypeState,
 	paymentAmountState,
 	receiveUserFirstAddressState,
 	receiveUserPhoneState,
@@ -34,6 +35,7 @@ import {
 import PostcodeModal from "../../../../common/PostcodeModal";
 
 function SecondDeliveryForm({ time }) {
+	const setOrderType = useSetRecoilState(orderTypeState);
 	const [sendUser, setSendUser] = useRecoilState(sendUserState);
 	const [sendUserPhone, setSendUserPhone] = useRecoilState(sendUserPhoneState);
 	const [receiveUser, setReceiveUser] = useRecoilState(receiveUserState);
@@ -50,17 +52,24 @@ function SecondDeliveryForm({ time }) {
 	const [isReceiveUserFistAddressHasError, setIsReceiveUserFistAddressHasError] = useState(false);
 	const setIsSubmit = useSetRecoilState(isSubmitState);
 
-	const phoneValidate = (target, type) => {
-		target.value = target.value
-			.replace(/[^0-9]/g, "")
-			.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
-			.replace(/(-{1,2})$/g, "");
-		if (type === "sendUserPhone") {
-			setSendUserPhone(target.value);
-		} else {
-			setReceiveUserPhone(target.value);
-		}
-	};
+	useEffect(() => {
+		setOrderType("DELIVERY");
+	}, [setOrderType]);
+
+	const phoneValidate = useCallback(
+		(target, type) => {
+			target.value = target.value
+				.replace(/[^0-9]/g, "")
+				.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+				.replace(/(-{1,2})$/g, "");
+			if (type === "sendUserPhone") {
+				setSendUserPhone(target.value);
+			} else {
+				setReceiveUserPhone(target.value);
+			}
+		},
+		[setSendUserPhone, setReceiveUserPhone]
+	);
 
 	const isNotEmpty = value => value.trim() !== "";
 	const {
