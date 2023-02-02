@@ -1,23 +1,29 @@
 package com.ssafy.floraserver.common.auth;
 
+import com.ssafy.floraserver.common.jwt.TokenProvider;
+import com.ssafy.floraserver.db.entity.User;
 import com.ssafy.floraserver.db.entity.enums.Role;
+import com.ssafy.floraserver.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.token.TokenService;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
+public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+
+    private final TokenProvider tokenProvider;
+    private final UserRepository userRepository;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -25,20 +31,56 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         try {
             CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
 
+            String accessToken = tokenProvider.createAccessToken(authentication);
+            String refreshToken = tokenProvider.createRefreshToken(authentication);
+
+            saveOrUpdateUser(refreshToken, oAuth2User);
+
+            ResponseCookie cookie = ResponseCookie.from("refresh", refreshToken)
+                    .httpOnly(true)
+                    .maxAge(TokenProvider.REFRESH_TOKEN_VALIDATE_TIME)
+                    .path("/")
+                    .build();
+            
+            clearAuthenticationAttrubutes(request, response);
+
+            response.addHeader("Set-Cookie", cookie.toString());
+            response.getWriter().write(accessToken);
+
+            // 처음 요청한 사용자는 회원가입 페이지로
             if(oAuth2User.getRole() == Role.GUEST){
                 log.info("GUEST");
-//                String accessToken = tokenService.createAccessToken(oAuth2User.getUsername());
-//                response.addHeader(tokenService.getAccessHeader(), "Bearer "+accessToken);
 
                 // 추가정보 입력 페이지로 이동
                 response.sendRedirect("http://localhost:8080/guest");//프론트엔드의 회원가입 주소로 reDirect
 
             }else {
                 log.info("CUSTOMER OR STORE");
-//                loginSuccess(response, oAuth2User);//로그인에 성공한 경우
             }
         }catch (Exception e){
             throw e;
         }
+    }
+
+    private void clearAuthenticationAttrubutes(HttpServletRequest request, HttpServletResponse response) {
+        super.clearAuthenticationAttributes(request);
+    }
+
+    private void saveOrUpdateUser(String refreshToken, CustomOAuth2User oAuth2User) {
+
+        Optional<User> optionalUser = userRepository.findByEmail(oAuth2User.getEmail());
+        User user;
+
+        if(optionalUser.isEmpty()){
+            user = User.builder()
+                    .email(oAuth2User.getEmail())
+                    .refreshToken(refreshToken)
+                    .build();
+        }else{
+            user = optionalUser.get();
+            user.updateRefreshToken(refreshToken);
+        }
+
+        userRepository.save(user);
     }
 }

@@ -47,11 +47,18 @@ public class User extends BaseEntity {
     @Column(name = "u_soft_delete", columnDefinition = "TINYINT(1)")
     private boolean softDelete;
 
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
     @Builder
-    public User(Role role, String email, String nickname, String phoneNumber) {
+    public User(Role role, String email, String nickname, String phoneNumber, String refreshToken, LocalDate withdrawalDate, boolean softDelete) {
         this.role = role;
         this.email = email;
         this.nickname = nickname;
         this.phoneNumber = phoneNumber;
+        this.refreshToken = refreshToken;
+        this.withdrawalDate = withdrawalDate;
+        this.softDelete = softDelete;
     }
 }
