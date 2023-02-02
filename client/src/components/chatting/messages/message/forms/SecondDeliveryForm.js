@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useInputValidate from "../../../../../hooks/use-inputValidate";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
@@ -22,11 +22,12 @@ import {
 	InputCounter,
 	InputCounterContainer,
 	InputLabel,
-	MarginBottom16TextInput,
+	MarginBottom16TextInput, SearchAddressContainerButton,
 	SearchAddressInput,
 	SubmitPaymentButton,
-	TextInput,
+	TextInput
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
+import ErrorModal from "../../../errorModal/ErrorModal";
 
 function SecondDeliveryForm({ time }) {
 	const [sendUser, setSendUser] = useRecoilState(sendUserState);
@@ -37,6 +38,7 @@ function SecondDeliveryForm({ time }) {
 	const [giftCard, setGiftCard] = useRecoilState(giftCardState);
 	const [paymentAmount, setPaymentAmount] = useRecoilState(paymentAmountState);
 	const setIsErrorModalShow = useSetRecoilState(isErrorModalShowState);
+	const [isDaumPost, setIsDaumPost] = useState(false);
 
 	const phoneValidate = (target, type) => {
 		target.value = target.value
@@ -125,8 +127,19 @@ function SecondDeliveryForm({ time }) {
 		sendThirdDeliveryFormMessage(e);
 	};
 
+	const daumPostHandler = (e) => {
+		console.log("daumPostHandler");
+		setIsDaumPost(true);
+	}
+
+	useEffect(() => {
+		console.log('isDaumPost', isDaumPost);
+	}, [isDaumPost]);
+
+
 	return (
 		<>
+			{isDaumPost && <ErrorModal />}
 			<FormWrapper>
 				<FormHeaderContainer>배달 주문</FormHeaderContainer>
 				<FormContent>
@@ -191,13 +204,15 @@ function SecondDeliveryForm({ time }) {
 					/>
 					{VreceiveUserPhoneHasError && <ErrorMessage>전화번호를 입력해주세요.</ErrorMessage>}
 					<InputLabel htmlFor="receiveUserAddress">배송지</InputLabel>
-					<SearchAddressInput
-						type="text"
-						id="receiveUserAddress"
-						placeholder="내용을 입력해주세요."
-						disabled
-					/>
-
+					<SearchAddressContainerButton onClick={daumPostHandler}>
+						<SearchAddressInput
+							type="text"
+							id="receiveUserAddress"
+							placeholder="내용을 입력해주세요."
+							disabled
+							onClick={e => daumPostHandler(e)}
+						/>
+					</SearchAddressContainerButton>
 					<MarginBottom16TextInput type="text" placeholder="상세 주소" />
 					<InputLabel htmlFor="giftCard">선물 카드 내용</InputLabel>
 					<GiftMessageInput

@@ -145,3 +145,10 @@ export const SearchAddressInput = styled(MarginBottom8TextInput)`
 		cursor: pointer;
 	}
 `;
+
+export const SearchAddressContainerButton = styled.button`
+	background: none;
+	border: none;
+	outline: none;
+	cursor: pointer;
+`;
