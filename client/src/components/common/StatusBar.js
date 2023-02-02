@@ -1,10 +1,11 @@
-import { StatusBarDiv } from "../../styles/bar/BarStyle";
-import { leftArrow } from "../../assets/arrow/leftArrow.png";
+import { LeftArrow, StatusBarDiv, StatusBarText } from "../../styles/bar/BarStyle";
+import leftArrowImg from "../../assets/arrow/leftArrow.png";
 
-export function StatusBar() {
+export function StatusBar({ text }) {
 	return (
 		<StatusBarDiv>
-			<img src={leftArrow} alt={leftArrow} />
+			<LeftArrow src={leftArrowImg} alt={leftArrowImg} />
+			<StatusBarText size="19">{text}</StatusBarText>
 		</StatusBarDiv>
 	);
 }

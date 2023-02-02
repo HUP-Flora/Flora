@@ -8,10 +8,10 @@ export const WidthDoubleButtonToolBar = styled.div`
 export const BorderTopButtonToolBar = styled.div`
 	border-top: 0.1px solid var(--gray-300);
 	background-color: white;
-	width: calc(100% - 32px);
+	width: 100%;
 	position: fixed;
 	bottom: 0px;
-	padding-bottom: 16px;
+	padding: 16px;
 `;
 
 export const ButtonToolBar = styled.div`
@@ -60,4 +60,23 @@ export const TabText = styled.div`
 export const StatusBarDiv = styled.div`
 	height: 40px;
 	background-color: white;
+	text-align: center;
+	position: relative;
+`;
+
+export const StatusBarText = styled.div`
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	font-size: 19px;
+	font-weight: bold;
+`;
+
+export const LeftArrow = styled.img`
+	position: absolute;
+	top: 50%;
+	left: 0%;
+	transform: translate(0%, -50%);
 `;
