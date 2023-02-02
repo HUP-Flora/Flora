@@ -1,6 +1,7 @@
 import { useRecoilValue } from "recoil";
 import {
 	giftCardState,
+	orderTypeState,
 	paymentAmountState,
 	receiveUserFirstAddressState,
 	receiveUserPhoneState,
@@ -12,6 +13,7 @@ import {
 
 export const useOrderStates = () => {
 	return {
+		type: useRecoilValue(orderTypeState),
 		sendUser: useRecoilValue(sendUserState),
 		sendUserPhone: useRecoilValue(sendUserPhoneState),
 		receiveUser: useRecoilValue(receiveUserState),

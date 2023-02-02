@@ -68,4 +68,12 @@ export const isSubmitState = atom({
 	default: false,
 });
 
+export const orderTypeState = atom({
+	key: 'orderTypeState',
+	default: 'PICKUP',
+});
 
+export const orderStatesState = atom({
+	key: 'orderStatesState',
+	default: {},
+});
