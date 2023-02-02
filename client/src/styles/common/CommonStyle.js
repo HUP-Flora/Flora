@@ -96,3 +96,79 @@ export const LargeButtonText = styled.div`
 	transform: translate(-50%, -50%);
 	font-size: 19px;
 `;
+
+export const UploadPictureSection = styled.div`
+	height: 100px;
+	display: flex;
+	justify-content: center;
+`;
+
+export const PictureSection = styled.div`
+	width: 100px;
+	height: 100px;
+	border: 1px solid var(--primary-400);
+	border-radius: 50px;
+	background-color: var(--primary-50);
+
+	position: relative;
+`;
+
+export const EmptyPictureImg = styled.img`
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+`;
+
+export const UploadButton = styled.img`
+	position: absolute;
+	top: 80%;
+	left: 90%;
+	transform: translate(-50%, -50%);
+	width: 40px;
+	height: 40px;
+`;
+
+export const ChooseWorkingTimeSection = styled.div`
+	margin-left: 8px;
+	margin-right: 8px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`;
+
+export const ChooseHolidaySection = styled.div`
+	margin-left: 15px;
+	margin-right: 15px;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+`;
+
+export const HolidayCircle = styled.div`
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	border: 1px solid ${props => (props.isClicked ? "var(--primary-400)" : "var(--gray-100)")};
+	background-color: ${props => (props.isClicked ? "var(--primary-50)" : "var(--gray-100)")};
+	color: ${props => (props.isClicked ? "var(--primary-400)" : "black")};
+
+	position: relative;
+`;
+
+export const HolidayCircleText = styled.div`
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+`;
+
+export const TimeSelect = styled.select`
+	overflow-y: auto;
+`;
+
+export const TimeOption = styled.option`
+	// width: 50px;
+	// height: 40px;
+	overflow-y: scroll;
+`;

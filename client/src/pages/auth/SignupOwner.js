@@ -1,11 +1,13 @@
+import { StatusBar } from "../../components/common/StatusBar";
 import { ButtonToolBar } from "../../styles/bar/BarStyle";
 import { Primary400LargeButton } from "../../styles/button/ButtonStyle";
-import { BoldText, Text } from "../../styles/common/CommonStyle";
+import { BoldText } from "../../styles/common/CommonStyle";
 import { WhiteContainer } from "../../styles/container/ContainerStyle";
 
 export function SignupOwner() {
 	return (
 		<WhiteContainer>
+			<StatusBar />
 			<BoldText size="28" top="62">
 				추가 정보 입력이
 			</BoldText>
