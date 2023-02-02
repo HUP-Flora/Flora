@@ -55,3 +55,8 @@ export const TabText = styled.div`
 	white-space: nowrap;
 	font-size: 11px;
 `;
+
+export const StatusBarDiv = styled.div`
+	height: 40px;
+	background-color: white;
+`;
