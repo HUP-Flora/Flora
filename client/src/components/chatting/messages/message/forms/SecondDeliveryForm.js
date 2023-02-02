@@ -27,7 +27,6 @@ import {
 	SubmitPaymentButton,
 	TextInput,
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
-import searchIcon from "../../../../../assets/chatting/SearchAdressImage.png";
 
 function SecondDeliveryForm({ time }) {
 	const [sendUser, setSendUser] = useRecoilState(sendUserState);
