@@ -28,6 +28,17 @@ body {
 	margin: 0px;
 }
 
+* {
+	box-sizing: border-box;
+}
 *::-webkit-scrollbar {
 	display: none;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+p {
+	margin: 0;
 }
