@@ -31,22 +31,28 @@ public class Review extends BaseEntity{
     @JoinColumn(name = "s_id", nullable = false)
     private Store sId;
 
-    @Column(nullable = false)
+    @Column(name = "rev_content", nullable = false)
     private String content;
 
-    @Column(nullable = false)
+    @Column(name = "rev_create_date", nullable = false)
     private LocalDate createDate;
 
+    @Column(name = "rev_img_original_name")
     private String imgOriginalName;
 
+    @Column(name = "rev_img_new_name")
     private String imgNewName;
 
+    @Column(name = "rev_img_size")
     private int imgSize;
 
+    @Column(name = "rev_img_path")
     private String imgPath;
 
+    @Column(name = "rev_img_field")
     private String imgField;
 
+    @Column(name = "rev_img_upload_time")
     private LocalDateTime imgUploadTime;
 
     @Builder

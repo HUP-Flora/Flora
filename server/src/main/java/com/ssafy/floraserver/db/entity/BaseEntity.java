@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity {
 
     @CreatedBy
-    @Column(nullable = false)
     private Long creator;
 
     @CreatedDate

@@ -26,7 +26,7 @@ public class Conference extends BaseEntity{
     @JoinColumn(name = "o_id", nullable = false)
     private Order oId;
 
-    @Column(nullable = false)
+    @Column(name = "con_reservation_date", nullable = false)
     private LocalDate reservationDate;
 
     // 화상미팅 - 시간단위
@@ -35,12 +35,14 @@ public class Conference extends BaseEntity{
     @JoinColumn(name = "con_reservation_time", nullable = false)
     private TimeUnit reservationTime;
 
+    @Column(name = "con_start_time")
     private LocalTime startTime;
 
-    @Column(nullable = false)
+    @Column(name = "con_link", nullable = false)
     private String link;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "con_status")
     private ConferenceStatus status;
 
     @Builder

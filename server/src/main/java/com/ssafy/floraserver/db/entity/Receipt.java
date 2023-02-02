@@ -27,26 +27,32 @@ public class Receipt extends BaseEntity{
     private Order oId;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "rec_type", nullable = false)
     private ReceiptType type;
 
-    @Column(nullable = false)
+    @Column(name = "rec_orderer", nullable = false)
     private String orderer;
 
-    @Column(nullable = false)
+    @Column(name = "rec_orderer_phone_number", nullable = false)
     private String ordererPhoneNumber;
 
+    @Column(name = "rec_gift_message")
     private String giftMessage;
 
+    @Column(name = "rec_recipient")
     private String recipient;
 
+    @Column(name = "rec_recipient_phone_number")
     private String recipientPhoneNumber;
 
+    @Column(name = "rec_receipt_date")
     private LocalDate receiptDate;
 
+    @Column(name = "rec_delivery_destination")
     private String deliveryDestination;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "rec_status")
     private ReceiptStatus status;
 
     @Builder

@@ -22,7 +22,7 @@ public class Report {
     @JoinColumn(name = "o_id", nullable = false)
     private Order oId;
 
-    @JoinColumn(nullable = false)
+    @Column(name = "rep_date", nullable = false)
     private LocalDateTime date;
 
     @Builder

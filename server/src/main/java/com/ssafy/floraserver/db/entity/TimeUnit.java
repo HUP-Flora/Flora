@@ -17,7 +17,7 @@ public class TimeUnit extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tuId;
 
-    @Column(nullable = false)
+    @Column(name = "tu_time", nullable = false)
     private String time;
 
     @Builder

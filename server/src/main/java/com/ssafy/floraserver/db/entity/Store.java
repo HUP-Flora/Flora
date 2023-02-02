@@ -25,39 +25,41 @@ public class Store extends BaseEntity{
     @JoinColumn(name = "u_id", nullable = false)
     private User uId;
 
-    @Column(nullable = false)
+    @Column(name = "s_business_license", nullable = false)
     private String businessLicense;
 
-    @Column(nullable = false)
+    @Column(name = "s_name", nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "s_phone_number", nullable = false)
     private String phoneNumber;
 
-    @Column(nullable = false)
+    @Column(name = "s_sido", nullable = false)
     private String sido;
 
-    @Column(nullable = false)
+    @Column(name = "s_gugun", nullable = false)
     private String gugun;
 
-    @Column(nullable = false)
+    @Column(name = "s_dong", nullable = false)
     private String dong;
 
-    @Column(nullable = false)
+    @Column(name = "s_detailed_Address", nullable = false)
     private String detailedAddress;
 
-    @Column(nullable = false)
+    @Column(name = "s_lat", nullable = false)
     private float lat;
 
-    @Column(nullable = false)
+    @Column(name = "s_lng", nullable = false)
     private float lng;
 
-    @Column(nullable = false)
+    @Column(name = "s_desc", nullable = false)
     private String desc;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "s_is_onair")
     private OnAirType isOnair;
 
+    @Column(name = "s_holiday")
     private String holiday;
 
     // 가게 - 시간단위
@@ -72,16 +74,22 @@ public class Store extends BaseEntity{
     @JoinColumn(name = "s_end", nullable = false)
     private TimeUnit end;
 
+    @Column(name = "s_img_original_name")
     private String imgOriginalName;
 
+    @Column(name = "s_img_new_name")
     private String imgNewName;
 
+    @Column(name = "s_img_size")
     private int imgSize;
 
+    @Column(name = "s_img_path")
     private String imgPath;
 
+    @Column(name = "s_img_field")
     private String imgField;
 
+    @Column(name = "s_img_upload_time")
     private LocalDateTime imgUploadTime;
 
     @Builder

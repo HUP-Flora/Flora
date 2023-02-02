@@ -18,13 +18,13 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pId;
 
-    @Column(nullable = false)
+    @Column(name = "p_name", nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "p_desc", nullable = false)
     private String desc;
 
-    @Column(nullable = false)
+    @Column(name = "p_price", nullable = false)
     private int price;
 
     // 상품 - 가게
@@ -33,16 +33,22 @@ public class Product {
     @JoinColumn(name = "s_id", nullable = false)
     private Store sId;
 
+    @Column(name = "p_img_original_name")
     private String imgOriginalName;
 
+    @Column(name = "p_img_new_name")
     private String imgNewName;
 
+    @Column(name = "p_img_size")
     private int imgSize;
 
+    @Column(name = "p_img_path")
     private String imgPath;
 
+    @Column(name = "p_img_field")
     private String imgField;
 
+    @Column(name = "p_img_upload_time")
     private LocalDateTime imgUploadTime;
 
     @Builder

@@ -21,22 +21,28 @@ public class Order extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long oId;
 
-    @Column(nullable = false)
+    @Column(name = "o_num", nullable = false)
     private String num;
 
+    @Column(name = "o_date")
     private LocalDate date;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "o_status")
     private OrderStatus status;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "o_type")
     private OrderType type;
 
+    @Column(name = "o_payment")
     private int payment;
 
+    @Column(name = "o_payment_num")
     private String paymentNum;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "o_payment_status")
     private PaymentStatus paymentStatus;
 
     // 주문 - 사용자
