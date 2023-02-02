@@ -17,6 +17,7 @@ export const FormContainer = styled.div`
 
 export const FormTitle = styled.p`
 	font-size: 19px;
+	font-weight: bold;
 	margin: 16px 0 24px 0;
 `;
 
@@ -27,9 +28,10 @@ export const SubmitButton = styled.button`
 	border: none;
 	border-radius: 10px;
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 16px;
+	padding: 0 20px;
 `;
 
 export const ButtonImage = styled.img`
@@ -39,7 +41,7 @@ export const ButtonImage = styled.img`
 
 export const FormText = styled.p`
 	font-size: 16px;
-	color: #000000;
+	color: var(--primary-400);
 `;
 
 export const FormTime = styled(MyMessageTime)`

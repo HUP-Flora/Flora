@@ -145,7 +145,7 @@ function SecondPickUpForm({ time }) {
 					/>
 					{VpaymentAmountHasError && <ErrorMessage>결제 금액을 입력해주세요.</ErrorMessage>}
 					<SubmitPaymentButton onClick={e => ThirdPickUpFormHandler(e)}>
-						작성완료
+						작성 완료
 					</SubmitPaymentButton>
 				</FormContent>
 			</FormWrapper>

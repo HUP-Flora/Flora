@@ -22,10 +22,12 @@ import {
 	InputCounterContainer,
 	InputLabel,
 	MarginBottom16TextInput,
-	MarginBottom8TextInput,
+	MarginBottom8TextInput, SearchAddressInput,
 	SubmitPaymentButton,
-	TextInput,
+	TextInput
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
+import searchIcon from "../../../../../assets/chatting/SearchAdressImage.png";
+
 
 function SecondDeliveryForm({ time }) {
 	const [sendUser, setSendUser] = useRecoilState(sendUserState);
@@ -187,12 +189,14 @@ function SecondDeliveryForm({ time }) {
 						HasError={VreceiveUserPhoneHasError}
 					/>
 					{VreceiveUserPhoneHasError && <ErrorMessage>전화번호를 입력해주세요.</ErrorMessage>}
-					<InputLabel htmlFor="receiveUserAddress">배송지</InputLabel>
-					<MarginBottom8TextInput
+					<InputLabel htmlFor="receiveUserAddress" >배송지</InputLabel>
+					<SearchAddressInput
 						type="text"
 						id="receiveUserAddress"
 						placeholder="내용을 입력해주세요."
+						disabled
 					/>
+
 					<MarginBottom16TextInput type="text" placeholder="상세 주소" />
 					<InputLabel htmlFor="giftCard">선물 카드 내용</InputLabel>
 					<GiftMessageInput
@@ -219,7 +223,7 @@ function SecondDeliveryForm({ time }) {
 							ThirdDeliveryFormHandler(e);
 						}}
 					>
-						결제하기
+						작성 완료
 					</SubmitPaymentButton>
 				</FormContent>
 			</FormWrapper>

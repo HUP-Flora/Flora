@@ -1,6 +1,6 @@
 import React from "react";
-import sendImage from "../../../assets/MessageSendImage.png";
-import formImage from "../../../assets/FormImage.png";
+import sendImage from "../../../assets/chatting/MessageSendImage.png";
+import formImage from "../../../assets/chatting/FormImage.png";
 
 import { useRecoilValue } from "recoil";
 import { nameState } from "../../../recoil/chatting";

@@ -1,5 +1,6 @@
 import React from "react";
-import deliveryButtonFormImage from "../../../../../assets/DeliveryButtonFormImage.png";
+import deliveryButtonFormImage from "../../../../../assets/chatting/DeliveryButtonFormImage.png";
+import pickUpButtonFormImage from "../../../../../assets/chatting/FirstFormPickUpImage.png";
 import {
 	sendSecondPickUpFormMessage,
 	sendSecondDeliveryFormMessage,
@@ -27,7 +28,8 @@ function FirstForm({ time }) {
 					<FormText>배달로 보낼게요</FormText>
 				</SubmitButton>
 				<SubmitButton className="btn" onClick={e => sendSecondPickUpFormMessage(e)}>
-					포장
+					<ButtonImage src={pickUpButtonFormImage} alt="pickUpButtonFormImage" />
+					<FormText>직접 가져갈게요</FormText>
 				</SubmitButton>
 			</FormContainer>
 			<FormTime>{time}</FormTime>

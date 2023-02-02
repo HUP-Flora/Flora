@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { MyMessageTime } from "../MessageStyle";
+import searchIcon from "../../../../../assets/chatting/SearchAdressImage.png"
 
 export const FormWrapper = styled.div`
 	background: #ffffff;
@@ -11,6 +12,8 @@ export const FormWrapper = styled.div`
 `;
 
 export const FormHeaderContainer = styled.div`
+	font-size: 19px;
+	font-weight: bold;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -28,6 +31,7 @@ export const FormContent = styled.div`
 
 export const InputLabel = styled.label`
 	font-size: 16px;
+	font-weight: bold;
 	margin-bottom: 8px;
 `;
 
@@ -88,6 +92,7 @@ export const GiftMessageInput = styled.textarea`
 `;
 
 export const SubmitPaymentButton = styled.button`
+	font-weight: bold;
 	width: 168px;
 	height: 30px;
 	background: #ff349c;
@@ -121,10 +126,22 @@ export const FormFooterMessageContainer = styled.div`
 `;
 
 export const FormFooterMessage = styled.p`
+	font-weight: bold;
 	color: black;
 	margin: 0;
 `;
 
 export const FormTime = styled(MyMessageTime)`
 	margin: 4px auto 13px 16px;
+`;
+
+export const SearchAddressInput = styled(MarginBottom8TextInput)`
+	&:disabled {
+    background-image: url(${searchIcon});
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-position: 95% 0;
+		border-bottom: 1px solid #adb5bd;
+		cursor: pointer;
+	}
 `;
