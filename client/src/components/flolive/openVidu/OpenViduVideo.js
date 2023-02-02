@@ -11,6 +11,7 @@ import {
 	LeaveSessionButton,
 	SessionWrapper,
 	SessionHeader,
+	VideoContainer,
 } from "../../../styles/openViduStyle";
 
 const APPLICATION_SERVER_URL =
@@ -291,29 +292,24 @@ class OpenViduVideo extends Component {
 					<SessionWrapper>
 						<SessionHeader>
 							{/* <h1 id="session-title">{mySessionId}</h1> */}
-							<input
+							{/* <input
 								className="btn btn-large btn-danger"
 								type="button"
 								id="buttonLeaveSession"
 								onClick={this.leaveSession}
 								value="종료"
-							/>
-							<LeaveSessionButton onClick={this.leaveSession}>종료</LeaveSessionButton>
-							<input
-								className="btn btn-large btn-success"
-								type="button"
-								id="buttonSwitchCamera"
-								onClick={this.switchCamera}
-								value="Switch Camera"
-							/>
-						</SessionHeader>
+							/> */}
+							<div>
+								<LeaveSessionButton onClick={this.leaveSession}>종료</LeaveSessionButton>
+								<input
+									className="btn btn-large btn-success"
+									type="button"
+									id="buttonSwitchCamera"
+									onClick={this.switchCamera}
+									value="Switch Camera"
+								/>
+							</div>
 
-						{this.state.mainStreamManager !== undefined ? (
-							<OwnerVideo>
-								<UserVideoComponent streamManager={this.state.mainStreamManager} />
-							</OwnerVideo>
-						) : null}
-						<div id="video-container" className="col-md-6">
 							{/* 내 화면 */}
 							{this.state.publisher !== undefined ? (
 								<CustomerVideo
@@ -323,18 +319,37 @@ class OpenViduVideo extends Component {
 									<UserVideoComponent streamManager={this.state.publisher} />
 								</CustomerVideo>
 							) : null}
-							{/* 다른 참여자 화면 */}
-							{this.state.subscribers.map((sub, i) => (
+						</SessionHeader>
+
+						<VideoContainer>
+							{this.state.mainStreamManager !== undefined ? (
+								<OwnerVideo>
+									<UserVideoComponent streamManager={this.state.mainStreamManager} />
+								</OwnerVideo>
+							) : null}
+							{/* <div id="video-container" className="col-md-6"> */}
+							{/* 내 화면 */}
+							{/* {this.state.publisher !== undefined ? (
 								<CustomerVideo
-									key={sub.id}
-									className="stream-container col-md-6 col-xs-6"
-									onClick={() => this.handleMainVideoStream(sub)}
+									// className="stream-container col-md-6 col-xs-6"
+									onClick={() => this.handleMainVideoStream(this.state.publisher)}
 								>
-									<span>{sub.id}</span>
-									<UserVideoComponent streamManager={sub} />
+									<UserVideoComponent streamManager={this.state.publisher} />
 								</CustomerVideo>
-							))}
-						</div>
+							) : null} */}
+							{/* 다른 참여자 화면 */}
+							{/* {this.state.subscribers.map((sub, i) => (
+									<CustomerVideo
+										key={sub.id}
+										className="stream-container col-md-6 col-xs-6"
+										onClick={() => this.handleMainVideoStream(sub)}
+									>
+										<span>{sub.id}</span>
+										<UserVideoComponent streamManager={sub} />
+									</CustomerVideo>
+								))} */}
+							{/* </div> */}
+						</VideoContainer>
 					</SessionWrapper>
 				) : null}
 			</SessionContainer>

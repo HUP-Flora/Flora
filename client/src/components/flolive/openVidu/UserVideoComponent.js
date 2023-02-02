@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import OpenViduVideoComponent from "./OvVideo";
 
-// import './UserVideo.css';
-
 export default class UserVideoComponent extends Component {
 	getNicknameTag() {
 		// Gets the nickName of the user
@@ -11,17 +9,17 @@ export default class UserVideoComponent extends Component {
 
 	render() {
 		return (
-			<div>
+			<>
 				{this.props.streamManager !== undefined ? (
-					<div>
+					<>
 						<OpenViduVideoComponent streamManager={this.props.streamManager} />
 						{/* 참여자 이름 */}
 						{/* <div>
 							<p>{this.getNicknameTag()}</p>
 						</div> */}
-					</div>
+					</>
 				) : null}
-			</div>
+			</>
 		);
 	}
 }
