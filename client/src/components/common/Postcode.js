@@ -8,7 +8,7 @@ function Postcode() {
 	const SetIsDaumPostShowState = useSetRecoilState(isDaumPostShowState);
 
 	const handleComplete = (data) => {
-		console.log('handleComplete', data);
+		// console.log('handleComplete', data);
 		let fullAddress = data.address;
 		let extraAddress = "";
 		// console.log(data);
@@ -22,7 +22,7 @@ function Postcode() {
 			}
 			fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
 		}
-		setReceiveUserFirstAddress(fullAddress);
+		setReceiveUserFirstAddress(data.jibunAddress);
 		SetIsDaumPostShowState(false);
 	};
 

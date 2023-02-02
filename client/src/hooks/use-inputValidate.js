@@ -30,7 +30,7 @@ const useInputValidate = validateValue => {
 
 	const [inputState, dispatch] = useReducer(inputReducer, initialState);
 
-	console.log("isSubmit", isSubmit);
+	// console.log("isSubmit", isSubmit);
 	if (isSubmit) {
 		return {
 			value: "",
