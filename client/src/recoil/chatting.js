@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, useRecoilValue } from "recoil";
 
 export const sendUserState = atom({
 	key: "sendUserState",
@@ -67,5 +67,3 @@ export const isSubmitState = atom({
 	key: 'isSubmitState',
 	default: false,
 });
-
-

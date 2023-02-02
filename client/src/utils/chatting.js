@@ -22,7 +22,6 @@ export const sendMessage = (event, message, setMessage) => {
 
 export const listenMessage = (setMessages) => {
   socket.on('message', (message) => {
-    console.log(message)
     setMessages((messages) => [...messages, message])
   })
 }

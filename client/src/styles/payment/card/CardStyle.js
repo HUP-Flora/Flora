@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
 export const InfoCardSection = styled.div`
+	height: 196px;
 	background-color: white;
 	padding: 24px;
 `;
+
 export const TableTh = styled.th`
 	width: 100px;
 	text-align: left;
