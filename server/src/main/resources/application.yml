@@ -1,5 +1,8 @@
 
 spring:
+  profiles:
+    include: oauth
+
   jpa:
     hibernate:
       ddl-auto: validate
