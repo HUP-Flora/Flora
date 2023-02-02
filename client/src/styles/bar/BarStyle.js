@@ -11,15 +11,16 @@ export const BorderTopButtonToolBar = styled.div`
 	width: calc(100% - 32px);
 	position: fixed;
 	bottom: 0px;
-	padding: 16px;
+	padding-bottom: 16px;
 `;
 
 export const ButtonToolBar = styled.div`
+	border: 1px solid white;
 	background-color: white;
 	width: calc(100% - 32px);
 	position: fixed;
 	bottom: 0px;
-	padding: 16px;
+	padding-bottom: 16px;
 `;
 
 export const TabBarDiv = styled.div`
