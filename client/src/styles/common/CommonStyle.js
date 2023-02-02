@@ -101,16 +101,26 @@ export const UploadPictureSection = styled.div`
 	height: 100px;
 	display: flex;
 	justify-content: center;
+	position: relative;
+`;
+
+export const PicturePreview = styled.img`
+	width: 100px;
+	height: 100px;
+	border: 1px solid var(--gray-400);
+	border-radius: 50px;
+
+	position: relative;
 `;
 
 export const PictureSection = styled.div`
 	width: 100px;
 	height: 100px;
-	border: 1px solid var(--primary-400);
-	border-radius: 50px;
-	background-color: var(--primary-50);
 
-	position: relative;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 `;
 
 export const EmptyPictureImg = styled.img`
@@ -171,4 +181,8 @@ export const TimeOption = styled.option`
 	// width: 50px;
 	// height: 40px;
 	overflow-y: scroll;
+`;
+
+export const ImageInput = styled.input`
+	display: none;
 `;
