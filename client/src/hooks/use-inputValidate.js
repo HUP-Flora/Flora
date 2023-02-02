@@ -22,6 +22,10 @@ const inputReducer = (state, action) => {
 	if (action.type === "TOGGLE_ERROR") {
 		return { value: state.value, isTouched: true };
 	}
+
+	if (action.type === "ChangeFalseIsTouched") {
+		return { value: state.value, isTouched: false };
+	}
 	return initialState;
 };
 
@@ -59,6 +63,10 @@ const useInputValidate = validateValue => {
 		dispatch({ type: "TOGGLE_ERROR" });
 	};
 
+	const changeFalseIsTouched = () => {
+		dispatch({ type: "ChangeFalseIsTouched" });
+	}
+
 	return {
 		// 다른데서 value필요 없으면 지우면 됨
 		value: inputState.value,
@@ -67,6 +75,7 @@ const useInputValidate = validateValue => {
 		valueChangeHandler,
 		inputBlurHandler,
 		toggleHasError,
+		changeFalseIsTouched,
 	};
 };
 

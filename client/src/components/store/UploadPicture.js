@@ -22,10 +22,6 @@ export function UploadPicture() {
 		};
 	}, []);
 
-	const test = () => {
-		console.log(imgFile);
-	};
-
 	const onUploadImageButtonClick = useCallback(() => {
 		imgRef.current.click();
 	}, []);

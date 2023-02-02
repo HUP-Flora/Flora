@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import io from "socket.io-client";
+import { useState, useEffect } from "react";
 
 import Input from "./input/Input";
 import Messages from "./messages/Messages";
@@ -12,8 +11,6 @@ import ErrorModal from "./errorModal/ErrorModal";
 
 const ENDPOINT = "http://localhost:5000";
 
-let socket;
-
 const Chat = () => {
 	const name = useRecoilValue(nameState);
 	const room = useRecoilValue(roomState);
@@ -21,7 +18,6 @@ const Chat = () => {
 	const [messages, setMessages] = useState([]);
 
 	useEffect(() => {
-		socket = io(ENDPOINT);
 		socketJoin(name, room);
 	}, [ENDPOINT, window.location.search]);
 
