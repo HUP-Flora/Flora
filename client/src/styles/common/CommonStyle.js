@@ -10,22 +10,37 @@ export const AppContainer = styled.div`
 	font-size: 16px;
 `;
 
-export const BlankContainer = styled.div`
-	height: ${props => props.height || 0};
+export const BlankSection = styled.div`
+	height: ${props => props.height || 0}px;
 `;
 
-export const BoldTextDiv = styled.div`
+export const Text = styled.div`
+	padding-top: ${props => props.top || 0}px;
+	padding-bottom: ${props => props.bottom || 0}px;
+	padding-left: ${props => props.left || 0}px;
+	padding-right: ${props => props.right || 0}px;
+	font-size: ${props => props.size || 16}px;
+	font-family: ${props => (props.font === "nexon" ? "NEXON Lv1 Gothic OTF" : "Pretendard-Regular")};
+`;
+
+export const BoldText = styled.div`
+	padding-top: ${props => props.top || 0}px;
+	padding-bottom: ${props => props.bottom || 0}px;
+	padding-left: ${props => props.left || 0}px;
+	padding-right: ${props => props.right || 0}px;
 	font-weight: bold;
 	font-size: ${props => props.size || 16}px;
+	font-family: ${props => (props.font === "nexon" ? "NEXON Lv1 Gothic OTF" : "Pretendard-Regular")};
 `;
 
-export const ButtonToolBar = styled.div`
-	border-top: 0.1px solid var(--gray-300);
-	background-color: white;
-	width: calc(100% - 32px);
-	position: fixed;
-	bottom: 0px;
-	padding: 16px;
+export const GrayText = styled.div`
+	padding-top: ${props => props.top || 0}px;
+	padding-bottom: ${props => props.bottom || 0}px;
+	padding-left: ${props => props.left || 0}px;
+	padding-right: ${props => props.right || 0}px;
+	font-size: ${props => props.size || 16}px;
+	font-family: ${props => (props.font === "nexon" ? "NEXON Lv1 Gothic OTF" : "Pretendard-Regular")};
+	color: var(--gray-500);
 `;
 
 export const OnOff = styled.div`
@@ -65,4 +80,109 @@ export const KakaoPayText = styled.div`
 	top: 50%;
 	left: 63%;
 	transform: translate(-50%, -50%);
+`;
+
+export const LargeButtonIcon = styled.img`
+	position: absolute;
+	top: 50%;
+	left: 33%;
+	transform: translate(-50%, -50%);
+`;
+
+export const LargeButtonText = styled.div`
+	position: absolute;
+	top: 50%;
+	left: 57%;
+	transform: translate(-50%, -50%);
+	font-size: 19px;
+`;
+
+export const UploadPictureSection = styled.div`
+	height: 100px;
+	display: flex;
+	justify-content: center;
+	position: relative;
+`;
+
+export const PicturePreview = styled.img`
+	width: 100px;
+	height: 100px;
+	border: 1px solid var(--gray-400);
+	border-radius: 50px;
+
+	position: relative;
+`;
+
+export const PictureSection = styled.div`
+	width: 100px;
+	height: 100px;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+`;
+
+export const EmptyPictureImg = styled.img`
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+`;
+
+export const UploadButton = styled.img`
+	position: absolute;
+	top: 80%;
+	left: 90%;
+	transform: translate(-50%, -50%);
+	width: 40px;
+	height: 40px;
+`;
+
+export const ChooseWorkingTimeSection = styled.div`
+	margin-left: 8px;
+	margin-right: 8px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`;
+
+export const ChooseHolidaySection = styled.div`
+	margin-left: 15px;
+	margin-right: 15px;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+`;
+
+export const HolidayCircle = styled.div`
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	border: 1px solid ${props => (props.isClicked ? "var(--primary-400)" : "var(--gray-100)")};
+	background-color: ${props => (props.isClicked ? "var(--primary-50)" : "var(--gray-100)")};
+	color: ${props => (props.isClicked ? "var(--primary-400)" : "black")};
+
+	position: relative;
+`;
+
+export const HolidayCircleText = styled.div`
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+`;
+
+export const TimeSelect = styled.select`
+	overflow-y: auto;
+`;
+
+export const TimeOption = styled.option`
+	// width: 50px;
+	// height: 40px;
+	overflow-y: scroll;
+`;
+
+export const ImageInput = styled.input`
+	display: none;
 `;

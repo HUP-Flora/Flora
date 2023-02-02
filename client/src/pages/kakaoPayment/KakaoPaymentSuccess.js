@@ -1,23 +1,23 @@
 import { BorderTopButtonToolBar } from "../../styles/bar/BarStyle";
 import { InfoCard } from "../../components/payment/success/InfoCard";
 import { MessageCard } from "../../components/payment/success/MessageCard";
-import { BlankContainer } from "../../styles/common/CommonStyle";
+import { BlankSection } from "../../styles/common/CommonStyle";
 import { Primary50Button, WhiteButton } from "../../styles/button/ButtonStyle";
-import { KakaoPaymentSuccessContainer } from "../../styles/payment/KakaoPaymentStyle";
+import { Gray50Container } from "../../styles/container/ContainerStyle";
 import { WidthDoubleButtonToolBar } from "../../styles/bar/BarStyle";
 
 export function KakaoPaymentSuccess() {
 	return (
-		<KakaoPaymentSuccessContainer>
+		<Gray50Container>
 			<MessageCard />
-			<BlankContainer height="16px" />
+			<BlankSection height="16" />
 			<InfoCard
 				type="가게 정보"
 				content1="받을 자료 1"
 				content2="받을 자료 2"
 				content3="받을 자료 3"
 			/>
-			<BlankContainer height="16px" />
+			<BlankSection height="16" />
 			<InfoCard
 				type="주문 정보"
 				content1="받을 자료 1"
@@ -30,6 +30,6 @@ export function KakaoPaymentSuccess() {
 					<WhiteButton>홈으로 이동</WhiteButton>
 				</WidthDoubleButtonToolBar>
 			</BorderTopButtonToolBar>
-		</KakaoPaymentSuccessContainer>
+		</Gray50Container>
 	);
 }
