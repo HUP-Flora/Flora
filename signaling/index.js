@@ -16,18 +16,8 @@ app.use(router)
 io.on('connection', (socket) => {
   console.log('새로운 유저가 접속했습니다.')
   socket.on('join', ({name, room}, callback) => {
-    console.log(socket.id, name, room)
     const { error, user } = addUser({ id: socket.id, name, room })
     if (error) callback({error : '에러가 발생했습니다.'})
-
-    socket.emit('message', {
-      user: 'admin',
-      text: `${user.name}, ${user.room}에 오신 것을 환영합니다.`,
-    })
-    // socket.broadcast.to(user.room).emit('message', {
-    //   user: 'admin',
-    //   text: `${user.name}님이 가입하셨습니다.`,
-    // })
     io.to(user.room).emit('roomData', {
       room: user.room,
       users: getUsersInRoom(user.room),
@@ -37,11 +27,7 @@ io.on('connection', (socket) => {
     return socket.id
   })
   socket.on('sendMessage', (message, callback) => {
-    console.log('확인용id', socket.id)
     const user = getUser(socket.id)
-    // console.log(user)
-    // console.log(typeof message, message)
-    console.log(message)
     let type;
     if (message === 'firstForm') {
       type = 'firstForm'
@@ -56,11 +42,12 @@ io.on('connection', (socket) => {
     } else {
       type = 'message'
     }
-
+    const time = `${new Date().getHours().toString().padStart(2, "0")}:${new Date().getMinutes().toString().padStart(2, "0")}`
     io.to(user.room).emit('message', {
       user: user.name,
       text: message,
       type: type,
+      time: time,
     })
     callback()
   })

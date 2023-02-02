@@ -1,10 +1,10 @@
-import { BoldTextDiv } from "../../../styles/common/BoldTextStyle";
+import { BoldText } from "../../../styles/common/CommonStyle";
 import {
 	InfoCardHr,
 	InfoCardSection,
 	TableMargin,
 	TableTh,
-} from "../../../styles/payment/success/InfoCardStyle";
+} from "../../../styles/payment/card/CardStyle";
 
 export function InfoCard({ type, content1, content2, content3 }) {
 	let titles;
@@ -17,7 +17,7 @@ export function InfoCard({ type, content1, content2, content3 }) {
 	return (
 		<InfoCardSection>
 			<>
-				<BoldTextDiv size="19">{type}</BoldTextDiv>
+				<BoldText size="19">{type}</BoldText>
 				<InfoCardHr />
 				<table>
 					<tbody>

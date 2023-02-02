@@ -3,6 +3,7 @@
 .env
 .eslintcache
 .prettierrc
+.idea/
 
 # dependencies
 node_modules
