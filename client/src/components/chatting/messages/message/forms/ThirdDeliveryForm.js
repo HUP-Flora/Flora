@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useOrderStates } from "../../../../../hooks/use-orderStates";
 import {
+	CheckAddress,
 	FormContent,
 	FormFooter,
 	FormFooterMessage,
@@ -23,8 +24,16 @@ function ThirdDeliveryForm({ time }) {
 		textarea.current.style.height = textarea.current.scrollHeight + "px";
 	}, []);
 
-	const { sendUser, sendUserPhone, giftCard, paymentAmount, receiveUser, receiveUserPhone } =
-		useOrderStates();
+	const {
+		sendUser,
+		sendUserPhone,
+		giftCard,
+		paymentAmount,
+		receiveUser,
+		receiveUserPhone,
+		receiveUserFirstAddress,
+		receiveUserSecondAddress,
+	} = useOrderStates();
 
 	const numberWithCommas = x => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -56,8 +65,12 @@ function ThirdDeliveryForm({ time }) {
 						value={receiveUserPhone}
 						disabled
 					/>
+					<InputLabel>배송지</InputLabel>
+					<CheckAddress>
+						{receiveUserFirstAddress}, {receiveUserSecondAddress}
+					</CheckAddress>
 					<InputLabel htmlFor="giftCard">선물 카드 내용</InputLabel>
-					<GiftMessageInput id="giftCard" ref={textarea} value={giftCard} disabled />
+					<GiftMessageInput id="giftCard" ref={textarea} value={giftCard || "내용 없음"} disabled />
 				</FormContent>
 				<FormFooter>
 					<FormFooterMessageContainer>

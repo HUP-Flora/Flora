@@ -30,8 +30,13 @@ export const receiveUserPhoneState = atom({
 	default: "",
 });
 
-export const receiveUserAddressState = atom({
-	key: "receiveUserAddressState",
+export const receiveUserFirstAddressState = atom({
+	key: "receiveUserFirstAddressState",
+	default: "",
+});
+
+export const receiveUserSecondAddressState = atom({
+	key: "receiveUserSecondAddressState",
 	default: "",
 });
 
@@ -52,4 +57,15 @@ export const isErrorModalShowState = atom({
 	key: 'isErrorModalShowState',
 	default: false,
 });
+
+export const isDaumPostShowState = atom({
+	key: 'isDaumPostShowState',
+	default: false,
+});
+
+export const isSubmitState = atom({
+	key: 'isSubmitState',
+	default: false,
+});
+
 

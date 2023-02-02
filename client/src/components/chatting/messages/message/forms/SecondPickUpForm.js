@@ -3,9 +3,10 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import {
 	giftCardState,
 	isErrorModalShowState,
+	isSubmitState,
 	paymentAmountState,
 	sendUserPhoneState,
-	sendUserState
+	sendUserState,
 } from "../../../../../recoil/chatting";
 import { sendThirdPickUpFormMessage } from "../../../../../utils/chatting";
 import {
@@ -23,8 +24,6 @@ import {
 	TextInput,
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import useInputValidate from "../../../../../hooks/use-inputValidate";
-// import {Modal} from "./errorModal/ErrorModalStyle";
-// import ErrorModal from "./errorModal/ErrorModal";
 
 function SecondPickUpForm({ time }) {
 	const [sendUser, setSendUser] = useRecoilState(sendUserState);
@@ -32,6 +31,7 @@ function SecondPickUpForm({ time }) {
 	const [giftCard, setGiftCard] = useRecoilState(giftCardState);
 	const [paymentAmount, setPaymentAmount] = useRecoilState(paymentAmountState);
 	const setIsErrorModalShow = useSetRecoilState(isErrorModalShowState);
+	const setIsSubmit = useSetRecoilState(isSubmitState);
 
 	const phoneValidate = target => {
 		target.value = target.value
@@ -42,27 +42,21 @@ function SecondPickUpForm({ time }) {
 	};
 
 	const isNotEmpty = value => value.trim() !== "";
+
 	const {
 		// 다른데서 value필요 없으면 지우면 됨
-		value: VsendUser,
 		hasError: VsendUserHasError,
-		valueChangeHandler: VsendUserChangeHandler,
-		inputBlurHandler: VsendUserBlurHandler,
 		toggleHasError: VsendUserToggleHasError,
 	} = useInputValidate(isNotEmpty);
 
 	const {
 		// 다른데서 value필요 없으면 지우면 됨
-		value: VsendUserPhone,
 		hasError: VsendUserPhoneHasError,
-		valueChangeHandler: VsendUserPhoneChangeHandler,
-		inputBlurHandler: VsendUserPhoneBlurHandler,
 		toggleHasError: VsendUserPhoneToggleHasError,
 	} = useInputValidate(isNotEmpty);
 
 	const {
 		// 다른데서 value필요 없으면 지우면 됨
-		value: VpaymentAmount,
 		hasError: VpaymentAmountHasError,
 		valueChangeHandler: VpaymentAmountChangeHandler,
 		inputBlurHandler: VpaymentAmountBlurHandler,
@@ -77,12 +71,13 @@ function SecondPickUpForm({ time }) {
 		];
 
 		for (const data of formData) {
-		  if (!isNotEmpty(data.value)) {
-		    data.toggleError();
-		    setIsErrorModalShow(true);
-		    return;
-		  }
+			if (!isNotEmpty(data.value)) {
+				data.toggleError();
+				setIsErrorModalShow(true);
+				return;
+			}
 		}
+		setIsSubmit(true);
 		sendThirdPickUpFormMessage(e);
 	};
 
@@ -98,10 +93,7 @@ function SecondPickUpForm({ time }) {
 						placeholder="내용을 입력해주세요."
 						onChange={e => {
 							setSendUser(e.target.value);
-							VsendUserChangeHandler(e);
 						}}
-						onBlur={VsendUserBlurHandler}
-						HasError={VsendUserHasError}
 						value={sendUser}
 					/>
 					<InputCounterContainer>
@@ -116,9 +108,8 @@ function SecondPickUpForm({ time }) {
 						placeholder="- 없이 입력해주세요."
 						onChange={e => {
 							phoneValidate(e.target);
-							VsendUserPhoneChangeHandler(e);
 						}}
-						onBlur={VsendUserPhoneBlurHandler}
+						value={sendUserPhone}
 						HasError={VsendUserPhoneHasError}
 					/>
 					{VsendUserPhoneHasError && <ErrorMessage>전화번호를 입력해주세요.</ErrorMessage>}
@@ -127,6 +118,7 @@ function SecondPickUpForm({ time }) {
 						id="giftCard"
 						placeholder="내용을 입력해주세요."
 						onChange={e => setGiftCard(e.target.value)}
+						value={giftCard}
 					/>
 					<InputCounter>{giftCard.length}/100자</InputCounter>
 					<InputLabel htmlFor="paymentAmount">결제 금액</InputLabel>
@@ -138,6 +130,7 @@ function SecondPickUpForm({ time }) {
 							setPaymentAmount(e.target.value);
 							VpaymentAmountChangeHandler(e);
 						}}
+						value={paymentAmount}
 						onBlur={VpaymentAmountBlurHandler}
 						HasError={VpaymentAmountHasError}
 					/>

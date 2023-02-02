@@ -2,8 +2,9 @@ import { useRecoilValue } from "recoil";
 import {
 	giftCardState,
 	paymentAmountState,
-	receiveUserAddressState,
+	receiveUserFirstAddressState,
 	receiveUserPhoneState,
+	receiveUserSecondAddressState,
 	receiveUserState,
 	sendUserPhoneState,
 	sendUserState,
@@ -15,7 +16,8 @@ export const useOrderStates = () => {
 		sendUserPhone: useRecoilValue(sendUserPhoneState),
 		receiveUser: useRecoilValue(receiveUserState),
 		receiveUserPhone: useRecoilValue(receiveUserPhoneState),
-		receiveUserAddress: useRecoilValue(receiveUserAddressState),
+		receiveUserFirstAddress: useRecoilValue(receiveUserFirstAddressState),
+		receiveUserSecondAddress: useRecoilValue(receiveUserSecondAddressState),
 		giftCard: useRecoilValue(giftCardState),
 		paymentAmount: useRecoilValue(paymentAmountState),
 	};

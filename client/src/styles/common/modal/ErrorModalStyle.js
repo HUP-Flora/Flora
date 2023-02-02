@@ -57,5 +57,8 @@ export const ErrorImage = styled.img`
 	margin-right: 16px;
 `;
 
+export const PostModal = styled(Modal)`
+	top: 10vh;
+`;
 
 

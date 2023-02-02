@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { MyMessageTime } from "../MessageStyle";
-import searchIcon from "../../../../../assets/chatting/SearchAdressImage.png"
+import searchIcon from "../../../../../assets/chatting/SearchAdressImage.png";
 
 export const FormWrapper = styled.div`
 	background: #ffffff;
@@ -137,12 +137,14 @@ export const FormTime = styled(MyMessageTime)`
 
 export const SearchAddressInput = styled(MarginBottom8TextInput)`
 	&:disabled {
-    background-image: url(${searchIcon});
-    background-repeat: no-repeat;
-    background-size: 24px;
-    background-position: 95% 0;
+		background-image: url(${searchIcon});
+		background-repeat: no-repeat;
+		background-size: 24px;
+		background-position: 95% 0;
 		border-bottom: 1px solid #adb5bd;
 		cursor: pointer;
+		border-bottom: ${props => (props.HasError ? "1px solid red" : "1px solid #ADB5BD")};
+		margin-bottom: ${props => (props.HasError ? "0" : "16px")};
 	}
 `;
 
@@ -151,4 +153,10 @@ export const SearchAddressContainerButton = styled.button`
 	border: none;
 	outline: none;
 	cursor: pointer;
+	padding: 0;
+`;
+
+export const CheckAddress = styled.p`
+	color: black;
+	margin: 0 0 16px 0;
 `;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Backdrop, ErrorImage, FlexBox, Modal, ModalTitle } from "./ErrorModalStyle";
+import { Backdrop, ErrorImage, FlexBox, Modal, ModalTitle } from "../../../styles/common/modal/ErrorModalStyle";
 import {useRecoilState} from "recoil";
 import {isErrorModalShowState} from "../../../recoil/chatting";
 import PortalReactDom from "react-dom";

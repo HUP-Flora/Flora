@@ -1,4 +1,6 @@
 import { useReducer } from "react";
+import { useRecoilValue } from "recoil";
+import { isSubmitState } from "../recoil/chatting";
 
 const initialState = {
 	value: "",
@@ -24,7 +26,21 @@ const inputReducer = (state, action) => {
 };
 
 const useInputValidate = validateValue => {
+	const isSubmit = useRecoilValue(isSubmitState);
+
 	const [inputState, dispatch] = useReducer(inputReducer, initialState);
+
+	console.log("isSubmit", isSubmit);
+	if (isSubmit) {
+		return {
+			value: "",
+			isTouched: false,
+			isValid: false,
+			valueChangeHandler: () => {},
+			inputBlurHandler: () => {},
+			toggleHasError: () => {},
+		};
+	}
 
 	const valueIsValid = validateValue(inputState.value);
 	const hasError = !valueIsValid && inputState.isTouched;

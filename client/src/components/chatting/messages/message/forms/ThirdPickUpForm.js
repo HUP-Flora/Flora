@@ -55,7 +55,7 @@ function ThirdPickUpForm({ time }) {
 						disabled
 					/>
 					<InputLabel htmlFor="giftCard">선물 카드 내용</InputLabel>
-					<GiftMessageInput id="giftCard" ref={textarea} value={giftCard} disabled />
+					<GiftMessageInput id="giftCard" ref={textarea} value={giftCard || "내용 없음"} disabled />
 				</FormContent>
 				<FormFooter>
 					<FormFooterMessageContainer>

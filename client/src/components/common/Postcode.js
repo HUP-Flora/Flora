@@ -1,8 +1,11 @@
 import React from 'react';
 import DaumPostcodeEmbed from "react-daum-postcode";
+import { useSetRecoilState } from "recoil";
+import { isDaumPostShowState, receiveUserFirstAddressState } from "../../recoil/chatting";
 
 function Postcode() {
-	const [address, setAddress] = React.useState("");
+	const setReceiveUserFirstAddress = useSetRecoilState(receiveUserFirstAddressState);
+	const SetIsDaumPostShowState = useSetRecoilState(isDaumPostShowState);
 
 	const handleComplete = (data) => {
 		console.log('handleComplete', data);
@@ -19,18 +22,13 @@ function Postcode() {
 			}
 			fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
 		}
-		setAddress(fullAddress);
-		console.log(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
-	};
-
-	const handleSearch = (data) => {
-		console.log(data);
+		setReceiveUserFirstAddress(fullAddress);
+		SetIsDaumPostShowState(false);
 	};
 
 	return (
 		<DaumPostcodeEmbed
 			onComplete={handleComplete}
-			onSearch={handleSearch}
 		/>
 	);
 }
