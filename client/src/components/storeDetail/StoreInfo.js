@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
 	StoreInfoContainer,
 	Header,
+	OnOffToggle,
 	ImageWrapper,
 	InfoContainer,
 	Image,
 	Description,
 	BasicInfoContainer,
-	Info,
 	BasicInfoRow,
 } from "../../styles/storeDetail/StoreDetailStyle";
-import { BoldText, Text, GrayHr } from "../../styles/common/CommonStyle";
+import { BoldText, Text, GrayHr, OnOff } from "../../styles/common/CommonStyle";
 
 import dummyImg from "../../assets/store.png";
 
@@ -19,7 +19,8 @@ function StoreInfo(props) {
 	// 더미 데이터
 	const storeName = "꽃집이요";
 	const storeDescription =
-		"안녕하세요 꽃집이요 입니다! 예약된 꽃은 당일 시장에서 직접 공수해오고 있습니다 :)";
+		"lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid";
+	// "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incid lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incid";
 	const storeTel = "010-1234-5678";
 	const storeAddress =
 		"대전 유성구 원신흥동 400-11층대전 유성구 원신흥전 유성구 원신흥동 400-1, 1층";
@@ -28,29 +29,35 @@ function StoreInfo(props) {
 	const storeHoliday = `매주 ${holiday} 휴무`;
 	const storeImgSrc = "../../assets/store.png";
 
+	// on/off 토글 더미(백 연동 이전)
+	const [isOn, setIsOn] = useState(true);
+
+	// on/off 토글 클릭 핸들러
+	const handleClickToggle = () => {
+		setIsOn(!isOn);
+	};
+
 	return (
 		<StoreInfoContainer>
 			{/* 헤더(사장, 고객 구분) */}
 			<Header>
-				<BoldText BoldText size="25">
+				<BoldText BoldText size="19">
 					{storeName}
 				</BoldText>
 				{/* 조건부 렌더링: 사장님 -> 토글 */}
-				<div>토글</div>
+				<OnOffToggle onClick={handleClickToggle} isOn={isOn}>
+					<OnOff isOn={isOn}>{isOn ? "ON" : "OFF"}</OnOff>
+				</OnOffToggle>
 			</Header>
 			<InfoContainer>
-				{/* 대표 사진 */}
 				<ImageWrapper>
 					<Image src={dummyImg} alt="store-img" />
 				</ImageWrapper>
-				{/* 소개글 */}
-				<Text size="13">{storeDescription}</Text>
+				<Description>{storeDescription}</Description>
 			</InfoContainer>
 
-			{/* 구분선 */}
 			<GrayHr />
 
-			{/* 기본 정보 */}
 			<BasicInfoContainer>
 				<BasicInfoRow>
 					<Text size="13">{storeTel}</Text>
