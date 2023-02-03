@@ -2,6 +2,7 @@ import React from "react";
 
 import { StatusBar } from "../../components/common/StatusBar";
 import StoreInfo from "../../components/storeDetail/StoreInfo";
+import StoreDetailButtons from "../../components/storeDetail/StoreDetailButtons";
 
 function StoreDetail(props) {
 	return (
@@ -12,6 +13,7 @@ function StoreDetail(props) {
 			<StoreInfo />
 
 			{/* 버튼(사장, 고객 구분) */}
+			<StoreDetailButtons />
 
 			{/* 상품, 리뷰 탭 */}
 
