@@ -3,6 +3,7 @@ import React from "react";
 import { StatusBar } from "../../components/common/StatusBar";
 import StoreInfo from "../../components/storeDetail/StoreInfo";
 import StoreDetailButtons from "../../components/storeDetail/StoreDetailButtons";
+import StoreTabs from "../../components/storeDetail/StoreTabs";
 
 function StoreDetail(props) {
 	return (
@@ -16,6 +17,7 @@ function StoreDetail(props) {
 			<StoreDetailButtons />
 
 			{/* 상품, 리뷰 탭 */}
+			<StoreTabs />
 
 			{/* 상품 목록 */}
 		</>
