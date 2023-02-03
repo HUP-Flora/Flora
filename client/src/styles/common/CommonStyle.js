@@ -186,3 +186,10 @@ export const TimeOption = styled.option`
 export const ImageInput = styled.input`
 	display: none;
 `;
+
+export const GrayHr = styled.hr`
+	background-color: var(--gray-300);
+	height: 0.5px;
+	border: 0;
+	margin: 0 16px;
+`;
