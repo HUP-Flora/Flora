@@ -1,6 +1,8 @@
 package com.ssafy.floraserver.db.entity;
 
 import com.ssafy.floraserver.db.entity.enums.UserType;
+import com.ssafy.floraserver.db.entity.enums.Role;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,32 +21,44 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uId;
 
+//    @Enumerated(EnumType.STRING)
+//    @Column(name = "u_type", nullable = false)
+//    private UserType type;
+
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserType uType;
+    @Column(name = "u_role")
+    private Role role;
 
-    @Column(nullable = false, unique = true)
-    private String uEmail;
+    @Column(name = "u_email", nullable = false, unique = true)
+    private String email;
 
-    @Column(unique = true)
-    private String uNickname;
+    @Column(name = "u_nickname", unique = true)
+    private String nickname;
 
-    private String uPhoneNumber;
+    @Column(name = "u_phone_number")
+    private String phoneNumber;
 
-    private String uRefreshToken;
+    @Column(name = "u_refresh_token")
+    private String refreshToken;
 
-    private LocalDate uWithdrawalDate;
+    @Column(name = "u_withdrawal_date")
+    private LocalDate withdrawalDate;
 
-    @Column(columnDefinition = "TINYINT(1)")
-    private boolean uSoftDelete;
+    @Column(name = "u_soft_delete", columnDefinition = "TINYINT(1)")
+    private boolean softDelete;
 
-    @Builder
-    public User(Long uId, UserType uType, String uEmail, String uNickname, String uPhoneNumber ){
-        this.uId = uId;
-        this.uType = uType;
-        this.uEmail = uEmail;
-        this.uNickname = uNickname;
-        this.uPhoneNumber = uPhoneNumber;
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
+    @Builder
+    public User(Role role, String email, String nickname, String phoneNumber, String refreshToken, LocalDate withdrawalDate, boolean softDelete) {
+        this.role = role;
+        this.email = email;
+        this.nickname = nickname;
+        this.phoneNumber = phoneNumber;
+        this.refreshToken = refreshToken;
+        this.withdrawalDate = withdrawalDate;
+        this.softDelete = softDelete;
+    }
 }

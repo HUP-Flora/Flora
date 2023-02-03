@@ -17,11 +17,11 @@ public class TimeUnit extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tuId;
 
-    @Column(nullable = false)
-    private String tuTime;
+    @Column(name = "tu_time", nullable = false)
+    private String time;
 
     @Builder
-    public TimeUnit(String tuTime) {
-        this.tuTime = tuTime;
+    public TimeUnit(String time) {
+        this.time = time;
     }
 }

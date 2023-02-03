@@ -27,39 +27,45 @@ public class Receipt extends BaseEntity{
     private Order oId;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private ReceiptType recType;
+    @Column(name = "rec_type", nullable = false)
+    private ReceiptType type;
 
-    @Column(nullable = false)
-    private String recOrderer;
+    @Column(name = "rec_orderer", nullable = false)
+    private String orderer;
 
-    @Column(nullable = false)
-    private String recOrdererPhoneNumber;
+    @Column(name = "rec_orderer_phone_number", nullable = false)
+    private String ordererPhoneNumber;
 
-    private String recGiftMessage;
+    @Column(name = "rec_gift_message")
+    private String giftMessage;
 
-    private String recRecipient;
+    @Column(name = "rec_recipient")
+    private String recipient;
 
-    private String recRecipientPhoneNumber;
+    @Column(name = "rec_recipient_phone_number")
+    private String recipientPhoneNumber;
 
-    private LocalDate recReceiptDate;
+    @Column(name = "rec_receipt_date")
+    private LocalDate receiptDate;
 
-    private String recDeliveryDestination;
+    @Column(name = "rec_delivery_destination")
+    private String deliveryDestination;
 
     @Enumerated(EnumType.STRING)
-    private ReceiptStatus recStatus;
+    @Column(name = "rec_status")
+    private ReceiptStatus status;
 
     @Builder
-    public Receipt(Order oId, ReceiptType recType, String recOrderer, String recOrdererPhoneNumber, String recGiftMessage, String recRecipient, String recRecipientPhoneNumber, LocalDate recReceiptDate, String recDeliveryDestination, ReceiptStatus recStatus) {
+    public Receipt(Order oId, ReceiptType type, String orderer, String ordererPhoneNumber, String giftMessage, String recipient, String recipientPhoneNumber, LocalDate receiptDate, String deliveryDestination, ReceiptStatus status) {
         this.oId = oId;
-        this.recType = recType;
-        this.recOrderer = recOrderer;
-        this.recOrdererPhoneNumber = recOrdererPhoneNumber;
-        this.recGiftMessage = recGiftMessage;
-        this.recRecipient = recRecipient;
-        this.recRecipientPhoneNumber = recRecipientPhoneNumber;
-        this.recReceiptDate = recReceiptDate;
-        this.recDeliveryDestination = recDeliveryDestination;
-        this.recStatus = recStatus;
+        this.type = type;
+        this.orderer = orderer;
+        this.ordererPhoneNumber = ordererPhoneNumber;
+        this.giftMessage = giftMessage;
+        this.recipient = recipient;
+        this.recipientPhoneNumber = recipientPhoneNumber;
+        this.receiptDate = receiptDate;
+        this.deliveryDestination = deliveryDestination;
+        this.status = status;
     }
 }
