@@ -24,10 +24,6 @@
 	--red-500: #f03e3e;
 }
 
-body {
-	margin: 0px;
-}
-
 * {
 	box-sizing: border-box;
 }
@@ -35,8 +31,12 @@ body {
 	display: none;
 }
 
-* {
-	box-sizing: border-box;
+body {
+	margin: 0px;
+}
+
+button {
+	cursor: pointer;
 }
 
 p {
