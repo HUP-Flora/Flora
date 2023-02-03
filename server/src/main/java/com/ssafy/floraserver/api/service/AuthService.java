@@ -25,7 +25,12 @@ public class AuthService {
         }
         log.info("============");
         Authentication authentication = jwtProvider.getAuthentication(oldAccessToken);
+
+//        log.info(((CustomOAuth2User) authentication.getPrincipal()).getEmail());
+//        String email = ((CustomOAuth2User) authentication.getPrincipal()).getEmail();
+
         String email = authentication.getName();
+        log.info(email);
 
 //        log.info("AuthService {}", email);
 //        log.info("AuthService {}", role);

@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -34,7 +35,15 @@ public class JwtProvider {
         Date now = new Date();
         Date validity = new Date(now.getTime() + ACCESS_TOKEN_VALIDATE_TIME);
 
+        log.info("createAccessToken start");
+
         String email = authentication.getName();
+        log.info("email getName() {} ", email);
+
+        if(!email.contains("@")){
+            email = ((CustomOAuth2User) authentication.getPrincipal()).getEmail();
+        }
+
         String role = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));

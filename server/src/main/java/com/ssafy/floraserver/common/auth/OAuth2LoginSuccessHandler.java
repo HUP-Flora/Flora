@@ -33,6 +33,8 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
             log.info(String.valueOf(oAuth2User));
             log.info(oAuth2User.getEmail());
+//            log.info(String.valueOf(oAuth2User));
+//            log.info(authentication.getName());
             String accessToken = jwtProvider.createAccessToken(authentication);
             String refreshToken = jwtProvider.createRefreshToken(authentication);
 
@@ -57,7 +59,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                 log.info("GUEST");
 
                 // 추가정보 입력 페이지로 이동
-                response.sendRedirect("http://localhost:8080/guest");//프론트엔드의 회원가입 주소로 reDirect
+//                response.sendRedirect("http://localhost:8080/guest");//프론트엔드의 회원가입 주소로 reDirect
 
             }else {
                 log.info("CUSTOMER OR STORE");

@@ -25,7 +25,7 @@ public class AuthController {
     
     @GetMapping("/users")
     public void getUsers(){
-        
+      log.info(SecurityUtil.getCurrentMemberId());
       log.info("AuthController /users GET 성공");  
     }
 
@@ -42,7 +42,5 @@ public class AuthController {
         String newAccessToken = authService.reissueAccessToken(oldAccessToken, refreshToken);
 
         return newAccessToken;
-
-
     }
 }

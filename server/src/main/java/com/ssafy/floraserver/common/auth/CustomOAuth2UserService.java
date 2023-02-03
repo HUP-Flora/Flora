@@ -33,7 +33,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
         User user = saveOrUpdate(attributes);
-//        log.info("========" + user.getEmail() + " " + user.getRole() + "========");
+        log.info("========" + user.getEmail() + " " + user.getRole() + "========");
         return new CustomOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(user.getRole().getKey())),
                 attributes.getAttributes(),
