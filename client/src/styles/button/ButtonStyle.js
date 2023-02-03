@@ -124,6 +124,7 @@ export const YesOrNoButton = styled.button`
 `;
 
 export const KakaoLoginButton = styled.button`
+	cursor: pointer;
 	background-color: #ffe90d;
 	width: 100%;
 	height: 53px;

@@ -4,7 +4,7 @@ import { WhiteContainer } from "../../styles/container/ContainerStyle";
 export function SignupOwnerStore() {
 	return (
 		<WhiteContainer>
-			<StoreForm />
+			<StoreForm nextURL={"/"} />
 		</WhiteContainer>
 	);
 }

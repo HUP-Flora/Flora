@@ -28,6 +28,10 @@ body {
 	margin: 0px;
 }
 
+button {
+	cursor: pointer;
+}
+
 *::-webkit-scrollbar {
 	display: none;
 }
