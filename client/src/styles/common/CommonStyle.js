@@ -188,5 +188,6 @@ export const ImageInput = styled.input`
 `;
 
 export const WhiteLayout = styled.div`
-	padding: 16px;
+	padding-left: 16px;
+	padding-right: 16px;
 `;

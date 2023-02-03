@@ -1,6 +1,6 @@
-import styled from "styled-components";
+// import styled from "styled-components";
 
-export const KakaoMapSection = styled.div`
-	width: 100%;
-	height: 400px;
-`;
+export const MapStyle = {
+	width: "100%",
+	height: "400px",
+};
