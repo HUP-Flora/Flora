@@ -1,11 +1,16 @@
-import { LeftArrow, StatusBarDiv, StatusBarText } from "../../styles/bar/BarStyle";
+import { LeftArrow, StatusBarContainer, StatusBarText } from "../../styles/common/StatusBarStyle";
 import leftArrowImg from "../../assets/arrow/leftArrow.png";
+import { useNavigate } from "react-router-dom";
 
-export function StatusBar({ text }) {
+function StatusBar({ text }) {
+	const navigate = useNavigate();
+
 	return (
-		<StatusBarDiv>
-			<LeftArrow src={leftArrowImg} alt={leftArrowImg} />
-			<StatusBarText size="19">{text}</StatusBarText>
-		</StatusBarDiv>
+		<StatusBarContainer>
+			<LeftArrow onClick={() => navigate(-1)} src={leftArrowImg} alt={leftArrowImg} />
+			<StatusBarText>{text}</StatusBarText>
+		</StatusBarContainer>
 	);
 }
+
+export default StatusBar;

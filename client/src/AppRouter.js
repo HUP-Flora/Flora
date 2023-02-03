@@ -13,6 +13,7 @@ import { SignupUser } from "./pages/auth/SignupUser";
 import Chatting from "./components/chatting/Chatting";
 import Join from "./components/chatting/Join";
 import { SignupOwnerStore } from "./pages/auth/SignupOwnerStore";
+import ReservationType from "./pages/reservation/ReservationType";
 
 function AppRouter() {
 	return (
@@ -30,6 +31,8 @@ function AppRouter() {
 				// 채팅 테스트용 페이지
 				<Route path="/join" element={<Join />} />
 				<Route path="/chat" element={<Chatting />} />
+				// 예약 페이지들
+				<Route path="/reservation/type" element={<ReservationType />} />
 			</Routes>
 		</Router>
 	);

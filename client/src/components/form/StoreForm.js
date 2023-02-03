@@ -1,5 +1,5 @@
 import { ChooseHoliday } from "../store/ChooseHoliday";
-import { StatusBar } from "../../components/common/StatusBar";
+import { StatusBar } from "../common/temp/StatusBar";
 import { UploadPicture } from "../store/UploadPicture";
 import { ButtonToolBar } from "../../styles/bar/BarStyle";
 import { Primary400LargeButton } from "../../styles/button/ButtonStyle";
