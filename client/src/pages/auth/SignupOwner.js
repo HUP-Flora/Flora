@@ -1,4 +1,4 @@
-import { StatusBar } from "../../components/common/StatusBar";
+import { StatusBar } from "../../components/common/temp/StatusBar";
 import { ButtonToolBar } from "../../styles/bar/BarStyle";
 import { Primary400LargeButton } from "../../styles/button/ButtonStyle";
 import { BoldText } from "../../styles/common/CommonStyle";
