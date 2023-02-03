@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import useInputValidate from "../../../../../hooks/use-inputValidate";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
 	giftCardState,
 	isDaumPostShowState,
 	isErrorModalShowState,
 	isSubmitState,
+	orderTypeState,
 	paymentAmountState,
 	receiveUserFirstAddressState,
 	receiveUserPhoneState,
@@ -34,13 +35,12 @@ import {
 import PostcodeModal from "../../../../common/PostcodeModal";
 
 function SecondDeliveryForm({ time }) {
+	const setOrderType = useSetRecoilState(orderTypeState);
 	const [sendUser, setSendUser] = useRecoilState(sendUserState);
 	const [sendUserPhone, setSendUserPhone] = useRecoilState(sendUserPhoneState);
 	const [receiveUser, setReceiveUser] = useRecoilState(receiveUserState);
 	const [receiveUserPhone, setReceiveUserPhone] = useRecoilState(receiveUserPhoneState);
-	const [receiveUserFirstAddress, setReceiveUserFirstAddress] = useRecoilState(
-		receiveUserFirstAddressState
-	);
+	const receiveUserFirstAddress = useRecoilValue(receiveUserFirstAddressState);
 	const [receiveUserSecondAddress, setReceiveUserSecondAddress] = useRecoilState(
 		receiveUserSecondAddressState
 	);
@@ -52,28 +52,37 @@ function SecondDeliveryForm({ time }) {
 	const [isReceiveUserFistAddressHasError, setIsReceiveUserFistAddressHasError] = useState(false);
 	const setIsSubmit = useSetRecoilState(isSubmitState);
 
-	const phoneValidate = (target, type) => {
-		target.value = target.value
-			.replace(/[^0-9]/g, "")
-			.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
-			.replace(/(\-{1,2})$/g, "");
-		if (type === "sendUserPhone") {
-			setSendUserPhone(target.value);
-		} else {
-			setReceiveUserPhone(target.value);
-		}
-	};
+	useEffect(() => {
+		setOrderType("DELIVERY");
+	}, [setOrderType]);
+
+	const phoneValidate = useCallback(
+		(target, type) => {
+			target.value = target.value
+				.replace(/[^0-9]/g, "")
+				.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+				.replace(/(-{1,2})$/g, "");
+			if (type === "sendUserPhone") {
+				setSendUserPhone(target.value);
+			} else {
+				setReceiveUserPhone(target.value);
+			}
+		},
+		[setSendUserPhone, setReceiveUserPhone]
+	);
 
 	const isNotEmpty = value => value.trim() !== "";
 	const {
-		// 다른데서 value필요 없으면 지우면 됨
-		value: VsendUser,
 		hasError: VsendUserHasError,
 		toggleHasError: VsendUserToggleHasError,
+		changeFalseIsTouched: VsendUserChangeFalseIsTouched,
 	} = useInputValidate(isNotEmpty);
 
-	const { hasError: VsendUserPhoneHasError, toggleHasError: VsendUserPhoneToggleHasError } =
-		useInputValidate(isNotEmpty);
+	const {
+		hasError: VsendUserPhoneHasError,
+		toggleHasError: VsendUserPhoneToggleHasError,
+		changeFalseIsTouched: VsendUserPhoneChangeFalseIsTouched,
+	} = useInputValidate(isNotEmpty);
 
 	const {
 		hasError: VreceiveUserHasError,
@@ -158,6 +167,7 @@ function SecondDeliveryForm({ time }) {
 						onChange={e => {
 							setSendUser(e.target.value);
 						}}
+						onFocus={e => VsendUserChangeFalseIsTouched(e)}
 						value={sendUser}
 						HasError={VsendUserHasError}
 					/>
@@ -174,6 +184,7 @@ function SecondDeliveryForm({ time }) {
 						onChange={e => {
 							phoneValidate(e.target, "sendUserPhone");
 						}}
+						onFocus={e => VsendUserPhoneChangeFalseIsTouched(e)}
 						value={sendUserPhone}
 						HasError={VsendUserPhoneHasError}
 					/>

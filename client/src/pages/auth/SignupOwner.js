@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { StatusBar } from "../../components/common/StatusBar";
 import { ButtonToolBar } from "../../styles/bar/BarStyle";
 import { Primary400LargeButton } from "../../styles/button/ButtonStyle";
@@ -5,6 +6,12 @@ import { BoldText } from "../../styles/common/CommonStyle";
 import { WhiteContainer } from "../../styles/container/ContainerStyle";
 
 export function SignupOwner() {
+	const navigate = useNavigate();
+
+	const handleSignup = () => {
+		navigate("/signup/owner/store");
+	};
+
 	return (
 		<WhiteContainer>
 			<StatusBar />
@@ -19,7 +26,7 @@ export function SignupOwner() {
 			</BoldText>
 			<input />
 			<ButtonToolBar>
-				<Primary400LargeButton>가입 완료하기</Primary400LargeButton>
+				<Primary400LargeButton onClick={handleSignup}>다음으로</Primary400LargeButton>
 			</ButtonToolBar>
 		</WhiteContainer>
 	);

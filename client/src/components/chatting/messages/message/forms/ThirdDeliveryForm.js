@@ -15,16 +15,16 @@ import {
 	SubmitPaymentButton,
 	TextInput,
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { orderStatesState } from "../../../../../recoil/chatting";
 
 function ThirdDeliveryForm({ time }) {
 	const textarea = useRef();
-
-	useEffect(() => {
-		textarea.current.style.height = "auto"; //height 초기화
-		textarea.current.style.height = textarea.current.scrollHeight + "px";
-	}, []);
+	const setOrderStates = useSetRecoilState(orderStatesState);
+	const orderStates = useRecoilValue(orderStatesState);
 
 	const {
+		type,
 		sendUser,
 		sendUserPhone,
 		giftCard,
@@ -34,6 +34,42 @@ function ThirdDeliveryForm({ time }) {
 		receiveUserFirstAddress,
 		receiveUserSecondAddress,
 	} = useOrderStates();
+
+	const sendUserPhoneNumber = sendUserPhone.replace(/-/gi, "");
+	const receiveUserPhoneNumber = receiveUserPhone.replace(/-/gi, "");
+	let receiveUserAddress;
+
+	if (receiveUserSecondAddress) {
+		receiveUserAddress = receiveUserFirstAddress + ", " + receiveUserSecondAddress;
+	} else {
+		receiveUserAddress = receiveUserFirstAddress;
+	}
+
+	useEffect(() => {
+		textarea.current.style.height = "auto"; //height 초기화
+		textarea.current.style.height = textarea.current.scrollHeight + "px";
+
+		setOrderStates({
+			type,
+			sendUser,
+			sendUserPhoneNumber,
+			receiveUser,
+			receiveUserPhoneNumber,
+			receiveUserAddress,
+			giftCard,
+			paymentAmount,
+		});
+	}, [
+		setOrderStates,
+		type,
+		sendUser,
+		sendUserPhoneNumber,
+		receiveUser,
+		receiveUserPhoneNumber,
+		receiveUserAddress,
+		giftCard,
+		paymentAmount,
+	]);
 
 	const numberWithCommas = x => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -77,7 +113,9 @@ function ThirdDeliveryForm({ time }) {
 						<FormFooterMessage>결제 금액</FormFooterMessage>
 						<FormFooterMessage>{OpaymentAmount}원</FormFooterMessage>
 					</FormFooterMessageContainer>
-					<SubmitPaymentButton>결제하기</SubmitPaymentButton>
+					<SubmitPaymentButton onClick={e => console.log(orderStates)}>
+						결제하기
+					</SubmitPaymentButton>
 				</FormFooter>
 			</FormWrapper>
 			<FormTime>{time}</FormTime>
