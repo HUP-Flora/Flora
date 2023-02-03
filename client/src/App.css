@@ -24,6 +24,13 @@
 	--red-500: #f03e3e;
 }
 
+* {
+	box-sizing: border-box;
+}
+*::-webkit-scrollbar {
+	display: none;
+}
+
 body {
 	margin: 0px;
 }
@@ -32,6 +39,6 @@ button {
 	cursor: pointer;
 }
 
-*::-webkit-scrollbar {
-	display: none;
+p {
+	margin: 0;
 }

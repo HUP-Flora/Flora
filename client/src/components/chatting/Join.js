@@ -13,7 +13,6 @@ function Join() {
   return (
     <div className='joinOuterContainer'>
       <div className='joinInnerContainer'>
-        <h1 className='heading'></h1>
         <div>
           <input
             placeholder='이름'
