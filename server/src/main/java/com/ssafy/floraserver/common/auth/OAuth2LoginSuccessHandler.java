@@ -1,6 +1,6 @@
 package com.ssafy.floraserver.common.auth;
 
-import com.ssafy.floraserver.common.jwt.TokenProvider;
+import com.ssafy.floraserver.common.jwt.JwtProvider;
 import com.ssafy.floraserver.db.entity.User;
 import com.ssafy.floraserver.db.entity.enums.Role;
 import com.ssafy.floraserver.db.repository.UserRepository;
@@ -22,7 +22,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    private final TokenProvider tokenProvider;
+//    private final TokenProvider tokenProvider;
+    private final JwtProvider jwtProvider;
     private final UserRepository userRepository;
 
     @Override
@@ -30,15 +31,19 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         log.info("Handler 들어왔다" );
         try {
             CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
+            log.info(String.valueOf(oAuth2User));
+            log.info(oAuth2User.getEmail());
+            String accessToken = jwtProvider.createAccessToken(authentication);
+            String refreshToken = jwtProvider.createRefreshToken(authentication);
 
-            String accessToken = tokenProvider.createAccessToken(authentication);
-            String refreshToken = tokenProvider.createRefreshToken(authentication);
+            log.info("accessToken : {}", accessToken);
+            log.info("refreshToken : {}", refreshToken);
 
             saveOrUpdateUser(refreshToken, oAuth2User);
 
             ResponseCookie cookie = ResponseCookie.from("refresh", refreshToken)
                     .httpOnly(true)
-                    .maxAge(TokenProvider.REFRESH_TOKEN_VALIDATE_TIME)
+                    .maxAge(jwtProvider.REFRESH_TOKEN_VALIDATE_TIME)
                     .path("/")
                     .build();
             
