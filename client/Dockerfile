@@ -2,7 +2,7 @@
 FROM nginx:stable-alpine
 
 # work dir 고정
-WORKDIR /app
+WORKDIR /opt/S08P12B203/client
 
 # work dir 에 build 폴더 생성 /app/build
 RUN mkdir ./build
