@@ -21,6 +21,8 @@ export const OnOffToggle = styled.div`
 
 	transition: all 0.2s ease-in-out;
 
+	cursor: pointer;
+
 	> div {
 		width: fit-content;
 		height: 100%;
