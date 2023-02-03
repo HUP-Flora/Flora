@@ -1,8 +1,11 @@
 import { useEffect } from "react";
-import { Map } from "react-kakao-maps-sdk";
+import { Map, MapMarker, ZoomControl } from "react-kakao-maps-sdk";
 import { useRecoilState } from "recoil";
 import { levelState, locationState } from "../../recoil/map";
-import { MapStyle } from "../../styles/map/MapStyle";
+import { MapMarkerStyle, MapStyle } from "../../styles/map/MapStyle";
+import { stores } from "./dummydata";
+
+const { kakao } = window;
 
 export function KakaoMap() {
 	const [position, setPosition] = useRecoilState(locationState);
@@ -36,6 +39,19 @@ export function KakaoMap() {
 			style={MapStyle}
 			level={3} // 지도의 확대 레벨
 			isPanto={position.isPanto}
-		/>
+		>
+			{stores.map(store => (
+				<MapMarker // 마커를 생성합니다
+					position={{
+						// 마커가 표시될 위치입니다
+						lat: store.sLat,
+						lng: store.sLng,
+					}}
+					clickable={true}
+					image={MapMarkerStyle}
+				/>
+			))}
+			<ZoomControl position={kakao.maps.ControlPosition.TOPRIGHT} />
+		</Map>
 	);
 }
