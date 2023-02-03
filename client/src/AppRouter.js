@@ -14,6 +14,9 @@ import Chatting from "./components/chatting/Chatting";
 import Join from "./components/chatting/Join";
 import { SignupOwnerStore } from "./pages/auth/SignupOwnerStore";
 
+// 가게 상세 페이지
+import StoreDetail from "./pages/storeDetail/StoreDetail";
+
 function AppRouter() {
 	return (
 		<Router>
@@ -30,6 +33,9 @@ function AppRouter() {
 				// 채팅 테스트용 페이지
 				<Route path="/join" element={<Join />} />
 				<Route path="/chat" element={<Chatting />} />
+				// 가게 상세 페이지
+				<Route path="/store" element={<StoreDetail />} />
+				{/* <Route path="/store/:id" element={<StoreDetail />} /> */}
 			</Routes>
 		</Router>
 	);
