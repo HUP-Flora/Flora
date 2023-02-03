@@ -2,7 +2,7 @@ import { ButtonToolBar } from "../../styles/bar/BarStyle";
 import { KakaoLoginButton } from "../../styles/button/ButtonStyle";
 import { KakaoLogo } from "../../styles/common/CommonStyle";
 import { useNavigate } from "react-router-dom";
-import KakaoLogoImg from "../../assets/kakao/KakaoLogo.png";
+import KakaoLogoImg from "../../assets/kakao/kakaoLogo.png";
 import axios from "axios";
 import { WhiteContainer } from "../../styles/container/ContainerStyle";
 

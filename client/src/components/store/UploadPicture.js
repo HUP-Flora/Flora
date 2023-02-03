@@ -5,8 +5,8 @@ import {
 	UploadPictureSection,
 	PictureSection,
 } from "../../styles/common/CommonStyle";
-import Photo from "../../assets/photo/Photo.png";
-import PlusButton from "../../assets/photo/PlusButton.png";
+import Photo from "../../assets/photo/photo.png";
+import PlusButton from "../../assets/photo/plusButton.png";
 import { useCallback, useRef, useState } from "react";
 
 export function UploadPicture() {
