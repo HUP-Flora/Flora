@@ -25,7 +25,7 @@ export const DeliveryButton = styled.button`
 	width: 100%;
 	height: 94px;
 	background: #ffffff;
-	border: 1px solid var(--gray-500);
+	border: ${props => props.isClick ? "1px solid var(--primary-400)" : "1px solid var(--gray-500)"};
 	border-radius: 10px;
 	margin-top: 128px;
 	display: flex;
@@ -40,10 +40,16 @@ export const ButtonImage = styled.img`
 `;
 
 export const GrayText = styled.p`
-	color: var(--gray-500);
+	color: ${props => props.isClick ? "var(--primary-400)" : "var(--gray-500)" };
 	font-size: 19px;
 `;
 
 export const PickUpButton = styled(DeliveryButton)`
 	margin-top: 32px;
 `;
+
+export const DateContainer = styled.div`
+  padding: 0 16px
+`;
+
+
