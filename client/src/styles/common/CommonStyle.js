@@ -39,6 +39,7 @@ export const GrayText = styled.div`
 	padding-left: ${props => props.left || 0}px;
 	padding-right: ${props => props.right || 0}px;
 	font-size: ${props => props.size || 16}px;
+	font-weight: ${props => props.weight || "normal"};
 	font-family: ${props => (props.font === "nexon" ? "NEXON Lv1 Gothic OTF" : "Pretendard-Regular")};
 	color: var(--gray-500);
 `;
