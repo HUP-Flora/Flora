@@ -22,6 +22,7 @@ export const FloLiveButtonContainer = styled.div`
 	align-items: center;
 
 	> button {
+		height: 100%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -41,7 +42,7 @@ export const FlorMarkWrapper = styled.div`
 	text-align: center;
 
 	color: ${props => (props.isFloMarkClicked ? "var(--primary-400)" : "var(--gray-500)")};
-	background-color: ${props => props.isFloMarkClicked && "var(--primary-50)"};
+	// background-color: ${props => props.isFloMarkClicked && "var(--primary-50)"};
 
 	border: 1px solid ${props => (props.isFloMarkClicked ? "var(--primary-400)" : "var(--gray-500)")};
 	border-radius: 5px;
