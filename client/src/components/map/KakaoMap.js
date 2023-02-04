@@ -42,8 +42,8 @@ export function KakaoMap() {
 		>
 			{stores.map(store => (
 				<MapMarker // 마커를 생성합니다
+					key={store.sId}
 					position={{
-						// 마커가 표시될 위치입니다
 						lat: store.sLat,
 						lng: store.sLng,
 					}}

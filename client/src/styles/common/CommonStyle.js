@@ -53,6 +53,7 @@ export const OnOff = styled.div`
 	font-size: 11px;
 
 	color: white;
+	margin: 16px;
 	background-color: ${props => (props.isOn ? "#F03E3E" : "var(--gray-400)")};
 	filter: ${props =>
 		props.isOn
@@ -190,4 +191,10 @@ export const ImageInput = styled.input`
 export const WhiteLayout = styled.div`
 	padding-left: 16px;
 	padding-right: 16px;
+`;
+
+export const VerticalLine = styled.hr`
+		border: 1px solid var(--gray-500)
+		width: 1;
+		height: 40%;
 `;

@@ -6,8 +6,8 @@ import {
 	LargeButtonText,
 } from "../../styles/common/CommonStyle";
 import { WhiteContainer } from "../../styles/container/ContainerStyle";
-import OwnerIcon from "../../assets/signup/ownerIcon.png";
-import UserIcon from "../../assets/signup/userIcon.png";
+import OwnerIcon from "../../assets/signup/OwnerIcon.png";
+import UserIcon from "../../assets/signup/UserIcon.png";
 import { ButtonToolBar } from "../../styles/bar/BarStyle";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";

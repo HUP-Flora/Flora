@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { KakaoPaymentFrame } from "../../styles/payment/KakaoPaymentStyle";
 import { KakaoPaymentButton } from "../../styles/button/ButtonStyle";
-import KakaoPayLogoImg from "../../assets/kakao/kakaoPayLogo.png";
+import KakaoPayLogoImg from "../../assets/kakao/KakaoPayLogo.png";
 import { KakaoPayLogo, KakaoPayText } from "../../styles/common/CommonStyle";
 
 export function KakaoPayment() {

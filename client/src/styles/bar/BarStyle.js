@@ -80,3 +80,18 @@ export const LeftArrow = styled.img`
 	left: 0%;
 	transform: translate(0%, -50%);
 `;
+
+export const SearchBarContainer = styled.section`
+	height: 32px;
+	background-color: var(--gray-50);
+	border: 1px solid var(--gray-400);
+	border-radius: 5px;
+	margin: 16px;
+	padding: 8px;
+	display: flex;
+`;
+
+export const SearchBarContent = styled.div`
+	width: 49.8%;
+	text-align: center;
+`;

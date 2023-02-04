@@ -1,6 +1,6 @@
 import React from "react";
-import deliveryButtonFormImage from "../../../../../assets/chatting/deliveryButtonFormImage.png";
-import pickUpButtonFormImage from "../../../../../assets/chatting/firstFormPickUpImage.png";
+import deliveryButtonFormImage from "../../../../../assets/chatting/DeliveryButtonFormImage.png";
+import pickUpButtonFormImage from "../../../../../assets/chatting/FirstFormPickUpImage.png";
 import {
 	sendSecondPickUpFormMessage,
 	sendSecondDeliveryFormMessage,

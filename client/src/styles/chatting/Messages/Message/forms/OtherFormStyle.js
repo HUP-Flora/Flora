@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { MyMessageTime } from "../MessageStyle";
-import searchIcon from "../../../../../assets/chatting/searchAddressImage.png";
+import searchIcon from "../../../../../assets/chatting/SearchAddressImage.png";
 
 export const FormWrapper = styled.div`
 	background: #ffffff;

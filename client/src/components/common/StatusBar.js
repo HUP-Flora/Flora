@@ -1,5 +1,5 @@
 import { LeftArrow, StatusBarDiv, StatusBarText } from "../../styles/bar/BarStyle";
-import leftArrowImg from "../../assets/arrow/leftArrow.png";
+import leftArrowImg from "../../assets/arrow/LeftArrow.png";
 
 export function StatusBar({ padding, text }) {
 	return (
