@@ -53,6 +53,11 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/api/auth/users").authenticated()
                 .antMatchers(HttpMethod.PUT, "/api/auth/stores").authenticated()
                 .anyRequest().permitAll()
+                .and()
+                .logout()
+                .logoutUrl("/api/auth/logout")
+                .permitAll()
+
 
                 // JWT 설정
                 .and()

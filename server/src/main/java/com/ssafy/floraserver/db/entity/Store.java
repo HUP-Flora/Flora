@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Store extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long sId;
 
     // 가게 - 사용자
@@ -93,11 +93,11 @@ public class Store extends BaseEntity{
     private LocalDateTime imgUploadTime;
 
     @Builder
-    public Store(User uId, String businessLicense, String name, String sPhoneNumber, String sido, String gugun, String dong, String detailedAddress, float lat, float lng, String desc, OnAirType isOnair, String holiday, TimeUnit start, TimeUnit end, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
+    public Store(User uId, String businessLicense, String name, String phoneNumber, String sido, String gugun, String dong, String detailedAddress, float lat, float lng, String desc, OnAirType isOnair, String holiday, TimeUnit start, TimeUnit end, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
         this.uId = uId;
         this.businessLicense = businessLicense;
         this.name = name;
-        this.phoneNumber = sPhoneNumber;
+        this.phoneNumber = phoneNumber;
         this.sido = sido;
         this.gugun = gugun;
         this.dong = dong;
