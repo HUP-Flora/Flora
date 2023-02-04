@@ -2,7 +2,7 @@ import { ButtonToolBar } from "../../styles/bar/BarStyle";
 import { BoldText, Text } from "../../styles/common/CommonStyle";
 import { WhiteContainer } from "../../styles/container/ContainerStyle";
 import { Primary400LargeButton } from "../../styles/button/ButtonStyle";
-import { StatusBar } from "../../components/common/StatusBar";
+import { StatusBar } from "../../components/common/temp/StatusBar";
 
 export function SignupUser() {
 	return (

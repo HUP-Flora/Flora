@@ -18,14 +18,14 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pId;
 
-    @Column(nullable = false)
-    private String pName;
+    @Column(name = "p_name", nullable = false)
+    private String name;
 
-    @Column(nullable = false)
-    private String pDesc;
+    @Column(name = "p_desc", nullable = false)
+    private String desc;
 
-    @Column(nullable = false)
-    private int pPrice;
+    @Column(name = "p_price", nullable = false)
+    private int price;
 
     // 상품 - 가게
     // 다대일 단방향
@@ -33,29 +33,35 @@ public class Product {
     @JoinColumn(name = "s_id", nullable = false)
     private Store sId;
 
-    private String pImgOriginalName;
+    @Column(name = "p_img_original_name")
+    private String imgOriginalName;
 
-    private String pImgNewName;
+    @Column(name = "p_img_new_name")
+    private String imgNewName;
 
-    private int pImgSize;
+    @Column(name = "p_img_size")
+    private int imgSize;
 
-    private String pImgPath;
+    @Column(name = "p_img_path")
+    private String imgPath;
 
-    private String pImgField;
+    @Column(name = "p_img_field")
+    private String imgField;
 
-    private LocalDateTime pImgUploadTime;
+    @Column(name = "p_img_upload_time")
+    private LocalDateTime imgUploadTime;
 
     @Builder
-    public Product(String pName, String pDesc, int pPrice, Store sId, String pImgOriginalName, String pImgNewName, int pImgSize, String pImgPath, String pImgField, LocalDateTime pImgUploadTime) {
-        this.pName = pName;
-        this.pDesc = pDesc;
-        this.pPrice = pPrice;
+    public Product(String pName, String pDesc, int price, Store sId, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
+        this.name = pName;
+        this.desc = pDesc;
+        this.price = price;
         this.sId = sId;
-        this.pImgOriginalName = pImgOriginalName;
-        this.pImgNewName = pImgNewName;
-        this.pImgSize = pImgSize;
-        this.pImgPath = pImgPath;
-        this.pImgField = pImgField;
-        this.pImgUploadTime = pImgUploadTime;
+        this.imgOriginalName = imgOriginalName;
+        this.imgNewName = imgNewName;
+        this.imgSize = imgSize;
+        this.imgPath = imgPath;
+        this.imgField = imgField;
+        this.imgUploadTime = imgUploadTime;
     }
 }
