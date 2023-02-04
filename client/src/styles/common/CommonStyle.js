@@ -39,6 +39,7 @@ export const GrayText = styled.div`
 	padding-left: ${props => props.left || 0}px;
 	padding-right: ${props => props.right || 0}px;
 	font-size: ${props => props.size || 16}px;
+	font-weight: ${props => props.weight || "normal"};
 	font-family: ${props => (props.font === "nexon" ? "NEXON Lv1 Gothic OTF" : "Pretendard-Regular")};
 	color: var(--gray-500);
 `;
@@ -185,4 +186,11 @@ export const TimeOption = styled.option`
 
 export const ImageInput = styled.input`
 	display: none;
+`;
+
+export const GrayHr = styled.hr`
+	background-color: var(--gray-300);
+	height: 0.5px;
+	border: 0;
+	margin: 0 16px;
 `;
