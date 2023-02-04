@@ -31,13 +31,14 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 //        log.info("========" + registrationId + " " + userNameAttributeName + "========");
 
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
-
+        log.info("CustomOAuth2UserService");
         User user = saveOrUpdate(attributes);
-        log.info("========" + user.getEmail() + " " + user.getRole() + "========");
+        log.info("========" + user.getEmail() + " " + user.getRole() + " " + user.getUId() + "========");
         return new CustomOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(user.getRole().getKey())),
                 attributes.getAttributes(),
                 attributes.getNameAttributeKey(),
+                user.getUId(),
                 user.getEmail(),
                 user.getRole()
         );

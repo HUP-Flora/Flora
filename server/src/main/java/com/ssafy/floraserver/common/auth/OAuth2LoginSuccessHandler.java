@@ -31,16 +31,20 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         log.info("Handler 들어왔다" );
         try {
             CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
+
+            log.info(authentication.getAuthorities().toString()); // [ROLE_GUEST]
+            log.info(((CustomOAuth2User) authentication.getPrincipal()).getUId().toString()); // 7
+            String uId = ((CustomOAuth2User) authentication.getPrincipal()).getUId().toString();
             log.info(String.valueOf(oAuth2User));
             log.info(oAuth2User.getEmail());
 //            log.info(String.valueOf(oAuth2User));
 //            log.info(authentication.getName());
-            String accessToken = jwtProvider.createAccessToken(authentication);
+            String accessToken = jwtProvider.createAccessToken(authentication, uId);
             String refreshToken = jwtProvider.createRefreshToken(authentication);
 
             log.info("accessToken : {}", accessToken);
             log.info("refreshToken : {}", refreshToken);
-
+            log.info("OAuth2LoginSuccessHandler");
             saveOrUpdateUser(refreshToken, oAuth2User);
 
             ResponseCookie cookie = ResponseCookie.from("refresh", refreshToken)

@@ -51,6 +51,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/auth/users").authenticated()
+                .antMatchers(HttpMethod.PUT, "/api/auth/stores").authenticated()
                 .anyRequest().permitAll()
 
                 // JWT 설정
