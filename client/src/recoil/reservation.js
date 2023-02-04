@@ -19,3 +19,8 @@ export const RorderDayState = atom({
 	key: 'RorderDayState',
 	default: '',
 });
+
+export const RorderTimeState = atom({
+	key: 'RorderTimeState',
+	default: '',
+});

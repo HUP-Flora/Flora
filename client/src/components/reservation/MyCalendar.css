@@ -178,7 +178,7 @@ body {
 
 .calendar-days div.curr-date,
 .calendar-days div.curr-date:hover {
-  background-color: var(--blue);
+  background-color: var(--primary-400);
   color: var(--white);
   border-radius: 50%;
 }

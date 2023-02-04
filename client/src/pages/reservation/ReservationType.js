@@ -15,9 +15,19 @@ import pickupPinkImage from "../../assets/reservation/FirstFormPickUpImage.png";
 import NextButton from "../../components/common/NextButton";
 import { useRecoilState } from "recoil";
 import { RorderTypeState } from "../../recoil/reservation";
+import { useNavigate } from "react-router-dom";
 
 function ReservationType() {
+	const navigate = useNavigate();
+
 	const [orderType, setOrderType] = useRecoilState(RorderTypeState);
+
+	const typeNextHandler = () => {
+		if (orderType === "") {
+			return;
+		}
+		navigate("/reservation/date");
+	};
 
 	return (
 		<>
@@ -34,7 +44,7 @@ function ReservationType() {
 					<GrayText isClick={orderType === "PICKUP"}>직접 가져갈게요</GrayText>
 				</PickUpButton>
 			</ReserVationTypeContainer>
-			<NextButton text="다음으로" />
+			<NextButton text="다음으로" onClick={typeNextHandler} />
 		</>
 	);
 }
