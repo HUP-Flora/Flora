@@ -188,7 +188,6 @@ export const ImageInput = styled.input`
 	display: none;
 `;
 
-<<<<<<< HEAD
 export const WhiteLayout = styled.div`
 	padding-left: 16px;
 	padding-right: 16px;
@@ -198,11 +197,11 @@ export const VerticalLine = styled.hr`
 		border: 1px solid var(--gray-500)
 		width: 1;
 		height: 40%;
-=======
+	`;
+
 export const GrayHr = styled.hr`
 	background-color: var(--gray-300);
 	height: 0.5px;
 	border: 0;
 	margin: 0 16px;
->>>>>>> f86a9c2bd2f75d487e593922174f8209d10228e8
 `;

@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { BlankSection } from "../../styles/common/CommonStyle";
 import { StoreListSection } from "../../styles/map/MapStyle";
 import { stores } from "../map/dummydata";
