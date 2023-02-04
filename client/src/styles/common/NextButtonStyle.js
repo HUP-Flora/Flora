@@ -12,7 +12,7 @@ export const NextButtonContainer = styled.button`
 	color: #ffffff;
 	font-size: 16px;
 	font-weight: bold;
-	position: fixed;
+	position: ${props => props.isNotFixed ? "relative" : "fixed"};
 	bottom: 16px;
 	left: 16px;
 `;
