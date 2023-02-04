@@ -60,5 +60,3 @@ export const ErrorImage = styled.img`
 export const PostModal = styled(Modal)`
 	top: 10vh;
 `;
-
-
