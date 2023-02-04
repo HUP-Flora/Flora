@@ -1,11 +1,11 @@
 import React from "react";
 
-import { ButtonsContainer } from "../../styles/productDetail/ProducBottomButtonsStyle";
 import { Primary50Button, Primary400Button } from "../../styles/button/ButtonStyle";
+import { BottomRowDoubleButtonContainer } from "../../styles/common/CommonStyle";
 
 function ProductDetailButtons(props) {
 	return (
-		<ButtonsContainer>
+		<BottomRowDoubleButtonContainer>
 			{/* 고객 */}
 			<>
 				<Primary400Button>플로라이브 신청</Primary400Button>
@@ -16,7 +16,7 @@ function ProductDetailButtons(props) {
 				<Primary400Button>수정</Primary400Button>
 				<Primary50Button>삭제</Primary50Button>
 			</> */}
-		</ButtonsContainer>
+		</BottomRowDoubleButtonContainer>
 	);
 }
 
