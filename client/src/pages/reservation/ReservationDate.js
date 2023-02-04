@@ -15,6 +15,7 @@ import Select from "react-select";
 import { useRecoilState } from "recoil";
 import { RorderTimeState } from "../../recoil/reservation";
 import NextButton from "../../components/common/NextButton";
+import { useNavigate } from "react-router-dom";
 
 let placeholder = "시간을 선택해주세요";
 
@@ -46,10 +47,12 @@ function ReservationDate() {
 
 	// placeholder = "휴무일 입니다"
 
+	const navigate = useNavigate();
 	const dateNextHandler = () => {
 		if (RorderTime === "") {
 			return;
 		}
+		navigate("/reservation/complete");
 	};
 
 	return (

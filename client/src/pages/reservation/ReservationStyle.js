@@ -56,6 +56,7 @@ export const DateContainer = styled.div`
 
 export const TimeContainer = styled.div`
 	padding: 0 64px;
+	margin-bottom: 8px;
 `;
 
 export const RFooter = styled.div`

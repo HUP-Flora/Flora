@@ -15,6 +15,7 @@ import Join from "./components/chatting/Join";
 import { SignupOwnerStore } from "./pages/auth/SignupOwnerStore";
 import ReservationType from "./pages/reservation/ReservationType";
 import ReservationDate from "./pages/reservation/ReservationDate";
+import ReservationComplete from "./pages/reservation/ReservationComplete";
 
 function AppRouter() {
 	return (
@@ -35,6 +36,7 @@ function AppRouter() {
 				// 예약 페이지들
 				<Route path="/reservation/type" element={<ReservationType />} />
 				<Route path="/reservation/date" element={<ReservationDate />} />
+				<Route path="/reservation/complete" element={<ReservationComplete />} />
 			</Routes>
 		</Router>
 	);
