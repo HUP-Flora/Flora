@@ -19,8 +19,9 @@ import ReservationDate from "./pages/reservation/ReservationDate";
 // 가게 상세 페이지
 import StoreDetail from "./pages/storeDetail/StoreDetail";
 
-// 상품 상세 페이지
-import ProductDetail from "./pages/productDetail/ProductDetail";
+// 상품 페이지
+import ProductDetail from "./pages/product/ProductDetail";
+import ProductAdd from "./pages/product/ProductAdd";
 
 function AppRouter() {
 	return (
@@ -41,9 +42,10 @@ function AppRouter() {
 				{/* 가게 상세 페이지 */}
 				<Route path="/store" element={<StoreDetail />} />
 				{/* <Route path="/store/:id" element={<StoreDetail />} /> */}
-				{/* 상품 상세 페이지 */}
+				{/* 상품 페이지 */}
 				<Route path="/productDetail" element={<ProductDetail />} />
 				{/* <Route path="/store/:id/:productId" element={<ProductDetail />} /> */}
+				<Route path="/productAdd" element={<ProductAdd />} />
 				// 예약 페이지들
 				<Route path="/reservation/type" element={<ReservationType />} />
 				<Route path="/reservation/date" element={<ReservationDate />} />
