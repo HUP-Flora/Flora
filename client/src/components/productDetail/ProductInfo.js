@@ -7,7 +7,7 @@ import {
 	Header,
 	HrWrapper,
 	DescriptionWrapper,
-} from "../../styles/productDetail/ProductInfoStyle";
+} from "../../styles/product/productDetail/ProductInfoStyle";
 import { Text, BoldText, GrayHr } from "../../styles/common/CommonStyle";
 
 import productImg from "../../assets/store.png";
