@@ -194,3 +194,49 @@ export const GrayHr = styled.hr`
 	border: 0;
 	margin: 0 16px;
 `;
+
+export const BottomButtonContainer = styled.div`
+	padding: 0 16px;
+
+	position: fixed;
+	display: flex;
+	justify-content: space-between;
+
+	background-color: #fff;
+	border-top: 0.5px solid var(--gray-300);
+
+	z-index: 100;
+
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	> button {
+		width: 100%;
+		margin: 16px 0;
+	}
+`;
+
+// 한 행에 버튼 두 개
+export const BottomRowDoubleButtonContainer = styled(BottomButtonContainer)`
+	> button:first-child {
+		margin-right: 8px;
+	}
+
+	> button:last-child {
+		margin-left: 8px;
+	}
+`;
+
+// 한 행에 버튼 한 개
+export const BottomDoubleButtonContainer = styled(BottomButtonContainer)`
+	display: block;
+
+	> button:first-child {
+		margin-bottom: 8px;
+	}
+
+	> button:last-child {
+		margin-top: 8px;
+	}
+`;
