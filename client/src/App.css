@@ -24,13 +24,21 @@
 	--red-500: #f03e3e;
 }
 
-body {
-	margin: 0px;
-}
-
 * {
 	box-sizing: border-box;
 }
 *::-webkit-scrollbar {
 	display: none;
+}
+
+body {
+	margin: 0px;
+}
+
+button {
+	cursor: pointer;
+}
+
+p {
+	margin: 0;
 }

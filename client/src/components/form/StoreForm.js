@@ -1,14 +1,23 @@
 import { ChooseHoliday } from "../store/ChooseHoliday";
-import { StatusBar } from "../../components/common/StatusBar";
+import { StatusBar } from "../common/temp/StatusBar";
 import { UploadPicture } from "../store/UploadPicture";
 import { ButtonToolBar } from "../../styles/bar/BarStyle";
 import { Primary400LargeButton } from "../../styles/button/ButtonStyle";
 import { BlankSection, BoldText } from "../../styles/common/CommonStyle";
 import { ChooseWorkingTime } from "../common/ChooseWorkingTime";
+import { useNavigate } from "react-router-dom";
 
-export function StoreForm() {
+export function StoreForm({ nextURL }) {
+	console.log(nextURL);
+	const navigate = useNavigate();
+
+	const handleSignup = e => {
+		e.preventDefault();
+		navigate(nextURL);
+	};
+
 	return (
-		<form action="#">
+		<form action="#" onSubmit={handleSignup}>
 			<StatusBar text="꽃집 등록" />
 			<BlankSection height="39" />
 			<UploadPicture />

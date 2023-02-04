@@ -22,12 +22,12 @@ public class Report {
     @JoinColumn(name = "o_id", nullable = false)
     private Order oId;
 
-    @JoinColumn(nullable = false)
-    private LocalDateTime repDate;
+    @Column(name = "rep_date", nullable = false)
+    private LocalDateTime date;
 
     @Builder
-    public Report(Order oId, LocalDateTime repDate) {
+    public Report(Order oId, LocalDateTime date) {
         this.oId = oId;
-        this.repDate = repDate;
+        this.date = date;
     }
 }

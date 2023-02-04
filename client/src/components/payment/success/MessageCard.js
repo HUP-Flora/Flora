@@ -1,5 +1,5 @@
 import { MessageDiv, MessageBoldDiv, MessageSection } from "../../../styles/payment/card/CardStyle";
-import ValidatingTicket from "../../../assets/validating-ticket.png";
+import ValidatingTicket from "../../../assets/chatting/validating-ticket.png";
 
 export function MessageCard() {
 	return (
