@@ -25,87 +25,95 @@ public class Store extends BaseEntity{
     @JoinColumn(name = "u_id", nullable = false)
     private User uId;
 
-    @Column(nullable = false)
-    private String sBusinessLicense;
+    @Column(name = "s_business_license", nullable = false)
+    private String businessLicense;
 
-    @Column(nullable = false)
-    private String sName;
+    @Column(name = "s_name", nullable = false)
+    private String name;
 
-    @Column(nullable = false)
-    private String sPhoneNumber;
+    @Column(name = "s_phone_number", nullable = false)
+    private String phoneNumber;
 
-    @Column(nullable = false)
-    private String sSido;
+    @Column(name = "s_sido", nullable = false)
+    private String sido;
 
-    @Column(nullable = false)
-    private String sGugun;
+    @Column(name = "s_gugun", nullable = false)
+    private String gugun;
 
-    @Column(nullable = false)
-    private String sDong;
+    @Column(name = "s_dong", nullable = false)
+    private String dong;
 
-    @Column(nullable = false)
-    private String sDetailedAddress;
+    @Column(name = "s_detailed_Address", nullable = false)
+    private String detailedAddress;
 
-    @Column(nullable = false)
-    private float sLat;
+    @Column(name = "s_lat", nullable = false)
+    private float lat;
 
-    @Column(nullable = false)
-    private float sLng;
+    @Column(name = "s_lng", nullable = false)
+    private float lng;
 
-    @Column(nullable = false)
-    private String sDesc;
+    @Column(name = "s_desc", nullable = false)
+    private String desc;
 
     @Enumerated(EnumType.STRING)
-    private OnAirType sIsOnair;
+    @Column(name = "s_is_onair")
+    private OnAirType isOnair;
 
-    private String sHoliday;
+    @Column(name = "s_holiday")
+    private String holiday;
 
     // 가게 - 시간단위
     // 다대일 단방향
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "s_start", nullable = false)
-    private TimeUnit sStart;
+    private TimeUnit start;
 
     // 가게 - 시간단위
     // 다대일 단방향
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "s_end", nullable = false)
-    private TimeUnit sEnd;
+    private TimeUnit end;
 
-    private String sImgOriginalName;
+    @Column(name = "s_img_original_name")
+    private String imgOriginalName;
 
-    private String sImgNewName;
+    @Column(name = "s_img_new_name")
+    private String imgNewName;
 
-    private int sImgSize;
+    @Column(name = "s_img_size")
+    private int imgSize;
 
-    private String sImgPath;
+    @Column(name = "s_img_path")
+    private String imgPath;
 
-    private String sImgField;
+    @Column(name = "s_img_field")
+    private String imgField;
 
-    private LocalDateTime sImgUploadTime;
+    @Column(name = "s_img_upload_time")
+    private LocalDateTime imgUploadTime;
 
     @Builder
-    public Store(User uId, String sBusinessLicense, String sName, String sPhoneNumber, String sSido, String sGugun, String sDong, String sDetailedAddress, float sLat, float sLng, String sDesc, OnAirType sIsOnair, String sHoliday, TimeUnit sStart, TimeUnit sEnd, String sImgOriginalName, String sImgNewName, int sImgSize, String sImgPath, String sImgField, LocalDateTime sImgUploadTime) {
+    public Store(User uId, String businessLicense, String name, String sPhoneNumber, String sido, String gugun, String dong, String detailedAddress, float lat, float lng, String desc, OnAirType isOnair, String holiday, TimeUnit start, TimeUnit end, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
         this.uId = uId;
-        this.sBusinessLicense = sBusinessLicense;
-        this.sName = sName;
-        this.sPhoneNumber = sPhoneNumber;
-        this.sSido = sSido;
-        this.sGugun = sGugun;
-        this.sDong = sDong;
-        this.sDetailedAddress = sDetailedAddress;
-        this.sLat = sLat;
-        this.sLng = sLng;
-        this.sDesc = sDesc;
-        this.sIsOnair = sIsOnair;
-        this.sHoliday = sHoliday;
-        this.sStart = sStart;
-        this.sEnd = sEnd;
-        this.sImgOriginalName = sImgOriginalName;
-        this.sImgNewName = sImgNewName;
-        this.sImgSize = sImgSize;
-        this.sImgPath = sImgPath;
-        this.sImgField = sImgField;
-        this.sImgUploadTime = sImgUploadTime;
+        this.businessLicense = businessLicense;
+        this.name = name;
+        this.phoneNumber = sPhoneNumber;
+        this.sido = sido;
+        this.gugun = gugun;
+        this.dong = dong;
+        this.detailedAddress = detailedAddress;
+        this.lat = lat;
+        this.lng = lng;
+        this.desc = desc;
+        this.isOnair = isOnair;
+        this.holiday = holiday;
+        this.start = start;
+        this.end = end;
+        this.imgOriginalName = imgOriginalName;
+        this.imgNewName = imgNewName;
+        this.imgSize = imgSize;
+        this.imgPath = imgPath;
+        this.imgField = imgField;
+        this.imgUploadTime = imgUploadTime;
     }
 }

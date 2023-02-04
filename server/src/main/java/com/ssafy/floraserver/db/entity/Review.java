@@ -31,35 +31,41 @@ public class Review extends BaseEntity{
     @JoinColumn(name = "s_id", nullable = false)
     private Store sId;
 
-    @Column(nullable = false)
-    private String revContent;
+    @Column(name = "rev_content", nullable = false)
+    private String content;
 
-    @Column(nullable = false)
-    private LocalDate revCreateDate;
+    @Column(name = "rev_create_date", nullable = false)
+    private LocalDate createDate;
 
-    private String revImgOriginalName;
+    @Column(name = "rev_img_original_name")
+    private String imgOriginalName;
 
-    private String revImgNewName;
+    @Column(name = "rev_img_new_name")
+    private String imgNewName;
 
-    private int revImgSize;
+    @Column(name = "rev_img_size")
+    private int imgSize;
 
-    private String revImgPath;
+    @Column(name = "rev_img_path")
+    private String imgPath;
 
-    private String revImgField;
+    @Column(name = "rev_img_field")
+    private String imgField;
 
-    private LocalDateTime revImgUploadTime;
+    @Column(name = "rev_img_upload_time")
+    private LocalDateTime imgUploadTime;
 
     @Builder
-    public Review(User uId, Store sId, String revContent, LocalDate revCreateDate, String revImgOriginalName, String revImgNewName, int revImgSize, String revImgPath, String revImgField, LocalDateTime revImgUploadTime) {
+    public Review(User uId, Store sId, String content, LocalDate createDate, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
         this.uId = uId;
         this.sId = sId;
-        this.revContent = revContent;
-        this.revCreateDate = revCreateDate;
-        this.revImgOriginalName = revImgOriginalName;
-        this.revImgNewName = revImgNewName;
-        this.revImgSize = revImgSize;
-        this.revImgPath = revImgPath;
-        this.revImgField = revImgField;
-        this.revImgUploadTime = revImgUploadTime;
+        this.content = content;
+        this.createDate = createDate;
+        this.imgOriginalName = imgOriginalName;
+        this.imgNewName = imgNewName;
+        this.imgSize = imgSize;
+        this.imgPath = imgPath;
+        this.imgField = imgField;
+        this.imgUploadTime = imgUploadTime;
     }
 }

@@ -21,23 +21,29 @@ public class Order extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long oId;
 
-    @Column(nullable = false)
-    private String oNum;
+    @Column(name = "o_num", nullable = false)
+    private String num;
 
-    private LocalDate oDate;
-
-    @Enumerated(EnumType.STRING)
-    private OrderStatus oStatus;
+    @Column(name = "o_date")
+    private LocalDate date;
 
     @Enumerated(EnumType.STRING)
-    private OrderType oType;
-
-    private int oPayment;
-
-    private String oPaymentNum;
+    @Column(name = "o_status")
+    private OrderStatus status;
 
     @Enumerated(EnumType.STRING)
-    private PaymentStatus oPaymentStatus;
+    @Column(name = "o_type")
+    private OrderType type;
+
+    @Column(name = "o_payment")
+    private int payment;
+
+    @Column(name = "o_payment_num")
+    private String paymentNum;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "o_payment_status")
+    private PaymentStatus paymentStatus;
 
     // 주문 - 사용자
     // 다대일 단방향
@@ -64,14 +70,14 @@ public class Order extends BaseEntity{
     private Product pId;
 
     @Builder
-    public Order(String oNum, LocalDate oDate, OrderStatus oStatus, OrderType oType, int oPayment, String oPaymentNum, PaymentStatus oPaymentStatus, User uId, Review revId, Store sId, Product pId) {
-        this.oNum = oNum;
-        this.oDate = oDate;
-        this.oStatus = oStatus;
-        this.oType = oType;
-        this.oPayment = oPayment;
-        this.oPaymentNum = oPaymentNum;
-        this.oPaymentStatus = oPaymentStatus;
+    public Order(String num, LocalDate date, OrderStatus status, OrderType type, int payment, String paymentNum, PaymentStatus paymentStatus, User uId, Review revId, Store sId, Product pId) {
+        this.num = num;
+        this.date = date;
+        this.status = status;
+        this.type = type;
+        this.payment = payment;
+        this.paymentNum = paymentNum;
+        this.paymentStatus = paymentStatus;
         this.uId = uId;
         this.revId = revId;
         this.sId = sId;

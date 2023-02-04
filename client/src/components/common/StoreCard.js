@@ -14,8 +14,10 @@ import { BoldText, GrayText, OnOff, Text } from "../../styles/common/CommonStyle
 import FloMark from "../../assets/tapIcon/FloMark.png";
 import SelectedFloMark from "../../assets/tapIcon/SelectedFloMark.png";
 import { FloMarkImage } from "../../styles/icon/IconStyle";
+import { useNavigate } from "react-router";
 
 export function StoreCard({
+	sId,
 	sName,
 	sPhoneNumber,
 	sSido,
@@ -27,8 +29,17 @@ export function StoreCard({
 	sImage,
 	sIsOn,
 }) {
+	const navigate = useNavigate();
+
+	const handleClick = sId => {
+		navigate(`/store/${sId}`);
+	};
 	return (
-		<StoreCardContainer>
+		<StoreCardContainer
+			onClick={() => {
+				handleClick(sId);
+			}}
+		>
 			<StoreCardTextSection>
 				<StoreCardTextTitle>
 					<StoreCardTextTitleSection>

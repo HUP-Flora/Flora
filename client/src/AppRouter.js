@@ -14,6 +14,11 @@ import Chatting from "./components/chatting/Chatting";
 import Join from "./components/chatting/Join";
 import { SignupOwnerStore } from "./pages/auth/SignupOwnerStore";
 import { SearchStore } from "./pages/SearchStore";
+import ReservationType from "./pages/reservation/ReservationType";
+import ReservationDate from "./pages/reservation/ReservationDate";
+
+// 가게 상세 페이지
+import StoreDetail from "./pages/storeDetail/StoreDetail";
 
 function AppRouter() {
 	return (
@@ -32,6 +37,12 @@ function AppRouter() {
 				// 채팅 테스트용 페이지
 				<Route path="/join" element={<Join />} />
 				<Route path="/chat" element={<Chatting />} />
+				// 가게 상세 페이지
+				<Route path="/store" element={<StoreDetail />} />
+				{/* <Route path="/store/:id" element={<StoreDetail />} /> */}
+				// 예약 페이지들
+				<Route path="/reservation/type" element={<ReservationType />} />
+				<Route path="/reservation/date" element={<ReservationDate />} />
 			</Routes>
 		</Router>
 	);

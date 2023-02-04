@@ -5,17 +5,10 @@ import { stores } from "../map/dummydata";
 import { StoreCard } from "./StoreCard";
 
 export function StoreList() {
-	const navigate = useNavigate();
-
-	const handleClick = store => {
-		console.log(store);
-		navigate("/store/1234");
-	};
-
 	return (
 		<StoreListSection>
 			{stores.map(store => (
-				<StoreCard {...store} onClick={handleClick} />
+				<StoreCard {...store} key={store.sId} />
 			))}
 			<BlankSection height="56" />
 		</StoreListSection>
