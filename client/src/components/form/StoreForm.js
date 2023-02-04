@@ -8,7 +8,6 @@ import { ChooseWorkingTime } from "../common/ChooseWorkingTime";
 import { useNavigate } from "react-router-dom";
 
 export function StoreForm({ nextURL }) {
-	console.log(nextURL);
 	const navigate = useNavigate();
 
 	const handleSignup = e => {

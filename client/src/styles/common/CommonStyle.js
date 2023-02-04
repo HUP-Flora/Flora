@@ -108,7 +108,6 @@ export const UploadPictureSection = styled.div`
 export const PicturePreview = styled.img`
 	width: 100px;
 	height: 100px;
-	border: 1px solid var(--gray-400);
 	border-radius: 50px;
 
 	position: relative;
