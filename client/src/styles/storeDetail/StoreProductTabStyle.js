@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ProductsContainer = styled.div`
 	margin: 0 16px;
-	margin-top: 32px;
+	margin-top: 40px;
 
 	display: flex;
 

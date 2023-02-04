@@ -6,7 +6,7 @@ import {
 	ProductImageWrapper,
 	ProductName,
 	ProductPrice,
-} from "../../styles/storeDetail/StoreDetailProductStyle";
+} from "../../styles/storeDetail/StoreProductTabStyle";
 
 import productImgSrc from "../../assets/store.png";
 
