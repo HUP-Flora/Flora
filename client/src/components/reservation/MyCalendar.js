@@ -1,6 +1,4 @@
-import {useEffect, useState} from "react";
-import Calendar from "react-calendar";
-import { formatDate } from "react-calendar/src/shared/dateFormatter";
+import {useEffect} from "react";
 
 import "./MyCalendar.css"
 import {useRecoilState} from "recoil";

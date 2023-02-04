@@ -6,7 +6,6 @@ import {
 	ReservationTypeTitle
 } from "./ReservationStyle";
 import MyCalendar from "../../components/reservation/MyCalendar";
-import "react-calendar/dist/Calendar.css";
 
 function ReservationDate() {
 	return (
