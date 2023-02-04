@@ -13,17 +13,10 @@ export const TabTitlesContainer = styled.div`
 `;
 
 export const TabTitle = styled.div`
+	padding-bottom: 8px;
+
+	border-bottom: 1px solid ${props => (props.active ? "black" : "var(--gray-400)")};
+
 	font-weight: bold;
 	color: ${props => !props.active && "var(--gray-500)"};
-	margin-bottom: 8px;
-`;
-
-export const TabHrWrapper = styled.hr`
-	// display: flex;
-`;
-
-export const TabHr = styled.hr`
-	height: 1px;
-	border: none;
-	background: ${props => (props.active ? "black" : "var(--gray-400)")};
 `;

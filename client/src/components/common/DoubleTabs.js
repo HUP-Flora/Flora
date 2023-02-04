@@ -1,11 +1,6 @@
 import React from "react";
 
-import {
-	TabTitlesContainer,
-	TabTitle,
-	TabHrWrapper,
-	TabHr,
-} from "../../styles/common/DoubleTabsStyle";
+import { TabTitlesContainer, TabTitle } from "../../styles/common/DoubleTabsStyle";
 
 function DoubleTabs({ isDefaultTabActive, setIsDefaultTabActive, defaultTabTitle, otherTabTitle }) {
 	const handleClickDefaultTab = isDefault => {
@@ -22,7 +17,6 @@ function DoubleTabs({ isDefaultTabActive, setIsDefaultTabActive, defaultTabTitle
 					>
 						{defaultTabTitle}
 					</TabTitle>
-					<TabHr active={isDefaultTabActive ? true : false} />
 				</div>
 				<div>
 					<TabTitle
@@ -31,13 +25,8 @@ function DoubleTabs({ isDefaultTabActive, setIsDefaultTabActive, defaultTabTitle
 					>
 						{otherTabTitle}
 					</TabTitle>
-					<TabHr active={isDefaultTabActive ? false : true} />
 				</div>
 			</TabTitlesContainer>
-			{/* <TabHrWrapper> */}
-			{/* <TabHr /> */}
-			{/* <TabHr /> */}
-			{/* </TabHrWrapper> */}
 		</>
 	);
 }
