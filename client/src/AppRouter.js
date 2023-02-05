@@ -22,6 +22,7 @@ import StoreDetail from "./pages/storeDetail/StoreDetail";
 // 상품 페이지
 import ProductDetail from "./pages/product/ProductDetail";
 import ProductAdd from "./pages/product/ProductAdd";
+import ProductEdit from "./pages/product/ProductEdit";
 
 function AppRouter() {
 	return (
@@ -46,6 +47,7 @@ function AppRouter() {
 				<Route path="/productDetail" element={<ProductDetail />} />
 				{/* <Route path="/store/:id/:productId" element={<ProductDetail />} /> */}
 				<Route path="/productAdd" element={<ProductAdd />} />
+				<Route path="/productEdit" element={<ProductEdit />} />
 				// 예약 페이지들
 				<Route path="/reservation/type" element={<ReservationType />} />
 				<Route path="/reservation/date" element={<ReservationDate />} />
