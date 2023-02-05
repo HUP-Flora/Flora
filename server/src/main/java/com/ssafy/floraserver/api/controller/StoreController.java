@@ -22,9 +22,9 @@ public class StoreController {
     @GetMapping
     public List<StoreListRes> findStoreList(@RequestParam String address, Pageable pageable){
 
-        List<StoreListRes> storeListResList = storeService.findStoreList(address, pageable);
+        List<StoreListRes> storeResList = storeService.findStoreList(address, pageable);
 
-        return storeListResList;
+        return storeResList;
     }
 
     @GetMapping("{sId}")
@@ -38,9 +38,9 @@ public class StoreController {
     @GetMapping("{sId}/products")
     public List<ProductRes> findProductList(@PathVariable("sId") Long sId, Pageable pageable){
 
-        List<ProductRes> productList = storeService.findProductList(sId, pageable);
+        List<ProductRes> productResList = storeService.findProductList(sId, pageable);
 
-        return productList;
+        return productResList;
     }
 
     @GetMapping("products/{pId}")
