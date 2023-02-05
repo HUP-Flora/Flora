@@ -21,13 +21,13 @@ import StoreDetail from "./pages/storeDetail/StoreDetail";
 
 // 상품 페이지
 import ProductDetail from "./pages/product/ProductDetail";
-import ProductAdd from "./pages/product/ProductAdd";
-import ProductEdit from "./pages/product/ProductEdit";
+import ProductForms from "./pages/product/ProductForms";
 
 // 마이 페이지
 import MyPage from "./pages/myPage/MyPage";
 import Review from "./pages/myPage/Review";
 import UserDelete from "./pages/myPage/UserDelete";
+import OrderDetail from "./pages/myPage/OrderDetail";
 
 // 꽃갈피 페이지
 import FloMark from "./pages/floMark/FloMark";
@@ -54,8 +54,8 @@ function AppRouter() {
 				{/* 상품 페이지 */}
 				<Route path="/productDetail" element={<ProductDetail />} />
 				{/* <Route path="/store/:id/:productId" element={<ProductDetail />} /> */}
-				<Route path="/productAdd" element={<ProductAdd />} />
-				<Route path="/productEdit" element={<ProductEdit />} />
+				<Route path="/productAdd" element={<ProductForms />} />
+				<Route path="/productEdit" element={<ProductForms />} />
 				// 예약 페이지들
 				<Route path="/reservation/type" element={<ReservationType />} />
 				<Route path="/reservation/date" element={<ReservationDate />} />
@@ -63,6 +63,7 @@ function AppRouter() {
 				<Route path="/myPage" element={<MyPage />} />
 				<Route path="/review" element={<Review />} />
 				<Route path="/userDelete" element={<UserDelete />} />
+				<Route path="/orderDetail" element={<OrderDetail />} />
 				{/* 꽃갈피 페이지 */}
 				<Route path="/floMark" element={<FloMark />} />
 			</Routes>
