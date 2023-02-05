@@ -9,17 +9,9 @@ function StoreDetail(props) {
 	return (
 		<>
 			<StatusBar text="가게 상세" />
-
-			{/* 가게 기본 정보 */}
 			<StoreInfo />
-
-			{/* 버튼(사장, 고객 구분) */}
 			<StoreDetailButtons />
-
-			{/* 상품, 리뷰 탭 */}
 			<StoreTabs />
-
-			{/* 상품 목록 */}
 		</>
 	);
 }
