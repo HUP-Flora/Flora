@@ -50,8 +50,14 @@ public class SecurityConfig {
                 // URL 권한 설정
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/auth/users").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/auth/users").authenticated()
+                .antMatchers(HttpMethod.PUT, "/api/auth/stores").authenticated()
                 .anyRequest().permitAll()
+                .and()
+                .logout()
+                .logoutUrl("/api/auth/logout")
+                .permitAll()
+
 
                 // JWT 설정
                 .and()
