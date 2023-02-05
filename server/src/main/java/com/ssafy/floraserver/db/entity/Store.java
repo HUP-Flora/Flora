@@ -99,6 +99,9 @@ public class Store extends BaseEntity{
     @Formula("(select count(*) from bookmarks b where b.s_id = s_id)")
     private int bookmarkCnt;
 
+    @Formula("(select count(*) from reviews r where r.s_id = s_id)")
+    private int reviewCnt;
+
     @Builder
     public Store(User uId, String businessLicense, String name, String phoneNumber, String sido, String gugun, String dong, String detailedAddress, float lat, float lng, String desc, OnAirType isOnair,  String holiday, TimeUnit start, TimeUnit end, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
         this.uId = uId;

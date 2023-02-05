@@ -1,13 +1,12 @@
 package com.ssafy.floraserver.api.response;
 
 import com.ssafy.floraserver.db.entity.Store;
-import com.ssafy.floraserver.db.entity.TimeUnit;
 import com.ssafy.floraserver.db.entity.enums.OnAirType;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class StoreRes {
+public class StoreListRes {
 
     private Long sId;
     private String sName;
@@ -16,31 +15,15 @@ public class StoreRes {
     private String gugun;
     private String dong;
     private String detailedAddress;
-    private String holiday;
     private OnAirType isOnair;
     private String start;
     private String end;
+    private float lat;
+    private float lng;
     private int bookmarkCnt;
-    private int reviewCnt;
-
-    public StoreRes(Long sId, String sName, String phoneNumber, String sido, String gugun, String dong, String detailedAddress, String holiday, OnAirType isOnair, String start, String end, int bookmarkCnt, int reviewCnt) {
-        this.sId = sId;
-        this.sName = sName;
-        this.phoneNumber = phoneNumber;
-        this.sido = sido;
-        this.gugun = gugun;
-        this.dong = dong;
-        this.detailedAddress = detailedAddress;
-        this.holiday = holiday;
-        this.isOnair = isOnair;
-        this.start = start;
-        this.end = end;
-        this.bookmarkCnt = bookmarkCnt;
-        this.reviewCnt = reviewCnt;
-    }
 
     @Builder
-    public StoreRes(Store store) {
+    public StoreListRes(Store store) {
         this.sId = store.getSId();
         this.sName = store.getName();
         this.phoneNumber = store.getPhoneNumber();
@@ -48,11 +31,11 @@ public class StoreRes {
         this.gugun = store.getGugun();
         this.dong = store.getDong();
         this.detailedAddress = store.getDetailedAddress();
-        this.holiday = store.getHoliday();
         this.isOnair = store.getIsOnair();
         this.start = store.getStart().getTime();
         this.end = store.getEnd().getTime();
+        this.lat = store.getLat();
+        this.lng = store.getLng();
         this.bookmarkCnt = store.getBookmarkCnt();
-        this.reviewCnt = store.getReviewCnt();
     }
 }
