@@ -9,7 +9,7 @@ import {
 	RFooterTitle,
 	RFooterTitleContainer,
 	TimeContainer,
-} from "./ReservationStyle";
+} from "../../styles/reservation/ReservationStyle";
 import MyCalendar from "../../components/reservation/MyCalendar";
 import Select from "react-select";
 import { useRecoilState } from "recoil";

@@ -6,7 +6,7 @@ import {
 	ReserVationTypeContainer,
 	ReservationTypeContent,
 	ReservationTypeTitle,
-} from "./ReservationStyle";
+} from "../../styles/reservation/ReservationStyle";
 import StatusBar from "../../components/common/StatusBar";
 import deleveryGRAYimage from "../../assets/reservation/DeliveryButtonFormImage_GRAY.png";
 import pickupGRAYimage from "../../assets/reservation/FirstFormPickUpImage_GRAY.png";
