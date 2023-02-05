@@ -5,32 +5,36 @@ import {
 	UploadPictureSection,
 	PictureSection,
 } from "../../styles/common/CommonStyle";
-import Photo from "../../assets/photo/Photo.png";
+import EmptyPhoto from "../../assets/photo/Photo.png";
 import PlusButton from "../../assets/photo/PlusButton.png";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
+import { useRecoilState } from "recoil";
+import { storeImageFileState, storeImagePreviewState } from "../../recoil/signup";
 
 export function UploadPicture() {
-	const [imgFile, setImgFile] = useState("");
-	const imgRef = useRef();
+	const [imageFile, setImageFile] = useRecoilState(storeImageFileState);
+	const [imagePreview, setImagePreview] = useRecoilState(storeImagePreviewState);
+	const imageRef = useRef();
 
 	const onUploadImage = useCallback(() => {
-		const file = imgRef.current.files[0];
+		const file = imageRef.current.files[0];
 		const reader = new FileReader();
+		setImageFile(file);
 		reader.readAsDataURL(file);
 		reader.onloadend = () => {
-			setImgFile(reader.result);
+			setImagePreview(reader.result);
 		};
 	}, []);
 
 	const onUploadImageButtonClick = useCallback(() => {
-		imgRef.current.click();
+		imageRef.current.click();
 	}, []);
 
 	return (
 		<UploadPictureSection>
-			<ImageInput type="file" accept="image/*" ref={imgRef} onChange={onUploadImage} />
+			<ImageInput type="file" accept="image/*" ref={imageRef} onChange={onUploadImage} />
 			<PictureSection onClick={onUploadImageButtonClick}>
-				<PicturePreview src={imgFile ? imgFile : Photo} alt="photoPreview" />
+				<PicturePreview src={imagePreview ? imagePreview : EmptyPhoto} alt="photoPreview" />
 				<UploadButton src={PlusButton} alt={PlusButton} />
 			</PictureSection>
 		</UploadPictureSection>

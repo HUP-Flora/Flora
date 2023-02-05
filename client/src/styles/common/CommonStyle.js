@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ErrorMessage } from "../chatting/Messages/Message/forms/OtherFormStyle";
 
 // 미디어쿼리로 pc일 경우와 mobile일 경우를 구분해서 진행하면 될 듯!
 
@@ -115,6 +116,7 @@ export const PicturePreview = styled.img`
 `;
 
 export const PictureSection = styled.div`
+	cursor: pointer;
 	width: 100px;
 	height: 100px;
 
@@ -157,6 +159,7 @@ export const ChooseHolidaySection = styled.div`
 `;
 
 export const HolidayCircle = styled.div`
+	cursor: pointer;
 	width: 40px;
 	height: 40px;
 	border-radius: 20px;

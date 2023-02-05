@@ -1,4 +1,6 @@
 import Select from "react-select";
+import { useRecoilState } from "recoil";
+import { storeEndTimeState, storeStartTimeState } from "../../recoil/signup";
 import { ChooseWorkingTimeSection, GrayText, Text } from "../../styles/common/CommonStyle";
 
 export function ChooseWorkingTime() {
@@ -53,22 +55,29 @@ export function ChooseWorkingTime() {
 		{ value: 47, label: "23:30" },
 	];
 
+	const [storeStartTime, setStoreStartTime] = useRecoilState(storeStartTimeState);
+	const [storeEndTime, setStoreEndTime] = useRecoilState(storeEndTimeState);
+
 	return (
 		<ChooseWorkingTimeSection>
 			<GrayText size="13">시작</GrayText>
 			<Select
+				defaultValue={{ value: 18, label: "09:00" }}
 				options={options}
 				isSearchable={false}
 				isDisabled={false}
-				placeholder="00:00"
+				onChange={target => setStoreStartTime(target)}
+				// placeholder="00:00"
 			></Select>
 			<Text size="16">~</Text>
 			<GrayText size="13">종료</GrayText>
 			<Select
+				defaultValue={{ value: 36, label: "18:00" }}
 				options={options}
 				isSearchable={false}
 				isDisabled={false}
-				placeholder="00:00"
+				onChange={target => setStoreEndTime(target)}
+				// placeholder="00:00"
 			></Select>
 		</ChooseWorkingTimeSection>
 	);

@@ -21,7 +21,7 @@ export const ReservationTypeContent = styled.p`
 	color: var(--gray-500);
 `;
 
-export const DeliveryButton = styled.button`
+export const FirstWhiteLargeButton = styled.button`
 	width: 100%;
 	height: 94px;
 	background: #ffffff;
@@ -45,7 +45,7 @@ export const GrayText = styled.p`
 	font-size: 19px;
 `;
 
-export const PickUpButton = styled(DeliveryButton)`
+export const SecondWhiteLargeButton = styled(FirstWhiteLargeButton)`
 	margin-top: 32px;
 `;
 
