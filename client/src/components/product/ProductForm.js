@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import TextareaAutosize from "react-textarea-autosize";
+
 import { UploadPicture } from "../store/UploadPicture";
 
 import {
@@ -9,27 +11,36 @@ import {
 	TextLimit,
 	BottomBorderInput,
 	BorderTextArea,
+	ValidTextWrapper,
 } from "../../styles/product/productForm/ProductFormStyle";
-import { GrayText } from "../../styles/common/CommonStyle";
+import { GrayText, ValidText } from "../../styles/common/CommonStyle";
 
-function ProductAddForm(props) {
+function ProductAddForm({
+	name,
+	setName,
+	price,
+	setPrice,
+	description,
+	setDescription,
+	isValidName,
+	isValidPrice,
+	isValidDescription,
+}) {
 	const [nameCount, setNameCount] = useState(0);
 	const [descriptionCount, setDescriptionCount] = useState(0);
 
 	const handleChangeNameValue = e => {
+		setName(e.target.value);
 		setNameCount(e.target.value.length);
 	};
 
-	const handleChangeDescriptionValue = e => {
-		setDescriptionCount(e.target.value.length);
+	const handleChangePriceValue = e => {
+		setPrice(e.target.value);
 	};
 
-	// 더미 데이터
-	const product = {
-		name: "상품명",
-		price: 10000,
-		description:
-			"lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid",
+	const handleChangeDescriptionValue = e => {
+		setDescription(e.target.value);
+		setDescriptionCount(e.target.value.length);
 	};
 
 	return (
@@ -38,40 +49,52 @@ function ProductAddForm(props) {
 				<UploadPicture />
 			</UploadPictureWrapper>
 			<FormWrapper>
-				<form>
-					<InputWrapper>
-						<BottomBorderInput
-							type="text"
-							placeholder="상품명을 입력해주세요."
-							maxLength={50}
-							// defaultValue={product?.name}
-							onChange={handleChangeNameValue}
-						/>
-						<TextLimit>
-							<GrayText size="11">{nameCount} / 50자</GrayText>
-						</TextLimit>
-					</InputWrapper>
-					<InputWrapper>
+				<InputWrapper>
+					<BottomBorderInput
+						type="text"
+						placeholder="상품명을 입력해주세요."
+						maxLength={50}
+						onChange={handleChangeNameValue}
+						value={name}
+					/>
+					{!isValidName && (
+						<ValidTextWrapper>
+							<ValidText>상품명을 입력해주세요.</ValidText>
+						</ValidTextWrapper>
+					)}
+					<TextLimit>
+						<GrayText size="11">{nameCount} / 50자</GrayText>
+					</TextLimit>
+				</InputWrapper>
+				<InputWrapper>
+					<div>
 						<BottomBorderInput
 							type="text"
 							placeholder="가격을 입력해주세요."
-							// defaultValue={product?.price}
+							onChange={handleChangePriceValue}
+							value={price}
 						/>
 						<p>원</p>
-					</InputWrapper>
-					<InputWrapper>
-						<BorderTextArea
-							rows={5}
-							placeholder="상품 상세 설명을 입력해주세요."
-							maxLength={500}
-							// defaultValue={product?.description}
-							onChange={handleChangeDescriptionValue}
-						/>
-						<TextLimit>
-							<GrayText size="11">{descriptionCount} / 500자</GrayText>
-						</TextLimit>
-					</InputWrapper>
-				</form>
+					</div>
+					{!isValidPrice && <ValidText>가격을 입력해주세요.</ValidText>}
+				</InputWrapper>
+				<InputWrapper>
+					<BorderTextArea
+						minRows={5}
+						placeholder="상품 상세 설명을 입력해주세요."
+						maxLength={500}
+						onChange={handleChangeDescriptionValue}
+						value={description}
+					/>
+					<TextLimit>
+						<GrayText size="11">{descriptionCount} / 500자</GrayText>
+					</TextLimit>
+					{!isValidDescription && (
+						<ValidTextWrapper>
+							<ValidText>상품 상세 설명을 입력해주세요.</ValidText>
+						</ValidTextWrapper>
+					)}
+				</InputWrapper>
 			</FormWrapper>
 		</>
 	);

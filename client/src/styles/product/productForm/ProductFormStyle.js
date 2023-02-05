@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import TextareaAutosize from "react-textarea-autosize";
 
 export const UploadPictureWrapper = styled.div`
 	margin: 0 16px;
@@ -13,12 +14,14 @@ export const UploadPictureWrapper = styled.div`
 
 export const FormWrapper = styled.div`
 	margin: 0 16px;
+	padding-bottom: 150px;
 
-	& div:nth-child(2) {
+	& div:nth-child(2) > div:first-child {
 		display: flex;
+		align-items: end;
 	}
 
-	& div:nth-child(2) > input {
+	& div:nth-child(2) > div:first-child > input {
 		text-align: right;
 
 		::placeholder {
@@ -56,7 +59,8 @@ export const BottomBorderInput = styled.input`
 	}
 `;
 
-export const BorderTextArea = styled.textarea`
+// export const BorderTextArea = styled.textarea`
+export const BorderTextArea = styled(TextareaAutosize)`
 	width: 100%;
 
 	padding: 8px;
@@ -81,4 +85,8 @@ export const TextLimit = styled.div`
 
 	display: block;
 	float: right;
+`;
+
+export const ValidTextWrapper = styled.div`
+	display: inline-flex !important;
 `;
