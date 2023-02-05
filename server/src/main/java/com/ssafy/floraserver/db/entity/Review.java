@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Review extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long revId;
 
     // 리뷰 - 사용자
@@ -60,7 +60,7 @@ public class Review extends BaseEntity{
         this.uId = uId;
         this.sId = sId;
         this.content = content;
-        this.createDate = createDate;
+        this.createDate = LocalDate.now();
         this.imgOriginalName = imgOriginalName;
         this.imgNewName = imgNewName;
         this.imgSize = imgSize;

@@ -52,6 +52,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/auth/users").authenticated()
                 .antMatchers(HttpMethod.PUT, "/api/auth/stores").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/reviews").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .logout()
