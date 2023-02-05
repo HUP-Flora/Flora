@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
@@ -22,6 +23,7 @@ import java.util.Map;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class AuthService {
 
     private final UserRepository userRepository;
@@ -93,6 +95,8 @@ public class AuthService {
         TimeUnit end = timeUnitRepository.findById(storeExtraInfoReq.getEnd())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
+        // TimeUnitDto StoreDto
+
         Store store = Store.builder()
                 .uId(user)
                 .businessLicense(storeExtraInfoReq.getBusinessLicense())
@@ -102,12 +106,16 @@ public class AuthService {
                 .gugun(storeExtraInfoReq.getGugun())
                 .dong(storeExtraInfoReq.getDong())
                 .detailedAddress(storeExtraInfoReq.getDetailedAddress())
+                .lat(storeExtraInfoReq.getLat())
+                .lng(storeExtraInfoReq.getLng())
                 .desc(storeExtraInfoReq.getDesc())
                 .holiday(storeExtraInfoReq.getHoliday())
                 .start(start)
                 .end(end)
                 .build();
+
         Store save = storeRepository.save(store);
+
         return save;
     }
 }

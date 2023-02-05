@@ -26,4 +26,4 @@ spring:
 app:
   auth:
     jwt:
-      secret-key: 
+      secret-key: ASDHLKjWDUHASf676SJDfh623DAF8

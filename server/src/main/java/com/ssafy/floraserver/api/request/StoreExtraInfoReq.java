@@ -13,6 +13,8 @@ public class StoreExtraInfoReq {
     private String gugun;
     private String dong;
     private String detailedAddress;
+    private float lat;
+    private float lng;
     private String desc;
     private Long start;
     private Long end;
