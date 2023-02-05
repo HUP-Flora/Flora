@@ -24,6 +24,11 @@ import ProductDetail from "./pages/product/ProductDetail";
 import ProductAdd from "./pages/product/ProductAdd";
 import ProductEdit from "./pages/product/ProductEdit";
 
+// 마이 페이지
+import MyPage from "./pages/myPage/MyPage";
+import Review from "./pages/myPage/Review";
+import UserDelete from "./pages/myPage/UserDelete";
+
 function AppRouter() {
 	return (
 		<Router>
@@ -51,6 +56,10 @@ function AppRouter() {
 				// 예약 페이지들
 				<Route path="/reservation/type" element={<ReservationType />} />
 				<Route path="/reservation/date" element={<ReservationDate />} />
+				{/* 마이페이지 */}
+				<Route path="/myPage" element={<MyPage />} />
+				<Route path="/review" element={<Review />} />
+				<Route path="/userDelete" element={<UserDelete />} />
 			</Routes>
 		</Router>
 	);
