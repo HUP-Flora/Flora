@@ -8,11 +8,11 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil/signup";
 import {
+	GrayText,
 	ButtonImage,
 	FirstWhiteLargeButton,
 	SecondWhiteLargeButton,
-} from "../reservation/ReservationStyle";
-import { GrayText } from "../../pages/reservation/ReservationStyle.js";
+} from "../../styles/reservation/ReservationStyle.js";
 
 export function Signup() {
 	const [user, setUser] = useRecoilState(userState);

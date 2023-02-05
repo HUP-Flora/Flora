@@ -92,6 +92,7 @@ export const SearchBarContainer = styled.section`
 `;
 
 export const SearchBarContent = styled.div`
+	cursor: pointer;
 	width: 49.8%;
 	text-align: center;
 `;
