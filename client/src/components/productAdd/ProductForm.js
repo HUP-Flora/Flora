@@ -9,7 +9,7 @@ import {
 	TextLimit,
 	BottomBorderInput,
 	BorderTextArea,
-} from "../../styles/product/productAdd/ProductAddFormStyle";
+} from "../../styles/product/productForm/ProductFormStyle";
 import { GrayText } from "../../styles/common/CommonStyle";
 
 function ProductAddForm(props) {
@@ -24,6 +24,14 @@ function ProductAddForm(props) {
 		setDescriptionCount(e.target.value.length);
 	};
 
+	// 더미 데이터
+	const product = {
+		name: "상품명",
+		price: 10000,
+		description:
+			"lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid",
+	};
+
 	return (
 		<>
 			<UploadPictureWrapper>
@@ -36,6 +44,7 @@ function ProductAddForm(props) {
 							type="text"
 							placeholder="상품명을 입력해주세요."
 							maxLength={50}
+							// defaultValue={product?.name}
 							onChange={handleChangeNameValue}
 						/>
 						<TextLimit>
@@ -43,7 +52,11 @@ function ProductAddForm(props) {
 						</TextLimit>
 					</InputWrapper>
 					<InputWrapper>
-						<BottomBorderInput type="text" placeholder="가격을 입력해주세요." />
+						<BottomBorderInput
+							type="text"
+							placeholder="가격을 입력해주세요."
+							// defaultValue={product?.price}
+						/>
 						<p>원</p>
 					</InputWrapper>
 					<InputWrapper>
@@ -51,6 +64,7 @@ function ProductAddForm(props) {
 							rows={5}
 							placeholder="상품 상세 설명을 입력해주세요."
 							maxLength={500}
+							// defaultValue={product?.description}
 							onChange={handleChangeDescriptionValue}
 						/>
 						<TextLimit>
