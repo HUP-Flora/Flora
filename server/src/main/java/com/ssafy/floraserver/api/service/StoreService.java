@@ -51,9 +51,10 @@ public class StoreService {
 
     public StoreRes findStore(Long sId) {
 
-        StoreRes storeRes = storeRepository.findStoreRes(sId)
+        Store store = storeRepository.findById(sId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        return storeRes;
+
+        return StoreRes.builder().store(store).build();
     }
 
     public List<ProductRes> findProductList(Long sId, Pageable pageable) {
