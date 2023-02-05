@@ -43,7 +43,6 @@ export const ShopName = styled.div`
 `;
 
 export const OrderInfoButton = styled.button`
-	width: 100%;
 	height: 44px;
 	display: flex;
 	justify-content: center;
