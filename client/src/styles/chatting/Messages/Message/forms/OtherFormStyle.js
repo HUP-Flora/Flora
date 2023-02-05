@@ -58,7 +58,7 @@ export const TextInput = styled.input`
 
 export const InputCounter = styled.p`
 	font-size: 11px;
-	color: #adb5bd;
+	color: ${props => (props.isError ? "red" : "#adb5bd")};
 	margin: 0 0 8px auto;
 `;
 

@@ -5,36 +5,238 @@ import { Primary400LargeButton } from "../../styles/button/ButtonStyle";
 import { BlankSection, BoldText } from "../../styles/common/CommonStyle";
 import { ChooseWorkingTime } from "../common/ChooseWorkingTime";
 import { useNavigate } from "react-router-dom";
+import {
+	SignupAddressContainerButton,
+	SignupFirstAddressInput,
+	SignupLabelDiv,
+	SignupPhoneNumberInput,
+	SignupSecondAddressInput,
+	SignupTextInput,
+	StoreDescription,
+} from "../../styles/chatting/input/InputStyle";
+import {
+	ErrorMessage,
+	InputCounter,
+	InputCounterContainer,
+	InputLabel,
+	SearchAddressContainerButton,
+} from "../../styles/chatting/Messages/Message/forms/OtherFormStyle";
+import { useCallback, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+	phoneNumberState,
+	storeBrnState,
+	storeDescriptionState,
+	storeEndTimeState,
+	storeFirstAddressState,
+	storeHolidayState,
+	storeImageFileState,
+	storeImagePreviewState,
+	storeNameState,
+	storeSecondAddressState,
+	storeStartTimeState,
+} from "../../recoil/signup";
+import PostcodeModal from "../common/PostcodeModal";
+import { isDaumPostShowState } from "../../recoil/chatting";
 
 export function StoreForm({ nextURL }) {
-	const navigate = useNavigate();
+	const [storePhoneNumber, setStorePhoneNumber] = useRecoilState(phoneNumberState);
+	const [storeName, setStoreName] = useRecoilState(storeNameState);
+	const [storeDescription, setStoreDescription] = useRecoilState(storeDescriptionState);
+	const [storeFirstAddress, setStoreFirstAddress] = useRecoilState(storeFirstAddressState);
+	const [storeSecondAddress, setStoreSecondAddress] = useRecoilState(storeSecondAddressState);
+	const [storeEndTime, setStoreEndTime] = useRecoilState(storeEndTimeState);
+	const [storeHoliday, setStoreHoliday] = useRecoilState(storeHolidayState);
+	const [storeNameErrorMessage, setStoreNameErrorMessage] = useState("");
+	const [storePhoneNumberErrorMessage, setStorePhoneNumberErrorMessage] = useState("");
+	const [storeAddressErrorMessage, setStoreAddressErrorMessage] = useState("");
+	const [isDaumPostShow, setIsDaumPostShow] = useRecoilState(isDaumPostShowState);
 
-	const handleSignup = e => {
+	const storeStartTime = useRecoilValue(storeStartTimeState);
+	const storeBrn = useRecoilValue(storeBrnState);
+	const storeImageFile = useRecoilValue(storeImageFileState);
+	const storeImagePreview = useRecoilValue(storeImagePreviewState);
+
+	const navigate = useNavigate();
+	const handleStoreForm = e => {
 		e.preventDefault();
-		navigate(nextURL);
+
+		console.log("Ff");
+
+		if (storeNameValidate(storeName) && phoneNumberValidate(storePhoneNumber)) {
+			const storeHolidays = ["월", "화", "수", "목", "금", "토", "일"]
+				.filter((_, index) => storeHoliday[index])
+				.join();
+
+			const formData = new FormData();
+			formData.append("thumbnail", storeImageFile);
+			formData.append("businessLicense", storeBrn);
+			formData.append("name", storeName);
+			formData.append("phoneNumber", storePhoneNumber);
+			formData.append("sido", "");
+			formData.append("gugun", "");
+			formData.append("dong", "");
+			formData.append("detailedAddress", storeSecondAddress);
+			formData.append("desc", storeDescription);
+			formData.append("holiday", storeHolidays);
+			formData.append("start", storeStartTime.value);
+			formData.append("end", storeEndTime.value);
+
+			// for (let key of formData.keys()) {
+			// 	console.log(key);
+			// }
+
+			// for (let value of formData.values()) {
+			// 	console.log(value);
+			// }
+
+			navigate(nextURL);
+		}
+	};
+
+	const storeNameHandler = useCallback(
+		target => {
+			const Sname = target.value;
+			setStoreName(Sname);
+			if (Sname) {
+				storeNameValidate(Sname);
+			}
+		},
+		[setStoreName]
+	);
+
+	const storeNameValidate = storeName => {
+		if (!storeName.trim()) {
+			setStoreNameErrorMessage("가게명을 입력해주세요.");
+			return false;
+		} else if (storeName.length > 50) {
+			setStoreNameErrorMessage("가게명은 50자 이하여야 합니다.");
+			return false;
+		} else {
+			setStoreNameErrorMessage("");
+			return true;
+		}
+	};
+
+	const phoneNumberHandler = useCallback(
+		target => {
+			target.value = target.value
+				.replace(/[^0-9]/g, "")
+				.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+				.replace(/(-{1,2})$/g, "");
+			setStorePhoneNumberErrorMessage("");
+			setStorePhoneNumber(target.value);
+		},
+		[setStorePhoneNumber]
+	);
+
+	const phoneNumberValidate = phoneNumber => {
+		if (!phoneNumber.trim()) {
+			setStorePhoneNumberErrorMessage("전화번호를 입력해주세요.");
+			return false;
+		} else if (phoneNumber.length < 12) {
+			setStorePhoneNumberErrorMessage("잘못된 양식입니다. 다시 작성해주세요.");
+			return false;
+		} else {
+			setStorePhoneNumberErrorMessage("");
+			return true;
+		}
+	};
+
+	const daumPostHandler = e => {
+		setIsDaumPostShow(true);
+	};
+
+	const formatFirstAddress = firstAddress => {
+		if (firstAddress.length > 25) {
+			return firstAddress.slice(0, 25) + "...";
+		} else {
+			return firstAddress;
+		}
 	};
 
 	return (
 		<>
-			<form action="#" onSubmit={handleSignup}>
+			{isDaumPostShow && <PostcodeModal />}
+			<form action="#" onSubmit={handleStoreForm}>
 				<BlankSection height="39" />
 				<UploadPicture />
-				<BoldText top="40" bottom="8">
-					가게명 입력
-				</BoldText>
-				<input />
-				<BoldText top="32" bottom="8">
-					전화번호 입력
-				</BoldText>
-				<input />
-				<BoldText top="32" bottom="8">
-					주소 입력
-				</BoldText>
-				<input />
-				<BoldText top="32" bottom="8">
-					설명글 입력
-				</BoldText>
-				<input />
+				<SignupLabelDiv>
+					<InputLabel htmlFor="storeName">가게명 입력</InputLabel>
+				</SignupLabelDiv>
+				<SignupTextInput
+					type="text"
+					id="storeName"
+					placeholder="&nbsp;&nbsp;가게명을 입력해주세요"
+					onChange={e => {
+						storeNameHandler(e.target);
+					}}
+					onBlur={e => {
+						storeNameValidate(e.target.value);
+					}}
+					value={storeName}
+					HasError={storeNameErrorMessage}
+				/>
+				<InputCounterContainer>
+					{storeNameErrorMessage && <ErrorMessage>{storeNameErrorMessage}</ErrorMessage>}
+					<InputCounter isError={storeNameErrorMessage}>{storeName.length}/50자</InputCounter>
+				</InputCounterContainer>
+
+				<SignupLabelDiv>
+					<InputLabel htmlFor="phoneNumber">전화번호 입력</InputLabel>
+				</SignupLabelDiv>
+				<SignupPhoneNumberInput
+					type="text"
+					id="phoneNumber"
+					maxLength="13"
+					placeholder="&nbsp;&nbsp;- 없이 입력해주세요"
+					onChange={e => {
+						phoneNumberHandler(e.target);
+					}}
+					// onFocus={e => VsendUserPhoneChangeFalseIsTouched(e)}
+					onBlur={e => {
+						phoneNumberValidate(e.target.value);
+					}}
+					value={storePhoneNumber}
+					HasError={storePhoneNumberErrorMessage}
+				/>
+				{storePhoneNumberErrorMessage && (
+					<ErrorMessage>{storePhoneNumberErrorMessage}</ErrorMessage>
+				)}
+
+				<SignupLabelDiv>
+					<InputLabel htmlFor="storeAddress">주소 입력</InputLabel>
+				</SignupLabelDiv>
+				<SignupAddressContainerButton type="button" onClick={e => daumPostHandler(e)}>
+					<SignupFirstAddressInput
+						type="text"
+						id="storeAddress"
+						placeholder="&nbsp;&nbsp;내용을 입력해주세요."
+						disabled
+						value={formatFirstAddress(storeFirstAddress)}
+						HasError={storeAddressErrorMessage}
+						// onClick={e => daumPostHandler(e)}
+					/>
+				</SignupAddressContainerButton>
+				{storeAddressErrorMessage && <ErrorMessage>배송지를 입력해주세요.</ErrorMessage>}
+				<SignupSecondAddressInput
+					type="text"
+					placeholder="&nbsp;&nbsp;상세 주소"
+					onChange={e => setStoreSecondAddress(e.target.value)}
+					value={storeSecondAddress}
+				/>
+				<SignupLabelDiv>
+					<InputLabel htmlFor="storeDescription">설명글 입력</InputLabel>
+				</SignupLabelDiv>
+				<StoreDescription
+					id="storeDescription"
+					placeholder="내용을 입력해주세요."
+					onChange={e => setStoreDescription(e.target.value)}
+					value={storeDescription}
+				/>
+				<InputCounterContainer>
+					<InputCounter>{storeDescription.length}/500자</InputCounter>
+				</InputCounterContainer>
 				<BoldText top="56" bottom="16">
 					운영 시간 설정
 				</BoldText>
@@ -45,7 +247,7 @@ export function StoreForm({ nextURL }) {
 				<ChooseHoliday />
 				<BlankSection height="104" />
 				<ButtonToolBar>
-					<Primary400LargeButton>가입 완료하기</Primary400LargeButton>
+					<Primary400LargeButton onClick={handleStoreForm}>가입 완료하기</Primary400LargeButton>
 				</ButtonToolBar>
 			</form>
 		</>
