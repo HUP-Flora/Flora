@@ -4,15 +4,23 @@ import { useNavigate } from "react-router-dom";
 import { BottomDoubleButtonContainer } from "../../styles/common/CommonStyle";
 import { Primary400Button, Primary50Button } from "../../styles/button/ButtonStyle";
 
-function ProductAddBottomButtons(props) {
+function ProductAddBottomButtons({ type }) {
 	const navigate = useNavigate();
 
 	const handleClickSubmit = () => {
-		console.log();
+		if (type === "add") {
+			console.log("상품 등록");
+		} else if (type === "edit") {
+			console.log("상품 수정");
+		}
 	};
 
 	const handleClickCancle = () => {
-		navigate("/store");
+		if (type === "add") {
+			navigate("/store");
+		} else if (type === "edit") {
+			navigate("/productDetail");
+		}
 	};
 
 	return (
