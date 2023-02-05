@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -94,6 +95,9 @@ public class Store extends BaseEntity{
 
     @Column(name = "s_img_upload_time")
     private LocalDateTime imgUploadTime;
+
+    @Formula("(select count(*) from bookmarks b where b.s_id = s_id)")
+    private int bookmarkCnt;
 
     @Builder
     public Store(User uId, String businessLicense, String name, String phoneNumber, String sido, String gugun, String dong, String detailedAddress, float lat, float lng, String desc, OnAirType isOnair,  String holiday, TimeUnit start, TimeUnit end, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
