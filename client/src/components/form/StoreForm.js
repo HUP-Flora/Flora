@@ -52,10 +52,9 @@ export function StoreForm({ nextURL }) {
 	const [storeAddressErrorMessage, setStoreAddressErrorMessage] = useState("");
 	const [isDaumPostShow, setIsDaumPostShow] = useRecoilState(isDaumPostShowState);
 
-	const storeStartTime = useRecoilValue(storeStartTimeState);
-	const storeBrn = useRecoilValue(storeBrnState);
-	const storeImageFile = useRecoilValue(storeImageFileState);
-	const storeImagePreview = useRecoilValue(storeImagePreviewState);
+	const [storeStartTime, setStoreStartTime] = useRecoilState(storeStartTimeState);
+	const [storeBrn, setStoreBrn] = useRecoilState(storeBrnState);
+	const [storeImageFile, setStoreImageFile] = useRecoilState(storeImageFileState);
 
 	const navigate = useNavigate();
 	const handleStoreForm = e => {
@@ -89,6 +88,16 @@ export function StoreForm({ nextURL }) {
 			// for (let value of formData.values()) {
 			// 	console.log(value);
 			// }
+
+			setStoreImageFile("");
+			setStoreBrn("");
+			setStoreName("");
+			setStorePhoneNumber("");
+			setStoreSecondAddress("");
+			setStoreDescription("");
+			setStoreHoliday("");
+			setStoreStartTime({ value: 18, label: "09:00" });
+			setStoreEndTime({ value: 36, label: "18:00" });
 
 			navigate(nextURL);
 		}

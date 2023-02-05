@@ -23,7 +23,7 @@ export const StoreListBottomSheet = styled.div`
 	bottom: 0px;
 	width: 100%;
 	height: ${props => (props.isLarge ? "calc(100% - 120px)" : "calc(100% - 350px)")};
-	z-index: 900;
+	z-index: 1;
 
 	padding-left: 16px;
 	padding-right: 16px;
