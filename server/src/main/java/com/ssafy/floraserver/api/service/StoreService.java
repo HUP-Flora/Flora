@@ -1,8 +1,11 @@
 package com.ssafy.floraserver.api.service;
 
+import com.ssafy.floraserver.api.response.ProductRes;
 import com.ssafy.floraserver.api.response.StoreListRes;
 import com.ssafy.floraserver.api.response.StoreRes;
+import com.ssafy.floraserver.db.entity.Product;
 import com.ssafy.floraserver.db.entity.Store;
+import com.ssafy.floraserver.db.repository.ProductRepository;
 import com.ssafy.floraserver.db.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +29,7 @@ import java.util.stream.Collectors;
 public class StoreService {
 
     private final StoreRepository storeRepository;
+    private final ProductRepository productRepository;
 
     public List<StoreListRes> findStoreList(String address, Pageable pageable) {
         String[] splitAddress = address.split(" ");
@@ -50,5 +54,23 @@ public class StoreService {
         StoreRes storeRes = storeRepository.findStoreRes(sId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return storeRes;
+    }
+
+    public List<ProductRes> findProductList(Long sId, Pageable pageable) {
+
+        List<Product> productList = productRepository.findAllBySId(sId, pageable);
+
+        List<ProductRes> productResList = productList.stream()
+                .map(p -> ProductRes.builder().product(p).build())
+                .collect(Collectors.toList());
+
+        return productResList;
+    }
+
+    public ProductRes findProduct(Long pId) {
+        Product product = productRepository.findById(pId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        return ProductRes.builder().product(product).build();
     }
 }

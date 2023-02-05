@@ -1,5 +1,6 @@
 package com.ssafy.floraserver.api.controller;
 
+import com.ssafy.floraserver.api.response.ProductRes;
 import com.ssafy.floraserver.api.response.StoreRes;
 import com.ssafy.floraserver.api.service.StoreService;
 import com.ssafy.floraserver.api.response.StoreListRes;
@@ -32,5 +33,19 @@ public class StoreController {
         StoreRes storeRes = storeService.findStore(sId);
 
         return storeRes;
+    }
+
+    @GetMapping("{sId}/products")
+    public List<ProductRes> findProductList(@PathVariable("sId") Long sId, Pageable pageable){
+
+        List<ProductRes> productList = storeService.findProductList(sId, pageable);
+
+        return productList;
+    }
+
+    @GetMapping("products/{pId}")
+    public ProductRes findProduct(@PathVariable("pId") Long pId){
+        ProductRes productRes = storeService.findProduct(pId);
+        return productRes;
     }
 }
