@@ -29,6 +29,9 @@ import MyPage from "./pages/myPage/MyPage";
 import Review from "./pages/myPage/Review";
 import UserDelete from "./pages/myPage/UserDelete";
 
+// 꽃갈피 페이지
+import FloMark from "./pages/floMark/FloMark";
+
 function AppRouter() {
 	return (
 		<Router>
@@ -60,6 +63,8 @@ function AppRouter() {
 				<Route path="/myPage" element={<MyPage />} />
 				<Route path="/review" element={<Review />} />
 				<Route path="/userDelete" element={<UserDelete />} />
+				{/* 꽃갈피 페이지 */}
+				<Route path="/floMark" element={<FloMark />} />
 			</Routes>
 		</Router>
 	);
