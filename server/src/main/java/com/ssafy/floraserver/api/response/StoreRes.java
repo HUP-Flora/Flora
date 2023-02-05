@@ -23,22 +23,6 @@ public class StoreRes {
     private int bookmarkCnt;
     private int reviewCnt;
 
-    public StoreRes(Long sId, String sName, String phoneNumber, String sido, String gugun, String dong, String detailedAddress, String holiday, OnAirType isOnair, String start, String end, int bookmarkCnt, int reviewCnt) {
-        this.sId = sId;
-        this.sName = sName;
-        this.phoneNumber = phoneNumber;
-        this.sido = sido;
-        this.gugun = gugun;
-        this.dong = dong;
-        this.detailedAddress = detailedAddress;
-        this.holiday = holiday;
-        this.isOnair = isOnair;
-        this.start = start;
-        this.end = end;
-        this.bookmarkCnt = bookmarkCnt;
-        this.reviewCnt = reviewCnt;
-    }
-
     @Builder
     public StoreRes(Store store) {
         this.sId = store.getSId();
