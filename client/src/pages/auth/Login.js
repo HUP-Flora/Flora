@@ -35,10 +35,12 @@ export function Login() {
 			) : (
 				<WhiteLayout>
 					<ButtonToolBar>
-						<KakaoLoginButton onClick={handleLogin}>
-							<KakaoLogo src={KakaoLogoImg} alt="KakaoLogo" />
-							<span>카카오톡으로 시작하기</span>
-						</KakaoLoginButton>
+						<a href={`${process.env.REACT_APP_SERVER_URL}/oauth2/authorization/kakao`} alt="_self">
+							<KakaoLoginButton>
+								<KakaoLogo src={KakaoLogoImg} alt="KakaoLogo" />
+								<span>카카오톡으로 시작하기</span>
+							</KakaoLoginButton>
+						</a>
 					</ButtonToolBar>
 				</WhiteLayout>
 			)}
