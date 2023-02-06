@@ -1,6 +1,7 @@
 package com.ssafy.floraserver.api.service;
 
 import com.ssafy.floraserver.api.response.ProductRes;
+import com.ssafy.floraserver.api.response.RegionRes;
 import com.ssafy.floraserver.api.response.StoreListRes;
 import com.ssafy.floraserver.api.response.StoreRes;
 import com.ssafy.floraserver.db.entity.Product;
@@ -20,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,7 +39,7 @@ public class StoreService {
 
         pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),  Sort.by("bookmarkCnt").descending());
 
-        List<Store> storeList = storeRepository.findAllBySidoAndGugunAndDong(splitAddress[0], splitAddress[1], splitAddress[2], pageable);
+        List<Store> storeList = storeRepository.findAllByRegionDepthName(splitAddress[0], splitAddress[1], splitAddress[2], pageable);
 
         List<StoreListRes> storeResList = storeList.stream()
 //                .sorted(Comparator.comparingInt(a -> a.getIsOnair().ordinal()))
@@ -73,5 +75,13 @@ public class StoreService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         return ProductRes.builder().product(product).build();
+    }
+
+    public List<RegionRes> findRegionList(String word, Pageable pageable) {
+        // 1. [봉명]으로 address_name에서 %봉명%으로 찾아서 region_1depth_name, region_2depth_name, region_3depth_name 가져오기
+
+        List<RegionRes> regionList = storeRepository.findAllDtoByWord(word);
+
+        return regionList;
     }
 }

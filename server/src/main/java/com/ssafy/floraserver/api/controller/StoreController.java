@@ -1,9 +1,11 @@
 package com.ssafy.floraserver.api.controller;
 
 import com.ssafy.floraserver.api.response.ProductRes;
+import com.ssafy.floraserver.api.response.RegionRes;
 import com.ssafy.floraserver.api.response.StoreRes;
 import com.ssafy.floraserver.api.service.StoreService;
 import com.ssafy.floraserver.api.response.StoreListRes;
+import com.ssafy.floraserver.db.entity.Store;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +20,13 @@ import java.util.List;
 public class StoreController {
 
     private final StoreService storeService;
+
+    @GetMapping("/regions")
+    public List<RegionRes> findRegionList(@RequestParam String word, Pageable pageable){
+        List<RegionRes> regionList = storeService.findRegionList(word, pageable);
+
+        return regionList;
+    }
 
     @GetMapping
     public List<StoreListRes> findStoreList(@RequestParam String address, Pageable pageable){
@@ -37,7 +46,7 @@ public class StoreController {
 
     @GetMapping("{sId}/products")
     public List<ProductRes> findProductList(@PathVariable("sId") Long sId, Pageable pageable){
-
+        // TODO 페이징 hasNext
         List<ProductRes> productResList = storeService.findProductList(sId, pageable);
 
         return productResList;
