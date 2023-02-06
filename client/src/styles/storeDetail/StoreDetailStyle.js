@@ -12,54 +12,6 @@ export const Header = styled.div`
 	margin: 0 24px;
 `;
 
-export const OnOffToggle = styled.div`
-	width: 65px;
-
-	border-radius: 20px;
-
-	background-color: ${props => (props.isOn ? "var(--gray-300)" : "var(--primary-50)")};
-
-	transition: all 0.2s ease-in-out;
-
-	cursor: pointer;
-
-	> div {
-		width: fit-content;
-		height: 100%;
-
-		display: flex;
-		padding: 0px 13px;
-		align-items: center;
-
-		font-size: 13px;
-
-		border-radius: 20px;
-
-		${props =>
-			props.isOn &&
-			css`
-				transform: translate(0px, 0);
-				transition: all 0.2s ease-in-out;
-			`}
-
-		${props =>
-			!props.isOn &&
-			css`
-				transform: translate(15px, 0);
-				transition: all 0.2s ease-in-out;
-			`}
-	}
-`;
-
-export const ToggleCircle = styled.div`
-	width: fit-content;
-
-	padding: 5px 10px;
-
-	border-radius: 10px;
-	background-color: pink;
-`;
-
 export const InfoContainer = styled.div`
 	display: flex;
 
