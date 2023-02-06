@@ -81,13 +81,13 @@ export function StoreForm({ nextURL }) {
 			formData.append("start", storeStartTime.value);
 			formData.append("end", storeEndTime.value);
 
-			// for (let key of formData.keys()) {
-			// 	console.log(key);
-			// }
+			for (let key of formData.keys()) {
+				console.log(key);
+			}
 
-			// for (let value of formData.values()) {
-			// 	console.log(value);
-			// }
+			for (let value of formData.values()) {
+				console.log(value);
+			}
 
 			setStoreImageFile("");
 			setStoreBrn("");
