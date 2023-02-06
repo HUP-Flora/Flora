@@ -34,7 +34,7 @@ import ProductForms from "./pages/product/ProductForms";
 import MyPage from "./pages/myPage/MyPage";
 import Review from "./pages/myPage/Review";
 import UserDelete from "./pages/myPage/UserDelete";
-import OrdersList from "./pages/myPage/OrderDetail";
+import OrdersList from "./pages/myPage/OrdersList";
 
 // 꽃갈피 페이지
 import FloMark from "./pages/floMark/FloMark";
