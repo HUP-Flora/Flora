@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { KakaoPayment } from "./pages/kakaoPayment/KakaoPayment";
-import { KakaoPaymentSuccess } from "./pages//kakaoPayment/KakaoPaymentSuccess";
+import { KakaoPaymentSuccess } from "./pages/kakaoPayment/KakaoPaymentSuccess";
 
 import Flolive from "./pages/flolive/Flolive";
 import { Main } from "./pages/Main";
@@ -13,8 +13,15 @@ import { SignupUser } from "./pages/auth/SignupUser";
 import Chatting from "./components/chatting/Chatting";
 import Join from "./components/chatting/Join";
 import { SignupOwnerStore } from "./pages/auth/SignupOwnerStore";
+import { SearchStore } from "./pages/SearchStore";
+
+// 예약 페이지
 import ReservationType from "./pages/reservation/ReservationType";
 import ReservationDate from "./pages/reservation/ReservationDate";
+import ReservationComplete from "./pages/reservation/ReservationComplete";
+
+// 주문 상세 페이지
+import OrderDetail from "./pages/orderDetail/orderDetail";
 
 // 가게 상세 페이지
 import StoreDetail from "./pages/storeDetail/StoreDetail";
@@ -42,10 +49,11 @@ function AppRouter() {
 				<Route path="/signup/owner" element={<SignupOwner />} />
 				<Route path="/signup/owner/store" element={<SignupOwnerStore />} />
 				<Route path="/signup/user" element={<SignupUser />} />
+				<Route path="/search-store" element={<SearchStore />} />
 				<Route path="/flolive" element={<Flolive />} />
 				<Route path="/kakao-payment" element={<KakaoPayment />} />
 				<Route path="/kakao-payment/success" element={<KakaoPaymentSuccess />} />
-				// 채팅 테스트용 페이지
+				{/*// 채팅 테스트용 페이지*/}
 				<Route path="/join" element={<Join />} />
 				<Route path="/chat" element={<Chatting />} />
 				{/* 가게 상세 페이지 */}
@@ -66,6 +74,15 @@ function AppRouter() {
 				<Route path="/orderDetail" element={<OrderDetail />} />
 				{/* 꽃갈피 페이지 */}
 				<Route path="/floMark" element={<FloMark />} />
+				{/*// 가게 상세 페이지*/}
+				<Route path="/store" element={<StoreDetail />} />
+				{/* <Route path="/store/:id" element={<StoreDetail />} /> */}
+				{/*// 예약 페이지들*/}
+				<Route path="/reservation/type" element={<ReservationType />} />
+				<Route path="/reservation/date" element={<ReservationDate />} />
+				<Route path="/reservation/complete" element={<ReservationComplete />} />
+				{/*// 주문 상세 페이지들*/}
+				<Route path="/order" element={<OrderDetail />} />
 			</Routes>
 		</Router>
 	);

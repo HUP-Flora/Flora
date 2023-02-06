@@ -7,29 +7,28 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@DynamicUpdate
 public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uId;
 
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = "u_type", nullable = false)
-//    private UserType type;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "u_role")
     private Role role;
 
-    @Column(name = "u_email", nullable = false, unique = true)
+    @Column(name = "u_email", unique = true, updatable = false)
     private String email;
 
     @Column(name = "u_nickname", unique = true)
@@ -52,7 +51,8 @@ public class User extends BaseEntity {
     }
 
     @Builder
-    public User(Role role, String email, String nickname, String phoneNumber, String refreshToken, LocalDate withdrawalDate, boolean softDelete) {
+    public User(Long uId, Role role, String email, String nickname, String phoneNumber, String refreshToken, LocalDate withdrawalDate, boolean softDelete) {
+        this.uId = uId;
         this.role = role;
         this.email = email;
         this.nickname = nickname;

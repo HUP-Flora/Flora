@@ -12,6 +12,7 @@ export const StatusBarContainer = styled.div`
 `;
 
 export const LeftArrow = styled.img`
+	cursor: pointer;
 `;
 
 export const StatusBarText = styled.div`

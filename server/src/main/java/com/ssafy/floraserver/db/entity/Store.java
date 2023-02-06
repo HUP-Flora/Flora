@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,10 +15,11 @@ import java.time.LocalDateTime;
 @Table(name = "stores")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@DynamicInsert
 public class Store extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long sId;
 
     // 가게 - 사용자
@@ -93,11 +96,11 @@ public class Store extends BaseEntity{
     private LocalDateTime imgUploadTime;
 
     @Builder
-    public Store(User uId, String businessLicense, String name, String sPhoneNumber, String sido, String gugun, String dong, String detailedAddress, float lat, float lng, String desc, OnAirType isOnair, String holiday, TimeUnit start, TimeUnit end, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
+    public Store(User uId, String businessLicense, String name, String phoneNumber, String sido, String gugun, String dong, String detailedAddress, float lat, float lng, String desc, OnAirType isOnair,  String holiday, TimeUnit start, TimeUnit end, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
         this.uId = uId;
         this.businessLicense = businessLicense;
         this.name = name;
-        this.phoneNumber = sPhoneNumber;
+        this.phoneNumber = phoneNumber;
         this.sido = sido;
         this.gugun = gugun;
         this.dong = dong;
@@ -105,7 +108,7 @@ public class Store extends BaseEntity{
         this.lat = lat;
         this.lng = lng;
         this.desc = desc;
-        this.isOnair = isOnair;
+        this.isOnair = OnAirType.OFF;
         this.holiday = holiday;
         this.start = start;
         this.end = end;
