@@ -10,6 +10,7 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,9 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 //    private final TokenProvider tokenProvider;
     private final JwtProvider jwtProvider;
     private final UserRepository userRepository;
+
+    public static final String AUTH_HEADER = "Authorization";
+    public static final String TOKEN_TYPE = "BEARER";
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -55,14 +59,21 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             
             clearAuthenticationAttrubutes(request, response);
 
+            response.addHeader(AUTH_HEADER, TOKEN_TYPE + " " + accessToken);
             response.addHeader("Set-Cookie", cookie.toString());
-            response.getWriter().write(accessToken);
+//            response.getWriter().write(accessToken);
 
+
+            String targetUrl;
             // 처음 요청한 사용자는 회원가입 페이지로
             if(oAuth2User.getRole() == Role.GUEST){
                 log.info("GUEST");
+                // http://localhost:3000/signup?token={accessToken}
+                targetUrl = UriComponentsBuilder.fromUriString("http://localhost:3000/signup")
+                        .queryParam("token", accessToken)
+                        .build().toUriString();
 
-                // 추가정보 입력 페이지로 이동
+                getRedirectStrategy().sendRedirect(request, response, targetUrl);
 //                response.sendRedirect("http://localhost:8080/guest");//프론트엔드의 회원가입 주소로 reDirect
 
             }else {
