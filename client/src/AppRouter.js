@@ -34,7 +34,7 @@ import ProductForms from "./pages/product/ProductForms";
 import MyPage from "./pages/myPage/MyPage";
 import Review from "./pages/myPage/Review";
 import UserDelete from "./pages/myPage/UserDelete";
-import OrderDetail from "./pages/myPage/OrderDetail";
+import OrdersList from "./pages/myPage/OrdersList";
 
 // 꽃갈피 페이지
 import FloMark from "./pages/floMark/FloMark";
@@ -71,7 +71,7 @@ function AppRouter() {
 				<Route path="/myPage" element={<MyPage />} />
 				<Route path="/review" element={<Review />} />
 				<Route path="/userDelete" element={<UserDelete />} />
-				<Route path="/orderDetail" element={<OrderDetail />} />
+				<Route path="/orderDetail" element={<OrdersList />} />
 				{/* 꽃갈피 페이지 */}
 				<Route path="/floMark" element={<FloMark />} />
 				{/*// 가게 상세 페이지*/}
