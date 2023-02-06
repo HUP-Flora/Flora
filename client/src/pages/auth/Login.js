@@ -1,18 +1,19 @@
 import { ButtonToolBar } from "../../styles/bar/BarStyle";
 import { KakaoLoginButton } from "../../styles/button/ButtonStyle";
-import { KakaoLogo } from "../../styles/common/CommonStyle";
+import { KakaoLogo, WhiteLayout } from "../../styles/common/CommonStyle";
 import { useNavigate } from "react-router-dom";
 import KakaoLogoImg from "../../assets/kakao/KakaoLogo.png";
 import axios from "axios";
 import { WhiteContainer } from "../../styles/container/ContainerStyle";
 import { useState } from "react";
+import { FullScreenFrame } from "../../styles/payment/KakaoPaymentStyle";
 
 export function Login() {
-	const [redirect, setRedirect] = useState(false);
+	const [redirectUrl, setRedirectUrl] = useState("");
 
 	const navigate = useNavigate();
 	const handleLogin = () => {
-		setRedirect(true);
+		setRedirectUrl(`${process.env.REACT_APP_SERVER_URL}/oauth2/authorization/kakao`);
 		// axios({
 		// 	method: "POST",
 		// 	url: process.env.REACT_APP_SERVER_URL + "/auth/login",
@@ -25,18 +26,22 @@ export function Login() {
 		// 		// 로그인 실패 - 아무 일도 일어나지 않음?
 		// 	})
 		// 	.catch(err => {});
-		navigate("/signup");
 	};
 
 	return (
-		<WhiteContainer>
-			<ButtonToolBar>
-				<a href="www.naver.com">test</a>
-				<KakaoLoginButton onClick={handleLogin}>
-					<KakaoLogo src={KakaoLogoImg} alt="KakaoLogo" />
-					<span>카카오톡으로 시작하기</span>
-				</KakaoLoginButton>
-			</ButtonToolBar>
-		</WhiteContainer>
+		<>
+			{redirectUrl ? (
+				<FullScreenFrame title="kakaoLoginFrame" src={redirectUrl}></FullScreenFrame>
+			) : (
+				<WhiteLayout>
+					<ButtonToolBar>
+						<KakaoLoginButton onClick={handleLogin}>
+							<KakaoLogo src={KakaoLogoImg} alt="KakaoLogo" />
+							<span>카카오톡으로 시작하기</span>
+						</KakaoLoginButton>
+					</ButtonToolBar>
+				</WhiteLayout>
+			)}
+		</>
 	);
 }
