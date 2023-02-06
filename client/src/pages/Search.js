@@ -12,7 +12,7 @@ import { useRecoilState } from "recoil";
 import { isDaumPostShowState } from "../recoil/chatting";
 import PostcodeModal from "../components/common/PostcodeModal";
 
-export function SearchStore() {
+export function Search() {
 	const [storeListLargeMode, setStoreListLargeMode] = useState(false);
 	const [isDaumPostShow, setIsDaumPostShow] = useRecoilState(isDaumPostShowState);
 
