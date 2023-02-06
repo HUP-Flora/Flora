@@ -5,10 +5,14 @@ import { useNavigate } from "react-router-dom";
 import KakaoLogoImg from "../../assets/kakao/KakaoLogo.png";
 import axios from "axios";
 import { WhiteContainer } from "../../styles/container/ContainerStyle";
+import { useState } from "react";
 
 export function Login() {
+	const [redirect, setRedirect] = useState(false);
+
 	const navigate = useNavigate();
 	const handleLogin = () => {
+		setRedirect(true);
 		// axios({
 		// 	method: "POST",
 		// 	url: process.env.REACT_APP_SERVER_URL + "/auth/login",
@@ -27,6 +31,7 @@ export function Login() {
 	return (
 		<WhiteContainer>
 			<ButtonToolBar>
+				<a href="www.naver.com">test</a>
 				<KakaoLoginButton onClick={handleLogin}>
 					<KakaoLogo src={KakaoLogoImg} alt="KakaoLogo" />
 					<span>카카오톡으로 시작하기</span>
