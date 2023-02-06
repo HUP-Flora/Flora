@@ -12,8 +12,8 @@ import java.util.Optional;
 
 public interface StoreRepository extends JpaRepository<Store, Long> {
 
-    @Query("select distinct s from Store s join fetch s.start join fetch s.end where s.sido = :sido and s.gugun = :gugun and s.dong = :dong")
-    List<Store> findAllBySidoAndGugunAndDong(@Param("sido") String sido, @Param("gugun") String gugun, @Param("dong") String dong, Pageable pageable);
+    @Query("select distinct s from Store s join fetch s.start join fetch s.end where s.region_1depth_name = :region_1depth_name and s.region_2depth_name = :region_2depth_name and s.region_3depth_name = :region_3depth_name")
+    List<Store> findAllBySidoAndGugunAndDong(@Param("region_1depth_name") String region_1depth_name, @Param("region_2depth_name") String region_2depth_name, @Param("region_3depth_name") String region_3depth_name, Pageable pageable);
 
 
     @Query("select distinct s from Store s join fetch s.start join fetch s.end where s.sId = :sId")

@@ -38,17 +38,17 @@ public class Store extends BaseEntity{
     @Column(name = "s_phone_number", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "s_sido", nullable = false)
-    private String sido;
+    @Column(name = "region_1depth_name", nullable = false)
+    private String region_1depth_name;
 
-    @Column(name = "s_gugun", nullable = false)
-    private String gugun;
+    @Column(name = "region_2depth_name", nullable = false)
+    private String region_2depth_name;
 
-    @Column(name = "s_dong", nullable = false)
-    private String dong;
+    @Column(name = "region_3depth_name", nullable = false)
+    private String region_3depth_name;
 
-    @Column(name = "s_detailed_Address", nullable = false)
-    private String detailedAddress;
+    @Column(name = "address_name", nullable = false)
+    private String address_name;
 
     @Column(name = "s_lat", nullable = false)
     private float lat;
@@ -103,15 +103,15 @@ public class Store extends BaseEntity{
     private int reviewCnt;
 
     @Builder
-    public Store(User uId, String businessLicense, String name, String phoneNumber, String sido, String gugun, String dong, String detailedAddress, float lat, float lng, String desc, OnAirType isOnair,  String holiday, TimeUnit start, TimeUnit end, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
+    public Store(User uId, String businessLicense, String name, String phoneNumber, String region_1depth_name, String region_2depth_name, String region_3depth_name, String address_name, float lat, float lng, String desc, OnAirType isOnair,  String holiday, TimeUnit start, TimeUnit end, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
         this.uId = uId;
         this.businessLicense = businessLicense;
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.sido = sido;
-        this.gugun = gugun;
-        this.dong = dong;
-        this.detailedAddress = detailedAddress;
+        this.region_1depth_name = region_1depth_name;
+        this.region_2depth_name = region_2depth_name;
+        this.region_3depth_name = region_3depth_name;
+        this.address_name = address_name;
         this.lat = lat;
         this.lng = lng;
         this.desc = desc;
