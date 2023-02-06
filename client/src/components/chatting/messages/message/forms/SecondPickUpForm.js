@@ -49,19 +49,16 @@ function SecondPickUpForm({ time }) {
 	const isNotEmpty = value => value.trim() !== "";
 
 	const {
-		// 다른데서 value필요 없으면 지우면 됨
 		hasError: VsendUserHasError,
 		toggleHasError: VsendUserToggleHasError,
 	} = useInputValidate(isNotEmpty);
 
 	const {
-		// 다른데서 value필요 없으면 지우면 됨
 		hasError: VsendUserPhoneHasError,
 		toggleHasError: VsendUserPhoneToggleHasError,
 	} = useInputValidate(isNotEmpty);
 
 	const {
-		// 다른데서 value필요 없으면 지우면 됨
 		hasError: VpaymentAmountHasError,
 		valueChangeHandler: VpaymentAmountChangeHandler,
 		inputBlurHandler: VpaymentAmountBlurHandler,
