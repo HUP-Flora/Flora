@@ -12,9 +12,24 @@ import { Primary400Button, Primary50Button } from "../../styles/button/ButtonSty
 import floMarkGraySrc from "../../assets/floMarkGray.png";
 import floMarkPinkSrc from "../../assets/floMarkPink.png";
 import liveTvSrc from "../../assets/live-tv-white.png";
+import { LmyNameState, LmySessionIdState } from "../../recoil/flolive";
+import { useSetRecoilState } from "recoil";
 
 function StoreDetailButtons(props) {
+	// 플로라이브 입장 테스트 코드
+	const setLmyName = useSetRecoilState(LmyNameState);
+	const setLmySessionId = useSetRecoilState(LmySessionIdState);
 	const navigate = useNavigate();
+
+	const enterFloliveHandler = () => {
+		setLmyName("김싸피");
+		setLmySessionId("845648454");
+		navigate("/flolive");
+	}
+
+	const handleFloMarkClick = () => {
+		setIsFloMarkClicked(!isFloMarkClicked);
+	};
 
 	const handleClickProductAdd = () => {
 		navigate("/productAdd");
@@ -24,9 +39,6 @@ function StoreDetailButtons(props) {
 	const floMark = 100;
 	const [isFloMarkClicked, setIsFloMarkClicked] = useState(false);
 
-	const handleFloMarkClick = () => {
-		setIsFloMarkClicked(!isFloMarkClicked);
-	};
 
 	return (
 		<>

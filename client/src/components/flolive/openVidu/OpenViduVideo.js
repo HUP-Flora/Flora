@@ -13,19 +13,22 @@ import {
 	SessionHeader,
 	VideoContainer,
 } from "../../../styles/openViduStyle";
+import { useRecoilValue } from "recoil";
+import { LmyNameState, LmySessionIdState } from "../../../recoil/flolive";
 
 const APPLICATION_SERVER_URL =
 	process.env.NODE_ENV === "production" ? "" : "https://demos.openvidu.io/";
 
 class OpenViduVideo extends Component {
+	// 플로라이브 테스트 코드
 	constructor(props) {
 		super(props);
 
 		// These properties are in the state's component in order to re-render the HTML whenever their values change
 		this.state = {
-			mySessionId: "flora",
-			myUserName: "Participant" + Math.floor(Math.random() * 100),
-			session: undefined,
+			mySessionId: "커스텀훅 예정",
+			myUserName: "커스텀훅 예정",
+			session: "커스텀훅 예정",
 			mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
 			publisher: undefined,
 			subscribers: [],
@@ -245,51 +248,54 @@ class OpenViduVideo extends Component {
 
 		return (
 			<SessionContainer>
-				{this.state.session === undefined ? (
-					<div id="join">
-						<div id="img-div">
-							<img src="resources/images/openvidu_grey_bg_transp_cropped.png" alt="OpenVidu logo" />
-						</div>
-						<div id="join-dialog" className="jumbotron vertical-center">
-							<h1> Join a video session </h1>
-							<form className="form-group" onSubmit={this.joinSession}>
-								<p>
-									<label>Participant: </label>
-									<input
-										className="form-control"
-										type="text"
-										id="userName"
-										value={myUserName}
-										onChange={this.handleChangeUserName}
-										required
-									/>
-								</p>
-								<p>
-									<label> Session: </label>
-									<input
-										className="form-control"
-										type="text"
-										id="sessionId"
-										value={mySessionId}
-										onChange={this.handleChangeSessionId}
-										required
-									/>
-								</p>
-								<p className="text-center">
-									<input
-										className="btn btn-lg btn-success"
-										name="commit"
-										type="submit"
-										value="JOIN"
-									/>
-								</p>
-							</form>
-						</div>
-					</div>
-				) : null}
+				{/*{this.state.session === undefined ? (*/}
+				{/*	<div id="join">*/}
+				{/*		<div id="img-div">*/}
+				{/*			<img src="resources/images/openvidu_grey_bg_transp_cropped.png" alt="OpenVidu logo" />*/}
+				{/*		</div>*/}
+				{/*		<div id="join-dialog" className="jumbotron vertical-center">*/}
+				{/*			<h1> Join a video session </h1>*/}
+				{/*			<form className="form-group" onSubmit={this.joinSession}>*/}
+				{/*				<p>*/}
+				{/*					<label>Participant: </label>*/}
+				{/*					<input*/}
+				{/*						className="form-control"*/}
+				{/*						type="text"*/}
+				{/*						id="userName"*/}
+				{/*						value={myUserName}*/}
+				{/*						onChange={this.handleChangeUserName}*/}
+				{/*						required*/}
+				{/*					/>*/}
+				{/*				</p>*/}
+				{/*				<p>*/}
+				{/*					<label> Session: </label>*/}
+				{/*					<input*/}
+				{/*						className="form-control"*/}
+				{/*						type="text"*/}
+				{/*						id="sessionId"*/}
+				{/*						value={mySessionId}*/}
+				{/*						onChange={this.handleChangeSessionId}*/}
+				{/*						required*/}
+				{/*					/>*/}
+				{/*				</p>*/}
+				{/*				<p className="text-center">*/}
+				{/*					<input*/}
+				{/*						className="btn btn-lg btn-success"*/}
+				{/*						name="commit"*/}
+				{/*						type="submit"*/}
+				{/*						value="JOIN"*/}
+				{/*					/>*/}
+				{/*				</p>*/}
+				{/*			</form>*/}
+				{/*		</div>*/}
+				{/*	</div>*/}
+				{/*) : null}*/}
 
 				{this.state.session !== undefined ? (
 					<SessionWrapper>
+						<div>mySessinId: {this.state.mySessionId}</div>
+						<div>myUserName: {this.state.myUserName}</div>
+						<div>session: {this.state.session}</div>
 						<SessionHeader>
 							{/* <h1 id="session-title">{mySessionId}</h1> */}
 							{/* <input

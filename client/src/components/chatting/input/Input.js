@@ -28,6 +28,9 @@ function Input({ message, setMessage }) {
 				value={message}
 				isOwner={isOwner}
 				onChange={event => setMessage(event.target.value)}
+				onKeyDown={event =>
+					event.key === "Enter" ? sendMessage(event, message, setMessage) : null
+				}
 			/>
 			{isOwner && (
 				<FormButton onClick={e => sendFormMessage(e)}>

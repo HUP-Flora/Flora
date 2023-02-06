@@ -99,7 +99,8 @@ function AppRouter() {
 				{/* 마이페이지 */}
 				<Route path="/mypage" element={<MyPage />} />
 				<Route path="/mypage/order/list" element={<OrdersList />} />
-				<Route path="/mypage/order/:order-id" element={<OrderDetail />} />
+				{/*<Route path="/mypage/order/:order-id" element={<OrderDetail />} />*/}
+				<Route path="/mypage/order/detail" element={<OrderDetail />} />
 				<Route path="/mypage/review/list" element={<Review />} />
 				<Route path="/mypage/signout" element={<UserDelete />} />
 
