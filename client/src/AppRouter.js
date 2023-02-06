@@ -26,6 +26,19 @@ import OrderDetail from "./pages/orderDetail/orderDetail";
 // 가게 상세 페이지
 import StoreDetail from "./pages/storeDetail/StoreDetail";
 
+// 상품 페이지
+import ProductDetail from "./pages/product/ProductDetail";
+import ProductForms from "./pages/product/ProductForms";
+
+// 마이 페이지
+import MyPage from "./pages/myPage/MyPage";
+import Review from "./pages/myPage/Review";
+import UserDelete from "./pages/myPage/UserDelete";
+import OrderDetail from "./pages/myPage/OrderDetail";
+
+// 꽃갈피 페이지
+import FloMark from "./pages/floMark/FloMark";
+
 function AppRouter() {
 	return (
 		<Router>
@@ -43,6 +56,24 @@ function AppRouter() {
 				{/*// 채팅 테스트용 페이지*/}
 				<Route path="/join" element={<Join />} />
 				<Route path="/chat" element={<Chatting />} />
+				{/* 가게 상세 페이지 */}
+				<Route path="/store" element={<StoreDetail />} />
+				{/* <Route path="/store/:id" element={<StoreDetail />} /> */}
+				{/* 상품 페이지 */}
+				<Route path="/productDetail" element={<ProductDetail />} />
+				{/* <Route path="/store/:id/:productId" element={<ProductDetail />} /> */}
+				<Route path="/productAdd" element={<ProductForms />} />
+				<Route path="/productEdit" element={<ProductForms />} />
+				// 예약 페이지들
+				<Route path="/reservation/type" element={<ReservationType />} />
+				<Route path="/reservation/date" element={<ReservationDate />} />
+				{/* 마이페이지 */}
+				<Route path="/myPage" element={<MyPage />} />
+				<Route path="/review" element={<Review />} />
+				<Route path="/userDelete" element={<UserDelete />} />
+				<Route path="/orderDetail" element={<OrderDetail />} />
+				{/* 꽃갈피 페이지 */}
+				<Route path="/floMark" element={<FloMark />} />
 				{/*// 가게 상세 페이지*/}
 				<Route path="/store" element={<StoreDetail />} />
 				{/* <Route path="/store/:id" element={<StoreDetail />} /> */}
@@ -52,7 +83,6 @@ function AppRouter() {
 				<Route path="/reservation/complete" element={<ReservationComplete />} />
 				{/*// 주문 상세 페이지들*/}
 				<Route path="/order" element={<OrderDetail />} />
-
 			</Routes>
 		</Router>
 	);
