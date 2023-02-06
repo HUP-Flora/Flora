@@ -12,7 +12,7 @@ function OrderDetail() {
 
 	useEffect(() => {
 		setOrderDetail({
-			orderType: "PICKUP",
+			orderType: "DELIVERY",
 			orderStatus: "결제 완료",
 			orderDate: "2021-08-01",
 			orderNumber: "B001230120001",

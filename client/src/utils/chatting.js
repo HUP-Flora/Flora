@@ -2,10 +2,10 @@ import io from "socket.io-client";
 
 const ENDPOINT = "http://localhost:5000";
 
-let socket;
+let socket = io(ENDPOINT);
 
 export const socketInit = () => {
-	socket = io(ENDPOINT);
+
 };
 
 export const socketJoin = (name, room) => {

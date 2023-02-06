@@ -52,6 +52,9 @@ export const SecondWhiteLargeButton = styled(FirstWhiteLargeButton)`
 export const DateContainer = styled.div`
 	padding: 0 16px;
 	margin: 32px 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 `;
 
 export const TimeContainer = styled.div`

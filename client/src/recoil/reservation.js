@@ -24,3 +24,10 @@ export const RorderTimeState = atom({
 	key: 'RorderTimeState',
 	default: '',
 });
+
+export const RorderDayOfWeekState = atom({
+	key: 'RorderDayOfWeekState',
+	default: '',
+});
+
+

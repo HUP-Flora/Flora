@@ -12,7 +12,7 @@ function OrderDetailHeader() {
 	const orderDetail = useRecoilValue(orderDetailState);
 	const { orderType, orderStatus } = orderDetail;
 
-	const user = "손님";
+	const user = "사장";
 
 	const { titleText, subTitleText  } = decideTitle(orderStatus, orderType, user);
 
