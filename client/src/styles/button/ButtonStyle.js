@@ -188,24 +188,25 @@ export const GraySmallButton = styled(WhiteButton)`
 	}
 `;
 
-export const Primary400CheckButton = styled.div`
+export const GreenCheckButton = styled.div`
 	width: 30px;
 	height: 30px;
 
 	margin-right: ${props => props.marginRight && props.marginRight}px;
 
 	appearance: none;
+	border: 2px solid #00c473;
 	border-radius: 5px;
 
-	background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
-
-	background-size: 100% 100%;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='icon icon-tabler icon-tabler-check' width='44' height='44' viewBox='0 0 24 24' stroke-width='3' stroke='%2300C473' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M5 12l5 5l10 -10' /%3E%3C/svg%3E");
+	background-size: 80% 80%;
 	background-position: 50%;
 	background-repeat: no-repeat;
-	background-color: var(--primary-400);
+	background-color: #d3f9d8;
 
 	&:active {
-		background-color: var(--primary-500);
+		background-color: #00c473;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='icon icon-tabler icon-tabler-check' width='44' height='44' viewBox='0 0 24 24' stroke-width='3' stroke='white' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M5 12l5 5l10 -10' /%3E%3C/svg%3E");
 	}
 `;
 
@@ -217,7 +218,7 @@ export const Primary50CancelButton = styled.div`
 
 	appearance: none;
 	border-radius: 5px;
-	border: 1.5px solid var(--primary-400);
+	border: 2px solid var(--primary-400);
 
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='icon icon-tabler icon-tabler-x' width='30' height='30' viewBox='0 0 24 24' stroke-width='3' stroke='%23ff349c' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3E%3Cline x1='18' y1='6' x2='6' y2='18' /%3E%3Cline x1='6' y1='6' x2='18' y2='18' /%3E%3C/svg%3E");
 	background-size: 80% 80%;
@@ -226,6 +227,7 @@ export const Primary50CancelButton = styled.div`
 	background-color: var(--primary-50);
 
 	&:active {
-		background-color: var(--primary-100);
+		background-color: var(--primary-400);
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='icon icon-tabler icon-tabler-x' width='30' height='30' viewBox='0 0 24 24' stroke-width='3' stroke='white' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3E%3Cline x1='18' y1='6' x2='6' y2='18' /%3E%3Cline x1='6' y1='6' x2='18' y2='18' /%3E%3C/svg%3E");
 	}
 `;

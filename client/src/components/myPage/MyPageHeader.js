@@ -6,7 +6,7 @@ import {
 	ValidTextWrapper,
 } from "../../styles/myPage/MyPageHeaderStyle";
 import { Text, BoldText, BottomBorderInput, ValidText } from "../../styles/common/CommonStyle";
-import { Primary400CheckButton, Primary50CancelButton } from "../../styles/button/ButtonStyle";
+import { GreenCheckButton, Primary50CancelButton } from "../../styles/button/ButtonStyle";
 
 import EditIcon from "../../assets/myPage/EditIcon.png";
 import StoreImage from "../../assets/store.png";
@@ -96,7 +96,7 @@ function MyPageHeader(props) {
 									value={name}
 									defaultValue={customer.name}
 								/>
-								<Primary400CheckButton onClick={e => handleClickNameEditCheck(e)} marginRight="4" />
+								<GreenCheckButton onClick={e => handleClickNameEditCheck(e)} marginRight="4" />
 								<Primary50CancelButton onClick={handleClickNameEditCancel} />
 							</EditContainer>
 							{!isNameValid && (
@@ -124,7 +124,7 @@ function MyPageHeader(props) {
 									value={phoneNumber}
 									defaultValue={customer.phoneNumber}
 								/>
-								<Primary400CheckButton onClick={handleClickPhoneNumberEditCheck} marginRight="4" />
+								<GreenCheckButton onClick={handleClickPhoneNumberEditCheck} marginRight="4" />
 								<Primary50CancelButton onClick={handleClickPhoneNumberEditCancel} />
 							</EditContainer>
 							{!isPhoneNumberValid && (
