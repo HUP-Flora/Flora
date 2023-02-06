@@ -2,7 +2,9 @@ import { Primary400LargeButton } from "../../styles/button/ButtonStyle";
 import { BoldText } from "../../styles/common/CommonStyle";
 import { WhiteContainer } from "../../styles/container/ContainerStyle";
 import OwnerIcon from "../../assets/signup/OwnerIcon.png";
+import OwnerSelectedIcon from "../../assets/signup/OwnerSelectedIcon.png";
 import UserIcon from "../../assets/signup/UserIcon.png";
+import UserSelectedIcon from "../../assets/signup/UserSelectedIcon.png";
 import { ButtonToolBar } from "../../styles/bar/BarStyle";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
@@ -35,11 +37,11 @@ export function Signup() {
 				사용자 유형을 선택해주세요
 			</GrayText>
 			<FirstWhiteLargeButton onClick={() => setUser("user")} isClick={user === "user"}>
-				<ButtonImage src={user === "user" ? UserIcon : ""} />
+				<ButtonImage src={user === "user" ? UserSelectedIcon : UserIcon} />
 				<GrayText isClick={user === "user"}>일반 사용자</GrayText>
 			</FirstWhiteLargeButton>
 			<SecondWhiteLargeButton onClick={() => setUser("owner")} isClick={user === "owner"}>
-				<ButtonImage src={user === "owner" ? OwnerIcon : ""} />
+				<ButtonImage src={user === "owner" ? OwnerSelectedIcon : OwnerIcon} />
 				<GrayText isClick={user === "owner"}>꽃집 사장님</GrayText>
 			</SecondWhiteLargeButton>
 			<ButtonToolBar>
