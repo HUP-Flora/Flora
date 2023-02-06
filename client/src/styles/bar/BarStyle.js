@@ -102,4 +102,19 @@ export const LeftArrow = styled.img`
 export const TabImgWrapper = styled.div`
 	height: 55%;
 	padding-top: 16px;
+`
+export const SearchBarContainer = styled.section`
+	height: 32px;
+	background-color: var(--gray-50);
+	border: 1px solid var(--gray-400);
+	border-radius: 5px;
+	margin: 16px;
+	padding: 8px;
+	display: flex;
+`;
+
+export const SearchBarContent = styled.div`
+	cursor: pointer;
+	width: 49.8%;
+	text-align: center;
 `;

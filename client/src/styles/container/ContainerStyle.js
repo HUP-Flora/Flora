@@ -5,5 +5,7 @@ export const Gray50Container = styled.div`
 `;
 
 export const WhiteContainer = styled.div`
-	padding: 16px;
+	padding-top: 16px;
+	padding-left: 16px;
+	padding-right: 16px;
 `;

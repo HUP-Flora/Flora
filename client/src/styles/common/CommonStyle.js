@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ErrorMessage } from "../chatting/Messages/Message/forms/OtherFormStyle";
 
 // 미디어쿼리로 pc일 경우와 mobile일 경우를 구분해서 진행하면 될 듯!
 
@@ -63,6 +64,7 @@ export const OnOff = styled.div`
 	font-size: 11px;
 
 	color: white;
+	margin: 16px;
 	background-color: ${props => (props.isOn ? "#F03E3E" : "var(--gray-400)")};
 	filter: ${props =>
 		props.isOn
@@ -117,13 +119,13 @@ export const UploadPictureSection = styled.div`
 export const PicturePreview = styled.img`
 	width: 100px;
 	height: 100px;
-	border: 1px solid var(--gray-400);
 	border-radius: 50px;
 
 	position: relative;
 `;
 
 export const PictureSection = styled.div`
+	cursor: pointer;
 	width: 100px;
 	height: 100px;
 
@@ -166,6 +168,7 @@ export const ChooseHolidaySection = styled.div`
 `;
 
 export const HolidayCircle = styled.div`
+	cursor: pointer;
 	width: 40px;
 	height: 40px;
 	border-radius: 20px;
@@ -196,6 +199,17 @@ export const TimeOption = styled.option`
 export const ImageInput = styled.input`
 	display: none;
 `;
+
+export const WhiteLayout = styled.div`
+	padding-left: 16px;
+	padding-right: 16px;
+`;
+
+export const VerticalLine = styled.hr`
+		border: 1px solid var(--gray-500)
+		width: 1;
+		height: 40%;
+	`;
 
 export const GrayHr = styled.hr`
 	background-color: var(--gray-300);

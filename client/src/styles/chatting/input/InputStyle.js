@@ -1,4 +1,11 @@
 import styled from "styled-components";
+import {
+	GiftMessageInput,
+	MarginBottom16TextInput,
+	SearchAddressContainerButton,
+	SearchAddressInput,
+	TextInput,
+} from "../Messages/Message/forms/OtherFormStyle";
 
 export const InputLayout = styled.form`
 	display: flex;
@@ -48,4 +55,34 @@ export const FormButtonImage = styled(InputButtonImage)`
 	object-fit: contain;
 	margin-left: 2px;
 	margin-bottom: 2px;
+`;
+
+export const SignupLabelDiv = styled.div`
+	font-family: "NEXON Lv1 Gothic OTF";
+	padding-top: 8px;
+	padding-bottom: 8px;
+`;
+
+export const SignupTextInput = styled(TextInput)`
+	width: 100%;
+`;
+
+export const SignupAddressContainerButton = styled(SearchAddressContainerButton)`
+	width: 100%;
+`;
+
+export const SignupPhoneNumberInput = styled(MarginBottom16TextInput)`
+	width: 100%;
+`;
+
+export const SignupFirstAddressInput = styled(SearchAddressInput)`
+	width: 100%;
+`;
+
+export const SignupSecondAddressInput = styled(MarginBottom16TextInput)`
+	width: 100%;
+`;
+
+export const StoreDescription = styled(GiftMessageInput)`
+	width: 100%;
 `;
