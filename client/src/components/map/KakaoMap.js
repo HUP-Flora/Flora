@@ -9,7 +9,7 @@ const { kakao } = window;
 
 export function KakaoMap() {
 	const [position, setPosition] = useRecoilState(locationState);
-	const [level, setLevel] = useRecoilState(levelState);
+	// const [level, setLevel] = useRecoilState(levelState);
 
 	// 임시로 좌표 지정 - 추후 삭제
 	useEffect(() => {
@@ -33,8 +33,8 @@ export function KakaoMap() {
 		<Map // 지도를 표시할 Container
 			center={{
 				// 지도의 중심좌표
-				lat: 33.450701,
-				lng: 126.570667,
+				lat: position.center.lat,
+				lng: position.center.lng,
 			}}
 			style={MapStyle}
 			level={3} // 지도의 확대 레벨

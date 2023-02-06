@@ -251,7 +251,7 @@ body {
   top: 0;
   left: 0;
   background-color: var(--bg-main);
-  padding: 20px;
+  padding: 5px;
   grid-template-columns: repeat(3, auto);
   gap: 5px;
   display: grid;
@@ -270,6 +270,7 @@ body {
 .month-list > div {
   display: grid;
   place-items: center;
+  width: fit-content;
 }
 
 .month-list > div > div {

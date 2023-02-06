@@ -3,10 +3,12 @@ import React from "react";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import { useSetRecoilState } from "recoil";
 import { isDaumPostShowState, receiveUserFirstAddressState } from "../../recoil/chatting";
+import { locationState } from "../../recoil/map";
 import { addressState } from "../../recoil/searchBar";
 import { storeFirstAddressState } from "../../recoil/signup";
 
 function Postcode() {
+	const setLocation = useSetRecoilState(locationState);
 	const setReceiveUserFirstAddress = useSetRecoilState(receiveUserFirstAddressState);
 	const setStoreFirstAddress = useSetRecoilState(storeFirstAddressState);
 	const setAddress = useSetRecoilState(addressState);
@@ -20,9 +22,10 @@ function Postcode() {
 				Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_ADMIN_KEY}`,
 			},
 		}).then(response => {
-			console.log(response.data.documents[0].address);
+			const address = response.data.documents[0].address;
+			console.log(address);
+			setLocation({ center: { lat: address["y"], lng: address["x"] }, isPanto: true });
 		});
-		console.log(data);
 		setReceiveUserFirstAddress(data.jibunAddress);
 		setStoreFirstAddress(data.jibunAddress);
 		setAddress(data.jibunAddress);

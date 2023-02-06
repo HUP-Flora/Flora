@@ -64,7 +64,7 @@ function AppRouter() {
 				{/* <Route path="/store/:id/:productId" element={<ProductDetail />} /> */}
 				<Route path="/productAdd" element={<ProductForms />} />
 				<Route path="/productEdit" element={<ProductForms />} />
-				// 예약 페이지들
+				{/* 예약 페이지들 */}
 				<Route path="/reservation/type" element={<ReservationType />} />
 				<Route path="/reservation/date" element={<ReservationDate />} />
 				{/* 마이페이지 */}
