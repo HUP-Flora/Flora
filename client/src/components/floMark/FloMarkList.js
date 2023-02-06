@@ -100,14 +100,16 @@ function FloMarkList(props) {
 									{/* 첫 줄 */}
 									<RowContainer>
 										<BoldText>{store.storeName}</BoldText>
-										<BoldText color="var(--primary-500)">가게 보기 &gt;</BoldText>
+										<BoldText size="13" color="var(--primary-500)">
+											가게 보기 &gt;
+										</BoldText>
 									</RowContainer>
-									<GrayText>{store.storeAddress}</GrayText>
+									<GrayText size="13">{store.storeAddress}</GrayText>
 									{/* 마지막 줄 */}
 									<RowContainer>
-										<GrayText>{store.storeWorkingTime}</GrayText>
-										<GrayText>|</GrayText>
-										<GrayText>{store.storeTel}</GrayText>
+										<GrayText size="13">{store.storeWorkingTime}</GrayText>
+										<GrayText size="13">|</GrayText>
+										<GrayText size="13">{store.storeTel}</GrayText>
 									</RowContainer>
 								</TextContainer>
 							</ShadowCardContent>

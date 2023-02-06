@@ -40,7 +40,8 @@ export const TextContainer = styled.div`
 	}
 
 	> div:last-child > div:nth-child(2) {
-		margin: 0px 16px;
+		margin: 0px 8px;
+		color: var(--gray-400);
 	}
 `;
 
