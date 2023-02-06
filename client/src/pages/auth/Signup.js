@@ -1,25 +1,29 @@
-import { Primary400LargeButton, Primary50LargeButton } from "../../styles/button/ButtonStyle";
-import {
-	BoldText,
-	GrayText,
-	LargeButtonIcon,
-	LargeButtonText,
-} from "../../styles/common/CommonStyle";
+import { Primary400LargeButton } from "../../styles/button/ButtonStyle";
+import { BoldText } from "../../styles/common/CommonStyle";
 import { WhiteContainer } from "../../styles/container/ContainerStyle";
 import OwnerIcon from "../../assets/signup/OwnerIcon.png";
+import OwnerSelectedIcon from "../../assets/signup/OwnerSelectedIcon.png";
 import UserIcon from "../../assets/signup/UserIcon.png";
+import UserSelectedIcon from "../../assets/signup/UserSelectedIcon.png";
 import { ButtonToolBar } from "../../styles/bar/BarStyle";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { userState } from "../../recoil/signup";
+import {
+	GrayText,
+	ButtonImage,
+	FirstWhiteLargeButton,
+	SecondWhiteLargeButton,
+} from "../../styles/reservation/ReservationStyle.js";
 
 export function Signup() {
-	const [state, setState] = useState("");
+	const [user, setUser] = useRecoilState(userState);
 	const navigate = useNavigate();
 
 	const handleSignup = () => {
-		if (state === "사용자") {
+		if (user === "user") {
 			navigate("/signup/user");
-		} else if (state === "사장님") {
+		} else if (user === "owner") {
 			navigate("/signup/owner");
 		}
 	};
@@ -32,27 +36,14 @@ export function Signup() {
 			<GrayText font="nexon" bottom="128">
 				사용자 유형을 선택해주세요
 			</GrayText>
-			<Primary50LargeButton
-				width="358"
-				height="88"
-				bottom="32"
-				onClick={() => {
-					setState("사용자");
-				}}
-			>
-				<LargeButtonIcon src={UserIcon} alt="userIcon" />
-				<LargeButtonText>일반 사용자</LargeButtonText>
-			</Primary50LargeButton>
-			<Primary50LargeButton
-				width="358"
-				height="88"
-				onClick={() => {
-					setState("사장님");
-				}}
-			>
-				<LargeButtonIcon src={OwnerIcon} alt="userIcon" />
-				<LargeButtonText>꽃집 사장님</LargeButtonText>
-			</Primary50LargeButton>
+			<FirstWhiteLargeButton onClick={() => setUser("user")} isClick={user === "user"}>
+				<ButtonImage src={user === "user" ? UserSelectedIcon : UserIcon} />
+				<GrayText isClick={user === "user"}>일반 사용자</GrayText>
+			</FirstWhiteLargeButton>
+			<SecondWhiteLargeButton onClick={() => setUser("owner")} isClick={user === "owner"}>
+				<ButtonImage src={user === "owner" ? OwnerSelectedIcon : OwnerIcon} />
+				<GrayText isClick={user === "owner"}>꽃집 사장님</GrayText>
+			</SecondWhiteLargeButton>
 			<ButtonToolBar>
 				<Primary400LargeButton onClick={handleSignup}>다음으로</Primary400LargeButton>
 			</ButtonToolBar>

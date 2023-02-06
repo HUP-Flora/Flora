@@ -1,4 +1,4 @@
-import { TabBarDiv, TabImg, TabMenu, TabText } from "../../styles/bar/BarStyle";
+import { TabBarDiv, TabImg, TabMenu, TabText, TabImgWrapper } from "../../styles/bar/BarStyle";
 
 export function TabMenuBar({ isOwner, selectedMenu }) {
 	const tabMenu = ["Main", "FloLive", "FloMark", "MyPage"];
@@ -13,12 +13,14 @@ export function TabMenuBar({ isOwner, selectedMenu }) {
 		<TabBarDiv>
 			{tabMenu.map((menu, index) => (
 				<TabMenu key={menu} isSelected={menu === selectedMenu}>
-					<TabImg
-						src={require(`../../assets/tapIcon/${
-							menu === selectedMenu ? "Selected" : ""
-						}${menu}.png`)}
-						alt={menu}
-					/>
+					<TabImgWrapper>
+						<TabImg
+							src={require(`../../assets/tapIcon/${
+								menu === selectedMenu ? "Selected" : ""
+							}${menu}.png`)}
+							alt={menu}
+						/>
+					</TabImgWrapper>
 					<TabText>{tabMenuName[index]}</TabText>
 				</TabMenu>
 			))}

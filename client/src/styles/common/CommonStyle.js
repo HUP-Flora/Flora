@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { ErrorMessage } from "../chatting/Messages/Message/forms/OtherFormStyle";
 
 // 미디어쿼리로 pc일 경우와 mobile일 경우를 구분해서 진행하면 될 듯!
 
@@ -31,6 +32,8 @@ export const BoldText = styled.div`
 	font-weight: bold;
 	font-size: ${props => props.size || 16}px;
 	font-family: ${props => (props.font === "nexon" ? "NEXON Lv1 Gothic OTF" : "Pretendard-Regular")};
+	color: ${props => props.color && props.color};
+	};
 `;
 
 export const GrayText = styled.div`
@@ -44,6 +47,52 @@ export const GrayText = styled.div`
 	color: var(--gray-500);
 `;
 
+export const ValidText = styled.div`
+	margin-top: 4px;
+	color: red;
+	font-weight: normal;
+	font-size: 13px;
+`;
+
+export const OnOffToggle = styled.div`
+	width: 65px;
+
+	border-radius: 20px;
+
+	background-color: ${props => (props.isOn ? "var(--gray-300)" : "var(--primary-50)")};
+
+	transition: all 0.2s ease-in-out;
+
+	cursor: pointer;
+
+	> div {
+		width: fit-content;
+		height: 100%;
+
+		display: flex;
+		padding: 0px 13px;
+		align-items: center;
+
+		font-size: 13px;
+
+		border-radius: 20px;
+
+		${props =>
+			props.isOn &&
+			css`
+				transform: translate(0px, 0);
+				transition: all 0.2s ease-in-out;
+			`}
+
+		${props =>
+			!props.isOn &&
+			css`
+				transform: translate(15px, 0);
+				transition: all 0.2s ease-in-out;
+			`}
+	}
+`;
+
 export const OnOff = styled.div`
 	width: 40px;
 	height: 20px;
@@ -54,7 +103,6 @@ export const OnOff = styled.div`
 	font-size: 11px;
 
 	color: white;
-	margin: 16px;
 	background-color: ${props => (props.isOn ? "#F03E3E" : "var(--gray-400)")};
 	filter: ${props =>
 		props.isOn
@@ -115,6 +163,7 @@ export const PicturePreview = styled.img`
 `;
 
 export const PictureSection = styled.div`
+	cursor: pointer;
 	width: 100px;
 	height: 100px;
 
@@ -157,6 +206,7 @@ export const ChooseHolidaySection = styled.div`
 `;
 
 export const HolidayCircle = styled.div`
+	cursor: pointer;
 	width: 40px;
 	height: 40px;
 	border-radius: 20px;
@@ -204,4 +254,120 @@ export const GrayHr = styled.hr`
 	height: 0.5px;
 	border: 0;
 	margin: 0 16px;
+`;
+
+export const BottomButtonContainer = styled.div`
+	padding: 0 16px;
+
+	position: fixed;
+	display: flex;
+	justify-content: space-between;
+
+	background-color: #fff;
+	border-top: 0.5px solid var(--gray-300);
+
+	z-index: 100;
+
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	> button {
+		width: 100%;
+		margin: 16px 0;
+	}
+`;
+
+// 한 행에 버튼 두 개
+export const BottomRowDoubleButtonContainer = styled(BottomButtonContainer)`
+	> button:first-child {
+		margin-right: 8px;
+	}
+
+	> button:last-child {
+		margin-left: 8px;
+	}
+`;
+
+// 한 행에 버튼 한 개
+export const BottomDoubleButtonContainer = styled(BottomButtonContainer)`
+	display: block;
+
+	> button:first-child {
+		margin-bottom: 8px;
+	}
+
+	> button:last-child {
+		margin-top: 8px;
+	}
+`;
+
+export const ShadowCard = styled.div`
+	padding: ${props => (props.padding ? props.padding : "16")}px;
+	margin-bottom: ${props => props.marginBottom && props.marginBottom}px;
+
+	display: ${props => props.display && props.display};
+	justify-content: ${props => props.isSpaceBetween && "space-between"};
+
+	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+	border-radius: 10px;
+
+	img {
+		border-radius: 50%;
+	}
+`;
+
+export const Primary400CheckBox = styled.input`
+	width: 20px;
+	height: 20px;
+
+	margin-right: 8px;
+
+	appearance: none;
+	border: 1px solid var(--primary-400);
+	border-radius: 5px;
+
+	&:checked {
+		background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+		background-size: 100% 100%;
+		background-position: 50%;
+		background-repeat: no-repeat;
+		background-color: var(--primary-400);
+	}
+`;
+
+export const EmptyContianer = styled.div`
+	text-align: center;
+
+	color: var(--gray-500);
+	font-size: 19px;
+	font-weight: bold;
+
+	// Status Bar + Bottom Menu Bar가 있다면 height를 제외하여 중앙에 위치 
+	// Status Bar(72) + Bottom Menu Bar(72) = 144px
+	height: calc(100vh - ${props => props.exceptHeight && props.exceptHeight}px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;s
+`;
+
+export const BottomBorderInput = styled.input`
+	width: ${props => (props.width ? props.width : 100)}%;
+
+	padding: 8px;
+
+	border: none;
+	border-bottom: 1px solid var(--gray-500);
+
+	::placeholder {
+		color: var(--gray-500);
+	}
+
+	&:focus {
+		outline: none;
+
+		border: none;
+		border-bottom: 1.5px solid black;
+	}
 `;

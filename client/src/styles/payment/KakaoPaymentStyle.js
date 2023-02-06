@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const KakaoPaymentFrame = styled.iframe`
+export const FullScreenFrame = styled.iframe`
 	overflow: hidden;
 	overflow-x: hidden;
 	overflow-y: hidden;

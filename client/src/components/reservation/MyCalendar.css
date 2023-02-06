@@ -116,20 +116,11 @@ body {
   position: absolute;
 }
 
-.calendar-days div:hover span {
-  transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
-}
-
 .calendar-days div span:nth-child(1),
 .calendar-days div span:nth-child(3) {
   width: 2px;
   height: 0;
   background-color: var(--color-txt);
-}
-
-.calendar-days div:hover span:nth-child(1),
-.calendar-days div:hover span:nth-child(3) {
-  height: 100%;
 }
 
 .calendar-days div span:nth-child(1) {
@@ -147,11 +138,6 @@ body {
   width: 0;
   height: 2px;
   background-color: var(--color-txt);
-}
-
-.calendar-days div:hover span:nth-child(2),
-.calendar-days div:hover span:nth-child(4) {
-  width: 100%;
 }
 
 .calendar-days div span:nth-child(2) {
@@ -186,6 +172,7 @@ body {
 .calendar-days div.curr-date span {
   display: none;
 }
+
 
 .month-picker {
   padding: 5px 10px;
@@ -264,7 +251,7 @@ body {
   top: 0;
   left: 0;
   background-color: var(--bg-main);
-  padding: 20px;
+  padding: 5px;
   grid-template-columns: repeat(3, auto);
   gap: 5px;
   display: grid;
@@ -283,6 +270,7 @@ body {
 .month-list > div {
   display: grid;
   place-items: center;
+  width: fit-content;
 }
 
 .month-list > div > div {

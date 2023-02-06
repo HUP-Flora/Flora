@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
-import { KakaoPaymentFrame } from "../../styles/payment/KakaoPaymentStyle";
+import { FullScreenFrame } from "../../styles/payment/KakaoPaymentStyle";
 import { KakaoPaymentButton } from "../../styles/button/ButtonStyle";
 import KakaoPayLogoImg from "../../assets/kakao/KakaoPayLogo.png";
 import { KakaoPayLogo, KakaoPayText } from "../../styles/common/CommonStyle";
@@ -46,7 +46,7 @@ export function KakaoPayment() {
 	return (
 		<>
 			{redirectUrl ? (
-				<KakaoPaymentFrame title="kakaoPaymentFrame" src={redirectUrl}></KakaoPaymentFrame>
+				<FullScreenFrame title="kakaoPaymentFrame" src={redirectUrl}></FullScreenFrame>
 			) : (
 				<>
 					<Link to={"/"}>뒤로 가기</Link>

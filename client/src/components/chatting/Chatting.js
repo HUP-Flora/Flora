@@ -5,7 +5,7 @@ import Messages from "./messages/Messages";
 
 import { useRecoilValue } from "recoil";
 import { isErrorModalShowState, nameState, roomState } from "../../recoil/chatting";
-import { listenMessage, socketJoin } from "../../utils/chatting";
+import { listenMessage, socketInit, socketJoin } from "../../utils/chatting";
 import { ChatLayout } from "../../styles/chatting/ChattingStyle";
 import ErrorModal from "./errorModal/ErrorModal";
 
@@ -16,6 +16,8 @@ const Chat = () => {
 	const room = useRecoilValue(roomState);
 	const [message, setMessage] = useState("");
 	const [messages, setMessages] = useState([]);
+
+	socketInit();
 
 	useEffect(() => {
 		socketJoin(name, room);

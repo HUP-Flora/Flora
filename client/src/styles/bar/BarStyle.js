@@ -30,6 +30,25 @@ export const TabBarDiv = styled.div`
 	width: 100%;
 	position: fixed;
 	bottom: 0px;
+
+	> div:first-child img {
+		align-items: center;
+		justify-content: center;
+	}
+
+	> div:nth-child(2) img {
+		height: 100%;
+	}
+
+	// 플로라이브 이미지 크기 조정
+	> div:nth-child(2) > div:first-child {
+		padding-top: 13px;
+	}
+
+	// 꽃갈피 이미지 크기 조정
+	> div:nth-child(3) > div:first-child {
+		padding-top: 13px;
+	}
 `;
 
 export const TabMenu = styled.div`
@@ -42,10 +61,9 @@ export const TabMenu = styled.div`
 `;
 
 export const TabImg = styled.img`
-	position: absolute;
-	top: 40%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	height: 100%;
+	align-items: center;
+	justify-content: center;
 `;
 
 export const TabText = styled.div`
@@ -81,6 +99,10 @@ export const LeftArrow = styled.img`
 	transform: translate(0%, -50%);
 `;
 
+export const TabImgWrapper = styled.div`
+	height: 55%;
+	padding-top: 16px;
+`
 export const SearchBarContainer = styled.section`
 	height: 32px;
 	background-color: var(--gray-50);
@@ -92,6 +114,7 @@ export const SearchBarContainer = styled.section`
 `;
 
 export const SearchBarContent = styled.div`
+	cursor: pointer;
 	width: 49.8%;
 	text-align: center;
 `;
