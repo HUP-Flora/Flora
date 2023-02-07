@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { StreamVideo } from "../../../styles/openViduStyle";
+import { StreamVideo } from "../../../styles/flolive/OpenViduStyle";
 
 export default class OpenViduVideoComponent extends Component {
 	constructor(props) {
