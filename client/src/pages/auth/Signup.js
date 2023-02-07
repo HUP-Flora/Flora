@@ -22,10 +22,9 @@ export function Signup() {
 	const setToken = useSetRecoilState(accessTokenState);
 	const navigate = useNavigate();
 
-	const { token } = useParams();
-
 	useEffect(() => {
-		setToken(token);
+		console.log(window.location.token);
+		setToken(window.location.token);
 	}, []);
 
 	const handleSignup = () => {
