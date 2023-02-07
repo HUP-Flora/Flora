@@ -85,9 +85,14 @@ function AppRouter() {
 				{/* <Route path="/product/:product-id/edit" element={<ProductForms />} /> */}
 
 				{/* 예약 페이지 */}
-				{/* <Route path="/product/:product-id/reservation/type" element={<ReservationType />} />
-				<Route path="/product/:product-id/reservation/date" element={<ReservationDate />} />
-				<Route path="/product/:product-id/reservation/complete" element={<ReservationComplete />} /> */}
+				{/*<Route path="/product/:product-id/reservation/type" element={<ReservationType />} />*/}
+				{/*<Route path="/product/:product-id/reservation/date" element={<ReservationDate />} />*/}
+				{/*<Route path="/product/:product-id/reservation/complete" element={<ReservationComplete />} />*/}
+
+				{/*예약 페이지 테스트*/}
+				<Route path="/reservation/type" element={<ReservationType />} />
+				<Route path="/reservation/date" element={<ReservationDate />} />
+				<Route path="/reservation/complete" element={<ReservationComplete />} />
 
 				{/* 플로라이브 페이지 */}
 				<Route path="/flolive" element={<Flolive />} />
@@ -99,7 +104,8 @@ function AppRouter() {
 				{/* 마이페이지 */}
 				<Route path="/mypage" element={<MyPage />} />
 				<Route path="/mypage/order/list" element={<OrdersList />} />
-				<Route path="/mypage/order/:order-id" element={<OrderDetail />} />
+				{/*<Route path="/mypage/order/:order-id" element={<OrderDetail />} />*/}
+				<Route path="/mypage/order/detail" element={<OrderDetail />} />
 				<Route path="/mypage/review/list" element={<Review />} />
 				<Route path="/mypage/signout" element={<UserDelete />} />
 

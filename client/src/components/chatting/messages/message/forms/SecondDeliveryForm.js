@@ -246,6 +246,7 @@ function SecondDeliveryForm({ time }) {
 						placeholder="내용을 입력해주세요."
 						onChange={e => setGiftCard(e.target.value)}
 						value={giftCard}
+						maxLength="99"
 					/>
 					<InputCounter>{giftCard.length}/100자</InputCounter>
 					<InputLabel htmlFor="paymentAmount">결제 금액</InputLabel>

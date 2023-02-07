@@ -4,23 +4,24 @@ import Input from "./input/Input";
 import Messages from "./messages/Messages";
 
 import { useRecoilValue } from "recoil";
-import { isErrorModalShowState, nameState, roomState } from "../../recoil/chatting";
+import { isErrorModalShowState } from "../../recoil/chatting";
 import { listenMessage, socketInit, socketJoin } from "../../utils/chatting";
 import { ChatLayout } from "../../styles/chatting/ChattingStyle";
 import ErrorModal from "./errorModal/ErrorModal";
+import { LmySessionIdState, LmyTypeState } from "../../recoil/flolive";
 
 const ENDPOINT = "http://localhost:5000";
 
 const Chat = () => {
-	const name = useRecoilValue(nameState);
-	const room = useRecoilValue(roomState);
+	const LmyType = useRecoilValue(LmyTypeState);
+	const LmySessionId = useRecoilValue(LmySessionIdState);
 	const [message, setMessage] = useState("");
 	const [messages, setMessages] = useState([]);
 
 	socketInit();
 
 	useEffect(() => {
-		socketJoin(name, room);
+		socketJoin(LmyType, LmySessionId);
 	}, [ENDPOINT, window.location.search]);
 
 	useEffect(() => {
