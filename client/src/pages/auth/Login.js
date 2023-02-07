@@ -31,9 +31,23 @@ export function Login() {
 	// 		});
 	// };
 
+	const handleTest = () => {
+		axios({
+			method: "GET",
+			url: "http://localhost:8080/api/auth/users",
+		})
+			.then(res => {
+				console.log(res);
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	};
+
 	return (
 		<WhiteLayout>
 			<ButtonToolBar>
+				<button onClick={handleTest}>유리님 테스트</button>
 				<a href={`${process.env.REACT_APP_SERVER_URL}/oauth2/authorization/kakao`} alt="_self">
 					<KakaoLoginButton>
 						<KakaoLogo src={KakaoLogoImg} alt="KakaoLogo" />
