@@ -14,6 +14,7 @@ import { useRecoilState } from "recoil";
 import { nicknameState, phoneNumberState } from "../../recoil/signup";
 import { useCallback, useState } from "react";
 import { SignupLabelDiv, SignupTextInput } from "../../styles/chatting/input/InputStyle";
+import { useUserFormApi } from "../../hooks/useUserFormApi";
 
 export function SignupUser() {
 	const [nickname, setNickname] = useRecoilState(nicknameState);
@@ -21,14 +22,17 @@ export function SignupUser() {
 	const [nicknameErrorMessage, setNicknameErrorMessage] = useState("");
 	const [phoneNumberErrorMessage, setPhoneNumberErrorMessage] = useState("");
 
+	const userFormApi = useUserFormApi();
+
 	const handleSignup = () => {
 		if (nicknameValidate(nickname) && phoneNumberValidate(phoneNumber)) {
 			const data = {
 				nickname,
 				phoneNumber,
 			};
+
 			// 서버로 보내고 이전에 가려했던 페이지로 이동
-			console.log("good");
+			userFormApi(data);
 		}
 	};
 
@@ -115,12 +119,6 @@ export function SignupUser() {
 					{nicknameErrorMessage && <ErrorMessage>{nicknameErrorMessage}</ErrorMessage>}
 					<InputCounter isError={nicknameErrorMessage}>{nickname.length}/25자</InputCounter>
 				</InputCounterContainer>
-
-				{/* <Text bottom="8">닉네임을 입력해주세요</Text>
-				<TextInput />
-				<Text top="32" bottom="8">
-					전화번호를 입력해주세요
-				</Text> */}
 				<SignupLabelDiv>
 					<InputLabel htmlFor="phoneNumber">전화번호를 입력해주세요</InputLabel>
 				</SignupLabelDiv>
