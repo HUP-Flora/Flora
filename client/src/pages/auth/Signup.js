@@ -6,7 +6,7 @@ import OwnerSelectedIcon from "../../assets/signup/OwnerSelectedIcon.png";
 import UserIcon from "../../assets/signup/UserIcon.png";
 import UserSelectedIcon from "../../assets/signup/UserSelectedIcon.png";
 import { ButtonToolBar } from "../../styles/bar/BarStyle";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil/signup";
 import {
@@ -19,6 +19,8 @@ import {
 export function Signup() {
 	const [user, setUser] = useRecoilState(userState);
 	const navigate = useNavigate();
+
+	const { token } = useParams();
 
 	const handleSignup = () => {
 		if (user === "user") {
