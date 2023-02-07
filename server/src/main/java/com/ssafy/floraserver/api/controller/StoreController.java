@@ -51,9 +51,4 @@ public class StoreController {
         return productResList;
     }
 
-    @GetMapping("products/{pId}")
-    public ProductRes findProduct(@PathVariable("pId") Long pId){
-        ProductRes productRes = storeService.findProduct(pId);
-        return productRes;
-    }
 }

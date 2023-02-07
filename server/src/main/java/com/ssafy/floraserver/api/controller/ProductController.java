@@ -18,8 +18,8 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/{pId}")
-    public ProductRes getProduct(@PathVariable("pId") Long pId){
-        ProductRes productRes = productService.getProduct(pId);
+    public ProductRes findProduct(@PathVariable("pId") Long pId){
+        ProductRes productRes = productService.findProduct(pId);
 
         return productRes;
     }

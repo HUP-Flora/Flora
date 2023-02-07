@@ -66,11 +66,4 @@ public class StoreService {
         return productResList;
     }
 
-    public ProductRes findProduct(Long pId) {
-        Product product = productRepository.findById(pId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        return ProductRes.builder().product(product).build();
-    }
-
 }

@@ -25,7 +25,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final StoreRepository storeRepository;
 
-    public ProductRes getProduct(Long pId) {
+    public ProductRes findProduct(Long pId) {
 
         Product product = productRepository.findById(pId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
