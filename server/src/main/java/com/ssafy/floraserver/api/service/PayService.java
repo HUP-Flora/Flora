@@ -1,9 +1,9 @@
 package com.ssafy.floraserver.api.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.floraserver.api.vo.PayAppResVo;
 import com.ssafy.floraserver.api.vo.PayReadyResVo;
 import com.ssafy.floraserver.db.entity.Order;
+import com.ssafy.floraserver.db.entity.enums.PaymentStatus;
 import com.ssafy.floraserver.db.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,11 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.util.Optional;
+import java.net.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -28,14 +26,13 @@ public class PayService {
     private static final String READY = HOST + "/v1/payment/ready";
     private static final String APPROVE = HOST + "/v1/payment/approve";
     private final OrderRepository orderRepository;
-    private Optional<Order> order = null;
 
     @Value("${kakao-pay.client-id}")
     private String client_id;
     @Value("${kakao-pay.domain}")
     private String domain;
 
-    public PayReadyResVo payReady(Long oId) {
+    public Map<String, Object> payReady(Long oId) {
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -46,24 +43,27 @@ public class PayService {
             conn.setRequestProperty("Authorization", client_id);
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
             conn.setDoOutput(true);
-            
+
             // 주문 번호에 대한 값 찾기
-            if (oId != null) {
-                order = orderRepository.findById(oId);
-            }
+//            Optional<Order> order = orderRepository.findById(oId)
+//                    .orElseThrow(() -> new RuntimeException());
+
+            Order order = orderRepository.findById(oId)
+                    .orElseThrow(() -> new RuntimeException("주문 내역이 없습니다."));
+
+            // 상품 이름 인코딩
+            String pnameEncode = URLEncoder.encode(order.getPId().getName(), "utf-8");
 
             // 파라미터 생성
-            String param = "cid=TC0ONETIME&partner_order_id=" + order.get().getOId() +
-                    "&partner_user_id=" + order.get().getSId().getSId() +
-                    "&item_name=" + order.get().getPId().getName() +
+            String param = "cid=TC0ONETIME&partner_order_id=" + order.getOId() +
+                    "&partner_user_id=" + order.getSId().getSId() +
+                    "&item_name=" + pnameEncode +
                     "&quantity=1" +
-                    "&total_amount=" + order.get().getPayment() +
+                    "&total_amount=" + order.getPayment() +
                     "&tax_free_amount=0" +
                     "&approval_url=" + domain + "approval" +
                     "&cancel_url=" + domain + "cancel" +
                     "&fail_url=" + domain + "fail";
-
-            System.out.println(param);
 
             OutputStream output = conn.getOutputStream();
             DataOutputStream dataOutput = new DataOutputStream(output);
@@ -83,13 +83,16 @@ public class PayService {
             BufferedReader br = new BufferedReader(inputStreamReader);
             PayReadyResVo payReadyResVo = mapper.readValue(br.readLine(), PayReadyResVo.class);
 
-            System.out.println(payReadyResVo.getNext_redirect_pc_url());
+            System.out.println("pay_URL : " + payReadyResVo.getNext_redirect_pc_url());
 
             // order에 결제 번호 세팅
-            System.out.println(payReadyResVo.getTid());
-            System.out.println(order.get().getUId());
+            order.updatePaymentNum(payReadyResVo.getTid());
 
-            return payReadyResVo;
+            Map<String, Object> map = new HashMap<>();
+            map.put("PayReadyResVo", payReadyResVo);
+            map.put("Order", order);
+
+            return map;
 
         } catch (ProtocolException e) {
             e.printStackTrace();
@@ -101,8 +104,12 @@ public class PayService {
         return null;
     }
 
-    public int payApproval(PayReadyResVo payReadyResVo, String pg_token) {
+    public int payApproval(PayReadyResVo payReadyResVo, String pg_token, Long oId) {
+        Order order = orderRepository.findById(oId)
+                .orElseThrow(() -> new RuntimeException("주문 내역이 없습니다."));
+
         int res = 0;
+
         try {
             URL url = new URL(APPROVE);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -113,8 +120,8 @@ public class PayService {
 
             // 파라미터 생성
             String param = "cid=TC0ONETIME&tid=" + payReadyResVo.getTid() +
-                    "&partner_order_id=" + order.get().getOId() +
-                    "&partner_user_id=" + order.get().getUId().getUId() +
+                    "&partner_order_id=" + oId +
+                    "&partner_user_id=" + order.getSId().getSId() +
                     "&pg_token=" + pg_token;
 
             OutputStream output = conn.getOutputStream();
@@ -124,11 +131,11 @@ public class PayService {
 
             res = conn.getResponseCode();
             InputStream input;
-            System.out.println(res);
+            System.out.println("res : " + res);
 
             if (res == 200) {
                 // 결제 완료 여부 변경 : DONE(ENUM)
-                System.out.println("DONE");
+                order.updatePaymentStatus(PaymentStatus.DONE);
             } else {
                 input = conn.getErrorStream();
             }
