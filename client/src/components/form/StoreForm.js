@@ -40,6 +40,7 @@ import {
 import PostcodeModal from "../common/PostcodeModal";
 import { isDaumPostShowState } from "../../recoil/chatting";
 import { StoreFormApi, useStoreFormApi } from "../../hooks/useStoreFormApi";
+import { locationState } from "../../recoil/map";
 
 export function StoreForm({ nextURL }) {
 	const [storePhoneNumber, setStorePhoneNumber] = useRecoilState(phoneNumberState);
@@ -49,6 +50,7 @@ export function StoreForm({ nextURL }) {
 	const [storeSecondAddress, setStoreSecondAddress] = useRecoilState(storeSecondAddressState);
 	const [storeEndTime, setStoreEndTime] = useRecoilState(storeEndTimeState);
 	const [storeHoliday, setStoreHoliday] = useRecoilState(storeHolidayState);
+	const [location, setLocation] = useRecoilState(locationState);
 	const [storeNameErrorMessage, setStoreNameErrorMessage] = useState("");
 	const [storePhoneNumberErrorMessage, setStorePhoneNumberErrorMessage] = useState("");
 	const [storeAddressErrorMessage, setStoreAddressErrorMessage] = useState("");
@@ -78,6 +80,8 @@ export function StoreForm({ nextURL }) {
 				region_2depth_name: storeRegionDepthName.region_2depth_name,
 				region_3depth_name: storeRegionDepthName.region_3depth_name,
 				address_name: `${storeFirstAddress} ${storeSecondAddress}`,
+				lat: location.center.lat,
+				lng: location.center.lng,
 				desc: storeDescription,
 				holiday: storeHolidays,
 				start: storeStartTime.value,
