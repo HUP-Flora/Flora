@@ -21,7 +21,7 @@ function ModalContainer({ isModalShow, setIsModalShow }) {
 
 	const handleClickYes = () => {
 		// (백) requset
-		navigate("/store");
+		navigate("/storeDetail");
 	};
 
 	return (

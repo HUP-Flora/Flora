@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import {
 	StoreInfoContainer,
 	Header,
-	OnOffToggle,
 	ImageWrapper,
 	InfoContainer,
 	Image,
@@ -11,7 +10,7 @@ import {
 	BasicInfoContainer,
 	BasicInfoRow,
 } from "../../styles/storeDetail/StoreDetailStyle";
-import { BoldText, Text, GrayHr, OnOff } from "../../styles/common/CommonStyle";
+import { BoldText, Text, GrayHr, OnOffToggle, OnOff } from "../../styles/common/CommonStyle";
 
 import dummyImg from "../../assets/store.png";
 

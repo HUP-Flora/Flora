@@ -52,7 +52,7 @@ function ReservationDate() {
 		if (RorderTime === "") {
 			return;
 		}
-		navigate("/reservation/complete");
+		navigate("/product/:product-id/reservation/complete");
 	};
 
 	return (
