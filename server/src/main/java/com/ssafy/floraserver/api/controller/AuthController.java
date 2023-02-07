@@ -30,7 +30,7 @@ public class AuthController {
     
     @GetMapping("/users")
     public void getUsers(){
-      log.info(SecurityUtil.getCurrentUser().toString());
+//      log.info(SecurityUtil.getCurrentUser().toString());
       log.info("AuthController /users GET 성공");  
     }
 
@@ -47,6 +47,7 @@ public class AuthController {
     public ResponseEntity<?> createStoreExtraInfo(@RequestBody StoreExtraInfoReq storeExtraInfoReq){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         log.info("현재 로그인 {} ", authInfo.toString());
+        log.info(storeExtraInfoReq.toString());
         Store store = authService.createStoreExtraInfo(storeExtraInfoReq, authInfo);
 
         // TODO 확인용으로 저장한 Store 객체 리턴했음. 수정하기

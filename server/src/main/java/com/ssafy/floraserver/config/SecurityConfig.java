@@ -40,17 +40,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                // CORS 허용 설정
+                .cors()
+
+                .and()
                 .csrf().disable()
                 .httpBasic().disable()
                 .formLogin().disable() // FormLogin 사용하지않음
 
-                // CORS 허용 설정
-                .cors().configurationSource(corsConfigurationSource())
+
 
                 // URL 권한 설정
-                .and()
+//                .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/auth/users").authenticated()
+//                .antMatchers(HttpMethod.GET, "/api/auth/users").authenticated()
                 .antMatchers(HttpMethod.PUT, "/api/auth/stores").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/reviews").authenticated()
                 .anyRequest().permitAll()
@@ -86,17 +89,19 @@ public class SecurityConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource(){
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
 
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("*"); // 허용할 URL
+        config.addAllowedOriginPattern("*"); // 허용할 URL
         config.addAllowedHeader("*"); // 허용할 Header
         config.addAllowedMethod("*"); // 허용할 Http Method
-        config.addExposedHeader("Authorization");
+        config.addExposedHeader("*");
 
-        source.registerCorsConfiguration("*", config);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
 
         return source;
     }

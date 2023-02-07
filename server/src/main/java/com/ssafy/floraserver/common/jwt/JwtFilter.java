@@ -26,6 +26,7 @@ public class JwtFilter extends OncePerRequestFilter {
         String requestURI = httpServletRequest.getRequestURI();
 
         log.info("request method: {}", request.getMethod());
+        log.info(jwt);
         log.info("jwt filter");
 
         // 토큰이 정상적이면 SecurityContext에 set.
