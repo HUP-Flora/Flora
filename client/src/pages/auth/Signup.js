@@ -23,8 +23,10 @@ export function Signup() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		console.log(window.location.token);
-		setToken(window.location.token);
+		const params = new URLSearchParams(window.location.search);
+
+		const token = params.get("token");
+		setToken(token);
 	}, []);
 
 	const handleSignup = () => {
