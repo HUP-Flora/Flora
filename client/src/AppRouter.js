@@ -30,6 +30,8 @@ import ReservationComplete from "./pages/reservation/ReservationComplete";
 
 // 플로라이브 페이지
 import Flolive from "./pages/flolive/Flolive";
+// 마크업 테스트
+import FloliveTest from "./pages/flolive/FloliveTest";
 
 // 마이 페이지
 import OrderDetail from "./pages/orderDetail/orderDetail";
@@ -49,6 +51,7 @@ import Join from "./components/chatting/Join";
 import { KakaoPayment } from "./pages/kakaoPayment/KakaoPayment";
 
 // 예약 내역 페이지
+import ReservationList from "./pages/reservation/ReservationList";
 
 function AppRouter() {
 	return (
@@ -82,12 +85,14 @@ function AppRouter() {
 				{/* <Route path="/product/:product-id/edit" element={<ProductForms />} /> */}
 
 				{/* 예약 페이지 */}
-				<Route path="/product/:product-id/reservation/type" element={<ReservationType />} />
+				{/* <Route path="/product/:product-id/reservation/type" element={<ReservationType />} />
 				<Route path="/product/:product-id/reservation/date" element={<ReservationDate />} />
-				<Route path="/product/:product-id/reservation/complete" element={<ReservationComplete />} />
+				<Route path="/product/:product-id/reservation/complete" element={<ReservationComplete />} /> */}
 
 				{/* 플로라이브 페이지 */}
 				<Route path="/flolive" element={<Flolive />} />
+				{/* 마크업 테스트 */}
+				<Route path="/flolive-test" element={<FloliveTest />} />
 				{/* <Route path="/flolive/:session-id" element={<Flolive />} /> */}
 				<Route path="/kakao-payment/success" element={<KakaoPaymentSuccess />} />
 
@@ -102,7 +107,7 @@ function AppRouter() {
 				<Route path="/floMark/list" element={<FloMark />} />
 
 				{/* 예약 내역 페이지 */}
-				{/* <Route path="/reservation/list" element={} /> */}
+				<Route path="/reservation/list" element={<ReservationList />} />
 
 				{/* 채팅 테스트용 페이지 */}
 				<Route path="/join" element={<Join />} />

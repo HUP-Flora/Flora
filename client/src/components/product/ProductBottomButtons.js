@@ -44,12 +44,14 @@ function ProductAddBottomButtons({
 			} else if (type === "edit") {
 				console.log("상품 수정");
 			}
+
+			navigate("/productDetail");
 		}
 	};
 
 	const handleClickCancel = () => {
 		if (type === "add") {
-			navigate("/store");
+			navigate("/store/detail");
 		} else if (type === "edit") {
 			navigate("/productDetail");
 		}

@@ -15,7 +15,7 @@ function FloMarkList(props) {
 	const navigate = useNavigate();
 
 	const handleClickStore = () => {
-		navigate("/store");
+		navigate("/store/detail");
 	};
 
 	// 더미 데이터

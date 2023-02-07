@@ -8,8 +8,6 @@ function UerDeleteButton({ isChcked, setIsValid }) {
 	const navigate = useNavigate();
 
 	const handleClick = () => {
-		console.log(isChcked);
-
 		// 유효성 검사
 		if (isChcked === false) {
 			setIsValid(false);

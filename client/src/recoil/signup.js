@@ -30,6 +30,10 @@ export const storeNameState = atom({
 	default: "",
 });
 
+export const storeRegionDepthNameState = atom({
+	key: "storeRegionDepthNameState",
+	default: { region_1depth_name: "", region_2depth_name: "", region_3depth_name: "" },
+});
 export const storeFirstAddressState = atom({
 	key: "storeFirstAddressState",
 	default: "",
@@ -62,5 +66,10 @@ export const storeHolidayState = atom({
 
 export const storeBrnState = atom({
 	key: "brnState",
+	default: "",
+});
+
+export const accessTokenState = atom({
+	key: "accessTokenState",
 	default: "",
 });

@@ -83,4 +83,20 @@ public class Order extends BaseEntity{
         this.sId = sId;
         this.pId = pId;
     }
+
+    public void updateStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public void updatePayment(int payment) {
+        this.payment = payment;
+    }
+
+    public void updatePaymentNum(String paymentNum) {
+        this.paymentNum = paymentNum;
+    }
+
+    public void updatePaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
 }
