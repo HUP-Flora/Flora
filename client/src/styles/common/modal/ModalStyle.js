@@ -6,7 +6,7 @@ export const Backdrop = styled.div`
 	left: 0;
 	width: 100%;
 	height: 100vh;
-	z-index: 20;
+	z-index: 50;
 	background-color: rgba(0, 0, 0, 0.75);
 `;
 
@@ -29,14 +29,14 @@ export const Modal = styled.div`
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	margin-left: -150px; /* width의 50% */
+	margin-left: ${props => (props.marginLeft ? props.marginLeft : -150)}px; /* width의 50% */
 	margin-top: -50px; /* height의 50% */
 
 	background-color: white;
-	padding: 32px 48px;
+	padding: 32px ${props => (props.paddingRow ? props.paddingRow : 48)}px;
 	border-radius: 14px;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-	z-index: 30;
+	z-index: 60;
 	animation: ${SlideDown} 300ms ease-out forwards;
 `;
 
