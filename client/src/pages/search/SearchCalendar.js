@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 
-import "./MyCalendar.css";
+import "./SearchCalendar.css";
 import { useRecoilState } from "recoil";
 import {
 	RorderDayOfWeekState,
@@ -8,14 +8,18 @@ import {
 	RorderMonthState,
 	RorderYearState,
 } from "../../recoil/reservation";
+import { isCalenderModalState } from "../../recoil/search";
+import { dateState } from "../../recoil/searchBar";
 
 let currDateDiv;
 
-function MyCalendar() {
+function SearchCalendar() {
+	const [date, setDate] = useRecoilState(dateState);
 	const [RorderYear, setRorderYear] = useRecoilState(RorderYearState);
 	const [RorderMonth, setRorderMonth] = useRecoilState(RorderMonthState);
 	const [RorderDay, setRorderDay] = useRecoilState(RorderDayState);
 	const [RorderDayOfWeek, setRorderDayOfWeek] = useRecoilState(RorderDayOfWeekState);
+	const [isCalendarModalShow, setIsCalendarModalShow] = useRecoilState(isCalenderModalState);
 
 	const isLeapYear = year => {
 		return (
@@ -166,6 +170,8 @@ function MyCalendar() {
 			}
 			currDateDiv = e.target;
 			currDateDiv.classList.add("curr-date");
+			setDate(`${RorderYear}년 ${RorderMonth}월 ${RorderDay}일 ${RorderDayOfWeek}요일`);
+			setIsCalendarModalShow(!isCalendarModalShow);
 		}
 	};
 
@@ -204,4 +210,4 @@ function MyCalendar() {
 	);
 }
 
-export default MyCalendar;
+export default SearchCalendar;

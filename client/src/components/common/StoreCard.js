@@ -10,7 +10,13 @@ import {
 	StoreCardTextTitle,
 	StoreCardTextTitleSection,
 } from "../../styles/card/CardStyle";
-import { BoldText, GrayText, OnOff, Text } from "../../styles/common/CommonStyle";
+import {
+	BoldText,
+	GrayText,
+	OnOff,
+	PaddingLeft16BoldText,
+	Text,
+} from "../../styles/common/CommonStyle";
 import FloMark from "../../assets/tapIcon/FloMark.png";
 import SelectedFloMark from "../../assets/tapIcon/SelectedFloMark.png";
 import { FloMarkImage } from "../../styles/icon/IconStyle";
@@ -34,6 +40,15 @@ export function StoreCard({
 	const handleClick = sId => {
 		navigate(`/store/${sId}`);
 	};
+
+	const formatStoreTitle = title => {
+		if (title.length > 8) {
+			return title.slice(0, 8) + "...";
+		} else {
+			return title;
+		}
+	};
+
 	return (
 		<StoreCardContainer
 			onClick={() => {
@@ -44,7 +59,7 @@ export function StoreCard({
 				<StoreCardTextTitle>
 					<StoreCardTextTitleSection>
 						<OnOff isOn={sIsOn}>{sIsOn ? "ON" : "OFF"}</OnOff>
-						<BoldText>{sName}</BoldText>
+						<PaddingLeft16BoldText>{formatStoreTitle(sName)}</PaddingLeft16BoldText>
 					</StoreCardTextTitleSection>
 					<StoreCardTextFloMarkSection>
 						<FloMarkImage src={FloMark} alt="FloMark" />

@@ -371,3 +371,32 @@ export const BottomBorderInput = styled.input`
 		border-bottom: 1.5px solid black;
 	}
 `;
+
+export const PaddingLeft16BoldText = styled(BoldText)`
+	padding-left: 16px;
+`;
+
+export const InputDiv = styled.div`
+	margin-top: 24px;
+	width: 100%;
+	position: relative;
+`;
+
+export const SearchInput = styled(BottomBorderInput)``;
+
+export const AddressList = styled.div`
+	width: 100%;
+	height: 75%;
+	overflow-y: auto;
+
+	position: relative;
+`;
+
+export const EmptyAddressList = styled.div`
+	color: black;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+`;

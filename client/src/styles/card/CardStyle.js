@@ -36,6 +36,7 @@ export const StoreCardTextTitle = styled.div`
 export const StoreCardTextTitleSection = styled.div`
 	display: flex;
 	align-items: center;
+	padding: 16px;
 `;
 
 export const StoreCardTextFloMarkSection = styled.div`
