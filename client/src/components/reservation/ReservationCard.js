@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import { BoldText, GrayHr, ShadowCard } from "../../styles/common/CommonStyle";
 import {
@@ -12,6 +13,8 @@ import image from "../../assets/store.png";
 import { GraySmallButton, Primary400SmallButton } from "../../styles/button/ButtonStyle";
 
 function ReservationCard({ type }) {
+	const navigate = useNavigate();
+
 	const handleClickEntrance = () => {};
 
 	const handleClickCancel = () => {};
@@ -56,7 +59,9 @@ function ReservationCard({ type }) {
 						</div>
 						{type === "confirm" ? (
 							reservation.status === "entrance" ? (
-								<Primary400SmallButton onClick={handleClickEntrance}>입장</Primary400SmallButton>
+								<Primary400SmallButton onClick={() => navigate("/flolive/waiting")}>
+									입장
+								</Primary400SmallButton>
 							) : (
 								<GraySmallButton disabled>대기 중</GraySmallButton>
 							)

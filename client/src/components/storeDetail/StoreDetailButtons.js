@@ -24,21 +24,16 @@ function StoreDetailButtons() {
 	const enterFloliveHandler = () => {
 		setLmyType("사장");
 		setLmySessionId("845648454");
-		navigate("/flolive");
-	}
+		navigate("/flolive/waiting");
+	};
 
 	const handleFloMarkClick = () => {
 		setIsFloMarkClicked(!isFloMarkClicked);
 	};
 
-	const handleClickProductAdd = () => {
-		navigate("/productAdd");
-	};
-
 	// 더미 데이터
 	const floMark = 100;
 	const [isFloMarkClicked, setIsFloMarkClicked] = useState(false);
-
 
 	return (
 		<>
