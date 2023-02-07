@@ -4,22 +4,22 @@ import { accessTokenState } from "../recoil/signup";
 
 export const useStoreFormApi = () => {
 	const token = useRecoilValue(accessTokenState);
-	const storeFormApi = formData => {
-		for (let key of formData.keys()) {
-			console.log(key);
-		}
+	const storeFormApi = data => {
+		// for (let key of formData.keys()) {
+		// 	console.log(key);
+		// }
 
-		for (let value of formData.values()) {
-			console.log(value);
-		}
+		// for (let value of formData.values()) {
+		// 	console.log(value);
+		// }
 		axios({
 			method: "PUT",
 			url: `${process.env.REACT_APP_SERVER_URL}/auth/stores`,
 			headers: {
 				Authorization: `Bearer ${token}`,
-				"Content-Type": "multipart/form-data",
+				"Content-Type": "application/json",
 			},
-			data: formData,
+			data,
 		})
 			.then(response => {
 				console.log(response);
