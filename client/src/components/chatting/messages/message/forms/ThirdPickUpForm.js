@@ -13,7 +13,7 @@ import {
 	SubmitPaymentButton,
 	TextInput,
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
-import { useOrderStates } from "../../../../../hooks/use-orderStates";
+import { useOrderStates } from "../../../../../hooks/useOrderStates";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { orderStatesState } from "../../../../../recoil/chatting";
 
@@ -67,7 +67,9 @@ function ThirdPickUpForm({ time }) {
 						<FormFooterMessage>결제 금액</FormFooterMessage>
 						<FormFooterMessage>{OpaymentAmount}원</FormFooterMessage>
 					</FormFooterMessageContainer>
-					<SubmitPaymentButton onClick={e => console.log(orderStates)}>결제하기</SubmitPaymentButton>
+					<SubmitPaymentButton onClick={e => console.log(orderStates)}>
+						결제하기
+					</SubmitPaymentButton>
 				</FormFooter>
 			</FormWrapper>
 			<FormTime>{time}</FormTime>

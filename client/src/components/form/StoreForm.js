@@ -39,7 +39,7 @@ import {
 } from "../../recoil/signup";
 import PostcodeModal from "../common/PostcodeModal";
 import { isDaumPostShowState } from "../../recoil/chatting";
-import { StoreFormApi, useStoreFormApi } from "../../apis/useStoreFormApi";
+import { StoreFormApi, useStoreFormApi } from "../../hooks/useStoreFormApi";
 
 export function StoreForm({ nextURL }) {
 	const [storePhoneNumber, setStorePhoneNumber] = useRecoilState(phoneNumberState);
