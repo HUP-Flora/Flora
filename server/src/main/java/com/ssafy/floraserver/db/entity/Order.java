@@ -63,7 +63,7 @@ public class Order extends BaseEntity{
     @JoinColumn(name = "p_id", nullable = false)
     private Product pId;
 
-    @Column(name = "o_review")
+    @Column(name = "o_review", columnDefinition = "TINYINT(1)")
     private boolean review;
 
     public void setReviewflag(boolean flag){
