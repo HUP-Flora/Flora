@@ -25,7 +25,8 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @GetMapping("/stores/{sId}")
-    public List<StoreReviewRes> findReviewListByStore(@PathVariable("sId") Long sId, Pageable pageable){
+    @PreAuthorize("hasRole('ROLE_STORE')")
+    public Page<StoreReviewRes> findReviewListByStore(@PathVariable("sId") Long sId, Pageable pageable){
 
         Page<StoreReviewRes> reviewList = reviewService.findReviewListByStore(sId, pageable);
 
@@ -33,7 +34,8 @@ public class ReviewController {
     }
 
     @GetMapping("/users/{uId}")
-    public List<UserReviewRes> findReviewListByUser(@PathVariable("uId") Long uId, Pageable pageable){
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    public Page<UserReviewRes> findReviewListByUser(@PathVariable("uId") Long uId, Pageable pageable){
 
         Page<UserReviewRes> reviewList = reviewService.findReviewListByUser(uId, pageable);
 
@@ -41,6 +43,7 @@ public class ReviewController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     public ResponseEntity<?> createReview(@RequestBody ReviewReq reviewReq){
 
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
