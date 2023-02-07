@@ -30,6 +30,7 @@ import ReservationComplete from "./pages/reservation/ReservationComplete";
 
 // 플로라이브 페이지
 import Flolive from "./pages/flolive/Flolive";
+import FloliveExit from "./pages/flolive/FloliveExit";
 // 마크업 테스트
 import FloliveTest from "./pages/flolive/FloliveTest";
 
@@ -91,6 +92,8 @@ function AppRouter() {
 
 				{/* 플로라이브 페이지 */}
 				<Route path="/flolive" element={<Flolive />} />
+				<Route path="/flolive/exit" element={<FloliveExit />} />
+
 				{/* 마크업 테스트 */}
 				<Route path="/flolive-test" element={<FloliveTest />} />
 				{/* <Route path="/flolive/:session-id" element={<Flolive />} /> */}
