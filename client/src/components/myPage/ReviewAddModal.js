@@ -7,7 +7,11 @@ import { UploadPicture } from "../store/UploadPicture";
 import { Container, FlexBox } from "../../styles/myPage/ReviewAddModalStyle";
 import { Backdrop, Modal } from "../../styles/common/modal/ModalStyle";
 import { Primary400Button } from "../../styles/button/ButtonStyle";
-import { BorderTextArea, TextLimit } from "../../styles/product/productForm/ProductFormStyle";
+import {
+	BorderTextAreaAuto,
+	TextLimit,
+	BorderTextArea,
+} from "../../styles/product/productForm/ProductFormStyle";
 import { BoldText, GrayText, ValidText } from "../../styles/common/CommonStyle";
 
 function ReviewAddModal({ isModalShow, setIsModalShow }) {
@@ -49,7 +53,7 @@ function ReviewAddModal({ isModalShow, setIsModalShow }) {
 							</div>
 						</FlexBox>
 						<BorderTextArea
-							minRows={10}
+							rows={10}
 							placeholder="내용을 입력해주세요."
 							maxLength={500}
 							onChange={handleChangeDescriptionValue}
