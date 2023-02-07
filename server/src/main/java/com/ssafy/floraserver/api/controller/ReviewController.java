@@ -47,11 +47,7 @@ public class ReviewController {
     public ResponseEntity<?> createReview(@RequestBody ReviewReq reviewReq){
 
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        log.info("현재 로그인 {} ", authInfo.toString());
-        log.info(reviewReq.toString());
         reviewService.createReview(reviewReq, authInfo);
-
-        // TODO 리뷰 작성 후 주문에 걸기
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

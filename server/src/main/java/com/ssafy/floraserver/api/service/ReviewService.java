@@ -62,6 +62,10 @@ public class ReviewService {
         Store store = storeRepository.findById((long) reviewReq.getStore())
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
+        // TODO 리뷰 작성 후 주문에 걸기
+        // 이 주문 리뷰를 썼는지를 검사해야 하는데 리뷰는 주문과 연결되어있지않다.
+        // 리뷰에 주문 걸고, 주문에는 boolean으로 둘까
+
         reviewRepository.save(Review.builder()
                 .uId(user)
                 .sId(store)
