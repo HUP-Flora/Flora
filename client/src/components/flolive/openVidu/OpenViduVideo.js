@@ -291,9 +291,6 @@ class OpenViduVideo extends Component {
 
 				{this.state.session !== undefined ? (
 					<SessionWrapper>
-						<div>mySessinId: {this.state.mySessionId}</div>
-						<div>myUserName: {this.state.myUserName}</div>
-						<div>session: {this.state.session}</div>
 						<SessionHeader>
 							{/* <h1 id="session-title">{mySessionId}</h1> */}
 							{/* <input

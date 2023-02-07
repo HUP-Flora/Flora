@@ -39,7 +39,7 @@ import {
 } from "../../recoil/signup";
 import PostcodeModal from "../common/PostcodeModal";
 import { isDaumPostShowState } from "../../recoil/chatting";
-import { StoreFormApi, useStoreFormApi } from "../../apis/useStoreFormApi";
+import { StoreFormApi, useStoreFormApi } from "../../hooks/useStoreFormApi";
 
 export function StoreForm({ nextURL }) {
 	const [storePhoneNumber, setStorePhoneNumber] = useRecoilState(phoneNumberState);
@@ -70,23 +70,37 @@ export function StoreForm({ nextURL }) {
 				.filter((_, index) => storeHoliday[index])
 				.join();
 
-			const formData = new FormData();
-			formData.append("thumbnail", storeImageFile);
-			formData.append("businessLicense", storeBrn);
-			formData.append("name", storeName);
-			formData.append("phoneNumber", storePhoneNumber);
-			// kebab case 바꾸기
-			formData.append("region_1depth_name", storeRegionDepthName.region_1depth_name);
-			formData.append("region_2depth_name", storeRegionDepthName.region_2depth_name);
-			formData.append("region_3depth_name", storeRegionDepthName.region_3depth_name);
-			formData.append("address_name", storeFirstAddress);
-			formData.append("detailedAddress", storeSecondAddress);
-			formData.append("desc", storeDescription);
-			formData.append("holiday", storeHolidays);
-			formData.append("start", storeStartTime.value);
-			formData.append("end", storeEndTime.value);
+			const data = {
+				businessLicense: storeBrn,
+				name: storeName,
+				phoneNumber: storePhoneNumber,
+				region_1depth_name: storeRegionDepthName.region_1depth_name,
+				region_2depth_name: storeRegionDepthName.region_2depth_name,
+				region_3depth_name: storeRegionDepthName.region_3depth_name,
+				address_name: `${storeFirstAddress} ${storeSecondAddress}`,
+				desc: storeDescription,
+				holiday: storeHolidays,
+				start: storeStartTime.value,
+				end: storeEndTime.value,
+			};
 
-			storeFormApi(formData);
+			// const formData = new FormData();
+			// formData.append("thumbnail", storeImageFile);
+			// formData.append("businessLicense", storeBrn);
+			// formData.append("name", storeName);
+			// formData.append("phoneNumber", storePhoneNumber);
+			// // kebab case 바꾸기
+			// formData.append("region_1depth_name", storeRegionDepthName.region_1depth_name);
+			// formData.append("region_2depth_name", storeRegionDepthName.region_2depth_name);
+			// formData.append("region_3depth_name", storeRegionDepthName.region_3depth_name);
+			// formData.append("address_name", `${storeFirstAddress} ${storeSecondAddress}`);
+			// formData.append("desc", storeDescription);
+			// formData.append("holiday", storeHolidays);
+			// formData.append("start", storeStartTime.value);
+			// formData.append("end", storeEndTime.value);
+
+			// storeFormApi(formData);
+			storeFormApi(data);
 
 			setStoreImageFile("");
 			setStoreBrn("");

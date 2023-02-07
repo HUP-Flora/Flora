@@ -12,7 +12,7 @@ import { SignupUser } from "./pages/auth/SignupUser";
 import { SignupOwnerStore } from "./pages/auth/SignupOwnerStore";
 
 // 꽃집 검색 페이지
-import { Search } from "./pages/Search";
+import { Search } from "./pages/search/Search";
 
 // 가게 상세 페이지
 import StoreDetail from "./pages/storeDetail/StoreDetail";

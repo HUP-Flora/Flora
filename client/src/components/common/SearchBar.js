@@ -1,5 +1,6 @@
 import { useRecoilState } from "recoil";
 import { isDaumPostShowState } from "../../recoil/chatting";
+import { isCalenderModalState } from "../../recoil/search";
 import { addressState, dateState } from "../../recoil/searchBar";
 import { SearchBarContainer, SearchBarContent } from "../../styles/bar/BarStyle";
 import { Text, GrayText } from "../../styles/common/CommonStyle";
@@ -7,6 +8,7 @@ import { Text, GrayText } from "../../styles/common/CommonStyle";
 export function SearchBar() {
 	const [date, setDate] = useRecoilState(dateState);
 	const [address, setAddress] = useRecoilState(addressState);
+	const [isCalendarModal, setIsCalendarModal] = useRecoilState(isCalenderModalState);
 	const [isDaumPostShow, setIsDaumPostShow] = useRecoilState(isDaumPostShowState);
 
 	const formatFirstAddress = firstAddress => {
@@ -19,7 +21,7 @@ export function SearchBar() {
 
 	return (
 		<SearchBarContainer>
-			<SearchBarContent>
+			<SearchBarContent onClick={() => setIsCalendarModal(true)}>
 				<Text size="13">{date}</Text>
 			</SearchBarContent>
 			<GrayText size="13">|</GrayText>
