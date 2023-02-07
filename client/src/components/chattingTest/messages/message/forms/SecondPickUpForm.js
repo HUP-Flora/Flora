@@ -3,10 +3,11 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import {
 	giftCardState,
 	isErrorModalShowState,
-	isSubmitState, orderTypeState,
+	isSubmitState,
+	orderTypeState,
 	paymentAmountState,
 	sendUserPhoneState,
-	sendUserState
+	sendUserState,
 } from "../../../../../recoil/chatting";
 import { sendThirdPickUpFormMessage } from "../../../../../utils/chatting";
 import {
@@ -23,7 +24,7 @@ import {
 	SubmitPaymentButton,
 	TextInput,
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
-import useInputValidate from "../../../../../hooks/use-inputValidate";
+import useInputValidate from "../../../../../hooks/useInputValidate";
 
 function SecondPickUpForm({ time }) {
 	const setOrderType = useSetRecoilState(orderTypeState);
@@ -48,15 +49,11 @@ function SecondPickUpForm({ time }) {
 
 	const isNotEmpty = value => value.trim() !== "";
 
-	const {
-		hasError: VsendUserHasError,
-		toggleHasError: VsendUserToggleHasError,
-	} = useInputValidate(isNotEmpty);
+	const { hasError: VsendUserHasError, toggleHasError: VsendUserToggleHasError } =
+		useInputValidate(isNotEmpty);
 
-	const {
-		hasError: VsendUserPhoneHasError,
-		toggleHasError: VsendUserPhoneToggleHasError,
-	} = useInputValidate(isNotEmpty);
+	const { hasError: VsendUserPhoneHasError, toggleHasError: VsendUserPhoneToggleHasError } =
+		useInputValidate(isNotEmpty);
 
 	const {
 		hasError: VpaymentAmountHasError,
