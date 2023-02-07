@@ -7,20 +7,26 @@ import UserIcon from "../../assets/signup/UserIcon.png";
 import UserSelectedIcon from "../../assets/signup/UserSelectedIcon.png";
 import { ButtonToolBar } from "../../styles/bar/BarStyle";
 import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { userState } from "../../recoil/signup";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { accessTokenState, userState } from "../../recoil/signup";
 import {
 	GrayText,
 	ButtonImage,
 	FirstWhiteLargeButton,
 	SecondWhiteLargeButton,
 } from "../../styles/reservation/ReservationStyle.js";
+import { useEffect } from "react";
 
 export function Signup() {
 	const [user, setUser] = useRecoilState(userState);
+	const setToken = useSetRecoilState(accessTokenState);
 	const navigate = useNavigate();
 
 	const { token } = useParams();
+
+	useEffect(() => {
+		setToken(token);
+	}, []);
 
 	const handleSignup = () => {
 		if (user === "user") {
