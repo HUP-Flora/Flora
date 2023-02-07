@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import ReviewAddModal from "./ReviewAddModal";
 
 import {
 	Primary50SmallButton,
@@ -19,12 +21,18 @@ import image from "../../assets/store.png";
 function OrderList(props) {
 	const navigate = useNavigate();
 
+	const [isModalShow, setIsModalShow] = useState(false);
+
 	const handleClickOrder = () => {
 		// navigate("/order/:id");
 	};
 
 	const handleClickReviewView = () => {
 		navigate("/review");
+	};
+
+	const handleClickReviewAdd = () => {
+		setIsModalShow(true);
 	};
 
 	// 더미 데이터
@@ -82,7 +90,9 @@ function OrderList(props) {
 										{order.isReviewWrited ? (
 											<WhiteSmallButton onClick={handleClickReviewView}>리뷰 보기</WhiteSmallButton>
 										) : (
-											<Primary50SmallButton>리뷰 작성</Primary50SmallButton>
+											<Primary50SmallButton onClick={handleClickReviewAdd}>
+												리뷰 작성
+											</Primary50SmallButton>
 										)}
 									</>
 								) : (
@@ -111,6 +121,7 @@ function OrderList(props) {
 					</ShadowCard>
 				</ShadowCardWrapper>
 			))}
+			{isModalShow && <ReviewAddModal isModalShow={isModalShow} setIsModalShow={setIsModalShow} />}
 		</div>
 	);
 }
