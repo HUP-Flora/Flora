@@ -3,9 +3,11 @@ package com.ssafy.floraserver.api.service;
 import com.ssafy.floraserver.api.request.ReviewReq;
 import com.ssafy.floraserver.api.response.StoreReviewRes;
 import com.ssafy.floraserver.api.response.UserReviewRes;
+import com.ssafy.floraserver.db.entity.Order;
 import com.ssafy.floraserver.db.entity.Review;
 import com.ssafy.floraserver.db.entity.Store;
 import com.ssafy.floraserver.db.entity.User;
+import com.ssafy.floraserver.db.repository.OrderRepository;
 import com.ssafy.floraserver.db.repository.ReviewRepository;
 import com.ssafy.floraserver.db.repository.StoreRepository;
 import com.ssafy.floraserver.db.repository.UserRepository;
@@ -32,6 +34,7 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
     private final StoreRepository storeRepository;
+    private final OrderRepository orderRepository;
 
 
     public Page<StoreReviewRes> findReviewListByStore(Long sId, Pageable pageable) {
@@ -62,14 +65,16 @@ public class ReviewService {
         Store store = storeRepository.findById((long) reviewReq.getStore())
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        // TODO 리뷰 작성 후 주문에 걸기
-        // 이 주문 리뷰를 썼는지를 검사해야 하는데 리뷰는 주문과 연결되어있지않다.
-        // 리뷰에 주문 걸고, 주문에는 boolean으로 둘까
+        Order order = orderRepository.findById(reviewReq.getOrder())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         reviewRepository.save(Review.builder()
                 .uId(user)
+                .oId(order)
                 .sId(store)
                 .content(reviewReq.getContent())
                 .build());
+
+        order.setReviewflag(true);
     }
 }
