@@ -30,6 +30,11 @@ export const RorderDayOfWeekState = atom({
 	default: '',
 });
 
+export const RisModalShowState = atom({
+	key: 'RisModalShowState',
+	default: false,
+});
+
 // 가게 상세 들어가면 넣을 데이터
 export const RstoreIdState = atom({
 	key: 'RstoreIdState',

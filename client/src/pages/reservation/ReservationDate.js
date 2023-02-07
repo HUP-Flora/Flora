@@ -14,15 +14,17 @@ import MyCalendar from "../../components/reservation/MyCalendar";
 import Select from "react-select";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
+	RisModalShowState,
 	RorderDayState,
 	RorderMonthState,
 	RorderTimeState,
 	RorderTypeState,
-	RorderYearState
+	RorderYearState,
 } from "../../recoil/reservation";
 import NextButton from "../../components/common/NextButton";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import ReservationWarningModal from "../../components/reservation/ReservationWarningModal";
 
 let placeholder = "시간을 선택해주세요";
 
@@ -33,6 +35,8 @@ function ReservationDate() {
 	const RorderMonth = useRecoilValue(RorderMonthState);
 	const RorderDay = useRecoilValue(RorderDayState);
 
+	const [RisModalShow, setRisModalShow] = useRecoilState(RisModalShowState);
+
 	// 백엔드 보낼 데이터 로그 확인
 	useEffect(() => {
 		console.log("RorderTime: ", RorderTime);
@@ -42,7 +46,6 @@ function ReservationDate() {
 		console.log("RorderDay: ", RorderDay);
 		console.log("====================================");
 	}, [RorderTime, RorderType, RorderYear, RorderMonth, RorderDay]);
-
 
 	const options = [
 		{ value: "1", label: "09:00 ~ 09:30" },
@@ -72,10 +75,11 @@ function ReservationDate() {
 	const navigate = useNavigate();
 	const dateNextHandler = () => {
 		if (RorderTime === "") {
+			setRisModalShow(true);
 			return;
 		}
 		// navigate("/product/:product-id/reservation/complete");
-		console.log("storId:", );
+		console.log("storId:");
 		navigate("/reservation/complete");
 	};
 
@@ -127,6 +131,7 @@ function ReservationDate() {
 				</RFooterContent>
 			</RFooter>
 			<NextButton onClick={dateNextHandler} isNotFixed={true} text="다음으로" />
+			{RisModalShow && <ReservationWarningModal text="시간을 선택해주세요." />}
 		</>
 	);
 }
