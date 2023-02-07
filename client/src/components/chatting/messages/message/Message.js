@@ -5,7 +5,6 @@ import ThirdDeliveryForm from "./forms/ThirdDeliveryForm";
 import SecondPickUpForm from "./forms/SecondPickUpForm";
 import ThirdPickUpForm from "./forms/ThirdPickUpForm";
 import { useRecoilValue } from "recoil";
-import { nameState } from "../../../../recoil/chatting";
 import {
 	MessageText,
 	MessageTime,
@@ -15,10 +14,12 @@ import {
 	YourMessageContainer,
 	YourMessageTime,
 } from "../../../../styles/chatting/Messages/Message/MessageStyle";
+import { LmyTypeState } from "../../../../recoil/flolive";
 
 function Message({ message: { user, text, type, time } }) {
-	const name = useRecoilValue(nameState);
-	const isSentByCurrentUser = user.trim().toLowerCase() === name.trim().toLowerCase();
+	const LmyType = useRecoilValue(LmyTypeState);
+	const isSentByCurrentUser = user.trim().toLowerCase() === LmyType.trim().toLowerCase();
+	console.log(user, LmyType, isSentByCurrentUser);
 
 	return (
 		<div>

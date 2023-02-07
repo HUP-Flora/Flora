@@ -1,9 +1,9 @@
-import React from 'react';
-import {Link} from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 
-import './ChatTest.css';
-import {useRecoilState} from "recoil";
-import {nameState, roomState} from "../../recoil/chatting";
+import "./ChatTest.css";
+import { useRecoilState } from "recoil";
+import { nameState, roomState } from "../../recoil/chatting";
 
 function Join() {
   // const [name, setName] = useState('')
