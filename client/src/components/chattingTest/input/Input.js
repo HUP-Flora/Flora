@@ -31,7 +31,7 @@ function Input({ message, setMessage }) {
 				onChange={event => setMessage(event.target.value)}
 			/>
 			<ButtonsContainer>
-				{true && (
+				{isOwner && (
 					<FormButton onClick={e => sendFormMessage(e)}>
 						<FormButtonImage src={formImage} alt="" />
 					</FormButton>
