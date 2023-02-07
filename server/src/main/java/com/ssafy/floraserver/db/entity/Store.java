@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 public class Store extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sId;
 
     // 가게 - 사용자

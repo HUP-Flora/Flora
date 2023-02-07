@@ -43,7 +43,7 @@ public class AuthController {
     }
 
     @PutMapping("/stores")
-    @PreAuthorize("hasRole('ROLE_STORE')")
+    @PreAuthorize("hasRole('ROLE_GUEST')")
     public ResponseEntity<?> createStoreExtraInfo(@RequestBody StoreExtraInfoReq storeExtraInfoReq){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         log.info("현재 로그인 {} ", authInfo.toString());
