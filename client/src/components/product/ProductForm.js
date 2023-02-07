@@ -14,6 +14,7 @@ import {
 	ValidTextWrapper,
 } from "../../styles/product/productForm/ProductFormStyle";
 import { GrayText, ValidText } from "../../styles/common/CommonStyle";
+import { priceComma } from "../../hooks/priceComma";
 
 function ProductAddForm({
 	name,
@@ -35,7 +36,12 @@ function ProductAddForm({
 	};
 
 	const handleChangePriceValue = e => {
-		setPrice(e.target.value);
+		// 천 단위로 콤마(,)
+		setPrice(
+			priceComma(e.target.value)
+				.toString()
+				.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+		);
 	};
 
 	const handleChangeDescriptionValue = e => {
