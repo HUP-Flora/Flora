@@ -3,7 +3,6 @@ import sendImage from "../../../assets/chatting/MessageSendImage.png";
 import formImage from "../../../assets/chatting/FormImage.png";
 
 import { useRecoilValue } from "recoil";
-import { nameState } from "../../../recoil/chatting";
 import { sendFormMessage, sendMessage } from "../../../utils/chatting";
 import {
 	FormButton,
@@ -13,12 +12,13 @@ import {
 	InputLayout,
 	InputText,
 } from "../../../styles/chatting/input/InputStyle";
+import { LmyTypeState } from "../../../recoil/flolive";
 
 function Input({ message, setMessage }) {
-	const name = useRecoilValue(nameState);
+	const LmyType = useRecoilValue(LmyTypeState);
 
 	// 여기서 사장인지 체크
-	const isOwner = name === "사장";
+	const isOwner = LmyType === "사장";
 
 	return (
 		<InputLayout>

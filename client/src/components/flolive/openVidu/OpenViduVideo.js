@@ -13,26 +13,20 @@ import {
 	SessionHeader,
 	VideoContainer,
 } from "../../../styles/openViduStyle";
-import { useRecoilValue } from "recoil";
-import { LmyNameState, LmySessionIdState } from "../../../recoil/flolive";
-import { useFlolive } from "../../../hooks/use-flolive";
 
 const APPLICATION_SERVER_URL =
 	process.env.NODE_ENV === "production" ? "" : "https://demos.openvidu.io/";
 
 class OpenViduVideo extends Component {
-	// 플로라이브 테스트 코드
 
 	constructor(props) {
 		super(props);
 
-		this.useflo = useFlolive();
-
 		// These properties are in the state's component in order to re-render the HTML whenever their values change
 		this.state = {
-			mySessionId: this.useflo.Lname,
-			myUserName: "커스텀훅 예정",
-			session: "커스텀훅 예정",
+			mySessionId: this.props.LmySessionId,
+			myUserName: this.props.LmyType,
+			session: this.props.LmySessionId,
 			mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
 			publisher: undefined,
 			subscribers: [],
