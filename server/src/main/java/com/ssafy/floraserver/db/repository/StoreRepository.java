@@ -25,6 +25,9 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     @Query("select distinct s from Store s join fetch s.start join fetch s.end where s.sId = :sId")
     Optional<Store> findById(@Param("sId") Long sId);
 
+    @Query("select distinct s from Store s join fetch s.start join fetch s.end where s.uId.uId = :uId")
+    Optional<Store> findByUId(@Param("uId") Long uId);
+
 //    // Dto로 바로 조회하기
 //    @Query("select new com.ssafy.floraserver.api.response.StoreRes(s.sId, s.name, s.phoneNumber, s.sido, s.gugun, s.dong, s.detailedAddress, s.holiday, s.isOnair, s.start.time, s.end.time, s.bookmarkCnt, s.reviewCnt) from Store s where s.sId = :sId")
 //    Optional<StoreRes> findStoreRes(@Param("sId") Long sId);

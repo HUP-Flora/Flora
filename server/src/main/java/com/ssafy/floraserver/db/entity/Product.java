@@ -52,9 +52,10 @@ public class Product {
     private LocalDateTime imgUploadTime;
 
     @Builder
-    public Product(String pName, String pDesc, int price, Store sId, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
-        this.name = pName;
-        this.desc = pDesc;
+    public Product(Long pId, String name, String desc, int price, Store sId, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
+        this.pId = pId;
+        this.name = name;
+        this.desc = desc;
         this.price = price;
         this.sId = sId;
         this.imgOriginalName = imgOriginalName;
