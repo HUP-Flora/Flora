@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import DaumPostcodeEmbed from "react-daum-postcode";
-import { PostCodeApi, usePostCodeApi } from "../../apis/usePostCodeApi";
+import { usePostCodeApi } from "../../hooks/usePostCodeApi";
 function Postcode() {
 	const postCodeApi = usePostCodeApi();
 	const handleComplete = data => {

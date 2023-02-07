@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import useInputValidate from "../../../../../hooks/use-inputValidate";
+import useInputValidate from "../../../../../hooks/useInputValidate";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
 	giftCardState,
