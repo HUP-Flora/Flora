@@ -30,6 +30,8 @@ import ReservationComplete from "./pages/reservation/ReservationComplete";
 
 // 플로라이브 페이지
 import Flolive from "./pages/flolive/Flolive";
+// 마크업 테스트
+import FloliveTest from "./pages/flolive/FloliveTest";
 
 // 마이 페이지
 import OrderDetail from "./pages/orderDetail/orderDetail";
@@ -89,6 +91,8 @@ function AppRouter() {
 
 				{/* 플로라이브 페이지 */}
 				<Route path="/flolive" element={<Flolive />} />
+				{/* 마크업 테스트 */}
+				<Route path="/flolive-test" element={<FloliveTest />} />
 				{/* <Route path="/flolive/:session-id" element={<Flolive />} /> */}
 				<Route path="/kakao-payment/success" element={<KakaoPaymentSuccess />} />
 

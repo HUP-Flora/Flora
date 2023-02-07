@@ -13,10 +13,6 @@ function MyPageUserInfo(props) {
 		// navigate("/");
 	};
 
-	const handleClickUserDelete = () => {
-		navigate("/userDelete");
-	};
-
 	return (
 		<ListContiner paddingBottom="112">
 			<ListHeader>
@@ -27,7 +23,7 @@ function MyPageUserInfo(props) {
 					<BoldText size="19" onClick={handleLogout}>
 						로그아웃
 					</BoldText>
-					<BoldText size="19" onClick={handleClickUserDelete}>
+					<BoldText size="19" onClick={() => navigate("signout")}>
 						회원탈퇴
 					</BoldText>
 				</ShadowCardContent>
