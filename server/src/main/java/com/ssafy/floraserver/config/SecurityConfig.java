@@ -94,6 +94,7 @@ public class SecurityConfig {
         config.addAllowedOrigin("*"); // 허용할 URL
         config.addAllowedHeader("*"); // 허용할 Header
         config.addAllowedMethod("*"); // 허용할 Http Method
+        config.addExposedHeader("Authorization");
 
         source.registerCorsConfiguration("*", config);
 
