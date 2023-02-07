@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -29,11 +30,12 @@ public class AuthController {
     
     @GetMapping("/users")
     public void getUsers(){
-      log.info(SecurityUtil.getCurrentUser().toString());
+//      log.info(SecurityUtil.getCurrentUser().toString());
       log.info("AuthController /users GET 성공");  
     }
 
     @PutMapping("/users")
+    @PreAuthorize("hasRole('ROLE_GUEST')")
     public ResponseEntity<?> createUserExtraInfo(@RequestBody UserExtraInfoReq userExtraInfoReq){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         authService.createUserExtraInfo(userExtraInfoReq, authInfo);
@@ -41,9 +43,11 @@ public class AuthController {
     }
 
     @PutMapping("/stores")
+    @PreAuthorize("hasRole('ROLE_GUEST')")
     public ResponseEntity<?> createStoreExtraInfo(@RequestBody StoreExtraInfoReq storeExtraInfoReq){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         log.info("현재 로그인 {} ", authInfo.toString());
+        log.info(storeExtraInfoReq.toString());
         Store store = authService.createStoreExtraInfo(storeExtraInfoReq, authInfo);
 
         // TODO 확인용으로 저장한 Store 객체 리턴했음. 수정하기
