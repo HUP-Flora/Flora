@@ -12,15 +12,37 @@ import {
 } from "../../styles/reservation/ReservationStyle";
 import MyCalendar from "../../components/reservation/MyCalendar";
 import Select from "react-select";
-import { useRecoilState } from "recoil";
-import { RorderTimeState } from "../../recoil/reservation";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+	RorderDayState,
+	RorderMonthState,
+	RorderTimeState,
+	RorderTypeState,
+	RorderYearState
+} from "../../recoil/reservation";
 import NextButton from "../../components/common/NextButton";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 let placeholder = "시간을 선택해주세요";
 
 function ReservationDate() {
 	const [RorderTime, setRorderTime] = useRecoilState(RorderTimeState);
+	const RorderType = useRecoilValue(RorderTypeState);
+	const RorderYear = useRecoilValue(RorderYearState);
+	const RorderMonth = useRecoilValue(RorderMonthState);
+	const RorderDay = useRecoilValue(RorderDayState);
+
+	// 백엔드 보낼 데이터 로그 확인
+	useEffect(() => {
+		console.log("RorderTime: ", RorderTime);
+		console.log("RorderType: ", RorderType);
+		console.log("RorderYear: ", RorderYear);
+		console.log("RorderMonth: ", RorderMonth + 1);
+		console.log("RorderDay: ", RorderDay);
+		console.log("====================================");
+	}, [RorderTime, RorderType, RorderYear, RorderMonth, RorderDay]);
+
 
 	const options = [
 		{ value: "1", label: "09:00 ~ 09:30" },
@@ -52,7 +74,9 @@ function ReservationDate() {
 		if (RorderTime === "") {
 			return;
 		}
-		navigate("/product/:product-id/reservation/complete");
+		// navigate("/product/:product-id/reservation/complete");
+		console.log("storId:", );
+		navigate("/reservation/complete");
 	};
 
 	return (
