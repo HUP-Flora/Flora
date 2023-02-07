@@ -11,16 +11,18 @@ import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { isDaumPostShowState } from "../../recoil/chatting";
 import PostcodeModal from "../../components/common/PostcodeModal";
-import { isCalenderModalState } from "../../recoil/search";
-import CalendarModal from "./CalendarModal";
+import { isCalenderModalState, isSearchStoreModalState } from "../../recoil/search";
+import CalendarModal from "../../components/common/CalendarModal";
+import { SearchContainer } from "../../styles/common/modal/ModalStyle";
+import StoreModal from "./StoreModal";
 
 export function Search() {
 	const [storeListLargeMode, setStoreListLargeMode] = useState(false);
-	const [isDaumPostShow, setIsDaumPostShow] = useRecoilState(isDaumPostShowState);
+	const [isSearchStoreModal, setIsSearchStoreModal] = useRecoilState(isSearchStoreModalState);
 	const isCalendarModal = useRecoilValue(isCalenderModalState);
 	return (
-		<>
-			{isDaumPostShow && <PostcodeModal />}
+		<SearchContainer>
+			{isSearchStoreModal && <StoreModal />}
 			{isCalendarModal && <CalendarModal />}
 			<WhiteLayout>
 				<StatusBar padding="16" text="꽃집 검색" />
@@ -39,6 +41,6 @@ export function Search() {
 				</ArrowSection>
 				<StoreList />
 			</StoreListBottomSheet>
-		</>
+		</SearchContainer>
 	);
 }
