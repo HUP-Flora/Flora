@@ -27,10 +27,6 @@ function OrderList(props) {
 		// navigate("/order/:id");
 	};
 
-	const handleClickReviewView = () => {
-		navigate("/review");
-	};
-
 	const handleClickReviewAdd = () => {
 		setIsModalShow(true);
 	};
@@ -88,7 +84,9 @@ function OrderList(props) {
 								{type === "customer" ? (
 									<>
 										{order.isReviewWrited ? (
-											<WhiteSmallButton onClick={handleClickReviewView}>리뷰 보기</WhiteSmallButton>
+											<WhiteSmallButton onClick={() => navigate("/mypage/review/list")}>
+												리뷰 보기
+											</WhiteSmallButton>
 										) : (
 											<Primary50SmallButton onClick={handleClickReviewAdd}>
 												리뷰 작성
