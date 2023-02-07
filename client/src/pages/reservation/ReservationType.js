@@ -26,7 +26,8 @@ function ReservationType() {
 		if (orderType === "") {
 			return;
 		}
-		navigate("/product/:product-id/reservation/date");
+		// navigate("/product/:product-id/reservation/date");
+		navigate("/reservation/date");
 	};
 
 	return (

@@ -8,7 +8,7 @@ export const ReserVationTypeContainer = styled.div`
 `;
 
 export const ReservationTypeTitle = styled.div`
-	font-size: 28px;
+	font-size: 26px;
 	font-family: "NEXON Lv1 Gothic OTF";
 	font-weight: bold;
 	margin-top: 96px;

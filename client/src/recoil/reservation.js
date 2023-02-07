@@ -30,4 +30,9 @@ export const RorderDayOfWeekState = atom({
 	default: '',
 });
 
+export const RstoreIdState = atom({
+	key: 'RstoreIdState',
+	default: '',
+});
+
 
