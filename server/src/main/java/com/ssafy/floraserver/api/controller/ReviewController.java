@@ -7,13 +7,13 @@ import com.ssafy.floraserver.api.service.ReviewService;
 import com.ssafy.floraserver.common.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -27,7 +27,7 @@ public class ReviewController {
     @GetMapping("/stores/{sId}")
     public List<StoreReviewRes> findReviewListByStore(@PathVariable("sId") Long sId, Pageable pageable){
 
-        List<StoreReviewRes> reviewList = reviewService.findReviewListByStore(sId, pageable);
+        Page<StoreReviewRes> reviewList = reviewService.findReviewListByStore(sId, pageable);
 
         return reviewList;
     }
@@ -35,12 +35,11 @@ public class ReviewController {
     @GetMapping("/users/{uId}")
     public List<UserReviewRes> findReviewListByUser(@PathVariable("uId") Long uId, Pageable pageable){
 
-        List<UserReviewRes> reviewList = reviewService.findReviewListByUser(uId, pageable);
+        Page<UserReviewRes> reviewList = reviewService.findReviewListByUser(uId, pageable);
 
         return reviewList;
     }
 
-    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @PostMapping
     public ResponseEntity<?> createReview(@RequestBody ReviewReq reviewReq){
 

@@ -11,6 +11,7 @@ import com.ssafy.floraserver.db.repository.StoreRepository;
 import com.ssafy.floraserver.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -33,22 +34,20 @@ public class ReviewService {
     private final StoreRepository storeRepository;
 
 
-    public List<StoreReviewRes> findReviewListByStore(Long sId, Pageable pageable) {
-        List<Review> reviewList = reviewRepository.findAllBySId(sId, pageable);
+    public Page<StoreReviewRes> findReviewListByStore(Long sId, Pageable pageable) {
+        Page<Review> reviewList = reviewRepository.findAllBySId(sId, pageable);
 
-        List<StoreReviewRes> storeReviewResList = reviewList.stream()
-                .map(s -> StoreReviewRes.builder().review(s).build())
-                .collect(Collectors.toList());
+        Page<StoreReviewRes> storeReviewResList = reviewList
+                .map(s -> StoreReviewRes.builder().review(s).build());
 
         return storeReviewResList;
     }
 
-    public List<UserReviewRes> findReviewListByUser(Long uId, Pageable pageable) {
-        List<Review> reviewList = reviewRepository.findAllByUId(uId, pageable);
+    public Page<UserReviewRes> findReviewListByUser(Long uId, Pageable pageable) {
+        Page<Review> reviewList = reviewRepository.findAllByUId(uId, pageable);
 
-        List<UserReviewRes> reviewResList = reviewList.stream()
-                .map(u -> UserReviewRes.builder().review(u).build())
-                .collect(Collectors.toList());
+        Page<UserReviewRes> reviewResList = reviewList
+                .map(u -> UserReviewRes.builder().review(u).build());
 
         return reviewResList;
     }
