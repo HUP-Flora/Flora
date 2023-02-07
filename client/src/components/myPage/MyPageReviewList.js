@@ -10,10 +10,6 @@ import image from "../../assets/store.png";
 function MyPageReview(props) {
 	const navegate = useNavigate();
 
-	const handleClickMore = () => {
-		navegate("/review");
-	};
-
 	// 더미 데이터
 	const review = [
 		{
@@ -46,16 +42,14 @@ function MyPageReview(props) {
 		<ListContiner>
 			<ListHeader>
 				<BoldText size="19">리뷰 관리</BoldText>
-				<GrayText onClick={handleClickMore} weight="bold">
+				<GrayText onClick={() => navegate("review/list")} weight="bold">
 					더보기
 				</GrayText>
 			</ListHeader>
 			{review.map((review, index) => (
 				<ShadowCardWrapper>
 					<ShadowCard marginBottom="16" display="flex" isSpaceBetween={true}>
-						{/* left */}
 						<div>
-							{/* top */}
 							<HeaderContainer>
 								<BoldText>{review.name}</BoldText>
 								<div>
@@ -69,7 +63,6 @@ function MyPageReview(props) {
 							</HeaderContainer>
 							<div>{review.content}</div>
 						</div>
-						{/* right */}
 						<div>
 							<img src={review.image.image} />
 						</div>

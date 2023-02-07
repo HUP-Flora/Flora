@@ -10,7 +10,7 @@ import {
 	FormWrapper,
 	TextLimit,
 	BottomBorderInput,
-	BorderTextArea,
+	BorderTextAreaAuto,
 	ValidTextWrapper,
 } from "../../styles/product/productForm/ProductFormStyle";
 import { GrayText, ValidText } from "../../styles/common/CommonStyle";
@@ -79,7 +79,7 @@ function ProductAddForm({
 					{!isValidPrice && <ValidText>가격을 입력해주세요.</ValidText>}
 				</InputWrapper>
 				<InputWrapper>
-					<BorderTextArea
+					<BorderTextAreaAuto
 						minRows={5}
 						placeholder="상품 상세 설명을 입력해주세요."
 						maxLength={500}

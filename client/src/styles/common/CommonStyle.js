@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ErrorMessage } from "../chatting/Messages/Message/forms/OtherFormStyle";
 
 // 미디어쿼리로 pc일 경우와 mobile일 경우를 구분해서 진행하면 될 듯!
@@ -54,6 +54,45 @@ export const ValidText = styled.div`
 	font-size: 13px;
 `;
 
+export const OnOffToggle = styled.div`
+	width: 65px;
+
+	border-radius: 20px;
+
+	background-color: ${props => (props.isOn ? "var(--gray-300)" : "var(--primary-50)")};
+
+	transition: all 0.2s ease-in-out;
+
+	cursor: pointer;
+
+	> div {
+		width: fit-content;
+		height: 100%;
+
+		display: flex;
+		padding: 0px 13px;
+		align-items: center;
+
+		font-size: 13px;
+
+		border-radius: 20px;
+
+		${props =>
+			props.isOn &&
+			css`
+				transform: translate(0px, 0);
+				transition: all 0.2s ease-in-out;
+			`}
+
+		${props =>
+			!props.isOn &&
+			css`
+				transform: translate(15px, 0);
+				transition: all 0.2s ease-in-out;
+			`}
+	}
+`;
+
 export const OnOff = styled.div`
 	width: 40px;
 	height: 20px;
@@ -64,7 +103,6 @@ export const OnOff = styled.div`
 	font-size: 11px;
 
 	color: white;
-	margin: 16px;
 	background-color: ${props => (props.isOn ? "#F03E3E" : "var(--gray-400)")};
 	filter: ${props =>
 		props.isOn

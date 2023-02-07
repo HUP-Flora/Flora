@@ -33,11 +33,13 @@ import {
 	storeImageFileState,
 	storeImagePreviewState,
 	storeNameState,
+	storeRegionDepthNameState,
 	storeSecondAddressState,
 	storeStartTimeState,
 } from "../../recoil/signup";
 import PostcodeModal from "../common/PostcodeModal";
 import { isDaumPostShowState } from "../../recoil/chatting";
+import { StoreFormApi, useStoreFormApi } from "../../apis/useStoreFormApi";
 
 export function StoreForm({ nextURL }) {
 	const [storePhoneNumber, setStorePhoneNumber] = useRecoilState(phoneNumberState);
@@ -55,12 +57,13 @@ export function StoreForm({ nextURL }) {
 	const [storeStartTime, setStoreStartTime] = useRecoilState(storeStartTimeState);
 	const [storeBrn, setStoreBrn] = useRecoilState(storeBrnState);
 	const [storeImageFile, setStoreImageFile] = useRecoilState(storeImageFileState);
+	const storeFormApi = useStoreFormApi();
+
+	const storeRegionDepthName = useRecoilValue(storeRegionDepthNameState);
 
 	const navigate = useNavigate();
 	const handleStoreForm = e => {
 		e.preventDefault();
-
-		console.log("Ff");
 
 		if (storeNameValidate(storeName) && phoneNumberValidate(storePhoneNumber)) {
 			const storeHolidays = ["월", "화", "수", "목", "금", "토", "일"]
@@ -72,22 +75,18 @@ export function StoreForm({ nextURL }) {
 			formData.append("businessLicense", storeBrn);
 			formData.append("name", storeName);
 			formData.append("phoneNumber", storePhoneNumber);
-			formData.append("sido", "");
-			formData.append("gugun", "");
-			formData.append("dong", "");
+			// kebab case 바꾸기
+			formData.append("region_1depth_name", storeRegionDepthName.region_1depth_name);
+			formData.append("region_2depth_name", storeRegionDepthName.region_2depth_name);
+			formData.append("region_3depth_name", storeRegionDepthName.region_3depth_name);
+			formData.append("address_name", storeFirstAddress);
 			formData.append("detailedAddress", storeSecondAddress);
 			formData.append("desc", storeDescription);
 			formData.append("holiday", storeHolidays);
 			formData.append("start", storeStartTime.value);
 			formData.append("end", storeEndTime.value);
 
-			// for (let key of formData.keys()) {
-			// 	console.log(key);
-			// }
-
-			// for (let value of formData.values()) {
-			// 	console.log(value);
-			// }
+			storeFormApi(formData);
 
 			setStoreImageFile("");
 			setStoreBrn("");

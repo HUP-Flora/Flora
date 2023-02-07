@@ -59,8 +59,27 @@ export const BottomBorderInput = styled.input`
 	}
 `;
 
-// export const BorderTextArea = styled.textarea`
-export const BorderTextArea = styled(TextareaAutosize)`
+export const BorderTextAreaAuto = styled(TextareaAutosize)`
+	width: 100%;
+
+	padding: 8px;
+
+	border: 1px solid var(--gray-500);
+	border-radius: 5px;
+
+	resize: none;
+
+	::placeholder {
+		color: var(--gray-500);
+	}
+
+	:focus {
+		outline: none;
+		border: 1px solid black;
+	}
+`;
+
+export const BorderTextArea = styled.textarea`
 	width: 100%;
 
 	padding: 8px;
