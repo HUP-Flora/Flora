@@ -1,15 +1,21 @@
 package com.ssafy.floraserver.api.controller;
 
-import com.ssafy.floraserver.api.response.ProductRes;
-import com.ssafy.floraserver.api.response.RegionRes;
-import com.ssafy.floraserver.api.response.StoreRes;
+import com.ssafy.floraserver.api.request.StoreExtraInfoReq;
+import com.ssafy.floraserver.api.request.StoreInfoReq;
+import com.ssafy.floraserver.api.response.*;
 import com.ssafy.floraserver.api.service.StoreService;
-import com.ssafy.floraserver.api.response.StoreListRes;
+import com.ssafy.floraserver.common.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 
 @RestController
@@ -35,7 +41,7 @@ public class StoreController {
         return storeResList;
     }
 
-    @GetMapping("{sId}")
+    @GetMapping("/{sId}")
     public StoreRes findStore(@PathVariable Long sId){
 
         StoreRes storeRes = storeService.findStore(sId);
@@ -43,7 +49,7 @@ public class StoreController {
         return storeRes;
     }
 
-    @GetMapping("{sId}/products")
+    @GetMapping("/{sId}/products")
     public Page<ProductRes> findProductList(@PathVariable("sId") Long sId, Pageable pageable){
 
         Page<ProductRes> productResList = storeService.findProductList(sId, pageable);
@@ -51,6 +57,21 @@ public class StoreController {
         return productResList;
     }
 
+    @GetMapping("/{sId}/mypage")
+    public StoreMypageRes findStoreMypageInfo(@PathVariable("sId") Long sId){
+        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
+        StoreMypageRes storeMypageRes = storeService.findStoreMypageInfo(sId, authInfo);
+        return storeMypageRes;
+    }
 
+    @PutMapping("/{sId}")
+    public ResponseEntity<?> updateStoreInfo(@PathVariable("sId") Long sId,
+                                             @Value("${file.upload.location}") String filePath,
+                                             @RequestPart("file") MultipartFile file,
+                                             @RequestPart("storeInfoReq") StoreInfoReq storeInfoReq){
+        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
+        storeService.updateStoreInfo(sId,storeInfoReq, filePath, file, authInfo);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 
 }
