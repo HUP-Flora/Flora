@@ -10,7 +10,7 @@ import lombok.Getter;
 public class StoreRes {
 
     private Long sId;
-    private String sName;
+    private String name;
     private String phoneNumber;
     private String address_name;
     private String holiday;
@@ -24,7 +24,7 @@ public class StoreRes {
     @Builder
     public StoreRes(Store store) {
         this.sId = store.getSId();
-        this.sName = store.getName();
+        this.name = store.getName();
         this.phoneNumber = store.getPhoneNumber();
         this.address_name = store.getAddress_name();
         this.holiday = store.getHoliday();
