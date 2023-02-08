@@ -15,7 +15,7 @@ public class BookmarkStoreRes {
     private String address_name;
     private String start;
     private String end;
-    private String img;
+    private String bImg;
 
     @Builder
     public BookmarkStoreRes(Bookmark bookmark) {
@@ -25,6 +25,6 @@ public class BookmarkStoreRes {
         this.address_name = bookmark.getSId().getAddress_name();
         this.start = bookmark.getSId().getStart().getTime();
         this.end = bookmark.getSId().getEnd().getTime();
-        this.img = bookmark.getSId().getImgPath();
+        this.bImg = bookmark.getSId().getImgPath();
     }
 }

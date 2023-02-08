@@ -9,12 +9,12 @@ public class StoreMypageRes {
 
     private Long sId;
     private String name;
-    private String img;
+    private String sImg;
 
     @Builder
     public StoreMypageRes(Store store) {
         this.sId = store.getSId();
         this.name = store.getName();
-        this.img = store.getImgPath();
+        this.sImg = store.getImgPath();
     }
 }

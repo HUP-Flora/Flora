@@ -13,7 +13,7 @@ public class UserReviewRes {
     private String name;
     private String content;
     private LocalDate createDate;
-    private String img;
+    private String rImg;
 
     @Builder
     public UserReviewRes(Review review) {
@@ -21,6 +21,6 @@ public class UserReviewRes {
         this.name = review.getSId().getName();
         this.content = review.getContent();
         this.createDate = review.getCreateDate();
-        this.img = review.getImgPath();
+        this.rImg = review.getImgPath();
     }
 }
