@@ -17,7 +17,6 @@ function StoreDetail() {
 	// 	setRstoreId(props.match.params.storeId);
 	// }, []);
 
-
 	return (
 		<>
 			<StatusBar text="가게 상세" />

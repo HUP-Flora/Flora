@@ -13,6 +13,11 @@ export const ReservationTypeTitle = styled.div`
 	font-weight: bold;
 	margin-top: 96px;
 	margin-bottom: 24px;
+	& > p {
+		display: inline;
+		font-size: 29px;
+		font-weight: bold;
+  }
 `;
 
 export const ReservationTypeContent = styled.p`
