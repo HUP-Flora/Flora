@@ -2,6 +2,7 @@ package com.ssafy.floraserver.api.service;
 
 import com.ssafy.floraserver.api.request.ProductReq;
 import com.ssafy.floraserver.api.response.ProductRes;
+import com.ssafy.floraserver.api.vo.FileVO;
 import com.ssafy.floraserver.common.util.SecurityUtil;
 import com.ssafy.floraserver.db.entity.Product;
 import com.ssafy.floraserver.db.entity.Store;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
@@ -24,6 +26,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final StoreRepository storeRepository;
+    private final FileService fileService;
 
     public ProductRes findProduct(Long pId) {
 
@@ -35,9 +38,10 @@ public class ProductService {
                 .build();
     }
 
-    public void createProduct(ProductReq productReq) {
-
-        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
+    public void createProduct(ProductReq productReq,
+                              String filePath,
+                              MultipartFile file,
+                              Map<String, String> authInfo) {
 
         Long uId = Long.valueOf(authInfo.get("uId"));
 
@@ -45,18 +49,29 @@ public class ProductService {
         Store store = storeRepository.findByUId(uId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
+        FileVO fileVO = null;
+        // 이미지 저장
+        if(!file.isEmpty()){
+            fileVO = fileService.uploadFile(filePath, file);
+        }
+
         productRepository.save(Product.builder()
                         .name(productReq.getName())
                         .desc(productReq.getDesc())
                         .price(productReq.getPrice())
                         .sId(store)
+                        .imgOriginalName(file.isEmpty() ? null : fileVO.getImgOriginalName())
+                        .imgNewName(file.isEmpty() ? null : fileVO.getImgNewName())
+                        .imgPath(file.isEmpty() ? null : fileVO.getImgPath())
+                        .imgUploadTime(file.isEmpty() ? null : fileVO.getImgUploadTime())
                         .build()
         );
     }
 
-    public void updateProduct(ProductReq productReq, Long pId) {
-
-        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
+    public void updateProduct(ProductReq productReq, Long pId,
+                              String filePath,
+                              MultipartFile file,
+                              Map<String, String> authInfo) {
 
         Long uId = Long.valueOf(authInfo.get("uId"));
 
@@ -73,12 +88,28 @@ public class ProductService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
+        FileVO fileVO = FileVO.builder()
+                .imgOriginalName(product.getImgOriginalName())
+                .imgNewName(product.getImgNewName())
+                .imgPath(product.getImgPath())
+                .imgUploadTime(product.getImgUploadTime())
+                .build();
+
+        // 이미지 저장
+        if(!file.isEmpty()){
+            fileVO = fileService.uploadFile(filePath, file);
+        }
+
         productRepository.save(Product.builder()
                 .pId(pId)
                 .name(productReq.getName())
                 .desc(productReq.getDesc())
                 .price(productReq.getPrice())
                 .sId(store)
+                .imgOriginalName(file.isEmpty() ? null : fileVO.getImgOriginalName())
+                .imgNewName(file.isEmpty() ? null : fileVO.getImgNewName())
+                .imgPath(file.isEmpty() ? null : fileVO.getImgPath())
+                .imgUploadTime(file.isEmpty() ? null : fileVO.getImgUploadTime())
                 .build()
         );
     }
