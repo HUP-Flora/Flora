@@ -1,5 +1,5 @@
 import StatusBar from "../../components/common/StatusBar";
-import { OrderDetailContainer } from "../../styles/orderDetail/OrderDetailStyle";
+import { OrderDetailContainer, RepaymentButton } from "../../styles/orderDetail/OrderDetailStyle";
 import OrderDetailHeader from "../../components/orderDetail/OrderDetailHeader";
 import { useRecoilState } from "recoil";
 import { orderDetailState } from "../../recoil/orderDetail";
@@ -13,7 +13,7 @@ function OrderDetail() {
 	useEffect(() => {
 		setOrderDetail({
 			orderType: "DELIVERY",
-			orderStatus: "결제 완료",
+			orderStatus: "결제 전",
 			orderDate: "2021-08-01",
 			orderNumber: "B001230120001",
 			shopName: "꽃집이요",
@@ -23,6 +23,8 @@ function OrderDetail() {
 		});
 	}, [setOrderDetail]);
 
+	const user = "손님";
+
 	return (
 		<>
 			<StatusBar text="주문 상세" />
@@ -30,6 +32,7 @@ function OrderDetail() {
 				<OrderDetailHeader />
 				<ProgressBar />
 				<OrderDetailContent />
+				{orderDetail.orderStatus === "결제 전" && user === "손님" && <RepaymentButton>{orderDetail.flowerPrice} 재결제하기</RepaymentButton>}
 			</OrderDetailContainer>
 		</>
 	);
