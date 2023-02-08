@@ -12,7 +12,7 @@ import {
 	SessionWrapper,
 	SessionHeader,
 	VideoContainer,
-} from "../../../styles/flolive/OpenViduStyleTest";
+} from "../../../styles/flolive/OpenViduStyle";
 
 const APPLICATION_SERVER_URL =
 	process.env.NODE_ENV === "production" ? "" : "https://demos.openvidu.io/";
@@ -247,8 +247,6 @@ class OpenViduVideo extends Component {
 	render() {
 		const mySessionId = this.state.mySessionId;
 		const myUserName = this.state.myUserName;
-		const isModalShow = this.state.isModalShow;
-		const setIsModalShow = this.props.setIsModalShow;
 
 		return (
 			<SessionContainer>

@@ -13,25 +13,19 @@ export const InputLayout = styled.form`
 	background: #ffeaf5;
 	height: 56px;
 	border-radius: 10px 10px 0 0;
-	position: sticky;
-	bottom: 0;
+	justify-content: space-between;
 `;
 
 export const InputText = styled.input`
 	border: none;
 	border-radius: 10px;
-	width: ${props => (props.isOwner ? "275px" : "312px")};
+	// width: ${props => (props.isOwner ? "275px" : "312px")};
+	width: 100%;
 	height: 40px;
 	font-size: 16px;
 	margin: ${props => (props.isOwner ? "16px 8px 16px 16px" : "16px 16px")};
 	padding-left: 16px;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
-	caret-color: #ff6b6b;
-	
-	&:focus {
-		border: none;
-		outline: none;
-	}
 `;
 
 export const InputButton = styled.button`
@@ -44,6 +38,7 @@ export const InputButton = styled.button`
 	width: 40px;
 	height: 40px;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+	margin-right: 16px;
 `;
 
 export const InputButtonImage = styled.img`
@@ -93,4 +88,8 @@ export const SignupSecondAddressInput = styled(MarginBottom16TextInput)`
 
 export const StoreDescription = styled(GiftMessageInput)`
 	width: 100%;
+`;
+
+export const ButtonsContainer = styled.div`
+	display: flex;
 `;

@@ -336,20 +336,25 @@ export const Primary400CheckBox = styled.input`
 	}
 `;
 
-export const EmptyContianer = styled.div`
-	text-align: center;
-
-	color: var(--gray-500);
-	font-size: 19px;
-	font-weight: bold;
-
+export const EmptyContainer = styled.div`
+	width: 100% !important;
+	
 	// Status Bar + Bottom Menu Bar가 있다면 height를 제외하여 중앙에 위치 
 	// Status Bar(72) + Bottom Menu Bar(72) = 144px
-	height: calc(100vh - ${props => props.exceptHeight && props.exceptHeight}px);
+	height: ${props => props.isFull === true && "calc(100vh - " + props.exceptHeight + "px)"};
+	// height: calc(100vh - ${props => props.exceptHeight && props.exceptHeight}px);
 
+	margin-right: 0 !important;
+	
     display: flex;
     align-items: center;
     justify-content: center;s
+	
+	text-align: center;
+
+	color: var(--gray-500);
+	font-size: ${props => props.isFull && "19px"};
+	font-weight: ${props => props.isFull && "bold"};
 `;
 
 export const BottomBorderInput = styled.input`
@@ -371,6 +376,17 @@ export const BottomBorderInput = styled.input`
 		border-bottom: 1.5px solid black;
 	}
 `;
+
+// export const EmptyContainer = styled.div`
+// 	width: 100% !important;
+// 	height: 200px;
+
+// 	margin-right: 0 !important;
+
+// 	display: flex;
+// 	align-items: center;
+// 	justify-content: center;
+// `;
 
 export const PaddingLeft16BoldText = styled(BoldText)`
 	padding-left: 16px;
