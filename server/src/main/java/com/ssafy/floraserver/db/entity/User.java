@@ -50,6 +50,10 @@ public class User extends BaseEntity {
         this.refreshToken = refreshToken;
     }
 
+    public void updateNickname(String nickname){ this.nickname = nickname; }
+
+    public void updatePhoneNumber(String phoneNumber){ this.phoneNumber = phoneNumber; }
+
     @Builder
     public User(Long uId, Role role, String email, String nickname, String phoneNumber, String refreshToken, LocalDate withdrawalDate, boolean softDelete) {
         this.uId = uId;
