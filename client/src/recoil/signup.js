@@ -68,8 +68,3 @@ export const storeBrnState = atom({
 	key: "brnState",
 	default: "",
 });
-
-export const accessTokenState = atom({
-	key: "accessTokenState",
-	default: "",
-});

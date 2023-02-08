@@ -8,7 +8,7 @@ import UserSelectedIcon from "../../assets/signup/UserSelectedIcon.png";
 import { ButtonToolBar } from "../../styles/bar/BarStyle";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { accessTokenState, userState } from "../../recoil/signup";
+import { userState } from "../../recoil/signup";
 import {
 	GrayText,
 	ButtonImage,
@@ -19,14 +19,13 @@ import { useEffect } from "react";
 
 export function Signup() {
 	const [user, setUser] = useRecoilState(userState);
-	const setToken = useSetRecoilState(accessTokenState);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		const params = new URLSearchParams(window.location.search);
 
 		const token = params.get("token");
-		setToken(token);
+		localStorage.setItem("flora-token", token);
 	}, []);
 
 	const handleSignup = () => {
