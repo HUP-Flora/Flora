@@ -1,10 +1,9 @@
 import axios from "axios";
-import { useRecoilValue } from "recoil";
-import { accessTokenState } from "../recoil/signup";
 
 export const useUserFormApi = () => {
-	const token = useRecoilValue(accessTokenState);
+	const token = localStorage.getItem("flora-token");
 	const userFormApi = data => {
+		console.log(data);
 		axios({
 			method: "PUT",
 			url: `${process.env.REACT_APP_SERVER_URL}/api/auth/users`,
