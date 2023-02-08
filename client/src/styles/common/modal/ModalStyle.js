@@ -21,7 +21,11 @@ const SlideDown = keyframes`
   }
 `;
 
-export const Container = styled.div``;
+export const SearchContainer = styled.div`
+	width: 100vw;
+	height: 100vh;
+	position: relative;
+`;
 
 export const Modal = styled.div`
 	position: absolute;
@@ -79,3 +83,37 @@ export const DoubleButtonContainer = styled.div`
 		margin-left: 20px;
 	}
 `;
+
+export const CalendarModalContainer = styled.div`
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 60;
+	// animation: ${SlideDown} 300ms ease-out forwards;
+	transform: translate(-50%, -50%);
+`;
+
+export const SearchStoreModalContainer = styled(CalendarModalContainer)`
+	z-index: 60;
+`;
+
+export const SearchStoreContainer = styled.div`
+	background-color: white;
+	padding: 32px 48px;
+	border-radius: 30px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+	z-index: 30;
+	animation: ${SlideDown} 300ms ease-out forwards;
+	width: 300px;
+	height: 400px;
+	text-align: center;
+`;
+
+export const CalendarFlexBox = styled(FlexBox)`
+	// position: absolute;
+	// top: 50px;
+	// left: 50px;
+	// transform: translate(-50%, -50%);
+`;
+
+export const Container = styled.div``;

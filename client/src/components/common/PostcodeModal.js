@@ -2,11 +2,9 @@ import React from "react";
 import { isDaumPostShowState } from "../../recoil/chatting";
 import { useSetRecoilState } from "recoil";
 import PortalReactDom from "react-dom";
-import {
-	Backdrop,
-	PostModal,
-} from "../../styles/common/modal/ErrorModalStyle";
+import { Backdrop, PostModal } from "../../styles/common/modal/ErrorModalStyle";
 import Postcode from "./Postcode";
+import CalendarModal from "./CalendarModal";
 
 function PostcodeModal() {
 	const setIsDaumPostShow = useSetRecoilState(isDaumPostShowState);

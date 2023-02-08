@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Review extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long revId;
 
     // 리뷰 - 사용자
@@ -49,20 +49,14 @@ public class Review extends BaseEntity{
     @Column(name = "rev_img_new_name")
     private String imgNewName;
 
-    @Column(name = "rev_img_size")
-    private int imgSize;
-
     @Column(name = "rev_img_path")
     private String imgPath;
-
-    @Column(name = "rev_img_field")
-    private String imgField;
 
     @Column(name = "rev_img_upload_time")
     private LocalDateTime imgUploadTime;
 
     @Builder
-    public Review(User uId, Store sId, Order oId, String content, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
+    public Review(User uId, Store sId, Order oId, String content, String imgOriginalName, String imgNewName, String imgPath, LocalDateTime imgUploadTime) {
         this.uId = uId;
         this.sId = sId;
         this.oId = oId;
@@ -70,9 +64,7 @@ public class Review extends BaseEntity{
         this.createDate = LocalDate.now();
         this.imgOriginalName = imgOriginalName;
         this.imgNewName = imgNewName;
-        this.imgSize = imgSize;
         this.imgPath = imgPath;
-        this.imgField = imgField;
         this.imgUploadTime = imgUploadTime;
     }
 }

@@ -64,6 +64,7 @@ export function StoreForm({ nextURL }) {
 	const storeRegionDepthName = useRecoilValue(storeRegionDepthNameState);
 
 	const navigate = useNavigate();
+
 	const handleStoreForm = e => {
 		e.preventDefault();
 
@@ -88,8 +89,12 @@ export function StoreForm({ nextURL }) {
 				end: storeEndTime.value,
 			};
 
-			// const formData = new FormData();
-			// formData.append("thumbnail", storeImageFile);
+			const formData = new FormData();
+			formData.append("file", storeImageFile);
+			formData.append(
+				"storeExtraInfoReq",
+				new Blob([JSON.stringify(data)], { type: "application/json" })
+			);
 			// formData.append("businessLicense", storeBrn);
 			// formData.append("name", storeName);
 			// formData.append("phoneNumber", storePhoneNumber);
@@ -103,8 +108,8 @@ export function StoreForm({ nextURL }) {
 			// formData.append("start", storeStartTime.value);
 			// formData.append("end", storeEndTime.value);
 
-			// storeFormApi(formData);
-			storeFormApi(data);
+			storeFormApi(formData);
+			// storeFormApi(data);
 
 			setStoreImageFile("");
 			setStoreBrn("");

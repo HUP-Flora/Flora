@@ -27,12 +27,24 @@
 	--color-txt: var(--dark-text);
 }
 
+@keyframes SlideDown {
+	from {
+		opacity: 0;
+		transform: translateY(-3rem);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
 .light {
 	--bg-body: var(--light-body);
 	--bg-main: var(--light-main);
 	--bg-second: var(--light-second);
 	--color-hover: var(--light-hover);
 	--color-txt: var(--light-text);
+	animation: SlideDown 300ms ease-out forwards;
 }
 
 * {

@@ -9,7 +9,7 @@ import lombok.Getter;
 public class StoreListRes {
 
     private Long sId;
-    private String sName;
+    private String name;
     private String phoneNumber;
     private String address_name;
     private OnAirType isOnair;
@@ -18,11 +18,12 @@ public class StoreListRes {
     private float lat;
     private float lng;
     private int bookmarkCnt;
+    private String img;
 
     @Builder
     public StoreListRes(Store store) {
         this.sId = store.getSId();
-        this.sName = store.getName();
+        this.name = store.getName();
         this.phoneNumber = store.getPhoneNumber();
         this.address_name = store.getAddress_name();
         this.isOnair = store.getIsOnair();
@@ -31,5 +32,6 @@ public class StoreListRes {
         this.lat = store.getLat();
         this.lng = store.getLng();
         this.bookmarkCnt = store.getBookmarkCnt();
+        this.img = store.getImgPath();
     }
 }

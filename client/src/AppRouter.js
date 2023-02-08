@@ -54,6 +54,7 @@ import { KakaoPayment } from "./pages/kakaoPayment/KakaoPayment";
 
 // 예약 내역 페이지
 import ReservationList from "./pages/reservation/ReservationList";
+import Hamster from "./pages/temp/hamster";
 
 function AppRouter() {
 	return (
@@ -126,6 +127,9 @@ function AppRouter() {
 
 				{/* 카카오 결제 테스트용 페이지 */}
 				<Route path="/kakao-payment" element={<KakaoPayment />} />
+
+				{/*햄스터*/}
+				<Route path="/hamsu" element={<Hamster />} />
 			</Routes>
 		</Router>
 	);
