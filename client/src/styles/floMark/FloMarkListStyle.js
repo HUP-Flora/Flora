@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const EmptyContianer = styled.div``;
+export const EmptyContainer = styled.div``;
 
 export const FloMarkListContianer = styled.div`
 	margin: 24px 16px;
