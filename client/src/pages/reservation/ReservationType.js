@@ -14,16 +14,19 @@ import deliveryPINKimage from "../../assets/reservation/DeliveryButtonFormImage.
 import pickupPinkImage from "../../assets/reservation/FirstFormPickUpImage.png";
 import NextButton from "../../components/common/NextButton";
 import { useRecoilState } from "recoil";
-import { RorderTypeState } from "../../recoil/reservation";
+import { RisModalShowState, RorderTypeState } from "../../recoil/reservation";
 import { useNavigate } from "react-router-dom";
+import ReservationWarningModal from "../../components/reservation/ReservationWarningModal";
 
 function ReservationType() {
-	const navigate = useNavigate();
-
 	const [orderType, setOrderType] = useRecoilState(RorderTypeState);
 
+	const [RisModalShow, setRisModalShow] = useRecoilState(RisModalShowState);
+
+	const navigate = useNavigate();
 	const typeNextHandler = () => {
 		if (orderType === "") {
+			setRisModalShow(true);
 			return;
 		}
 		// navigate("/product/:product-id/reservation/date");
@@ -34,7 +37,7 @@ function ReservationType() {
 		<>
 			<StatusBar text="플로라이브 예약" />
 			<ReserVationTypeContainer>
-				<ReservationTypeTitle>상품을 어떻게 보내시겠어요?</ReservationTypeTitle>
+				<ReservationTypeTitle>상품을 어떻게 보내시겠어요 <p>?</p></ReservationTypeTitle>
 				<ReservationTypeContent>배송 유형을 선택해주세요</ReservationTypeContent>
 				<FirstWhiteLargeButton
 					onClick={() => setOrderType("DELIVERY")}
@@ -52,6 +55,7 @@ function ReservationType() {
 				</SecondWhiteLargeButton>
 			</ReserVationTypeContainer>
 			<NextButton text="다음으로" onClick={typeNextHandler} />
+			{RisModalShow && <ReservationWarningModal text="배송유형을 선택해주세요." />}
 		</>
 	);
 }

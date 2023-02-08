@@ -17,6 +17,9 @@ function MyCalendar() {
 	const [RorderDay, setRorderDay] = useRecoilState(RorderDayState);
 	const [RorderDayOfWeek, setRorderDayOfWeek] = useRecoilState(RorderDayOfWeekState);
 
+	// 휴뮤일 검사 확인 예정
+	// const [RorderHoliday, setRorderHoliday] = useRecoilState(RorderHolidayState);
+
 	const isLeapYear = year => {
 		return (
 			(year % 4 === 0 && year % 100 !== 0 && year % 400 !== 0) ||
@@ -73,8 +76,8 @@ function MyCalendar() {
 		};
 
 		const generateCalendar = (month, year) => {
-			setRorderYear(year);
-			setRorderMonth(month);
+			setRorderYear(year.toString());
+			setRorderMonth(month.toString());
 
 			let calendar_days = calendar.querySelector(".calendar-days");
 			let calendar_header_year = calendar.querySelector("#year");
@@ -182,7 +185,7 @@ function MyCalendar() {
 						</span>
 						<span id="year">2021</span>
 						<span className="year-change" id="next-year">
-							<pre>></pre>
+							<pre>{">"}</pre>
 						</span>
 					</div>
 				</div>

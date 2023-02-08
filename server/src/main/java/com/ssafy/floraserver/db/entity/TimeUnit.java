@@ -14,7 +14,6 @@ import javax.persistence.*;
 public class TimeUnit extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tuId;
 
     @Column(name = "tu_time", nullable = false)

@@ -11,6 +11,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/mydb?serverTimezone=Asia/Seoul&useSSL=false&tinyInt1isBit=false
     username: ssafy

@@ -31,6 +31,12 @@ public class Review extends BaseEntity{
     @JoinColumn(name = "s_id", nullable = false)
     private Store sId;
 
+    // 리뷰 - 주문
+    // 일대일 단방향
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "o_id", nullable = false)
+    private Order oId;
+
     @Column(name = "rev_content", nullable = false)
     private String content;
 
@@ -43,29 +49,22 @@ public class Review extends BaseEntity{
     @Column(name = "rev_img_new_name")
     private String imgNewName;
 
-    @Column(name = "rev_img_size")
-    private int imgSize;
-
     @Column(name = "rev_img_path")
     private String imgPath;
-
-    @Column(name = "rev_img_field")
-    private String imgField;
 
     @Column(name = "rev_img_upload_time")
     private LocalDateTime imgUploadTime;
 
     @Builder
-    public Review(User uId, Store sId, String content, LocalDate createDate, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
+    public Review(User uId, Store sId, Order oId, String content, String imgOriginalName, String imgNewName, String imgPath, LocalDateTime imgUploadTime) {
         this.uId = uId;
         this.sId = sId;
+        this.oId = oId;
         this.content = content;
-        this.createDate = createDate;
+        this.createDate = LocalDate.now();
         this.imgOriginalName = imgOriginalName;
         this.imgNewName = imgNewName;
-        this.imgSize = imgSize;
         this.imgPath = imgPath;
-        this.imgField = imgField;
         this.imgUploadTime = imgUploadTime;
     }
 }

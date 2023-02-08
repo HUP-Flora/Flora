@@ -38,6 +38,7 @@ class OpenViduVideo extends Component {
 		this.handleChangeUserName = this.handleChangeUserName.bind(this);
 		this.handleMainVideoStream = this.handleMainVideoStream.bind(this);
 		this.onbeforeunload = this.onbeforeunload.bind(this);
+		this.handleClickExit = this.handleClickExit.bind(this);
 	}
 
 	componentDidMount() {
@@ -239,9 +240,15 @@ class OpenViduVideo extends Component {
 		}
 	}
 
+	handleClickExit() {
+		this.props.setIsModalShow(true);
+	}
+
 	render() {
 		const mySessionId = this.state.mySessionId;
 		const myUserName = this.state.myUserName;
+		const isModalShow = this.state.isModalShow;
+		const setIsModalShow = this.props.setIsModalShow;
 
 		return (
 			<SessionContainer>
@@ -289,47 +296,47 @@ class OpenViduVideo extends Component {
 				) : null} */}
 
 				{/* {this.state.session !== undefined ? ( */}
-					<SessionWrapper>
-						<SessionHeader>
-							{/* <h1 id="session-title">{mySessionId}</h1> */}
-							{/* <input
+				<SessionWrapper>
+					<SessionHeader>
+						{/* <h1 id="session-title">{mySessionId}</h1> */}
+						{/* <input
 								className="btn btn-large btn-danger"
 								type="button"
 								id="buttonLeaveSession"
 								onClick={this.leaveSession}
 								value="종료"
 							/> */}
-							<div>
-								<LeaveSessionButton onClick={this.leaveSession}>종료</LeaveSessionButton>
-								<input
-									className="btn btn-large btn-success"
-									type="button"
-									id="buttonSwitchCamera"
-									onClick={this.switchCamera}
-									value="Switch Camera"
-								/>
-							</div>
+						<div>
+							<LeaveSessionButton onClick={this.handleClickExit}>종료</LeaveSessionButton>
+							<input
+								className="btn btn-large btn-success"
+								type="button"
+								id="buttonSwitchCamera"
+								onClick={this.switchCamera}
+								value="Switch Camera"
+							/>
+						</div>
 
-							{/* 내 화면 */}
-							{this.state.publisher !== undefined ? (
-								<CustomerVideo
-									// className="stream-container col-md-6 col-xs-6"
-									onClick={() => this.handleMainVideoStream(this.state.publisher)}
-								>
-									<UserVideoComponent streamManager={this.state.publisher} />
-								</CustomerVideo>
-							) : null}
-						</SessionHeader>
+						{/* 내 화면 */}
+						{this.state.publisher !== undefined ? (
+							<CustomerVideo
+								// className="stream-container col-md-6 col-xs-6"
+								onClick={() => this.handleMainVideoStream(this.state.publisher)}
+							>
+								<UserVideoComponent streamManager={this.state.publisher} />
+							</CustomerVideo>
+						) : null}
+					</SessionHeader>
 
-						<VideoContainer>
-							{this.state.mainStreamManager !== undefined ? (
-								<OwnerVideo>
-									<UserVideoComponent streamManager={this.state.mainStreamManager} />
-								</OwnerVideo>
-							) : null}
-							{/* <div id="video-container" className="col-md-6"> */}
-							{/* 내 화면 */}
-							{/* {this.state.publisher !== undefined ? (
+					<VideoContainer>
+						{this.state.mainStreamManager !== undefined ? (
+							<OwnerVideo>
+								<UserVideoComponent streamManager={this.state.mainStreamManager} />
+							</OwnerVideo>
+						) : null}
+						{/* <div id="video-container" className="col-md-6"> */}
+						{/* 내 화면 */}
+						{/* {this.state.publisher !== undefined ? (
 								<CustomerVideo
 									// className="stream-container col-md-6 col-xs-6"
 									onClick={() => this.handleMainVideoStream(this.state.publisher)}
@@ -337,8 +344,8 @@ class OpenViduVideo extends Component {
 									<UserVideoComponent streamManager={this.state.publisher} />
 								</CustomerVideo>
 							) : null} */}
-							{/* 다른 참여자 화면 */}
-							{/* {this.state.subscribers.map((sub, i) => (
+						{/* 다른 참여자 화면 */}
+						{/* {this.state.subscribers.map((sub, i) => (
 									<CustomerVideo
 										key={sub.id}
 										className="stream-container col-md-6 col-xs-6"
@@ -348,9 +355,9 @@ class OpenViduVideo extends Component {
 										<UserVideoComponent streamManager={sub} />
 									</CustomerVideo>
 								))} */}
-							{/* </div> */}
-						</VideoContainer>
-					</SessionWrapper>
+						{/* </div> */}
+					</VideoContainer>
+				</SessionWrapper>
 				{/* ) : null} */}
 			</SessionContainer>
 		);

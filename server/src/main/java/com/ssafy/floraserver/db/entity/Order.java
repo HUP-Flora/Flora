@@ -51,12 +51,6 @@ public class Order extends BaseEntity{
     @JoinColumn(name = "u_id", nullable = false)
     private User uId;
 
-    // 주문 - 리뷰
-    // 일대일 단방향
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rev_id")
-    private Review revId;
-
     // 주문 - 가게
     // 다대일 단방향
     @ManyToOne(fetch = FetchType.LAZY)
@@ -69,6 +63,13 @@ public class Order extends BaseEntity{
     @JoinColumn(name = "p_id", nullable = false)
     private Product pId;
 
+    @Column(name = "o_review", columnDefinition = "TINYINT(1)")
+    private boolean review;
+
+    public void setReviewflag(boolean flag){
+        this.review = flag;
+    }
+
     @Builder
     public Order(String num, LocalDate date, OrderStatus status, OrderType type, int payment, String paymentNum, PaymentStatus paymentStatus, User uId, Review revId, Store sId, Product pId) {
         this.num = num;
@@ -79,9 +80,9 @@ public class Order extends BaseEntity{
         this.paymentNum = paymentNum;
         this.paymentStatus = paymentStatus;
         this.uId = uId;
-        this.revId = revId;
         this.sId = sId;
         this.pId = pId;
+        this.review = false;
     }
 
     public void updateStatus(OrderStatus status) {

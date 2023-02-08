@@ -61,6 +61,10 @@ export const PostModal = styled(Modal)`
 	top: 10vh;
 `;
 
+export const CalendarModal = styled(Modal)`
+	top: 10vh;
+`;
+
 export const ConfirmModalBox = styled(Modal)`
 	& > p:nth-child(1) {
 		font-size: 19px;
@@ -74,22 +78,22 @@ export const ConfirmModalButtonBox = styled.div`
 	justify-content: space-between;
 	margin-top: 32px;
 	padding: 0 24px;
-	
+
 	& > button {
 		width: 84px;
 		height: 44px;
 		border: none;
 		border-radius: 10px;
 		font-weight: bold;
-  }
-	
+	}
+
 	& > button:nth-child(1) {
 		background-color: var(--primary-400);
 		color: white;
-  }
-	
+	}
+
 	& > button:nth-child(2) {
 		background-color: var(--primary-50);
 		color: var(--primary-400);
-  }
+	}
 `;
