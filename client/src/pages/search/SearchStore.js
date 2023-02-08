@@ -17,7 +17,7 @@ import {
 } from "../../styles/icon/IconStyle";
 import { useState } from "react";
 import { useSearchAddressApi } from "../../hooks/useSearchAddressApi";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { isSearchStoreModalState, resultAddressListState } from "../../recoil/search";
 import SearchAddressImage from "../../assets/chatting/SearchAddressImage.png";
 import { useSearchStoresApi } from "../../hooks/useSearchStoresApi";
@@ -28,8 +28,10 @@ export function SearchStore() {
 	const setIsSearchStoreModal = useSetRecoilState(isSearchStoreModalState);
 	const searchAddressApi = useSearchAddressApi();
 	const searchStoresApi = useSearchStoresApi();
+	const [submitSearch, setSubmitSearch] = useState(false);
 
 	const searchHandler = () => {
+		setSubmitSearch(true);
 		searchAddressApi(words);
 	};
 
@@ -61,17 +63,21 @@ export function SearchStore() {
 				<SearchIcon src={SearchAddressImage} onClick={searchHandler} />
 			</InputDiv>
 			<AddressList>
-				{resultAddressList.length !== 0 ? (
-					resultAddressList.map(resultAddress => (
-						<AddressItem key={resultAddress} top="8" bottom="8" onClick={searchStoresHandler}>
-							{resultAddress}
-						</AddressItem>
-					))
+				{submitSearch ? (
+					resultAddressList.length !== 0 ? (
+						resultAddressList.map(resultAddress => (
+							<AddressItem key={resultAddress} top="8" bottom="8" onClick={searchStoresHandler}>
+								{resultAddress}
+							</AddressItem>
+						))
+					) : (
+						<EmptyAddressList>
+							<BigSearchAddressIcon src={SearchAddressImage} />
+							<Text size="13">검색 결과가 존재하지 않습니다.</Text>
+						</EmptyAddressList>
+					)
 				) : (
-					<EmptyAddressList>
-						<BigSearchAddressIcon src={SearchAddressImage} />
-						<Text size="13">검색 결과가 존재하지 않습니다.</Text>
-					</EmptyAddressList>
+					<></>
 				)}
 			</AddressList>
 		</SearchStoreContainer>

@@ -170,7 +170,6 @@ function SearchCalendar() {
 			}
 			currDateDiv = e.target;
 			currDateDiv.classList.add("curr-date");
-			setDate(`${RorderYear}년 ${RorderMonth}월 ${RorderDay}일 ${RorderDayOfWeek}요일`);
 			setIsCalendarModalShow(!isCalendarModalShow);
 		}
 	};

@@ -88,12 +88,14 @@ export const CalendarModalContainer = styled.div`
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	z-index: 30;
+	z-index: 60;
 	// animation: ${SlideDown} 300ms ease-out forwards;
 	transform: translate(-50%, -50%);
 `;
 
-export const SearchStoreModalContainer = styled(CalendarModalContainer)``;
+export const SearchStoreModalContainer = styled(CalendarModalContainer)`
+	z-index: 60;
+`;
 
 export const SearchStoreContainer = styled.div`
 	background-color: white;
