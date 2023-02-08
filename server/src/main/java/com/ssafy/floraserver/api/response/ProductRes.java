@@ -11,7 +11,7 @@ public class ProductRes {
     private String name;
     private String desc;
     private int price;
-    private String img;
+    private String pImg;
 
     @Builder
     public ProductRes(Product product) {
@@ -19,6 +19,6 @@ public class ProductRes {
         this.name = product.getName();
         this.desc = product.getDesc();
         this.price = product.getPrice();
-        this.img = product.getImgPath();
+        this.pImg = product.getImgPath();
     }
 }
