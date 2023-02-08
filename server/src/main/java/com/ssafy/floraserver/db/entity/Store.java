@@ -84,14 +84,8 @@ public class Store extends BaseEntity{
     @Column(name = "s_img_new_name")
     private String imgNewName;
 
-    @Column(name = "s_img_size")
-    private int imgSize;
-
     @Column(name = "s_img_path")
     private String imgPath;
-
-    @Column(name = "s_img_field")
-    private String imgField;
 
     @Column(name = "s_img_upload_time")
     private LocalDateTime imgUploadTime;
@@ -103,7 +97,7 @@ public class Store extends BaseEntity{
     private int reviewCnt;
 
     @Builder
-    public Store(User uId, String businessLicense, String name, String phoneNumber, String region_1depth_name, String region_2depth_name, String region_3depth_name, String address_name, float lat, float lng, String desc, OnAirType isOnair,  String holiday, TimeUnit start, TimeUnit end, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
+    public Store(User uId, String businessLicense, String name, String phoneNumber, String region_1depth_name, String region_2depth_name, String region_3depth_name, String address_name, float lat, float lng, String desc, String holiday, TimeUnit start, TimeUnit end, String imgOriginalName, String imgNewName, String imgPath, LocalDateTime imgUploadTime) {
         this.uId = uId;
         this.businessLicense = businessLicense;
         this.name = name;
@@ -121,9 +115,7 @@ public class Store extends BaseEntity{
         this.end = end;
         this.imgOriginalName = imgOriginalName;
         this.imgNewName = imgNewName;
-        this.imgSize = imgSize;
         this.imgPath = imgPath;
-        this.imgField = imgField;
         this.imgUploadTime = imgUploadTime;
     }
 }

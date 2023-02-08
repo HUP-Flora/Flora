@@ -10,7 +10,7 @@ function StatusChange() {
 
 	// 테스트 코드
 	const [orderDetail, setOrderDetail] = useRecoilState(orderDetailState);
-	const user = "사장";
+	const user = "손님";
 
 	const changeStatusHandler = () => {
 		// 1. 처음 orderDetail이 렌더링 되면 orderStatus의 모든 정보를 가져오고(orderDetail.js의 useEffect 참고)

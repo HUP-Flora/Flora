@@ -2,6 +2,7 @@ package com.ssafy.floraserver.api.service;
 
 import com.ssafy.floraserver.api.request.StoreExtraInfoReq;
 import com.ssafy.floraserver.api.request.UserExtraInfoReq;
+import com.ssafy.floraserver.api.vo.FileVO;
 import com.ssafy.floraserver.common.jwt.JwtProvider;
 import com.ssafy.floraserver.db.entity.Store;
 import com.ssafy.floraserver.db.entity.User;
@@ -12,10 +13,12 @@ import com.ssafy.floraserver.db.repository.TimeUnitRepository;
 import com.ssafy.floraserver.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
@@ -30,6 +33,7 @@ public class AuthService {
     private final StoreRepository storeRepository;
     private final TimeUnitRepository timeUnitRepository;
     private final JwtProvider jwtProvider;
+    private final FileService fileService;
 
     public String reissueAccessToken(String oldAccessToken, String refreshToken){
         if(!jwtProvider.validateToken(refreshToken)){
@@ -69,7 +73,10 @@ public class AuthService {
         userRepository.save(user);
     }
 
-    public Store createStoreExtraInfo(StoreExtraInfoReq storeExtraInfoReq, Map<String, String> authInfo) {
+    public Store createStoreExtraInfo(StoreExtraInfoReq storeExtraInfoReq,
+                                      String filePath,
+                                      MultipartFile file,
+                                      Map<String, String> authInfo) {
 
         // log.info("createStoreExtraInfo : ", authentication.getName());
         // {role=[ROLE_CUSTOMER], email=yurinew@naver.com}
@@ -95,7 +102,11 @@ public class AuthService {
         TimeUnit end = timeUnitRepository.findById(storeExtraInfoReq.getEnd())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        // TimeUnitDto StoreDto
+        FileVO fileVO = null;
+        // 이미지 저장
+        if(!file.isEmpty()){
+            fileVO = fileService.uploadFile(filePath, file);
+        }
 
         Store store = Store.builder()
                 .uId(user)
@@ -112,7 +123,13 @@ public class AuthService {
                 .holiday(storeExtraInfoReq.getHoliday())
                 .start(start)
                 .end(end)
+                .imgOriginalName(file.isEmpty() ? null : fileVO.getImgOriginalName())
+                .imgNewName(file.isEmpty() ? null : fileVO.getImgNewName())
+                .imgPath(file.isEmpty() ? null : fileVO.getImgPath())
+                .imgUploadTime(file.isEmpty() ? null : fileVO.getImgUploadTime())
                 .build();
+
+
 
         Store save = storeRepository.save(store);
 

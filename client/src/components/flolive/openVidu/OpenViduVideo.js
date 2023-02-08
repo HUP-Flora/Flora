@@ -12,13 +12,12 @@ import {
 	SessionWrapper,
 	SessionHeader,
 	VideoContainer,
-} from "../../../styles/openViduStyle";
+} from "../../../styles/flolive/OpenViduStyle";
 
 const APPLICATION_SERVER_URL =
 	process.env.NODE_ENV === "production" ? "" : "https://demos.openvidu.io/";
 
 class OpenViduVideo extends Component {
-
 	constructor(props) {
 		super(props);
 
@@ -39,6 +38,7 @@ class OpenViduVideo extends Component {
 		this.handleChangeUserName = this.handleChangeUserName.bind(this);
 		this.handleMainVideoStream = this.handleMainVideoStream.bind(this);
 		this.onbeforeunload = this.onbeforeunload.bind(this);
+		this.handleClickExit = this.handleClickExit.bind(this);
 	}
 
 	componentDidMount() {
@@ -240,6 +240,11 @@ class OpenViduVideo extends Component {
 		}
 	}
 
+	handleClickExit() {
+		this.props.setIsModalShow(true);
+		this.leaveSession();
+	}
+
 	render() {
 		const mySessionId = this.state.mySessionId;
 		const myUserName = this.state.myUserName;
@@ -301,7 +306,7 @@ class OpenViduVideo extends Component {
 								value="종료"
 							/> */}
 							<div>
-								<LeaveSessionButton onClick={this.leaveSession}>종료</LeaveSessionButton>
+								<LeaveSessionButton onClick={this.handleClickExit}>종료</LeaveSessionButton>
 								<input
 									className="btn btn-large btn-success"
 									type="button"

@@ -3,7 +3,7 @@ import React from "react";
 import StatusBar from "../../components/common/StatusBar";
 import OrderList from "../../components/myPage/OrderList";
 
-import { Container } from "../../styles/myPage/OrderDetailStyle";
+import { Container } from "../../styles/myPage/ListDetailStyle";
 
 function OrderDetail(props) {
 	return (

@@ -9,9 +9,9 @@ function ProductForms(props) {
 	const [price, setPrice] = useState("");
 	const [description, setDescription] = useState("");
 
-	const [isValidName, setIsValidName] = useState(true);
-	const [isValidPrice, setIsValidPrice] = useState(true);
-	const [isValidDescription, setIsValidDescription] = useState(true);
+	const [nameValidMessage, setNameValidMessage] = useState(true);
+	const [priceValidMessage, setPriceValidMessage] = useState(true);
+	const [descriptionValidMessage, setDescriptionValidMessage] = useState(true);
 
 	// 더미 데이터
 	const type = "add";
@@ -43,21 +43,18 @@ function ProductForms(props) {
 				setPrice={setPrice}
 				description={description}
 				setDescription={setDescription}
-				isValidName={isValidName}
-				isValidPrice={isValidPrice}
-				isValidDescription={isValidDescription}
+				nameValidMessage={nameValidMessage}
+				priceValidMessage={priceValidMessage}
+				descriptionValidMessage={descriptionValidMessage}
 			/>
 			<ProductAddBottomButtons
 				type={type}
 				name={name}
 				price={price}
 				description={description}
-				isValidName={isValidName}
-				isValidPrice={isValidPrice}
-				isValidDescription={isValidDescription}
-				setIsValidName={setIsValidName}
-				setIsValidPrice={setIsValidPrice}
-				setIsValidDescription={setIsValidDescription}
+				setNameValidMessage={setNameValidMessage}
+				setPriceValidMessage={setPriceValidMessage}
+				setDescriptionValidMessage={setDescriptionValidMessage}
 			/>
 		</>
 	);

@@ -20,7 +20,7 @@ function ProductDetailButtons(props) {
 			{type === "customer" ? (
 				<>
 					{/* 고객 */}
-					<Primary400Button onClick={() => navigate("")}>플로라이브 신청</Primary400Button>
+					<Primary400Button onClick={() => navigate("/flolive/waiting")}>플로라이브 신청</Primary400Button>
 					<Primary50Button onClick={() => navigate("")}>플로라이브 예약</Primary50Button>
 				</>
 			) : (

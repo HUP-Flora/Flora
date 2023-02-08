@@ -10,7 +10,7 @@ import lombok.Getter;
 public class StoreRes {
 
     private Long sId;
-    private String sName;
+    private String name;
     private String phoneNumber;
     private String address_name;
     private String holiday;
@@ -19,11 +19,12 @@ public class StoreRes {
     private String end;
     private int bookmarkCnt;
     private int reviewCnt;
+    private String img;
 
     @Builder
     public StoreRes(Store store) {
         this.sId = store.getSId();
-        this.sName = store.getName();
+        this.name = store.getName();
         this.phoneNumber = store.getPhoneNumber();
         this.address_name = store.getAddress_name();
         this.holiday = store.getHoliday();
@@ -32,5 +33,6 @@ public class StoreRes {
         this.end = store.getEnd().getTime();
         this.bookmarkCnt = store.getBookmarkCnt();
         this.reviewCnt = store.getReviewCnt();
+        this.img = store.getImgPath();
     }
 }
