@@ -9,7 +9,7 @@ import lombok.Getter;
 public class StoreListRes {
 
     private Long sId;
-    private String sName;
+    private String name;
     private String phoneNumber;
     private String address_name;
     private OnAirType isOnair;
@@ -23,7 +23,7 @@ public class StoreListRes {
     @Builder
     public StoreListRes(Store store) {
         this.sId = store.getSId();
-        this.sName = store.getName();
+        this.name = store.getName();
         this.phoneNumber = store.getPhoneNumber();
         this.address_name = store.getAddress_name();
         this.isOnair = store.getIsOnair();
