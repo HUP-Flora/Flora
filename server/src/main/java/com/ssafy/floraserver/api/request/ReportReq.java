@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public class ReportReq {
-    private Long oId;
+    private Long order;
 }

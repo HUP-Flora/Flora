@@ -28,7 +28,7 @@ public class ReportService {
 
         Long uId = Long.parseLong(authInfo.get("uId"));
 
-        Order order = orderRepository.findById(reportReq.getOId())
+        Order order = orderRepository.findById(reportReq.getOrder())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         // 주문 상태도 체크?
