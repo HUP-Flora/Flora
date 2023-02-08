@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import "./ChatTest.css";
-import { useRecoilState } from "recoil";
-import { nameState, roomState } from "../../recoil/chatting";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { LmySessionIdState, LmyTypeState } from "../../recoil/flolive";
 
 function Join() {
   // const [name, setName] = useState('')
-  const [name, setName] = useRecoilState(nameState)
-  const [room, setRoom] = useRecoilState(roomState)
+  const [LmyType, setLmyType] = useRecoilState(LmyTypeState);
+  const [LmySessionId, setLmySessionId] = useRecoilState(LmySessionIdState);
 
   return (
     <div className='joinOuterContainer'>
@@ -18,7 +18,7 @@ function Join() {
             placeholder='이름'
             className='joinInput'
             type='text'
-            onChange={(event) => setName(event.target.value)}
+            onChange={(event) => setLmyType(event.target.value)}
           />
         </div>
         <div>
@@ -26,12 +26,12 @@ function Join() {
             placeholder='채팅방'
             className='joinInput mt-20'
             type='text'
-            onChange={(event) => setRoom(event.target.value)}
+            onChange={(event) => setLmySessionId(event.target.value)}
           />
         </div>
         <Link
-          onClick={(e) => (!name || !room ? e.preventDefault() : null)}
-          to={`/chat?name=${name}&room=${room}`}
+          onClick={(e) => (!LmyType || !LmySessionId ? e.preventDefault() : null)}
+          to={`/chat?name=${LmyType}&room=${LmySessionId}`}
         >
           <button className={'button mt-20'} type='submit'>
             가입
