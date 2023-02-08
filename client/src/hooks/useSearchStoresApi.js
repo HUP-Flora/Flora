@@ -1,10 +1,10 @@
 import axios from "axios";
 
 export const useSearchStoresApi = () => {
-	const searchStoresApi = words => {
+	const searchStoresApi = address => {
 		axios({
 			method: "GET",
-			url: `${process.env.REACT_APP_SERVER_URL}/api/stores/regions?word=${words}`,
+			url: `${process.env.REACT_APP_SERVER_URL}/api/stores?address=${address}`,
 			headers: {
 				"Content-Type": "application/json",
 			},

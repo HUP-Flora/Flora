@@ -239,6 +239,7 @@ export const ImageInput = styled.input`
 `;
 
 export const WhiteLayout = styled.div`
+	height: auto;
 	padding-left: 16px;
 	padding-right: 16px;
 `;

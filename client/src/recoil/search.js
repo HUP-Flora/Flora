@@ -14,3 +14,8 @@ export const resultAddressListState = atom({
 	key: "resultAddressListState",
 	default: [],
 });
+
+export const storeListState = atom({
+	key: "storeListState",
+	default: [],
+});

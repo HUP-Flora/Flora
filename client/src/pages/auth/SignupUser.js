@@ -1,5 +1,5 @@
 import { ButtonToolBar } from "../../styles/bar/BarStyle";
-import { BoldText, Text, WhiteLayout } from "../../styles/common/CommonStyle";
+import { BlankSection, BoldText, Text, WhiteLayout } from "../../styles/common/CommonStyle";
 import { Primary400LargeButton } from "../../styles/button/ButtonStyle";
 import StatusBar from "../../components/common/StatusBar";
 import {
@@ -12,7 +12,7 @@ import {
 } from "../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import { useRecoilState } from "recoil";
 import { nicknameState, phoneNumberState } from "../../recoil/signup";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { SignupLabelDiv, SignupTextInput } from "../../styles/chatting/input/InputStyle";
 import { useUserFormApi } from "../../hooks/useUserFormApi";
 
@@ -23,6 +23,7 @@ export function SignupUser() {
 	const [phoneNumberErrorMessage, setPhoneNumberErrorMessage] = useState("");
 
 	const userFormApi = useUserFormApi();
+	// const inputRef = useRef([]);
 
 	const handleSignup = () => {
 		if (nicknameValidate(nickname) && phoneNumberValidate(phoneNumber)) {
@@ -114,6 +115,7 @@ export function SignupUser() {
 					}}
 					value={nickname}
 					HasError={nicknameErrorMessage}
+					// ref={el => (inputRef.current[0] = el)}
 				/>
 				<InputCounterContainer>
 					{nicknameErrorMessage && <ErrorMessage>{nicknameErrorMessage}</ErrorMessage>}
@@ -127,6 +129,9 @@ export function SignupUser() {
 					id="phoneNumber"
 					maxLength="13"
 					placeholder="&nbsp;&nbsp;- 없이 입력해주세요"
+					// onClick={() => {
+					// 	inputRef.current[1].scrollIntoView();
+					// }}
 					onChange={e => {
 						phoneNumberHandler(e.target);
 					}}
@@ -136,11 +141,14 @@ export function SignupUser() {
 					}}
 					value={phoneNumber}
 					HasError={phoneNumberErrorMessage}
+					// ref={el => (inputRef.current[1] = el)}
 				/>
 				{phoneNumberErrorMessage && <ErrorMessage>{phoneNumberErrorMessage}</ErrorMessage>}
-				<ButtonToolBar>
+				<BlankSection height="96" />
+				<Primary400LargeButton onClick={handleSignup}>가입 완료하기</Primary400LargeButton>
+				{/* <ButtonToolBar>
 					<Primary400LargeButton onClick={handleSignup}>가입 완료하기</Primary400LargeButton>
-				</ButtonToolBar>
+				</ButtonToolBar> */}
 			</WhiteLayout>
 		</>
 	);

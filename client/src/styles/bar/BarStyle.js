@@ -102,7 +102,7 @@ export const LeftArrow = styled.img`
 export const TabImgWrapper = styled.div`
 	height: 55%;
 	padding-top: 16px;
-`
+`;
 export const SearchBarContainer = styled.section`
 	height: 32px;
 	background-color: var(--gray-50);

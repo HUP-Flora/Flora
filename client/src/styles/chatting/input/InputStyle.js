@@ -26,6 +26,12 @@ export const InputText = styled.input`
 	margin: ${props => (props.isOwner ? "16px 8px 16px 16px" : "16px 16px")};
 	padding-left: 16px;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+	caret-color: #ff6b6b;
+
+	&:focus {
+		border: none;
+		outline: none;
+	}
 `;
 
 export const InputButton = styled.button`
@@ -67,6 +73,7 @@ export const SignupLabelDiv = styled.div`
 `;
 
 export const SignupTextInput = styled(TextInput)`
+	padding-top: 8px;
 	width: 100%;
 `;
 
