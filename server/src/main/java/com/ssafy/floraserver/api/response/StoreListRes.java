@@ -18,6 +18,7 @@ public class StoreListRes {
     private float lat;
     private float lng;
     private int bookmarkCnt;
+    private String img;
 
     @Builder
     public StoreListRes(Store store) {
@@ -31,5 +32,6 @@ public class StoreListRes {
         this.lat = store.getLat();
         this.lng = store.getLng();
         this.bookmarkCnt = store.getBookmarkCnt();
+        this.img = store.getImgPath();
     }
 }

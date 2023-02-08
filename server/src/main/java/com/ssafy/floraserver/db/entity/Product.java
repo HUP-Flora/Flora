@@ -39,20 +39,14 @@ public class Product {
     @Column(name = "p_img_new_name")
     private String imgNewName;
 
-    @Column(name = "p_img_size")
-    private int imgSize;
-
     @Column(name = "p_img_path")
     private String imgPath;
-
-    @Column(name = "p_img_field")
-    private String imgField;
 
     @Column(name = "p_img_upload_time")
     private LocalDateTime imgUploadTime;
 
     @Builder
-    public Product(Long pId, String name, String desc, int price, Store sId, String imgOriginalName, String imgNewName, int imgSize, String imgPath, String imgField, LocalDateTime imgUploadTime) {
+    public Product(Long pId, String name, String desc, int price, Store sId, String imgOriginalName, String imgNewName, String imgPath, LocalDateTime imgUploadTime) {
         this.pId = pId;
         this.name = name;
         this.desc = desc;
@@ -60,9 +54,7 @@ public class Product {
         this.sId = sId;
         this.imgOriginalName = imgOriginalName;
         this.imgNewName = imgNewName;
-        this.imgSize = imgSize;
         this.imgPath = imgPath;
-        this.imgField = imgField;
         this.imgUploadTime = imgUploadTime;
     }
 }

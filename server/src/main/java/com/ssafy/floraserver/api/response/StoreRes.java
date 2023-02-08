@@ -19,6 +19,7 @@ public class StoreRes {
     private String end;
     private int bookmarkCnt;
     private int reviewCnt;
+    private String img;
 
     @Builder
     public StoreRes(Store store) {
@@ -32,5 +33,6 @@ public class StoreRes {
         this.end = store.getEnd().getTime();
         this.bookmarkCnt = store.getBookmarkCnt();
         this.reviewCnt = store.getReviewCnt();
+        this.img = store.getImgPath();
     }
 }

@@ -7,10 +7,13 @@ import com.ssafy.floraserver.common.util.SecurityUtil;
 import com.ssafy.floraserver.db.entity.Store;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,7 +38,7 @@ public class AuthController {
     }
 
     @PutMapping("/users")
-    @PreAuthorize("hasRole('ROLE_GUEST')")
+//    @PreAuthorize("hasRole('ROLE_GUEST')")
     public ResponseEntity<?> createUserExtraInfo(@RequestBody UserExtraInfoReq userExtraInfoReq){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         authService.createUserExtraInfo(userExtraInfoReq, authInfo);
@@ -43,12 +46,14 @@ public class AuthController {
     }
 
     @PutMapping("/stores")
-    @PreAuthorize("hasRole('ROLE_GUEST')")
-    public ResponseEntity<?> createStoreExtraInfo(@RequestBody StoreExtraInfoReq storeExtraInfoReq){
+//    @PreAuthorize("hasRole('ROLE_GUEST')")
+    public ResponseEntity<?> createStoreExtraInfo(@Value("${file.upload.location}") String filePath,
+                                                  @RequestPart("file") MultipartFile file,
+                                                  @RequestPart("storeExtraInfoReq") StoreExtraInfoReq storeExtraInfoReq){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         log.info("현재 로그인 {} ", authInfo.toString());
         log.info(storeExtraInfoReq.toString());
-        Store store = authService.createStoreExtraInfo(storeExtraInfoReq, authInfo);
+        Store store = authService.createStoreExtraInfo(storeExtraInfoReq, filePath, file, authInfo);
 
         // TODO 확인용으로 저장한 Store 객체 리턴했음. 수정하기
         return new ResponseEntity<>(store, HttpStatus.CREATED);
