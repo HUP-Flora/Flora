@@ -99,7 +99,7 @@ export const SearchStoreModalContainer = styled(CalendarModalContainer)`
 
 export const SearchStoreContainer = styled.div`
 	background-color: white;
-	padding: 32px 48px;
+	padding: 32px;
 	border-radius: 30px;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 	z-index: 30;

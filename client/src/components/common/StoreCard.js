@@ -24,21 +24,22 @@ import { useNavigate } from "react-router";
 
 export function StoreCard({
 	sId,
-	sName,
-	sPhoneNumber,
-	sSido,
-	sGugun,
-	sDong,
-	sBookMarkCnt,
-	sStartTime,
-	sEndTime,
-	sImage,
-	sIsOn,
+	name,
+	phoneNumber,
+	address_name,
+	bookmarkCnt,
+	start,
+	end,
+	lat,
+	lng,
+	isOnair,
+	img,
 }) {
 	const navigate = useNavigate();
 
 	const handleClick = sId => {
-		navigate(`/store/${sId}`);
+		// navigate(`/store/${sId}/detail`);
+		navigate(`/store/detail`);
 	};
 
 	const formatStoreTitle = title => {
@@ -58,33 +59,31 @@ export function StoreCard({
 			<StoreCardTextSection>
 				<StoreCardTextTitle>
 					<StoreCardTextTitleSection>
-						<OnOff isOn={sIsOn}>{sIsOn ? "ON" : "OFF"}</OnOff>
-						<PaddingLeft16BoldText>{formatStoreTitle(sName)}</PaddingLeft16BoldText>
+						<OnOff isOn={isOnair}>{isOnair ? "ON" : "OFF"}</OnOff>
+						<PaddingLeft16BoldText>{formatStoreTitle(name)}</PaddingLeft16BoldText>
 					</StoreCardTextTitleSection>
 					<StoreCardTextFloMarkSection>
 						<FloMarkImage src={FloMark} alt="FloMark" />
-						<GrayText size="13">&nbsp;{sBookMarkCnt}</GrayText>
+						<GrayText size="13">&nbsp;{bookmarkCnt}</GrayText>
 					</StoreCardTextFloMarkSection>
 				</StoreCardTextTitle>
 				<StoreCardTextContent>
 					<StoreCardTextContentAddress>
-						<Text size="13">
-							{sSido} {sGugun} {sDong}
-						</Text>
+						<Text size="13">{address_name}</Text>
 					</StoreCardTextContentAddress>
 					<StoreCardTextContentPhoneAndWorkingTime>
-						<Text size="13">{sPhoneNumber}</Text>
+						<Text size="13">{phoneNumber}</Text>
 						<GrayText size="13" left="8" right="8">
 							|
 						</GrayText>
 						<Text size="13">
-							{sStartTime} ~ {sEndTime}
+							{start} ~ {end}
 						</Text>
 					</StoreCardTextContentPhoneAndWorkingTime>
 				</StoreCardTextContent>
 			</StoreCardTextSection>
 			<StoreCardImageSection>
-				<StoreCardImage src={sImage} />
+				<StoreCardImage src={img} />
 			</StoreCardImageSection>
 		</StoreCardContainer>
 	);
