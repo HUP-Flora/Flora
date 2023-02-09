@@ -55,7 +55,7 @@ public class User extends BaseEntity {
     public void updatePhoneNumber(String phoneNumber){ this.phoneNumber = phoneNumber; }
 
     @Builder
-    public User(Long uId, Role role, String email, String nickname, String phoneNumber, String refreshToken, LocalDate withdrawalDate, boolean softDelete) {
+    public User(Long uId, Role role, String email, String nickname, String phoneNumber, String refreshToken, LocalDate withdrawalDate) {
         this.uId = uId;
         this.role = role;
         this.email = email;
@@ -63,6 +63,6 @@ public class User extends BaseEntity {
         this.phoneNumber = phoneNumber;
         this.refreshToken = refreshToken;
         this.withdrawalDate = withdrawalDate;
-        this.softDelete = softDelete;
+        this.softDelete = false;
     }
 }
