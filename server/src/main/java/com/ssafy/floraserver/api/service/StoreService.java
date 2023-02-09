@@ -126,7 +126,9 @@ public class StoreService {
         }
 
         storeRepository.save(Store.builder()
+                .sId(sId)
                 .uId(user)
+                .businessLicense(store.getBusinessLicense())
                 .name(storeInfoReq.getName())
                 .phoneNumber(storeInfoReq.getPhoneNumber())
                 .region_1depth_name(storeInfoReq.getRegion_1depth_name())
