@@ -21,13 +21,13 @@ public class StoreOrderRes {
     private ReceiptStatus recStatus;
 
     @Builder
-    public StoreOrderRes(Order order, Receipt receipt) {
+    public StoreOrderRes(Order order) {
         this.oId = order.getOId();
         this.sName = order.getSId().getName();
-        this.receiptDate = receipt.getReceiptDate();
+        this.receiptDate = order.getRecId().getReceiptDate();
         this.pImg = order.getPId().getImgPath();
         this.payment = order.getPayment();
         this.paymentStatus = order.getPaymentStatus();
-        this.recStatus = receipt.getStatus();
+        this.recStatus = order.getRecId().getStatus();
     }
 }

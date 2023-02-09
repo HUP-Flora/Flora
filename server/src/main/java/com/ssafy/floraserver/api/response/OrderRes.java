@@ -22,7 +22,7 @@ public class OrderRes {
     private ReceiptStatus recStatus;
 
     @Builder
-    public OrderRes(Order order, ReceiptStatus receiptStatus) {
+    public OrderRes(Order order) {
         this.oId = order.getOId();
         this.num = order.getNum();
         this.date = order.getDate();
@@ -32,6 +32,6 @@ public class OrderRes {
         this.paymentNum = order.getPaymentNum();
         this.payment = order.getPayment();
         this.paymentStatus = order.getPaymentStatus();
-        this.recStatus = receiptStatus;
+        this.recStatus = order.getRecId().getStatus();
     }
 }

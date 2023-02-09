@@ -47,7 +47,6 @@ public class OrderService {
         Page<StoreOrderRes> storeOrderResList = orderList
                 .map(o -> StoreOrderRes.builder()
                         .order(o)
-                        .receipt(receiptRepository.findByOId(o.getOId()))
                         .build());
 
         return storeOrderResList;
@@ -62,7 +61,6 @@ public class OrderService {
         Page<UserOrderRes> userOrderResList = orderList
                 .map(o -> UserOrderRes.builder()
                         .order(o)
-                        .receipt(receiptRepository.findByOId(o.getOId()))
                         .build());
 
         return userOrderResList;
@@ -73,11 +71,8 @@ public class OrderService {
         Order order = orderRepository.findById(oId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        Receipt receipt = receiptRepository.findByOId(oId);
-
         OrderRes orderRes = OrderRes.builder()
                 .order(order)
-                .receiptStatus(receipt.getStatus())
                 .build();
 
         return orderRes;
