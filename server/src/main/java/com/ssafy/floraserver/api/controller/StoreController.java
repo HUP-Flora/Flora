@@ -74,4 +74,11 @@ public class StoreController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PostMapping("/{sId}/onair")
+    public ResponseEntity<?> toggleOnair(@PathVariable("sId") Long sId){
+        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
+        storeService.toggleOnair(sId, authInfo);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }
