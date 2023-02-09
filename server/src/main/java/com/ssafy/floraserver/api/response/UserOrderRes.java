@@ -18,11 +18,11 @@ public class UserOrderRes {
     private String sImg;
 
     @Builder
-    public UserOrderRes(Order order, Receipt receipt) {
+    public UserOrderRes(Order order) {
         this.oId = order.getOId();
         this.sId = order.getSId().getSId();
         this.sName = order.getSId().getName();
-        this.receiptDate = receipt.getReceiptDate();
+        this.receiptDate = order.getRecId().getReceiptDate();
         this.sImg = order.getSId().getImgPath();
     }
 }
