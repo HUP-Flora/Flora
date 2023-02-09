@@ -6,7 +6,7 @@ export const useUserFormApi = () => {
 		console.log(data);
 		axios({
 			method: "PUT",
-			url: `${process.env.REACT_APP_SERVER_URL}/api/v1/auth/users`,
+			url: `${process.env.REACT_APP_SERVER_URL}/v1/auth/users`,
 			headers: {
 				Authorization: `Bearer ${token}`,
 				"Content-Type": "application/json",
