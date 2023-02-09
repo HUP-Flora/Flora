@@ -17,7 +17,7 @@ import java.util.Map;
 
 @RestController
 @Slf4j
-@RequestMapping("/api/pay")
+@RequestMapping("/v1/pay")
 @RequiredArgsConstructor
 public class PayController {
 

@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api/auth")
+@RequestMapping("/v1/auth")
 public class AuthController {
 
     private final AuthService authService;

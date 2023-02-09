@@ -1,4 +1,4 @@
 kakao-pay:
-    client-id: 
-    domain: http://localhost:8080/api/pay/
+    client-id:
+    domain: http://i8b203.p.ssafy.io/v1/pay
 
