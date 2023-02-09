@@ -20,12 +20,6 @@ public class Receipt extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long recId;
 
-    // 수령 - 주문
-    // 다대일 단방향
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "o_id", nullable = false)
-    private Order oId;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "rec_type", nullable = false)
     private ReceiptType type;
@@ -56,8 +50,7 @@ public class Receipt extends BaseEntity{
     private ReceiptStatus status;
 
     @Builder
-    public Receipt(Order oId, ReceiptType type, String orderer, String ordererPhoneNumber, String giftMessage, String recipient, String recipientPhoneNumber, LocalDate receiptDate, String deliveryDestination, ReceiptStatus status) {
-        this.oId = oId;
+    public Receipt(ReceiptType type, String orderer, String ordererPhoneNumber, String giftMessage, String recipient, String recipientPhoneNumber, LocalDate receiptDate, String deliveryDestination, ReceiptStatus status) {
         this.type = type;
         this.orderer = orderer;
         this.ordererPhoneNumber = ordererPhoneNumber;

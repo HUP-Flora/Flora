@@ -20,12 +20,6 @@ public class Conference extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long conId;
 
-    // 화상미팅 - 주문
-    // 다대일 단방향
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "o_id", nullable = false)
-    private Order oId;
-
     @Column(name = "con_reservation_date", nullable = false)
     private LocalDate reservationDate;
 
@@ -46,11 +40,9 @@ public class Conference extends BaseEntity{
     private ConferenceStatus status;
 
     @Builder
-    public Conference(Order oId, LocalDate reservationDate, TimeUnit reservationTime, LocalTime startTime, String link, ConferenceStatus status){
-        this.oId = oId;
+    public Conference(LocalDate reservationDate, TimeUnit reservationTime, String link, ConferenceStatus status){
         this.reservationDate = reservationDate;
         this.reservationTime = reservationTime;
-        this.startTime = startTime;
         this.link = link;
         this.status = status;
     }
