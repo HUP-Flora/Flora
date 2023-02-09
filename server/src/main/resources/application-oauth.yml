@@ -5,7 +5,7 @@ spring:
         registration:
           kakao:
             client-id:
-            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
+            redirect-uri: https://i8b203.p.ssafy.io/api/login/oauth2/code/kakao
             client-authentication-method: POST
             authorization-grant-type: authorization_code
             scope: account_email

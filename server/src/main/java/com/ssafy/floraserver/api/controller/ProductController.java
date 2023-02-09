@@ -18,7 +18,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api/products")
+@RequestMapping("/v1/products")
 public class ProductController {
 
     private final ProductService productService;
@@ -48,6 +48,13 @@ public class ProductController {
                                            @RequestPart("file") MultipartFile file){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         productService.updateProduct(productReq, pId, filePath, file, authInfo);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{pId}")
+    public ResponseEntity<?> deleteProduct(@PathVariable("pId") Long pId){
+        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
+        productService.deleteProduct(pId, authInfo);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

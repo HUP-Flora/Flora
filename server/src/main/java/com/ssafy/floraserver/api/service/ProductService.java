@@ -113,4 +113,19 @@ public class ProductService {
                 .build()
         );
     }
+
+    public void deleteProduct(Long pId, Map<String, String> authInfo) {
+        
+        Long uId = Long.parseLong(authInfo.get("uId"));
+
+        // 내 가게
+        Store store = storeRepository.findByUId(uId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        // 삭제할 상품
+        Product product = productRepository.findById(pId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        product.deleteProduct();
+    }
 }
