@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
+import MyPageListEmpty from "./MyPageListEmpty";
 import ReviewAddModal from "./ReviewAddModal";
+
+import { priceComma } from "../../hooks/priceComma";
 
 import {
 	Primary50SmallButton,
@@ -16,11 +20,13 @@ import {
 	RowContainer,
 } from "../../styles/myPage/MyPageOrderListStyle";
 
+import defaultImg from "../../assets/default-flower.png";
 import image from "../../assets/store.png";
-import MyPageListEmpty from "./MyPageListEmpty";
 
 function OrderList(props) {
 	const navigate = useNavigate();
+
+	const [orders, setOrders] = useState([]);
 
 	const [isModalShow, setIsModalShow] = useState(false);
 
@@ -33,44 +39,45 @@ function OrderList(props) {
 	};
 
 	// 더미 데이터
-	const type = "customer";
-	// const type = "owner";
+	// const type = "customer";
+	const type = "owner";
 
-	const orders = [
-		// {
-		// 	image: { image },
-		// 	title: "꽃 파는 가게",
-		// 	price: "15000",
-		// 	date: "2023.01.20",
-		// 	status: "beforePayment",
-		// 	isReviewWrited: true,
-		// },
-		// {
-		// 	image: { image },
-		// 	title: "꽃 파는 가게",
-		// 	price: "15000",
-		// 	date: "2023.01.20",
-		// 	status: "completePayment",
-		// 	isReviewWrited: false,
-		// },
-		// {
-		// 	image: { image },
-		// 	title: "꽃 파는 가게",
-		// 	price: "15000",
-		// 	date: "2023.01.20",
-		// 	status: "shipping",
-		// 	isReviewWrited: true,
-		// },
-		// {
-		// 	image: { image },
-		// 	title: "꽃 파는 가게",
-		// 	price: "15000",
-		// 	date: "2023.01.20",
-		// 	status: "shipping",
-		// 	status: "completeDelivery",
-		// 	isReviewWrited: false,
-		// },
-	];
+	useEffect(() => {
+		// const response = axios.get("/api/order/users?page=&size=");
+
+		const response = [
+			{
+				oId: 3333333,
+				sId: 44444,
+				sName: "lorem",
+				receiptDate: "22.22.22",
+				payment: 15000,
+				review: true,
+				sImg: { image },
+			},
+			{
+				// 상품 없음, 디폴트 값
+				oId: 1111111,
+				sId: 44444,
+				sName: null,
+				receiptDate: "22.22.22",
+				payment: 10000,
+				review: false,
+				sImg: null,
+			},
+			{
+				oId: 3333333,
+				sId: 44444,
+				sName: "lorem",
+				receiptDate: "22.22.22",
+				payment: 10000,
+				review: true,
+				sImg: { image },
+			},
+		];
+
+		setOrders(response);
+	}, []);
 
 	return (
 		<div>
@@ -80,14 +87,22 @@ function OrderList(props) {
 				orders.map(order => (
 					<ShadowCardWrapper onClick={handleClickOrder}>
 						<ShadowCard display="flex" isSpaceBetween={false} marginBottom="16">
-							<img src={order.image.image} alt="product-img" />
+							{order?.sImg === null ? (
+								<img src={defaultImg} alt="product-img" />
+							) : (
+								<img src={order?.sImg?.image} alt="product-img" />
+							)}
+
 							<TextContent>
-								{/* top */}
 								<RowContainer>
-									<BoldText>{order.title}</BoldText>
+									{order?.sName === null ? (
+										<GrayText weight="bold">상품 미선택</GrayText>
+									) : (
+										<BoldText>{order?.sName}</BoldText>
+									)}
 									{type === "customer" ? (
 										<>
-											{order.isReviewWrited ? (
+											{order.review ? (
 												<WhiteSmallButton onClick={() => navigate("/mypage/review/list")}>
 													리뷰 보기
 												</WhiteSmallButton>
@@ -98,9 +113,6 @@ function OrderList(props) {
 											)}
 										</>
 									) : (
-										// <BoldText size="13" color="var(--primary-500)">
-										// 	주문 상세 보기 &gt;
-										// </BoldText>
 										<>
 											{order.status === "beforePayment" ? (
 												<Primary400SmallButton>결제 전</Primary400SmallButton>
@@ -116,8 +128,8 @@ function OrderList(props) {
 								</RowContainer>
 								{/* bottom */}
 								<RowContainer>
-									<Text>{order.price} 원</Text>
-									<GrayText size="13">{order.date}</GrayText>
+									<Text>{priceComma(order?.payment)} 원</Text>
+									<GrayText size="13">{order.receiptDate}</GrayText>
 								</RowContainer>
 							</TextContent>
 						</ShadowCard>

@@ -1,5 +1,5 @@
 # nginx 이미지를 사용합니다. 뒤에 tag가 없으면 latest 를 사용합니다.
-FROM nginx:stable-alpine
+FROM nginx
 
 # work dir 고정
 WORKDIR /app
