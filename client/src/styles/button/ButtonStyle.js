@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { isFocusedInputState } from "../../recoil/signup";
 
 export const Primary50Button = styled.button`
 	margin-top: ${props => props.top || 0}px;
@@ -109,6 +110,12 @@ export const Primary400LargeButton = styled.button`
 	&:active {
 		background-color: var(--primary-500);
 	}
+`;
+
+export const TestPrimary400LargeButton = styled(Primary400LargeButton)`
+	// bottom: ${props => props.testB - 12}px;
+	// overflow: hidden;
+	// margin-top: 64px;
 `;
 
 export const YesOrNoButton = styled.button`

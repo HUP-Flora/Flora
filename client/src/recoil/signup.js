@@ -68,3 +68,8 @@ export const storeBrnState = atom({
 	key: "brnState",
 	default: "",
 });
+
+export const isFocusedInputState = atom({
+	key: "isFocusedInputState",
+	default: false,
+});
