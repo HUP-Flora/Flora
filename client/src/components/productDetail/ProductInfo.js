@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import StatusBar from "../../components/common/StatusBar";
+import StatusBar from "../common/NoPaddingStatusBar";
 
 import {
 	ImageWrapper,

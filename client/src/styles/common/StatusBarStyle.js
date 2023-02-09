@@ -7,7 +7,6 @@ export const StatusBarContainer = styled.div`
 	width: 100%;
 	height: 72px;
 	background-color: white;
-	padding: 16px;
 	position: relative;
 `;
 

@@ -38,8 +38,8 @@ export function SearchStore() {
 		searchAddressApi(words);
 	};
 
-	const searchStoresHandler = () => {
-		searchStoresApi(words);
+	const searchStoresHandler = address => {
+		searchStoresApi(address);
 		setIsSearchStoreModal(false);
 	};
 
@@ -69,7 +69,14 @@ export function SearchStore() {
 				{submitSearch ? (
 					resultAddressList.length !== 0 ? (
 						resultAddressList.map(resultAddress => (
-							<AddressItem key={resultAddress} top="8" bottom="8" onClick={searchStoresHandler}>
+							<AddressItem
+								key={resultAddress}
+								top="8"
+								bottom="8"
+								onClick={() => {
+									searchStoresHandler(resultAddress);
+								}}
+							>
 								{resultAddress}
 							</AddressItem>
 						))
