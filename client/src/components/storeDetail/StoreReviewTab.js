@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
 	ReviewsContainer,
@@ -12,43 +12,40 @@ import { BoldText, GrayText, GrayHr } from "../../styles/common/CommonStyle";
 
 import productImgSrc from "../../assets/store.png";
 import StoreTabEmpty from "./StoreTabEmpty";
+import axios from "axios";
 
 function StoreReview(props) {
-	// 더미 데이터
-	const reviews = [
-		// {
-		// 	nickname: "닉네임",
-		// 	date: "23.01.19",
-		// 	time: "17:03",
-		// 	content:
-		// 		"lorem ipsum dolor sit amet, consectetur adip lorem, sed do eiusmod tempor incididunt ut labore et dolore magna",
-		// 	img: { productImgSrc },
-		// },
-		// {
-		// 	nickname: "닉네임",
-		// 	date: "23.01.19",
-		// 	time: "17:03",
-		// 	content:
-		// 		"lorem ipsum dolor sit amet, consectetur adip lorem, sed do eiusmod tempor incididunt ut labore et dolore magna",
-		// 	img: { productImgSrc },
-		// },
-		// {
-		// 	nickname: "닉네임",
-		// 	date: "23.01.19",
-		// 	time: "17:03",
-		// 	content:
-		// 		"lorem ipsum dolor sit amet, consectetur adip lorem, sed do eiusmod tempor incididunt ut labore et dolore magna",
-		// 	img: { productImgSrc },
-		// },
-		// {
-		// 	nickname: "닉네임",
-		// 	date: "23.01.19",
-		// 	time: "17:03",
-		// 	content:
-		// 		"lorem ipsum dolor sit amet, consectetur adip lorem, sed do eiusmod tempor incididunt ut labore et dolore magna",
-		// 	img: { productImgSrc },
-		// },
-	];
+	const [reviews, setReviews] = useState([]);
+
+	useEffect(() => {
+		// const response = axios.get("reviews/stores/{sId}?page=&size=");
+		const response = [
+			{
+				revId: 111111111,
+				name: "닉네임",
+				content: "lorem Ipsum lorem ipsum dolor sit amet",
+				createDate: "23.01.19",
+				img: { productImgSrc },
+			},
+			{
+				revId: 111111111,
+				name: "닉네임",
+				content: "lorem Ipsum lorem ipsum dolor sit amet",
+				createDate: "23.01.19",
+				img: { productImgSrc },
+			},
+			{
+				revId: 111111111,
+				name: "닉네임",
+				content: "lorem Ipsum lorem ipsum dolor sit amet",
+				createDate: "23.01.19",
+				img: { productImgSrc },
+			},
+		];
+
+		// setReviews(response.data);
+		setReviews(response);
+	}, []);
 
 	return (
 		<ReviewsContainer>
@@ -60,15 +57,15 @@ function StoreReview(props) {
 						<ReviewContainer>
 							<LeftContainer>
 								<HeaderContainer>
-									<BoldText right="16">{review.nickname}</BoldText>
+									<BoldText right="16">{review?.name}</BoldText>
 									<GrayText size="13" weight="bold" right="4">
-										{review.date}
+										{review?.createDate}
 									</GrayText>
 									<GrayText size="13" weight="bold" right="4">
-										{review.time}
+										{/* {review.time} */}
 									</GrayText>
 								</HeaderContainer>
-								<div>{review.content}</div>
+								<div>{review?.content}</div>
 							</LeftContainer>
 							<ImageWrapper>
 								<img src={review.img.productImgSrc} alt="product-img" />

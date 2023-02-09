@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 
+import { useRecoilValue } from "recoil";
+import { reviewCountState } from "../../recoil/storeDetail";
+
 import StoreProductTab from "./StoreProductTab";
 import StoreReviewTab from "./StoreReviewTab";
 import DoubleTabs from "../common/DoubleTabs";
 
 function StoreTabs(props) {
 	const [isDefaultTabActive, setIsDefaultTabActive] = useState(true);
-
-	// 더미 데이터
-	const reviewCount = 51;
+	const reviewCount = useRecoilValue(reviewCountState);
 
 	return (
 		<div>
