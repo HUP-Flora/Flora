@@ -15,16 +15,18 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api/flolive")
+@RequestMapping("/v1/flolive")
 public class FloliveController {
 
     private final FloliveService floliveService;
 
-    @PostMapping("/{sId}") // 가게에서 바로 신청
-    public ResponseEntity<?> applyFlolive(@PathVariable("sId") Long sId){
+    //    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    @PostMapping("/{sId}") // 가게에서 바로 신청, 상품 코드 1,
+    public ResponseEntity<?> applyFlolive(@PathVariable("sId") Long sId) {
         log.info(floliveService.createOrderNum(LocalDate.now()));
-//        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-//        floliveService.applyFlolive(sId, authInfo);
+        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
+        floliveService.applyFlolive(sId, authInfo);
+        log.info("가게 번호 {}에 대한 고객 번호 {} 의 플로라이브 신청", sId, authInfo.get("uId"));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -49,7 +51,7 @@ public class FloliveController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/entry/{conId}") // 입장
+    @GetMapping("/entry/{conId}") // 입장, 토큰 필요
     public ResponseEntity<?> entryFlolive(@PathVariable("conId") Long conId){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         floliveService.entryFlolive(conId, authInfo);

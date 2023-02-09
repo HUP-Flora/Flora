@@ -5,7 +5,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
       use-new-id-generator-mappings: true
     show-sql: true
     properties:
@@ -13,9 +13,9 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         format_sql: true
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/mydb?serverTimezone=Asia/Seoul&useSSL=false&tinyInt1isBit=false
-    username: ssafy
-    password: ssafy
+    url: jdbc:mysql://i8b203.p.ssafy.io:3306/mydb?serverTimezone=Asia/Seoul&useSSL=false&tinyInt1isBit=false
+    username: hurryup
+    password: push1q2w3e4r
 
 #jwt:
 #  header: Authorization
