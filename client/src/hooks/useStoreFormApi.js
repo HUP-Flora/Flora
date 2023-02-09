@@ -1,9 +1,7 @@
 import axios from "axios";
-import { useRecoilValue } from "recoil";
-import { accessTokenState } from "../recoil/signup";
 
 export const useStoreFormApi = () => {
-	const token = useRecoilValue(accessTokenState);
+	const token = localStorage.getItem("flora-token");
 	const storeFormApi = data => {
 		// for (let key of formData.keys()) {
 		// 	console.log(key);

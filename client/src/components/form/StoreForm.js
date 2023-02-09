@@ -21,9 +21,10 @@ import {
 	InputLabel,
 	SearchAddressContainerButton,
 } from "../../styles/chatting/Messages/Message/forms/OtherFormStyle";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
+	isFocusedInputState,
 	phoneNumberState,
 	storeBrnState,
 	storeDescriptionState,
@@ -59,7 +60,9 @@ export function StoreForm({ nextURL }) {
 	const [storeStartTime, setStoreStartTime] = useRecoilState(storeStartTimeState);
 	const [storeBrn, setStoreBrn] = useRecoilState(storeBrnState);
 	const [storeImageFile, setStoreImageFile] = useRecoilState(storeImageFileState);
+	const [isFocusedInput, setIsFocusedInput] = useRecoilState(isFocusedInputState);
 	const storeFormApi = useStoreFormApi();
+	const inputRef = useRef([]);
 
 	const storeRegionDepthName = useRecoilValue(storeRegionDepthNameState);
 
@@ -203,10 +206,18 @@ export function StoreForm({ nextURL }) {
 						storeNameHandler(e.target);
 					}}
 					onBlur={e => {
+						setIsFocusedInput(false);
 						storeNameValidate(e.target.value);
 					}}
 					value={storeName}
 					HasError={storeNameErrorMessage}
+					onClick={() => {
+						setIsFocusedInput(true);
+						setTimeout(() => {
+							inputRef.current[0].scrollIntoView({ behavior: "smooth", block: "end" });
+						}, 200);
+					}}
+					ref={el => (inputRef.current[0] = el)}
 				/>
 				<InputCounterContainer>
 					{storeNameErrorMessage && <ErrorMessage>{storeNameErrorMessage}</ErrorMessage>}
@@ -226,10 +237,19 @@ export function StoreForm({ nextURL }) {
 					}}
 					// onFocus={e => VsendUserPhoneChangeFalseIsTouched(e)}
 					onBlur={e => {
+						setIsFocusedInput(false);
 						phoneNumberValidate(e.target.value);
 					}}
 					value={storePhoneNumber}
 					HasError={storePhoneNumberErrorMessage}
+					onClick={() => {
+						setIsFocusedInput(true);
+						setTimeout(() => {
+							inputRef.current[1].scrollIntoView({ block: "end" });
+						}, 200);
+					}}
+					ref={el => (inputRef.current[1] = el)}
+					isFocused={isFocusedInput}
 				/>
 				{storePhoneNumberErrorMessage && (
 					<ErrorMessage>{storePhoneNumberErrorMessage}</ErrorMessage>
@@ -246,6 +266,13 @@ export function StoreForm({ nextURL }) {
 						disabled
 						value={formatFirstAddress(storeFirstAddress)}
 						HasError={storeAddressErrorMessage}
+						onClick={() => {
+							setTimeout(() => {
+								inputRef.current[2].scrollIntoView({ block: "end" });
+							}, 200);
+						}}
+						ref={el => (inputRef.current[2] = el)}
+						isFocused={isFocusedInput}
 						// onClick={e => daumPostHandler(e)}
 					/>
 				</SignupAddressContainerButton>
@@ -255,6 +282,12 @@ export function StoreForm({ nextURL }) {
 					placeholder="&nbsp;&nbsp;상세 주소"
 					onChange={e => setStoreSecondAddress(e.target.value)}
 					value={storeSecondAddress}
+					onClick={() => {
+						setTimeout(() => {
+							inputRef.current[3].scrollIntoView({ block: "end" });
+						}, 200);
+					}}
+					ref={el => (inputRef.current[3] = el)}
 				/>
 				<SignupLabelDiv>
 					<InputLabel htmlFor="storeDescription">설명글 입력</InputLabel>
@@ -264,6 +297,13 @@ export function StoreForm({ nextURL }) {
 					placeholder="내용을 입력해주세요."
 					onChange={e => setStoreDescription(e.target.value)}
 					value={storeDescription}
+					onClick={() => {
+						console.log(inputRef.current[4]);
+						setTimeout(() => {
+							inputRef.current[4].scrollIntoView({ block: "end" });
+						}, 200);
+					}}
+					ref={el => (inputRef.current[4] = el)}
 				/>
 				<InputCounterContainer>
 					<InputCounter>{storeDescription.length}/500자</InputCounter>

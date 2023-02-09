@@ -2,9 +2,9 @@
 FROM nginx:stable-alpine
 
 # work dir 고정
-WORKDIR /home/ubuntu/S08P12B203/client
+WORKDIR /app
 
-# work dir 에 build 폴더 생성 /app/build
+# work dir 에 build 폴더 생성 /workdir/build
 RUN mkdir ./build
 
 # host pc의 현재경로의 build 폴더를 workdir 의 build 폴더로 복사

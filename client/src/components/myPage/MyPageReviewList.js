@@ -6,12 +6,13 @@ import { ListContiner, ListHeader } from "../../styles/myPage/MyPageStyle";
 import { HeaderContainer, ShadowCardWrapper } from "../../styles/myPage/MyPageReveiwListStyle";
 
 import image from "../../assets/store.png";
+import ReviewList from "./ReviewList";
 
 function MyPageReview(props) {
 	const navegate = useNavigate();
 
 	// 더미 데이터
-	const review = [
+	const reviews = [
 		{
 			image: { image },
 			name: "꽃 파는 가게",
@@ -46,7 +47,8 @@ function MyPageReview(props) {
 					더보기
 				</GrayText>
 			</ListHeader>
-			{review.map((review, index) => (
+			<ReviewList />
+			{/* {reviews.map((review, index) => (
 				<ShadowCardWrapper>
 					<ShadowCard marginBottom="16" display="flex" isSpaceBetween={true}>
 						<div>
@@ -68,7 +70,7 @@ function MyPageReview(props) {
 						</div>
 					</ShadowCard>
 				</ShadowCardWrapper>
-			))}
+			))} */}
 		</ListContiner>
 	);
 }

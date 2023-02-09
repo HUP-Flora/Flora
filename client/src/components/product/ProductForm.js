@@ -14,17 +14,18 @@ import {
 	ValidTextWrapper,
 } from "../../styles/product/productForm/ProductFormStyle";
 import { GrayText, ValidText } from "../../styles/common/CommonStyle";
+import { priceComma } from "../../hooks/priceComma";
 
-function ProductAddForm({
+function ProductForm({
 	name,
 	setName,
 	price,
 	setPrice,
 	description,
 	setDescription,
-	isValidName,
-	isValidPrice,
-	isValidDescription,
+	nameValidMessage,
+	priceValidMessage,
+	descriptionValidMessage,
 }) {
 	const [nameCount, setNameCount] = useState(0);
 	const [descriptionCount, setDescriptionCount] = useState(0);
@@ -35,7 +36,12 @@ function ProductAddForm({
 	};
 
 	const handleChangePriceValue = e => {
-		setPrice(e.target.value);
+		// 천 단위로 콤마(,)
+		setPrice(
+			priceComma(e.target.value)
+				.toString()
+				.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+		);
 	};
 
 	const handleChangeDescriptionValue = e => {
@@ -57,9 +63,9 @@ function ProductAddForm({
 						onChange={handleChangeNameValue}
 						value={name}
 					/>
-					{!isValidName && (
+					{nameValidMessage && (
 						<ValidTextWrapper>
-							<ValidText>상품명을 입력해주세요.</ValidText>
+							<ValidText>{nameValidMessage}</ValidText>
 						</ValidTextWrapper>
 					)}
 					<TextLimit>
@@ -76,7 +82,7 @@ function ProductAddForm({
 						/>
 						<p>원</p>
 					</div>
-					{!isValidPrice && <ValidText>가격을 입력해주세요.</ValidText>}
+					{priceValidMessage && <ValidText>{priceValidMessage}</ValidText>}
 				</InputWrapper>
 				<InputWrapper>
 					<BorderTextAreaAuto
@@ -89,9 +95,9 @@ function ProductAddForm({
 					<TextLimit>
 						<GrayText size="11">{descriptionCount} / 500자</GrayText>
 					</TextLimit>
-					{!isValidDescription && (
+					{descriptionValidMessage && (
 						<ValidTextWrapper>
-							<ValidText>상품 상세 설명을 입력해주세요.</ValidText>
+							<ValidText>{descriptionValidMessage}</ValidText>
 						</ValidTextWrapper>
 					)}
 				</InputWrapper>
@@ -100,4 +106,4 @@ function ProductAddForm({
 	);
 }
 
-export default ProductAddForm;
+export default ProductForm;

@@ -15,7 +15,7 @@ function StoreTabs(props) {
 			<DoubleTabs
 				isDefaultTabActive={isDefaultTabActive}
 				setIsDefaultTabActive={setIsDefaultTabActive}
-				defaultTabTitle="제품"
+				defaultTabTitle="상품"
 				otherTabTitle={`리뷰 (${reviewCount})`}
 			/>
 

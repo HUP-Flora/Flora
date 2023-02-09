@@ -119,3 +119,13 @@ export const FooterBox = styled(MB24FlexBox)`
 	}
 `;
 
+export const RepaymentButton = styled.button`
+	width: 100%;
+	height: 44px;
+	border: none;
+	border-radius: 10px;
+	background-color: var(--primary-400);
+	color: white;
+	font-weight: bold;
+	margin-top: 24px;
+`;

@@ -31,6 +31,7 @@ import ReservationComplete from "./pages/reservation/ReservationComplete";
 // 플로라이브 페이지
 import Flolive from "./pages/flolive/Flolive";
 import FloliveExit from "./pages/flolive/FloliveExit";
+import FloliveWaiting from "./pages/flolive/FloliveWaiting";
 // 마크업 테스트
 import FloliveTest from "./pages/flolive/FloliveTest";
 
@@ -39,7 +40,7 @@ import OrderDetail from "./pages/orderDetail/orderDetail";
 import MyPage from "./pages/myPage/MyPage";
 import Review from "./pages/myPage/Review";
 import UserDelete from "./pages/myPage/UserDelete";
-import OrdersList from "./pages/myPage/OrdersList";
+import OrdersList from "./pages/myPage/Order";
 
 // 꽃갈피 페이지
 import FloMark from "./pages/floMark/FloMark";
@@ -99,6 +100,7 @@ function AppRouter() {
 				{/* 플로라이브 페이지 */}
 				<Route path="/flolive" element={<Flolive />} />
 				<Route path="/flolive/exit" element={<FloliveExit />} />
+				<Route path="/flolive/waiting" element={<FloliveWaiting />} />
 
 				{/* 마크업 테스트 */}
 				<Route path="/flolive-test" element={<FloliveTest />} />

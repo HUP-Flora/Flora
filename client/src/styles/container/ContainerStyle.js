@@ -9,3 +9,8 @@ export const WhiteContainer = styled.div`
 	padding-left: 16px;
 	padding-right: 16px;
 `;
+
+export const FullContainer = styled.div`
+	width: 100vw;
+	height: 100vh;
+`;

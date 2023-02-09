@@ -1,6 +1,11 @@
 import { ButtonToolBar } from "../../styles/bar/BarStyle";
-import { BoldText, Text, WhiteLayout } from "../../styles/common/CommonStyle";
-import { Primary400LargeButton } from "../../styles/button/ButtonStyle";
+import { BlankSection, BoldText, Text, WhiteLayout } from "../../styles/common/CommonStyle";
+import {
+	IsFocusedPrimary400LargeButton,
+	Primary400Button,
+	Primary400LargeButton,
+	TestPrimary400LargeButton,
+} from "../../styles/button/ButtonStyle";
 import StatusBar from "../../components/common/StatusBar";
 import {
 	ErrorMessage,
@@ -11,18 +16,21 @@ import {
 	TextInput,
 } from "../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import { useRecoilState } from "recoil";
-import { nicknameState, phoneNumberState } from "../../recoil/signup";
-import { useCallback, useState } from "react";
+import { isFocusedInputState, nicknameState, phoneNumberState } from "../../recoil/signup";
+import { useCallback, useRef, useState } from "react";
 import { SignupLabelDiv, SignupTextInput } from "../../styles/chatting/input/InputStyle";
 import { useUserFormApi } from "../../hooks/useUserFormApi";
+import { FullContainer } from "../../styles/container/ContainerStyle";
 
 export function SignupUser() {
 	const [nickname, setNickname] = useRecoilState(nicknameState);
 	const [phoneNumber, setPhoneNumber] = useRecoilState(phoneNumberState);
 	const [nicknameErrorMessage, setNicknameErrorMessage] = useState("");
 	const [phoneNumberErrorMessage, setPhoneNumberErrorMessage] = useState("");
+	const [isFocusedInput, setIsFocusedInput] = useRecoilState(isFocusedInputState);
 
 	const userFormApi = useUserFormApi();
+	const inputRef = useRef([]);
 
 	const handleSignup = () => {
 		if (nicknameValidate(nickname) && phoneNumberValidate(phoneNumber)) {
@@ -85,8 +93,11 @@ export function SignupUser() {
 		}
 	};
 
+	const testB = `${window.screen.height - 44}px`;
+	console.log(testB);
+
 	return (
-		<>
+		<FullContainer>
 			<StatusBar />
 			<WhiteLayout>
 				<BoldText size="28" top="62">
@@ -110,10 +121,18 @@ export function SignupUser() {
 						nicknameHandler(e.target);
 					}}
 					onBlur={e => {
+						setIsFocusedInput(false);
 						nicknameValidate(e.target.value);
+					}}
+					onClick={() => {
+						setIsFocusedInput(true);
+						setTimeout(() => {
+							inputRef.current[0].scrollIntoView({ block: "end" });
+						}, 200);
 					}}
 					value={nickname}
 					HasError={nicknameErrorMessage}
+					ref={el => (inputRef.current[0] = el)}
 				/>
 				<InputCounterContainer>
 					{nicknameErrorMessage && <ErrorMessage>{nicknameErrorMessage}</ErrorMessage>}
@@ -127,21 +146,34 @@ export function SignupUser() {
 					id="phoneNumber"
 					maxLength="13"
 					placeholder="&nbsp;&nbsp;- 없이 입력해주세요"
+					onClick={() => {
+						setIsFocusedInput(true);
+						setTimeout(() => {
+							inputRef.current[1].scrollIntoView({ block: "end" });
+						}, 200);
+					}}
 					onChange={e => {
 						phoneNumberHandler(e.target);
 					}}
 					// onFocus={e => VsendUserPhoneChangeFalseIsTouched(e)}
 					onBlur={e => {
+						setIsFocusedInput(false);
 						phoneNumberValidate(e.target.value);
 					}}
 					value={phoneNumber}
 					HasError={phoneNumberErrorMessage}
+					ref={el => (inputRef.current[1] = el)}
 				/>
 				{phoneNumberErrorMessage && <ErrorMessage>{phoneNumberErrorMessage}</ErrorMessage>}
-				<ButtonToolBar>
-					<Primary400LargeButton onClick={handleSignup}>가입 완료하기</Primary400LargeButton>
+				{/* <IsFocusedPrimary400LargeButton onClick={handleSignup}>
+					가입 완료하기
+				</IsFocusedPrimary400LargeButton> */}
+				<ButtonToolBar isFocused={isFocusedInput}>
+					<TestPrimary400LargeButton testB={window.screen.height} onClick={handleSignup}>
+						가입 완료하기
+					</TestPrimary400LargeButton>
 				</ButtonToolBar>
 			</WhiteLayout>
-		</>
+		</FullContainer>
 	);
 }

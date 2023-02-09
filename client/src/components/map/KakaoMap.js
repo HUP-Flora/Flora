@@ -1,33 +1,43 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Map, MapMarker, ZoomControl } from "react-kakao-maps-sdk";
-import { useRecoilState } from "recoil";
-import { levelState, locationState } from "../../recoil/map";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { locationState } from "../../recoil/map";
+import { storeListState } from "../../recoil/search";
 import { MapMarkerStyle, MapStyle } from "../../styles/map/MapStyle";
-import { stores } from "./dummydata";
 
 const { kakao } = window;
 
 export function KakaoMap() {
 	const [position, setPosition] = useRecoilState(locationState);
+	const storeList = useRecoilValue(storeListState);
 	// const [level, setLevel] = useRecoilState(levelState);
 
-	// 임시로 좌표 지정 - 추후 삭제
+	const mapRef = useRef();
+
 	useEffect(() => {
-		setPosition({ center: { lat: 33.452613, lng: 126.570888 }, isPanto: false });
-	}, []);
+		const bounds = new kakao.maps.LatLngBounds();
 
-	const handlePosition = (lat, lng, isPanto) => {
-		setPosition({
-			center: { lat: lat, lng: lng },
-			isPanto: isPanto,
+		storeList.forEach(store => {
+			bounds.extend(new kakao.maps.LatLng(store.lat, store.lng));
 		});
-	};
 
-	const handleSearch = () => {
-		// 1. axios로 위도 경도 데이터 받기
-		// 2. position 변경
-		handlePosition(33.452613, 126.570888, false);
-	};
+		if (mapRef.current) {
+			mapRef.current.setBounds(bounds);
+		}
+	}, [storeList]);
+
+	// const handlePosition = (lat, lng, isPanto) => {
+	// 	setPosition({
+	// 		center: { lat: lat, lng: lng },
+	// 		isPanto: isPanto,
+	// 	});
+	// };
+
+	// const handleSearch = () => {
+	// 	// 1. axios로 위도 경도 데이터 받기
+	// 	// 2. position 변경
+	// 	handlePosition(33.452613, 126.570888, false);
+	// };
 
 	return (
 		<Map // 지도를 표시할 Container
@@ -39,13 +49,14 @@ export function KakaoMap() {
 			style={MapStyle}
 			level={3} // 지도의 확대 레벨
 			isPanto={position.isPanto}
+			ref={mapRef}
 		>
-			{stores.map(store => (
+			{storeList.map(store => (
 				<MapMarker // 마커를 생성합니다
 					key={store.sId}
 					position={{
-						lat: store.sLat,
-						lng: store.sLng,
+						lat: store.lat,
+						lng: store.lng,
 					}}
 					clickable={true}
 					image={MapMarkerStyle}

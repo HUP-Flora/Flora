@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { BottomDoubleButtonContainer } from "../../styles/common/CommonStyle";
@@ -9,34 +9,52 @@ function ProductAddBottomButtons({
 	name,
 	price,
 	description,
-	isValidName,
-	isValidPrice,
-	isValidDescription,
-	setIsValidName,
-	setIsValidPrice,
-	setIsValidDescription,
+	setNameValidMessage,
+	setPriceValidMessage,
+	setDescriptionValidMessage,
 }) {
 	const navigate = useNavigate();
 
-	const handleClickSubmit = () => {
+	const isNameValid = () => {
 		if (name === "") {
-			setIsValidName(false);
+			setNameValidMessage("상품명을 입력해주세요.");
+			return false;
 		} else {
-			setIsValidName(true);
+			setNameValidMessage("");
+			return true;
 		}
-		// 숫자만 입력 가능
-		if (price === "" || isNaN(price)) {
-			setIsValidPrice(false);
-		} else {
-			setIsValidPrice(true);
-		}
-		if (description === "") {
-			setIsValidDescription(false);
-		} else {
-			setIsValidDescription(true);
-		}
+	};
 
-		if (isValidName && isValidPrice && isValidDescription) {
+	const isPriceValid = () => {
+		// 숫자만 입력 가능
+		if (price === "") {
+			setPriceValidMessage("가격을 입력해주세요.");
+			return false;
+		} else if (isNaN(price.replace(/,/g, ""))) {
+			setPriceValidMessage("숫자만 입력해주세요.");
+			return false;
+		} else {
+			setPriceValidMessage("");
+			return true;
+		}
+	};
+
+	const isDescriptionValid = () => {
+		if (description === "") {
+			setDescriptionValidMessage("상세 설명을 입력해주세요.");
+			return false;
+		} else {
+			setDescriptionValidMessage("");
+			return true;
+		}
+	};
+
+	const handleClickSubmit = () => {
+		setNameValidMessage("");
+		setPriceValidMessage("");
+		setDescriptionValidMessage("");
+
+		if (isNameValid() && isPriceValid() && isDescriptionValid()) {
 			// 유효성 검사 통과
 			// (백) request
 			if (type === "add") {

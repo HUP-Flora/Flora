@@ -10,17 +10,17 @@ import java.time.LocalDate;
 public class UserReviewRes {
 
     private Long revId;
-    private String sName;
+    private String name;
     private String content;
     private LocalDate createDate;
-    private String img;
+    private String rImg;
 
     @Builder
     public UserReviewRes(Review review) {
         this.revId = review.getRevId();
-        this.sName = review.getSId().getName();
+        this.name = review.getSId().getName();
         this.content = review.getContent();
         this.createDate = review.getCreateDate();
-        this.img = review.getImgPath();
+        this.rImg = review.getImgPath();
     }
 }

@@ -1,12 +1,15 @@
+import { useRecoilValue } from "recoil";
+import { storeListState } from "../../recoil/search";
 import { BlankSection } from "../../styles/common/CommonStyle";
 import { StoreListSection } from "../../styles/map/MapStyle";
 import { stores } from "../map/dummydata";
 import { StoreCard } from "./StoreCard";
 
 export function StoreList() {
+	const storeList = useRecoilValue(storeListState);
 	return (
 		<StoreListSection>
-			{stores.map(store => (
+			{storeList.map(store => (
 				<StoreCard {...store} key={store.sId} />
 			))}
 			<BlankSection height="56" />
