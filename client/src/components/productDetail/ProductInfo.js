@@ -1,6 +1,6 @@
 import React from "react";
 
-import StatusBar from "../../components/common/StatusBar";
+import StatusBar from "../common/NoPaddingStatusBar";
 
 import {
 	ImageWrapper,

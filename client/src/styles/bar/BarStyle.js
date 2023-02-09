@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import StatusBar from "../../components/common/NoPaddingStatusBar";
 
 export const WidthDoubleButtonToolBar = styled.div`
 	display: flex;
@@ -15,12 +16,11 @@ export const BorderTopButtonToolBar = styled.div`
 `;
 
 export const ButtonToolBar = styled.div`
+	width: 100%;
+	padding-bottom: 16px;
+
 	border: 1px solid white;
 	background-color: white;
-	width: calc(100% - 32px);
-	position: fixed;
-	bottom: 0px;
-	padding-bottom: 16px;
 `;
 
 export const TabBarDiv = styled.div`
@@ -117,4 +117,8 @@ export const SearchBarContent = styled.div`
 	cursor: pointer;
 	width: 49.8%;
 	text-align: center;
+`;
+
+export const SignupStatusBar = styled(StatusBar)`
+	padding: 0px;
 `;

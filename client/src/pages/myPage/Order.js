@@ -1,6 +1,6 @@
 import React from "react";
 
-import StatusBar from "../../components/common/StatusBar";
+import StatusBar from "../../components/common/NoPaddingStatusBar";
 import OrderList from "../../components/myPage/OrderList";
 
 import { Container } from "../../styles/myPage/ListDetailStyle";
