@@ -25,7 +25,7 @@ export function Signup() {
 		const params = new URLSearchParams(window.location.search);
 
 		const token = params.get("token");
-		localStorage.setItem("flora-token", token);
+		localStorage.setItem("AccessToken", token);
 	}, []);
 
 	const handleSignup = () => {
