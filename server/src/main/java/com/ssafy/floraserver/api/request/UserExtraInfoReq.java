@@ -6,6 +6,6 @@ import lombok.ToString;
 @Getter
 @ToString
 public class UserExtraInfoReq {
-    private String nickName;
+    private String nickname;
     private String phoneNumber;
 }

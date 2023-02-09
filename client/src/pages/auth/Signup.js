@@ -1,25 +1,31 @@
-import { Primary400LargeButton } from "../../styles/button/ButtonStyle";
-import { BoldText } from "../../styles/common/CommonStyle";
-import { WhiteContainer } from "../../styles/container/ContainerStyle";
-import OwnerIcon from "../../assets/signup/OwnerIcon.png";
-import OwnerSelectedIcon from "../../assets/signup/OwnerSelectedIcon.png";
-import UserIcon from "../../assets/signup/UserIcon.png";
-import UserSelectedIcon from "../../assets/signup/UserSelectedIcon.png";
-import { ButtonToolBar } from "../../styles/bar/BarStyle";
-import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { userState } from "../../recoil/signup";
-import {
-	GrayText,
-	ButtonImage,
-	FirstWhiteLargeButton,
-	SecondWhiteLargeButton,
-} from "../../styles/reservation/ReservationStyle.js";
 import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
+
+import { ButtonToolBar } from "../../styles/bar/BarStyle";
+import { BoldText } from "../../styles/common/CommonStyle";
+import { GrayText, ButtonImage } from "../../styles/reservation/ReservationStyle.js";
+import { Primary400LargeButton, WhiteLargeButton } from "../../styles/button/ButtonStyle";
+import {
+	SignupTitleSection,
+	SignupContentSection,
+	SignupButtonSection,
+} from "../../styles/common/SectionStyle";
+import { SignupPaddingX16Frame } from "../../styles/common/FrameStyle";
+
+import UserIcon from "../../assets/signup/UserIcon.png";
+import OwnerIcon from "../../assets/signup/OwnerIcon.png";
+import UserSelectedIcon from "../../assets/signup/UserSelectedIcon.png";
+import OwnerSelectedIcon from "../../assets/signup/OwnerSelectedIcon.png";
+
+import { userTypeState } from "../../recoil/signup";
+import { SignupPaddingX16Container } from "../../styles/container/ContainerStyle";
 
 export function Signup() {
-	const [user, setUser] = useRecoilState(userState);
+	const [userType, setUserType] = useRecoilState(userTypeState);
 	const navigate = useNavigate();
+
+	const typeList = ["user", "owner"];
 
 	useEffect(() => {
 		const params = new URLSearchParams(window.location.search);
@@ -29,32 +35,44 @@ export function Signup() {
 	}, []);
 
 	const handleSignup = () => {
-		if (user === "user") {
+		if (userType === "user") {
 			navigate("/signup/user");
-		} else if (user === "owner") {
+		} else if (userType === "owner") {
 			navigate("/signup/owner");
 		}
 	};
 
 	return (
-		<WhiteContainer>
-			<BoldText font="nexon" size="28" top="102" bottom="24">
-				당신은 누구신가요?
-			</BoldText>
-			<GrayText font="nexon" bottom="128">
-				사용자 유형을 선택해주세요
-			</GrayText>
-			<FirstWhiteLargeButton onClick={() => setUser("user")} isClick={user === "user"}>
-				<ButtonImage src={user === "user" ? UserSelectedIcon : UserIcon} />
-				<GrayText isClick={user === "user"}>일반 사용자</GrayText>
-			</FirstWhiteLargeButton>
-			<SecondWhiteLargeButton onClick={() => setUser("owner")} isClick={user === "owner"}>
-				<ButtonImage src={user === "owner" ? OwnerSelectedIcon : OwnerIcon} />
-				<GrayText isClick={user === "owner"}>꽃집 사장님</GrayText>
-			</SecondWhiteLargeButton>
-			<ButtonToolBar>
+		<SignupPaddingX16Container>
+			<SignupTitleSection height="74" top="102">
+				<BoldText font="nexon" size="28">
+					당신은 누구신가요?
+				</BoldText>
+				<GrayText font="nexon">사용자 유형을 선택해주세요</GrayText>
+			</SignupTitleSection>
+			<SignupContentSection height="208">
+				{typeList.map(type => (
+					<WhiteLargeButton onClick={() => setUserType(type)} isClick={userType === type}>
+						<ButtonImage
+							src={
+								type === "user"
+									? userType === type
+										? UserSelectedIcon
+										: UserIcon
+									: userType === type
+									? OwnerSelectedIcon
+									: OwnerIcon
+							}
+						/>
+						<GrayText isClick={userType === type}>
+							{type === "user" ? "일반 사용자" : "꽃집 사장님"}
+						</GrayText>
+					</WhiteLargeButton>
+				))}
+			</SignupContentSection>
+			<SignupButtonSection>
 				<Primary400LargeButton onClick={handleSignup}>다음으로</Primary400LargeButton>
-			</ButtonToolBar>
-		</WhiteContainer>
+			</SignupButtonSection>
+		</SignupPaddingX16Container>
 	);
 }

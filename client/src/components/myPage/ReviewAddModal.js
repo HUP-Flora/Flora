@@ -31,7 +31,7 @@ function ReviewAddModal({ isModalShow, setIsModalShow }) {
 			setIsDescriptionValid(true);
 			// (백) requset
 
-			navigate('/mypage/review/list')
+			navigate("/mypage/review/list");
 		}
 	};
 

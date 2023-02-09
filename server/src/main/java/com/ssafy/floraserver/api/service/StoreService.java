@@ -7,6 +7,7 @@ import com.ssafy.floraserver.db.entity.Product;
 import com.ssafy.floraserver.db.entity.Store;
 import com.ssafy.floraserver.db.entity.TimeUnit;
 import com.ssafy.floraserver.db.entity.User;
+import com.ssafy.floraserver.db.entity.enums.OnAirType;
 import com.ssafy.floraserver.db.repository.ProductRepository;
 import com.ssafy.floraserver.db.repository.StoreRepository;
 import com.ssafy.floraserver.db.repository.TimeUnitRepository;
@@ -147,5 +148,24 @@ public class StoreService {
                 .imgUploadTime(file.isEmpty() ? null : fileVO.getImgUploadTime())
                 .build());
 
+    }
+
+    public void toggleOnair(Long sId, Map<String, String> authInfo) {
+        Long uId = Long.parseLong(authInfo.get("uId"));
+
+        // 로그인한 유저
+        User user = userRepository.findById(uId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        // 가게 확인
+        Store store = storeRepository.findById(sId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        if(store.getUId() != user){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        // IsOnairType ON, OFF
+        store.updateIsOnair(store.getIsOnair() == OnAirType.ON ? OnAirType.OFF : OnAirType.ON);
     }
 }

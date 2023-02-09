@@ -96,6 +96,8 @@ public class Store extends BaseEntity{
     @Formula("(select count(*) from reviews r where r.s_id = s_id)")
     private int reviewCnt;
 
+    public void updateIsOnair(OnAirType onAirType){ this.isOnair = onAirType; }
+
     @Builder
     public Store(Long sId, User uId, String businessLicense, String name, String phoneNumber, String region_1depth_name, String region_2depth_name, String region_3depth_name, String address_name, float lat, float lng, String desc, String holiday, TimeUnit start, TimeUnit end, String imgOriginalName, String imgNewName, String imgPath, LocalDateTime imgUploadTime) {
         this.sId = sId;

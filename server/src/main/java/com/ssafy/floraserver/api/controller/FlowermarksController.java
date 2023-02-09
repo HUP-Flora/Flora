@@ -17,7 +17,7 @@ import java.util.Map;
 
 @RestController
 @Slf4j
-@RequestMapping("/api/flowermarks")
+@RequestMapping("/v1/flowermarks")
 @RequiredArgsConstructor
 public class FlowermarksController {
 
@@ -51,7 +51,6 @@ public class FlowermarksController {
     @PostMapping("/{sId}")
 //    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     public ResponseEntity<?> createFlowermark(@PathVariable("sId") Long sId) {
-        System.out.println("??");
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         Long uId = Long.parseLong(authInfo.get("uId"));
         log.info("고객 번호 {} 과 가게 번호 {} 에 대한 꽃갈피 중복 체크", uId, sId);

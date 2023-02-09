@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 export const ShadowCardWrapper = styled.div`
 	img {
+		width: 64px;
+		height: 64px;
 		margin-right: 16px;
 	}
 `;

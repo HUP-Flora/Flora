@@ -65,7 +65,7 @@ public class AuthService {
         user = user.builder()
                 .uId(uId)
                 .role(Role.CUSTOMER)
-                .nickname(userExtraInfoReq.getNickName())
+                .nickname(userExtraInfoReq.getNickname())
                 .phoneNumber(userExtraInfoReq.getPhoneNumber())
                 .refreshToken(user.getRefreshToken())
                 .build();

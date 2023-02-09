@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export const useUserFormApi = () => {
-	const token = localStorage.getItem("flora-token");
+	const token = localStorage.getItem("AccessToken");
 	const userFormApi = data => {
 		console.log(data);
 		axios({
 			method: "PUT",
-			url: `${process.env.REACT_APP_SERVER_URL}/api/auth/users`,
+			url: `${process.env.REACT_APP_SERVER_URL}/v1/auth/users`,
 			headers: {
 				Authorization: `Bearer ${token}`,
 				"Content-Type": "application/json",

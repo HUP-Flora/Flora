@@ -55,6 +55,9 @@ public class Review extends BaseEntity{
     @Column(name = "rev_img_upload_time")
     private LocalDateTime imgUploadTime;
 
+    @Column(name = "rev_soft_delete", columnDefinition = "TINYINT(1)")
+    private boolean softDelete;
+
     @Builder
     public Review(User uId, Store sId, Order oId, String content, String imgOriginalName, String imgNewName, String imgPath, LocalDateTime imgUploadTime) {
         this.uId = uId;
@@ -66,5 +69,6 @@ public class Review extends BaseEntity{
         this.imgNewName = imgNewName;
         this.imgPath = imgPath;
         this.imgUploadTime = imgUploadTime;
+        this.softDelete = false;
     }
 }
