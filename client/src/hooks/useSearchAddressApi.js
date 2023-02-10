@@ -1,16 +1,21 @@
+import { useSetRecoilState } from "recoil";
+import { resultAddressListState } from "../recoil/search";
 import api from "../utils/api";
 
 export const useSearchAddressApi = () => {
+	const setResultSearchAddressList = useSetRecoilState(resultAddressListState);
+
 	const searchAddressApi = words => {
+		console.log(words);
 		api({
 			method: "GET",
-			url: `${process.env.REACT_APP_SERVER_URL}/api/stores/regions?word=${words}`,
-			headers: {
-				"Content-Type": "application/json",
-			},
+			url: `/stores/regions?word=${words}`,
 		})
 			.then(response => {
-				console.log(response);
+				const addressResultList = response.data.content.map(el => {
+					return el.region;
+				});
+				setResultSearchAddressList(addressResultList);
 			})
 			.catch(error => {
 				console.log("검색자동완성", error);
