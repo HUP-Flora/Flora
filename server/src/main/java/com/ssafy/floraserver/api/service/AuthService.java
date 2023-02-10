@@ -23,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -75,7 +77,6 @@ public class AuthService {
     }
 
     public Store createStoreExtraInfo(StoreExtraInfoReq storeExtraInfoReq,
-                                      String filePath,
                                       MultipartFile file,
                                       Map<String, String> authInfo) {
 
@@ -106,7 +107,7 @@ public class AuthService {
         FileVO fileVO = null;
         // 이미지 저장
         if(!file.isEmpty()){
-            fileVO = fileService.uploadFile(filePath, file);
+            fileVO = fileService.uploadFile(file);
         }
 
         Store store = Store.builder()
@@ -124,65 +125,18 @@ public class AuthService {
                 .holiday(storeExtraInfoReq.getHoliday())
                 .start(start)
                 .end(end)
-                .imgOriginalName(file.isEmpty() ? null : fileVO.getImgOriginalName())
+                .imgOriginalName(Optional.of(fileVO.getImgOriginalName()).orElse(null))
                 .imgNewName(file.isEmpty() ? null : fileVO.getImgNewName())
-                .imgPath(file.isEmpty() ? null : fileVO.getImgPath())
+                .imgPath(file.isEmpty() ? null : Objects.requireNonNull(fileVO).getImgPath())
                 .imgUploadTime(file.isEmpty() ? null : fileVO.getImgUploadTime())
                 .build();
 
-
-
         Store save = storeRepository.save(store);
 
         return save;
     }
 
-    public Store createStoreExtraInfo(StoreExtraInfoReq storeExtraInfoReq, Map<String, String> authInfo) {
-        String email = authInfo.get("email");
-        Long uId = Long.parseLong(authInfo.get("uId"));
-
-        // 유저 role STORE 변경
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        userRepository.save(user.builder()
-                .uId(uId)
-                .email(email)
-                .role(Role.STORE)
-                .refreshToken(user.getRefreshToken())
-                .build());
-
-        // 가게 user, businessLicense, name, phoneNumber, sido, gugun, dong, detailedAddress, isOnair, holiday 사진
-
-        // start, end 인덱스 찾아서 저장
-        TimeUnit start = timeUnitRepository.findById(storeExtraInfoReq.getStart())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        TimeUnit end = timeUnitRepository.findById(storeExtraInfoReq.getEnd())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        Store store = Store.builder()
-                .uId(user)
-                .businessLicense(storeExtraInfoReq.getBusinessLicense())
-                .name(storeExtraInfoReq.getName())
-                .phoneNumber(storeExtraInfoReq.getPhoneNumber())
-                .region_1depth_name(storeExtraInfoReq.getRegion_1depth_name())
-                .region_2depth_name(storeExtraInfoReq.getRegion_2depth_name())
-                .region_3depth_name(storeExtraInfoReq.getRegion_3depth_name())
-                .address_name(storeExtraInfoReq.getAddress_name())
-                .lat(storeExtraInfoReq.getLat())
-                .lng(storeExtraInfoReq.getLng())
-                .desc(storeExtraInfoReq.getDesc())
-                .holiday(storeExtraInfoReq.getHoliday())
-                .start(start)
-                .end(end)
-                .build();
-
-        Store save = storeRepository.save(store);
-
-        return save;
-    }
-
-    public RoleRes getLoginToken(Map<String, String> authInfo) {
+    public RoleRes getLoginRole(Map<String, String> authInfo) {
 
         return RoleRes.builder().userType(authInfo.get("role")).build();
     }

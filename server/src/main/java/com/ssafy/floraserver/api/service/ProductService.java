@@ -39,7 +39,6 @@ public class ProductService {
     }
 
     public void createProduct(ProductReq productReq,
-                              String filePath,
                               MultipartFile file,
                               Map<String, String> authInfo) {
 
@@ -52,7 +51,7 @@ public class ProductService {
         FileVO fileVO = null;
         // 이미지 저장
         if(!file.isEmpty()){
-            fileVO = fileService.uploadFile(filePath, file);
+            fileVO = fileService.uploadFile(file);
         }
 
         productRepository.save(Product.builder()
@@ -69,7 +68,6 @@ public class ProductService {
     }
 
     public void updateProduct(ProductReq productReq, Long pId,
-                              String filePath,
                               MultipartFile file,
                               Map<String, String> authInfo) {
 
@@ -97,7 +95,7 @@ public class ProductService {
 
         // 이미지 저장
         if(!file.isEmpty()){
-            fileVO = fileService.uploadFile(filePath, file);
+            fileVO = fileService.uploadFile(file);
         }
 
         productRepository.save(Product.builder()
@@ -127,55 +125,6 @@ public class ProductService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         product.deleteProduct();
-    }
-
-    public void createProduct(ProductReq productReq, Map<String, String> authInfo) {
-        Long uId = Long.valueOf(authInfo.get("uId"));
-
-        // 접속한 사람이 주인인 가게를 찾는다.
-        Store store = storeRepository.findByUId(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        productRepository.save(Product.builder()
-                .name(productReq.getName())
-                .desc(productReq.getDesc())
-                .price(productReq.getPrice())
-                .sId(store)
-                .build()
-        );
-    }
-
-    public void updateProduct(ProductReq productReq, Long pId, Map<String, String> authInfo) {
-        Long uId = Long.valueOf(authInfo.get("uId"));
-
-        // 내 가게
-        Store store = storeRepository.findByUId(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        // 수정할 상품
-        Product product = productRepository.findById(pId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        // 이 상품이 내 가게꺼인가
-        if(product.getSId() != store){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-
-        FileVO fileVO = FileVO.builder()
-                .imgOriginalName(product.getImgOriginalName())
-                .imgNewName(product.getImgNewName())
-                .imgPath(product.getImgPath())
-                .imgUploadTime(product.getImgUploadTime())
-                .build();
-
-        productRepository.save(Product.builder()
-                .pId(pId)
-                .name(productReq.getName())
-                .desc(productReq.getDesc())
-                .price(productReq.getPrice())
-                .sId(store)
-                .build()
-        );
     }
 
 }

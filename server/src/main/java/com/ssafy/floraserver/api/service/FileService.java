@@ -1,8 +1,11 @@
 package com.ssafy.floraserver.api.service;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.ssafy.floraserver.api.vo.FileVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,22 +20,32 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FileService {
 
-    public FileVO uploadFile(String filePath, MultipartFile file) {
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
+
+    private final AmazonS3 amazonS3;
+
+    public FileVO uploadFile(MultipartFile file) {
         log.info(String.valueOf(file.getSize()));
         FileVO fileVO = null;
         try{
             String originalName = file.getOriginalFilename();
             String extension = originalName.substring(originalName.lastIndexOf("."));
-            String savedName = UUID.randomUUID() + extension;
+            String savedName = UUID.randomUUID() + "-" + originalName;
 
-            File target = new File(filePath + savedName);
+            ObjectMetadata objMeta = new ObjectMetadata();
+            objMeta.setContentLength(file.getSize());
+            objMeta.setContentType(file.getContentType());
 
-            file.transferTo(target);
+            amazonS3.putObject(bucket, savedName, file.getInputStream(), objMeta);
+
+//            File target = new File(filePath + savedName);
+//            file.transferTo(target);
 
             fileVO = FileVO.builder()
                     .imgOriginalName(originalName)
                     .imgNewName(savedName)
-                    .imgPath(String.valueOf(target))
+                    .imgPath(amazonS3.getUrl(bucket, savedName).toString())
                     .imgUploadTime(LocalDateTime.now()).build();
 
             log.info(fileVO.toString());
