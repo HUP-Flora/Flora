@@ -14,6 +14,7 @@ import floMarkPinkSrc from "../../assets/floMarkPink.png";
 import liveTvSrc from "../../assets/live-tv-white.png";
 import { LmySessionIdState, LmyTypeState } from "../../recoil/flolive";
 import { useSetRecoilState } from "recoil";
+import useStroeDetail from "../../hooks/useStroeDetail";
 
 function StoreDetailButtons() {
 	// 플로라이브 입장 테스트 코드
@@ -21,9 +22,10 @@ function StoreDetailButtons() {
 	const setLmySessionId = useSetRecoilState(LmySessionIdState);
 	const navigate = useNavigate();
 
+	const { enterFloliveAPI } = useStroeDetail();
+
 	const enterFloliveHandler = () => {
-		setLmyType("사장");
-		setLmySessionId("845648454");
+		enterFloliveAPI();
 		navigate("/flolive/waiting");
 	};
 
