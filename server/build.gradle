@@ -28,6 +28,9 @@ dependencies {
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
 
+    // https://mvnrepository.com/artifact/io.openvidu/openvidu-java-client
+    implementation group: 'io.openvidu', name: 'openvidu-java-client', version: '2.24.0'
+
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.mysql:mysql-connector-j'
