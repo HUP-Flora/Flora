@@ -31,23 +31,27 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createProduct(@Value("${file.upload.location}") String filePath,
-                                           @RequestPart("file") MultipartFile file,
+    public ResponseEntity<?> createProduct(
+//                                           @Value("${file.upload.location}") String filePath,
+//                                           @RequestPart("file") MultipartFile file,
                                            @RequestPart("productReq") ProductReq productReq
                                            ){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        productService.createProduct(productReq, filePath, file, authInfo);
+//        productService.createProduct(productReq, filePath, file, authInfo);
+        productService.createProduct(productReq, authInfo);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{pId}")
     public ResponseEntity<?> updateProduct(@RequestPart("productReq") ProductReq productReq,
-                                           @PathVariable("pId") Long pId,
-                                           @Value("${file.upload.location}") String filePath,
-                                           @RequestPart("file") MultipartFile file){
+                                           @PathVariable("pId") Long pId
+//                                           @Value("${file.upload.location}") String filePath,
+//                                           @RequestPart("file") MultipartFile file
+    ){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        productService.updateProduct(productReq, pId, filePath, file, authInfo);
+//        productService.updateProduct(productReq, pId, filePath, file, authInfo);
+        productService.updateProduct(productReq, pId, authInfo);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
