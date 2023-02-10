@@ -93,4 +93,26 @@ public class ReviewService {
 
         order.setReviewflag(true);
     }
+
+    public void createReview(ReviewReq reviewReq, Map<String, String> authInfo) {
+        Long uId = Long.parseLong(authInfo.get("uId"));
+
+        User user = userRepository.findById(uId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        Store store = storeRepository.findById((long) reviewReq.getStore())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        Order order = orderRepository.findById(reviewReq.getOrder())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        reviewRepository.save(Review.builder()
+                .uId(user)
+                .oId(order)
+                .sId(store)
+                .content(reviewReq.getContent())
+                .build());
+
+        order.setReviewflag(true);
+    }
 }
