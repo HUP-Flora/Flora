@@ -2,6 +2,7 @@ package com.ssafy.floraserver.api.controller;
 
 import com.ssafy.floraserver.api.request.StoreExtraInfoReq;
 import com.ssafy.floraserver.api.request.UserExtraInfoReq;
+import com.ssafy.floraserver.api.response.RoleRes;
 import com.ssafy.floraserver.api.service.AuthService;
 import com.ssafy.floraserver.common.util.SecurityUtil;
 import com.ssafy.floraserver.db.entity.Store;
@@ -74,5 +75,12 @@ public class AuthController {
         String newAccessToken = authService.reissueAccessToken(oldAccessToken, refreshToken);
 
         return newAccessToken;
+    }
+
+    @GetMapping("/role")
+    public RoleRes getLoginToken(){
+        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
+        RoleRes roleRes = authService.getLoginToken(authInfo);
+        return roleRes;
     }
 }

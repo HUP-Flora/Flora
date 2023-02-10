@@ -2,6 +2,7 @@ package com.ssafy.floraserver.api.service;
 
 import com.ssafy.floraserver.api.request.StoreExtraInfoReq;
 import com.ssafy.floraserver.api.request.UserExtraInfoReq;
+import com.ssafy.floraserver.api.response.RoleRes;
 import com.ssafy.floraserver.api.vo.FileVO;
 import com.ssafy.floraserver.common.jwt.JwtProvider;
 import com.ssafy.floraserver.db.entity.Store;
@@ -176,10 +177,13 @@ public class AuthService {
                 .end(end)
                 .build();
 
-
-
         Store save = storeRepository.save(store);
 
         return save;
+    }
+
+    public RoleRes getLoginToken(Map<String, String> authInfo) {
+
+        return RoleRes.builder().userType(authInfo.get("role")).build();
     }
 }
