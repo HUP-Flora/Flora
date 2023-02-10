@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 
+import { mypageInfoApi } from "../../hooks/mypageApi";
+
 import {
 	HeaderConianer,
 	EditContainer,
@@ -33,11 +35,13 @@ function MyPageHeader(props) {
 	useEffect(() => {
 		// 고객
 		// const response = axios.get(`/api/users/${uId}`);
-		const response = {
-			nickname: "홍길동",
-			phoneNumber: "01034032342",
-		};
 
+		// const response = {
+		// 	nickname: "홍길동",
+		// 	phoneNumber: "01034032342",
+		// };
+
+		const response = mypageInfoApi();
 		// setNickname(response.nickname);
 		// setPhoneNumber(response.phoneNumber);
 
@@ -50,7 +54,7 @@ function MyPageHeader(props) {
 		// };
 
 		// setUser(response.data);
-		setUser(response);
+		setUser(response.data);
 	}, []);
 
 	// const type = "owner";
