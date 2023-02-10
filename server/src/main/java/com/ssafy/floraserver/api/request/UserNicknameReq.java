@@ -3,7 +3,6 @@ package com.ssafy.floraserver.api.request;
 import lombok.Getter;
 
 @Getter
-public class UserInfoReq {
+public class UserNicknameReq {
     private String nickname;
-    private String phoneNumber;
 }

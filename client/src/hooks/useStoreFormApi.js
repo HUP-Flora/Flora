@@ -2,9 +2,12 @@ import api from "../utils/api";
 
 export const useStoreFormApi = () => {
 	const storeFormApi = data => {
-		return api({
+		api({
 			method: "PUT",
 			url: "/auth/stores",
+			headers: {
+				"Content-Type": "multipart/form-data",
+			},
 			data,
 		})
 			.then(res => {

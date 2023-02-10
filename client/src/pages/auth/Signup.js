@@ -52,7 +52,11 @@ export function Signup() {
 			</SignupTitleSection>
 			<SignupContentSection height="208">
 				{typeList.map(type => (
-					<WhiteLargeButton onClick={() => setUserType(type)} isClick={userType === type}>
+					<WhiteLargeButton
+						key={type}
+						onClick={() => setUserType(type)}
+						isClick={userType === type}
+					>
 						<ButtonImage
 							src={
 								type === "user"

@@ -23,6 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -88,8 +89,8 @@ public class StoreService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         // 가게 주인이 네가 맞냐
-        if(store.getUId().getUId() != uId)
-            new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if(!Objects.equals(store.getUId().getUId(), uId))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
         return StoreMypageRes.builder()
                 .store(store)
@@ -97,7 +98,6 @@ public class StoreService {
     }
 
     public void updateStoreInfo(Long sId, StoreInfoReq storeInfoReq,
-                                String filePath,
                                 MultipartFile file,
                                 Map<String, String> authInfo) {
 
@@ -112,8 +112,8 @@ public class StoreService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         // 가게 주인이 네가 맞냐
-        if(store.getUId().getUId() != uId)
-            new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if(!Objects.equals(store.getUId().getUId(), uId))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
         TimeUnit start = timeUnitRepository.findById(storeInfoReq.getStart())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -123,7 +123,7 @@ public class StoreService {
         FileVO fileVO = null;
         // 이미지 저장
         if(!file.isEmpty()){
-            fileVO = fileService.uploadFile(filePath, file);
+            fileVO = fileService.uploadFile(file);
         }
 
         storeRepository.save(Store.builder()
