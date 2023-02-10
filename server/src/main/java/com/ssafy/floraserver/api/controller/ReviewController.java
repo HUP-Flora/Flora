@@ -22,7 +22,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api/reviews")
+@RequestMapping("/v1/reviews")
 public class ReviewController {
 
     private final ReviewService reviewService;
@@ -47,12 +47,14 @@ public class ReviewController {
 
     @PostMapping
 //    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    public ResponseEntity<?> createReview(@Value("${file.upload.location}") String filePath,
-                                          @RequestPart("file") MultipartFile file,
+    public ResponseEntity<?> createReview(
+//                                          @Value("${file.upload.location}") String filePath,
+//                                          @RequestPart("file") MultipartFile file,
                                           @RequestPart("reviewReq") ReviewReq reviewReq){
 
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        reviewService.createReview(reviewReq, filePath, file, authInfo);
+//        reviewService.createReview(reviewReq, filePath, file, authInfo);
+        reviewService.createReview(reviewReq, authInfo);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

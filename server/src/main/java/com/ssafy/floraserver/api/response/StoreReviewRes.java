@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 public class StoreReviewRes {
@@ -12,7 +13,7 @@ public class StoreReviewRes {
     private Long revId;
     private String nickname;
     private String content;
-    private LocalDate createDate;
+    private LocalDateTime createDate;
     private String rImg;
 
     @Builder

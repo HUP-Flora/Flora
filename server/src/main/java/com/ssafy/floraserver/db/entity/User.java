@@ -7,17 +7,18 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @DynamicUpdate
+@DynamicInsert
 public class User extends BaseEntity {
 
     @Id
@@ -55,7 +56,7 @@ public class User extends BaseEntity {
     public void updatePhoneNumber(String phoneNumber){ this.phoneNumber = phoneNumber; }
 
     @Builder
-    public User(Long uId, Role role, String email, String nickname, String phoneNumber, String refreshToken, LocalDate withdrawalDate, boolean softDelete) {
+    public User(Long uId, Role role, String email, String nickname, String phoneNumber, String refreshToken, LocalDate withdrawalDate) {
         this.uId = uId;
         this.role = role;
         this.email = email;
@@ -63,6 +64,6 @@ public class User extends BaseEntity {
         this.phoneNumber = phoneNumber;
         this.refreshToken = refreshToken;
         this.withdrawalDate = withdrawalDate;
-        this.softDelete = softDelete;
+        this.softDelete = false;
     }
 }
