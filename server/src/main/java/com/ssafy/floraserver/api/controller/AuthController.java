@@ -2,6 +2,7 @@ package com.ssafy.floraserver.api.controller;
 
 import com.ssafy.floraserver.api.request.StoreExtraInfoReq;
 import com.ssafy.floraserver.api.request.UserExtraInfoReq;
+import com.ssafy.floraserver.api.response.RoleRes;
 import com.ssafy.floraserver.api.service.AuthService;
 import com.ssafy.floraserver.common.util.SecurityUtil;
 import com.ssafy.floraserver.db.entity.Store;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api/auth")
+@RequestMapping("/v1/auth")
 public class AuthController {
 
     private final AuthService authService;
@@ -47,13 +48,15 @@ public class AuthController {
 
     @PutMapping("/stores")
 //    @PreAuthorize("hasRole('ROLE_GUEST')")
-    public ResponseEntity<?> createStoreExtraInfo(@Value("${file.upload.location}") String filePath,
-                                                  @RequestPart("file") MultipartFile file,
+    public ResponseEntity<?> createStoreExtraInfo(
+//                                                @Value("${file.upload.location}") String filePath,
+//                                                  @RequestPart("file") MultipartFile file,
                                                   @RequestPart("storeExtraInfoReq") StoreExtraInfoReq storeExtraInfoReq){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         log.info("현재 로그인 {} ", authInfo.toString());
         log.info(storeExtraInfoReq.toString());
-        Store store = authService.createStoreExtraInfo(storeExtraInfoReq, filePath, file, authInfo);
+//        Store store = authService.createStoreExtraInfo(storeExtraInfoReq, filePath, file, authInfo);
+        Store store = authService.createStoreExtraInfo(storeExtraInfoReq, authInfo);
 
         // TODO 확인용으로 저장한 Store 객체 리턴했음. 수정하기
         return new ResponseEntity<>(store, HttpStatus.CREATED);
@@ -72,5 +75,12 @@ public class AuthController {
         String newAccessToken = authService.reissueAccessToken(oldAccessToken, refreshToken);
 
         return newAccessToken;
+    }
+
+    @GetMapping("/role")
+    public RoleRes getLoginToken(){
+        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
+        RoleRes roleRes = authService.getLoginToken(authInfo);
+        return roleRes;
     }
 }

@@ -41,7 +41,7 @@ public class Review extends BaseEntity{
     private String content;
 
     @Column(name = "rev_create_date", nullable = false)
-    private LocalDate createDate;
+    private LocalDateTime createDate;
 
     @Column(name = "rev_img_original_name")
     private String imgOriginalName;
@@ -55,16 +55,20 @@ public class Review extends BaseEntity{
     @Column(name = "rev_img_upload_time")
     private LocalDateTime imgUploadTime;
 
+    @Column(name = "rev_soft_delete", columnDefinition = "TINYINT(1)")
+    private boolean softDelete;
+
     @Builder
     public Review(User uId, Store sId, Order oId, String content, String imgOriginalName, String imgNewName, String imgPath, LocalDateTime imgUploadTime) {
         this.uId = uId;
         this.sId = sId;
         this.oId = oId;
         this.content = content;
-        this.createDate = LocalDate.now();
+        this.createDate = LocalDateTime.now();
         this.imgOriginalName = imgOriginalName;
         this.imgNewName = imgNewName;
         this.imgPath = imgPath;
         this.imgUploadTime = imgUploadTime;
+        this.softDelete = false;
     }
 }

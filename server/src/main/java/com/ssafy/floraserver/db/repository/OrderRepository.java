@@ -25,4 +25,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             countQuery = "select count(o) from Order o where o.sId.sId = :sId")
     Page<Order> findAllByUser(@Param("uId") Long uId, Pageable pageable);
 
+    @Query("select max(o.oId) from Order o")
+    Long findLastOId();
+
 }

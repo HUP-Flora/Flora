@@ -5,7 +5,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
       use-new-id-generator-mappings: true
     show-sql: true
     properties:
@@ -28,3 +28,7 @@ app:
   auth:
     jwt:
       secret-key: ASDHLKjWDUHASf676SJDfh623DAF8
+openvidu:
+  https:
+    url: https://i8b203.p.ssafy.io:8445/
+    secret: MY_SECRET
