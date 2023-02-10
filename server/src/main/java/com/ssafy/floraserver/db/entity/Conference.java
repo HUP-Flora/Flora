@@ -40,9 +40,10 @@ public class Conference extends BaseEntity{
     private ConferenceStatus status;
 
     @Builder
-    public Conference(LocalDate reservationDate, TimeUnit reservationTime, String link, ConferenceStatus status){
+    public Conference(LocalDate reservationDate, TimeUnit reservationTime, LocalTime startTime, String link, ConferenceStatus status){
         this.reservationDate = reservationDate;
         this.reservationTime = reservationTime;
+        this.startTime = startTime;
         this.link = link;
         this.status = status;
     }

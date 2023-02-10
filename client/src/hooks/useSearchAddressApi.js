@@ -1,8 +1,8 @@
-import axios from "axios";
+import api from "../utils/api";
 
 export const useSearchAddressApi = () => {
 	const searchAddressApi = words => {
-		axios({
+		api({
 			method: "GET",
 			url: `${process.env.REACT_APP_SERVER_URL}/api/stores/regions?word=${words}`,
 			headers: {

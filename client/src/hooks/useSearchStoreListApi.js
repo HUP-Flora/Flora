@@ -1,10 +1,10 @@
-import axios from "axios";
+import api from "../utils/api";
 
 export const useSearchStoreListApi = () => {
 	const searchStoreListApi = () => {
-		axios({
+		api({
 			method: "GET",
-			url: `${process.env.REACT_APP_SERVER_URL}/auth/stores`,
+			url: "/stores",
 		});
 	};
 

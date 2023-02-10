@@ -45,6 +45,11 @@ public class Product extends BaseEntity{
     @Column(name = "p_img_upload_time")
     private LocalDateTime imgUploadTime;
 
+    @Column(name = "p_soft_delete", columnDefinition = "TINYINT(1)")
+    private boolean softDelete;
+
+    public void deleteProduct(){ this.softDelete = true; }
+
     @Builder
     public Product(Long pId, String name, String desc, int price, Store sId, String imgOriginalName, String imgNewName, String imgPath, LocalDateTime imgUploadTime) {
         this.pId = pId;
@@ -56,5 +61,6 @@ public class Product extends BaseEntity{
         this.imgNewName = imgNewName;
         this.imgPath = imgPath;
         this.imgUploadTime = imgUploadTime;
+        this.softDelete = false;
     }
 }

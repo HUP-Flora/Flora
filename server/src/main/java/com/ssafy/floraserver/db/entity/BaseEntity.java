@@ -20,14 +20,14 @@ public abstract class BaseEntity {
 
     @CreatedBy
     @Column(updatable = false)
-    private Long creator;
+    private String creator;
 
     @CreatedDate
     @Column(insertable = true, updatable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedBy
-    private Long updater;
+    private String updater;
 
     @LastModifiedDate
     @Column(insertable = true, updatable = true)

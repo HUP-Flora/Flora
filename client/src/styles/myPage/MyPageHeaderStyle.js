@@ -5,7 +5,8 @@ export const HeaderConianer = styled.div`
 
 	> div {
 		display: flex;
-		justify-content: ${props => props.type === "owner" && "space-between"};
+		justify-content: space-between;
+		// justify-content: ${props => props.type === "owner" && "space-between"};
 		align-items: center;
 	}
 
@@ -17,7 +18,8 @@ export const HeaderConianer = styled.div`
 		width: ${props => (props.type === "customer" ? "16px" : "88px")};
 		height: ${props => (props.type === "customer" ? "auto" : "88px")};
 
-		margin-left: ${props => props.type === "customer" && 16}px;
+		// margin-left: ${props => props.type === "customer" && 16}px;
+		float: ${props => props.type === "customer" && "right"};
 
 		border-radius: ${props => props.type === "owner" && "50%"};
 	}
@@ -25,6 +27,19 @@ export const HeaderConianer = styled.div`
 
 export const EditContainer = styled.div`
 	display: flex;
+
+	> div:first-child {
+		width: 100%;
+		padding: 8px;
+	}
+
+	> div:first-child > input {
+		padding: 0;
+	}
+
+	> div:last-child {
+		display: flex;
+	}
 
 	> input {
 		margin-right: 8px;

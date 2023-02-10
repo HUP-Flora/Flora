@@ -417,3 +417,12 @@ export const EmptyAddressList = styled.div`
 	transform: translate(-50%, -50%);
 	width: 100%;
 `;
+
+export const PaddingX16 = styled.div`
+	padding-left: 16px;
+	padding-right: 16px;
+`;
+
+export const BodyFrame = styled.div`
+	height: calc(100% - 40px);
+`;

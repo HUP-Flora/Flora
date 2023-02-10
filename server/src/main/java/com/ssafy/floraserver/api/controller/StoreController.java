@@ -21,7 +21,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api/stores")
+@RequestMapping("/v1/stores")
 public class StoreController {
 
     private final StoreService storeService;
@@ -71,6 +71,13 @@ public class StoreController {
                                              @RequestPart("storeInfoReq") StoreInfoReq storeInfoReq){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         storeService.updateStoreInfo(sId,storeInfoReq, filePath, file, authInfo);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PostMapping("/{sId}/onair")
+    public ResponseEntity<?> toggleOnair(@PathVariable("sId") Long sId){
+        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
+        storeService.toggleOnair(sId, authInfo);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
