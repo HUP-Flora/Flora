@@ -1,6 +1,7 @@
 package com.ssafy.floraserver.api.service;
 
-import com.ssafy.floraserver.api.request.UserInfoReq;
+import com.ssafy.floraserver.api.request.UserNicknameReq;
+import com.ssafy.floraserver.api.request.UserPhoneNumberReq;
 import com.ssafy.floraserver.api.response.UserMypageRes;
 import com.ssafy.floraserver.db.entity.User;
 import com.ssafy.floraserver.db.repository.UserRepository;
@@ -33,14 +34,21 @@ public class UserService {
                 .build();
     }
 
-    public void updateUserInfo(UserInfoReq userInfoReq, Map<String, String> authInfo) {
-
+    public void updateUserNickname(UserNicknameReq userNicknameReq, Map<String, String> authInfo) {
         Long uId = Long.parseLong(authInfo.get("uId"));
 
         User user = userRepository.findById(uId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        user.updateNickname(userInfoReq.getNickname());
-        user.updatePhoneNumber(userInfoReq.getPhoneNumber());
+        user.updateNickname(userNicknameReq.getNickname());
+    }
+
+    public void updateUserPhoneNumber(UserPhoneNumberReq userPhoneNumberReq, Map<String, String> authInfo) {
+        Long uId = Long.parseLong(authInfo.get("uId"));
+
+        User user = userRepository.findById(uId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        user.updatePhoneNumber(userPhoneNumberReq.getPhoneNumber());
     }
 }
