@@ -3,15 +3,13 @@ package com.ssafy.floraserver.api.service;
 import com.ssafy.floraserver.api.request.ReceiptReq;
 import com.ssafy.floraserver.api.response.ConferenceRes;
 import com.ssafy.floraserver.db.entity.*;
-import com.ssafy.floraserver.db.entity.enums.ConferenceStatus;
-import com.ssafy.floraserver.db.entity.enums.OrderStatus;
-import com.ssafy.floraserver.db.entity.enums.OrderType;
-import com.ssafy.floraserver.db.entity.enums.PaymentStatus;
+import com.ssafy.floraserver.db.entity.enums.*;
 import com.ssafy.floraserver.db.repository.*;
 import io.openvidu.java.client.OpenViduHttpException;
 import io.openvidu.java.client.OpenViduJavaClientException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -107,18 +105,18 @@ public class FloliveService {
 
         String role = authInfo.get("role");
 
-        ConferenceRes conferenceRes = createFloliveRoom(String.valueOf(oId));
+        ConferenceRes conferenceRes = createFloliveRoom(String.valueOf(order.getNum()));
         conferenceRes.setUserRole(role);
-
-//        TimeUnit timeUnit = TimeUnitRepository
 
         // conference 저장
         Conference conference = conferenceRepository.save(
                 Conference.builder()
                         .reservationDate(LocalDate.now())
-                        .reservationTime(null) // TODO : 타임 유닛 설정?
+                        .reservationTime(null)
                         .startTime(LocalTime.now())
-                        .link(conferenceRes.getSessionId()+"+"+conferenceRes.getConnectionToken())
+                        .link(null)
+                        .sessionId(conferenceRes.getSessionId())
+                        .token(conferenceRes.getConnectionToken())
                         .status(ConferenceStatus.WAITING)
                         .build()
         );
@@ -134,13 +132,35 @@ public class FloliveService {
         order.updateStatus(OrderStatus.ACCEPT);
     }
 
-    public void entryFlolive(Long conId, Map<String, String> authInfo) {
+    public ConferenceRes entryFlolive(Long conId, Map<String, String> authInfo) {
         // 요청한 사람이 customer인지 store인지
-        // conId 화상미팅이 유효한지. 주문상태 ACCEPT, 화상미팅상태 WAITING인지
+        String role = authInfo.get("role");
 
-        // 입장하고 화상미팅상태 가게 INPROGRESS로 변경
+        // conId 화상미팅이 유효한지. 주문상태 ACCEPT, 화상미팅상태 WAITING인지
+        Conference conference = conferenceRepository.findById(conId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        if (conference.getStatus() != ConferenceStatus.WAITING) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
+        // 화상미팅상태 가게 INPROGRESS로 변경
+        Order order = orderRepository.findByConId(conId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        Store store = storeRepository.findById(order.getSId().getSId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        store.updateIsOnair(OnAirType.INPROGRESS);
+
+        // 입장 안내
+        ConferenceRes conferenceRes = new ConferenceRes(role, conference.getSessionId(), conference.getToken());
+        return conferenceRes;
     }
 
+    // 예약
+
+    // 배송정보
     public void createReceipt(ReceiptReq receiptReq, Map<String, String> authInfo) {
     }
 
@@ -153,8 +173,8 @@ public class FloliveService {
         return num;
     }
 
-    public ConferenceRes createFloliveRoom(String oId) throws OpenViduJavaClientException, OpenViduHttpException {
-        String sessionId = openViduService.createSession(String.valueOf(oId));
+    public ConferenceRes createFloliveRoom(String orderNum) throws OpenViduJavaClientException, OpenViduHttpException {
+        String sessionId = openViduService.createSession(String.valueOf(orderNum));
 
         // 세션 ID, 토큰 생성
         String connectionToken = openViduService.createConnectionToken(sessionId);

@@ -1,5 +1,6 @@
 package com.ssafy.floraserver.db.repository;
 
+import com.ssafy.floraserver.db.entity.Bookmark;
 import com.ssafy.floraserver.db.entity.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,4 +29,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("select max(o.oId) from Order o")
     Long findLastOId();
 
+    @Query(value = "select o from Order o " +
+            "where o.conId.conId = :conId")
+    Optional<Order> findByConId(@Param("conId") Long conId);
 }
