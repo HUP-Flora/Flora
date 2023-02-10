@@ -92,8 +92,10 @@ export function StoreForm({ nextURL }) {
 				end: storeEndTime.value,
 			};
 
+			console.log(data);
+
 			const formData = new FormData();
-			formData.append("file", storeImageFile);
+			// formData.append("file", storeImageFile);
 			formData.append(
 				"storeExtraInfoReq",
 				new Blob([JSON.stringify(data)], { type: "application/json" })

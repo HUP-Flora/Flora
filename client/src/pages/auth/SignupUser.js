@@ -1,35 +1,22 @@
-import { ButtonToolBar, SignupStatusBar } from "../../styles/bar/BarStyle";
-import { BlankSection, BoldText, Text, WhiteLayout } from "../../styles/common/CommonStyle";
-import {
-	IsFocusedPrimary400LargeButton,
-	Primary400Button,
-	Primary400LargeButton,
-	TestPrimary400LargeButton,
-} from "../../styles/button/ButtonStyle";
-import StatusBar from "../../components/common/NoPaddingStatusBar";
+import { SignupStatusBar } from "../../styles/bar/BarStyle";
+import { BoldText } from "../../styles/common/CommonStyle";
+import { Primary400LargeButton } from "../../styles/button/ButtonStyle";
 import {
 	ErrorMessage,
 	InputCounter,
 	InputCounterContainer,
 	InputLabel,
-	MarginBottom16TextInput,
-	TextInput,
 } from "../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import { useRecoilState } from "recoil";
-import { isFocusedInputState, nicknameState, phoneNumberState } from "../../recoil/signup";
+import { nicknameState, phoneNumberState } from "../../recoil/signup";
 import { useCallback, useRef, useState } from "react";
 import { SignupLabelDiv, SignupTextInput } from "../../styles/chatting/input/InputStyle";
 import { useUserFormApi } from "../../hooks/useUserFormApi";
-import { FullContainer, SignupPaddingX16Container } from "../../styles/container/ContainerStyle";
-import {
-	PaddingX16Frame,
-	SignupBodyFrame,
-	SignupPaddingX16Frame,
-} from "../../styles/common/FrameStyle";
+import { SignupPaddingX16Container } from "../../styles/container/ContainerStyle";
+import { SignupBodyFrame } from "../../styles/common/FrameStyle";
 import {
 	SignupButtonSection,
 	SignupContentSection,
-	SignupNicknameSection,
 	SignupTitleSection,
 } from "../../styles/common/SectionStyle";
 
@@ -38,10 +25,8 @@ export function SignupUser() {
 	const [phoneNumber, setPhoneNumber] = useRecoilState(phoneNumberState);
 	const [nicknameErrorMessage, setNicknameErrorMessage] = useState("");
 	const [phoneNumberErrorMessage, setPhoneNumberErrorMessage] = useState("");
-	const [isFocusedInput, setIsFocusedInput] = useRecoilState(isFocusedInputState);
 
 	const userFormApi = useUserFormApi();
-	const inputRef = useRef([]);
 
 	const handleSignup = () => {
 		if (nicknameValidate(nickname) && phoneNumberValidate(phoneNumber)) {
