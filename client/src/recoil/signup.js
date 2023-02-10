@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
-export const userState = atom({
-	key: "userState",
+export const userTypeState = atom({
+	key: "typeState",
 	default: "",
 });
 
@@ -67,4 +67,9 @@ export const storeHolidayState = atom({
 export const storeBrnState = atom({
 	key: "brnState",
 	default: "",
+});
+
+export const isFocusedInputState = atom({
+	key: "isFocusedInputState",
+	default: false,
 });

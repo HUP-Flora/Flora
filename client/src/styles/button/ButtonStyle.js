@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { isFocusedInputState } from "../../recoil/signup";
 
 export const Primary50Button = styled.button`
 	margin-top: ${props => props.top || 0}px;
@@ -230,4 +231,16 @@ export const Primary50CancelButton = styled.div`
 		background-color: var(--primary-400);
 		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='icon icon-tabler icon-tabler-x' width='30' height='30' viewBox='0 0 24 24' stroke-width='3' stroke='white' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3E%3Cline x1='18' y1='6' x2='6' y2='18' /%3E%3Cline x1='6' y1='6' x2='18' y2='18' /%3E%3C/svg%3E");
 	}
+`;
+
+export const WhiteLargeButton = styled.button`
+	height: 88px;
+	border: ${props =>
+		props.isClick ? "1px solid var(--primary-400)" : "1px solid var(--gray-500)"};
+	border-radius: 10px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #ffffff;
 `;

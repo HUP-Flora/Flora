@@ -1,7 +1,12 @@
-import { ButtonToolBar } from "../../styles/bar/BarStyle";
+import { ButtonToolBar, SignupStatusBar } from "../../styles/bar/BarStyle";
 import { BlankSection, BoldText, Text, WhiteLayout } from "../../styles/common/CommonStyle";
-import { Primary400LargeButton } from "../../styles/button/ButtonStyle";
-import StatusBar from "../../components/common/StatusBar";
+import {
+	IsFocusedPrimary400LargeButton,
+	Primary400Button,
+	Primary400LargeButton,
+	TestPrimary400LargeButton,
+} from "../../styles/button/ButtonStyle";
+import StatusBar from "../../components/common/NoPaddingStatusBar";
 import {
 	ErrorMessage,
 	InputCounter,
@@ -11,19 +16,32 @@ import {
 	TextInput,
 } from "../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import { useRecoilState } from "recoil";
-import { nicknameState, phoneNumberState } from "../../recoil/signup";
+import { isFocusedInputState, nicknameState, phoneNumberState } from "../../recoil/signup";
 import { useCallback, useRef, useState } from "react";
 import { SignupLabelDiv, SignupTextInput } from "../../styles/chatting/input/InputStyle";
 import { useUserFormApi } from "../../hooks/useUserFormApi";
+import { FullContainer, SignupPaddingX16Container } from "../../styles/container/ContainerStyle";
+import {
+	PaddingX16Frame,
+	SignupBodyFrame,
+	SignupPaddingX16Frame,
+} from "../../styles/common/FrameStyle";
+import {
+	SignupButtonSection,
+	SignupContentSection,
+	SignupNicknameSection,
+	SignupTitleSection,
+} from "../../styles/common/SectionStyle";
 
 export function SignupUser() {
 	const [nickname, setNickname] = useRecoilState(nicknameState);
 	const [phoneNumber, setPhoneNumber] = useRecoilState(phoneNumberState);
 	const [nicknameErrorMessage, setNicknameErrorMessage] = useState("");
 	const [phoneNumberErrorMessage, setPhoneNumberErrorMessage] = useState("");
+	const [isFocusedInput, setIsFocusedInput] = useRecoilState(isFocusedInputState);
 
 	const userFormApi = useUserFormApi();
-	// const inputRef = useRef([]);
+	const inputRef = useRef([]);
 
 	const handleSignup = () => {
 		if (nicknameValidate(nickname) && phoneNumberValidate(phoneNumber)) {
@@ -87,69 +105,65 @@ export function SignupUser() {
 	};
 
 	return (
-		<>
-			<StatusBar />
-			<WhiteLayout>
-				<BoldText size="28" top="62">
-					추가 정보 입력이
-				</BoldText>
-				<BoldText size="28" top="16" bottom="112">
-					필요합니다.
-				</BoldText>
-				<SignupLabelDiv>
-					<InputLabel htmlFor="nickname">닉네임을 입력해주세요</InputLabel>
-				</SignupLabelDiv>
-				<SignupTextInput
-					type="text"
-					id="nickname"
-					placeholder="&nbsp;&nbsp;닉네임을 입력해주세요"
-					// onChange={e => {
-					// 	setNickname(e.target.value);
-					// }}
-					// onFocus={e => VsendUserChangeFalseIsTouched(e)}
-					onChange={e => {
-						nicknameHandler(e.target);
-					}}
-					onBlur={e => {
-						nicknameValidate(e.target.value);
-					}}
-					value={nickname}
-					HasError={nicknameErrorMessage}
-					// ref={el => (inputRef.current[0] = el)}
-				/>
-				<InputCounterContainer>
-					{nicknameErrorMessage && <ErrorMessage>{nicknameErrorMessage}</ErrorMessage>}
-					<InputCounter isError={nicknameErrorMessage}>{nickname.length}/25자</InputCounter>
-				</InputCounterContainer>
-				<SignupLabelDiv>
-					<InputLabel htmlFor="phoneNumber">전화번호를 입력해주세요</InputLabel>
-				</SignupLabelDiv>
-				<SignupTextInput
-					type="text"
-					id="phoneNumber"
-					maxLength="13"
-					placeholder="&nbsp;&nbsp;- 없이 입력해주세요"
-					// onClick={() => {
-					// 	inputRef.current[1].scrollIntoView();
-					// }}
-					onChange={e => {
-						phoneNumberHandler(e.target);
-					}}
-					// onFocus={e => VsendUserPhoneChangeFalseIsTouched(e)}
-					onBlur={e => {
-						phoneNumberValidate(e.target.value);
-					}}
-					value={phoneNumber}
-					HasError={phoneNumberErrorMessage}
-					// ref={el => (inputRef.current[1] = el)}
-				/>
-				{phoneNumberErrorMessage && <ErrorMessage>{phoneNumberErrorMessage}</ErrorMessage>}
-				<BlankSection height="96" />
-				<Primary400LargeButton onClick={handleSignup}>가입 완료하기</Primary400LargeButton>
-				{/* <ButtonToolBar>
+		<SignupPaddingX16Container>
+			<SignupStatusBar />
+			<SignupBodyFrame>
+				<SignupTitleSection height="80" top="32">
+					<BoldText font="nexon" size="28">
+						추가 정보 입력이
+					</BoldText>
+					<BoldText font="nexon" size="28">
+						필요합니다.
+					</BoldText>
+				</SignupTitleSection>
+				<SignupContentSection height="176">
+					<div>
+						<SignupLabelDiv>
+							<InputLabel htmlFor="nickname">닉네임을 입력해주세요</InputLabel>
+						</SignupLabelDiv>
+						<SignupTextInput
+							type="text"
+							id="nickname"
+							placeholder="&nbsp;&nbsp;닉네임을 입력해주세요"
+							value={nickname}
+							HasError={nicknameErrorMessage}
+							onBlur={e => {
+								nicknameValidate(e.target.value);
+							}}
+							onChange={e => {
+								nicknameHandler(e.target);
+							}}
+						/>
+						<InputCounterContainer>
+							{nicknameErrorMessage && <ErrorMessage>{nicknameErrorMessage}</ErrorMessage>}
+							<InputCounter isError={nicknameErrorMessage}>{nickname.length}/25자</InputCounter>
+						</InputCounterContainer>
+					</div>
+					<div>
+						<SignupLabelDiv>
+							<InputLabel htmlFor="phoneNumber">전화번호를 입력해주세요</InputLabel>
+						</SignupLabelDiv>
+						<SignupTextInput
+							type="text"
+							id="phoneNumber"
+							maxLength="13"
+							placeholder="&nbsp;&nbsp;- 없이 입력해주세요"
+							value={phoneNumber}
+							HasError={phoneNumberErrorMessage}
+							onChange={e => {
+								phoneNumberHandler(e.target);
+							}}
+							onBlur={e => {
+								phoneNumberValidate(e.target.value);
+							}}
+						/>
+						{phoneNumberErrorMessage && <ErrorMessage>{phoneNumberErrorMessage}</ErrorMessage>}
+					</div>
+				</SignupContentSection>
+				<SignupButtonSection>
 					<Primary400LargeButton onClick={handleSignup}>가입 완료하기</Primary400LargeButton>
-				</ButtonToolBar> */}
-			</WhiteLayout>
-		</>
+				</SignupButtonSection>
+			</SignupBodyFrame>
+		</SignupPaddingX16Container>
 	);
 }
