@@ -10,7 +10,7 @@ export function StoreList() {
 	return (
 		<StoreListSection>
 			{storeList.map(store => (
-				<StoreCard {...store} key={store.sId} />
+				<StoreCard {...store} key={store.sid} />
 			))}
 			<BlankSection height="56" />
 		</StoreListSection>

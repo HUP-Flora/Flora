@@ -25,8 +25,8 @@ import { useNavigate } from "react-router-dom";
 
 export function SearchStore() {
 	const [words, setWords] = useState("");
-	const [resultAddressList, setResultSearchAddressList] = useRecoilState(resultAddressListState);
 	const setIsSearchStoreModal = useSetRecoilState(isSearchStoreModalState);
+	const resultAddressList = useRecoilValue(resultAddressListState);
 	const searchAddressApi = useSearchAddressApi();
 	const searchStoresApi = useSearchStoresApi();
 	const [submitSearch, setSubmitSearch] = useState(false);

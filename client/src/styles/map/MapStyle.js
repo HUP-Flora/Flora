@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const MapStyle = {
 	width: "100%",
-	height: "350px",
+	height: "180px",
 };
 
 export const MapMarkerStyle = {
