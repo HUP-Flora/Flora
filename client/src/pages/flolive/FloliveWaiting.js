@@ -14,8 +14,7 @@ function FloliveWaiting() {
 	useEffect(() => {
 		const checkStatusInterval = setInterval(() => {
 			// 5초마다 라이브 상태를 확인한다.
-			checkLiveStatusAPI(LorderNumber);
-			// console.log("checkLiveStatusAPI");
+			checkLiveStatusAPI(LorderNumber, LliveStatus);
 		}, 5000);
 		return () => {
 			clearInterval(checkStatusInterval);
