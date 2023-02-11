@@ -49,14 +49,12 @@ public class AuthController {
     @PutMapping("/stores")
 //    @PreAuthorize("hasRole('ROLE_GUEST')")
     public ResponseEntity<?> createStoreExtraInfo(
-//                                                @Value("${file.upload.location}") String filePath,
-//                                                  @RequestPart("file") MultipartFile file,
+                                                  @RequestPart("file") MultipartFile file,
                                                   @RequestPart("storeExtraInfoReq") StoreExtraInfoReq storeExtraInfoReq){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         log.info("현재 로그인 {} ", authInfo.toString());
         log.info(storeExtraInfoReq.toString());
-//        Store store = authService.createStoreExtraInfo(storeExtraInfoReq, filePath, file, authInfo);
-        Store store = authService.createStoreExtraInfo(storeExtraInfoReq, authInfo);
+        Store store = authService.createStoreExtraInfo(storeExtraInfoReq, file, authInfo);
 
         // TODO 확인용으로 저장한 Store 객체 리턴했음. 수정하기
         return new ResponseEntity<>(store, HttpStatus.CREATED);
@@ -78,9 +76,9 @@ public class AuthController {
     }
 
     @GetMapping("/role")
-    public RoleRes getLoginToken(){
+    public RoleRes getLoginRole(){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        RoleRes roleRes = authService.getLoginToken(authInfo);
+        RoleRes roleRes = authService.getLoginRole(authInfo);
         return roleRes;
     }
 }

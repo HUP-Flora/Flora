@@ -66,11 +66,10 @@ public class StoreController {
 
     @PutMapping("/{sId}")
     public ResponseEntity<?> updateStoreInfo(@PathVariable("sId") Long sId,
-                                             @Value("${file.upload.location}") String filePath,
                                              @RequestPart("file") MultipartFile file,
                                              @RequestPart("storeInfoReq") StoreInfoReq storeInfoReq){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        storeService.updateStoreInfo(sId,storeInfoReq, filePath, file, authInfo);
+        storeService.updateStoreInfo(sId,storeInfoReq, file, authInfo);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
