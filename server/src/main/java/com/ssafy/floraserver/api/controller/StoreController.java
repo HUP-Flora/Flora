@@ -34,9 +34,11 @@ public class StoreController {
     }
 
     @GetMapping
-    public Page<StoreListRes> findStoreList(@RequestParam String address, Pageable pageable){
+    public Page<StoreListRes> findStoreList(@RequestParam("address") String address,
+                                            @RequestParam("day") String day,
+                                            Pageable pageable){
 
-        Page<StoreListRes> storeResList = storeService.findStoreList(address, pageable);
+        Page<StoreListRes> storeResList = storeService.findStoreList(address, day, pageable);
 
         return storeResList;
     }

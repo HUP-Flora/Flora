@@ -12,6 +12,7 @@ import com.ssafy.floraserver.db.repository.ProductRepository;
 import com.ssafy.floraserver.db.repository.StoreRepository;
 import com.ssafy.floraserver.db.repository.TimeUnitRepository;
 import com.ssafy.floraserver.db.repository.UserRepository;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
@@ -45,13 +46,13 @@ public class StoreService {
         return regionList;
     }
 
-    public Page<StoreListRes> findStoreList(String address, Pageable pageable) {
+    public Page<StoreListRes> findStoreList(String address, String day, Pageable pageable) {
         String[] splitAddress = address.split(" ");
         log.info(Arrays.toString(splitAddress));
 
         pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),  Sort.by("bookmarkCnt").descending());
 
-        Page<Store> storeList = storeRepository.findAllByRegionDepthName(splitAddress[0], splitAddress[1], splitAddress[2], pageable);
+        Page<Store> storeList = storeRepository.findAllByRegionDepthName(day, splitAddress[0], splitAddress[1], splitAddress[2], pageable);
 
         Page<StoreListRes> storeResList = storeList
                 .map(s -> StoreListRes.builder().store(s).build());
