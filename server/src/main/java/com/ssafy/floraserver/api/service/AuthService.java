@@ -167,7 +167,6 @@ public class AuthService {
 //            map.put("role", user.getRole().getKey());
             map.put("sId", store.getSId().toString());
         }
-
         return map;
     }
 }
