@@ -55,6 +55,7 @@ import { KakaoPayment } from "./pages/kakaoPayment/KakaoPayment";
 // 예약 내역 페이지
 import ReservationList from "./pages/reservation/ReservationList";
 import Hamster from "./pages/temp/hamster";
+import { StoreEdit } from "./pages/storeDetail/StoreEdit";
 
 function AppRouter() {
 	return (
@@ -78,7 +79,7 @@ function AppRouter() {
 				<Route path="/store/detail" element={<StoreDetail />} />
 
 				{/* 가게 정보 수정 페이지 */}
-				{/* <Route path="/store/:store-id/edit" element={<StoreEdit />} /> */}
+				<Route path="/store/:storeId/edit" element={<StoreEdit />} />
 
 				{/* 상품 페이지 */}
 				<Route path="/productDetail" element={<ProductDetail />} />

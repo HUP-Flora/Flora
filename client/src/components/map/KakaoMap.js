@@ -21,6 +21,7 @@ export function KakaoMap() {
 	}, [storeList]);
 
 	useEffect(() => {
+		console.log("fff");
 		if (mapRef.current) {
 			mapRef.current.setBounds(bounds);
 		}

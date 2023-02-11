@@ -6,7 +6,6 @@ export const useSearchAddressApi = () => {
 	const setResultSearchAddressList = useSetRecoilState(resultAddressListState);
 
 	const searchAddressApi = words => {
-		console.log(words);
 		api({
 			method: "GET",
 			url: `/stores/regions?word=${words}`,

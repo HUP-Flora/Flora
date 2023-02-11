@@ -21,7 +21,7 @@ import {
 	InputLabel,
 	SearchAddressContainerButton,
 } from "../../styles/chatting/Messages/Message/forms/OtherFormStyle";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
 	isFocusedInputState,
@@ -43,7 +43,7 @@ import { isDaumPostShowState } from "../../recoil/chatting";
 import { StoreFormApi, useStoreFormApi } from "../../hooks/useStoreFormApi";
 import { locationState } from "../../recoil/map";
 
-export function StoreForm({ nextURL }) {
+export function StoreForm({ nextURL, type }) {
 	const [storePhoneNumber, setStorePhoneNumber] = useRecoilState(phoneNumberState);
 	const [storeName, setStoreName] = useRecoilState(storeNameState);
 	const [storeDescription, setStoreDescription] = useRecoilState(storeDescriptionState);
@@ -65,8 +65,13 @@ export function StoreForm({ nextURL }) {
 	const inputRef = useRef([]);
 
 	const storeRegionDepthName = useRecoilValue(storeRegionDepthNameState);
-
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (type === "edit") {
+			// 가게 상세 api 요청
+		}
+	}, [type]);
 
 	const handleStoreForm = e => {
 		e.preventDefault();
