@@ -10,7 +10,6 @@ import io.openvidu.java.client.OpenViduHttpException;
 import io.openvidu.java.client.OpenViduJavaClientException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -285,23 +284,30 @@ public class FloliveService {
         return orderList;
     }
 
-    public Page<Order> findStoreWaitFlolive(Long sId, Pageable pageable, Map<String, String> authInfo) {
-        Page<Order> orderList = orderRepository.findBySId(sId, OrderStatus.WAITING, pageable);
+    public Page<Order> findStoreWaitFlolive(Pageable pageable, Map<String, String> authInfo) {
+        Long uId = Long.parseLong(authInfo.get("uId"));
+//        Long uId = Long.valueOf(31); // TODO 테스트용 uID, 나중에 지우기
+        Store store = storeRepository.findByUId(uId)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Page<Order> orderList = orderRepository.findBySId(store.getSId(), OrderStatus.WAITING, pageable);
         return orderList;
     }
 
     public Page<Order> findUserConfirmFlolive(Pageable pageable, Map<String, String> authInfo) {
-//        Long uId = Long.parseLong(authInfo.get("uId"));
-        Long uId = Long.valueOf(31); // TODO 테스트용 uID, 나중에 지우기
+        Long uId = Long.parseLong(authInfo.get("uId"));
+//        Long uId = Long.valueOf(31); // TODO 테스트용 uID, 나중에 지우기
         Page<Order> confirmList = orderRepository.findByUIdAndConStatus(uId, ConferenceStatus.WAITING, pageable);
         return confirmList;
     }
 
-    public Page<Order> findStoreConfirmFlolive(Long sId, Pageable pageable, Map<String, String> authInfo) {
-        Page<Order> orderList = orderRepository.findBySIdAndConStatus(sId, ConferenceStatus.WAITING, pageable);
+    public Page<Order> findStoreConfirmFlolive(Pageable pageable, Map<String, String> authInfo) {
+        Long uId = Long.parseLong(authInfo.get("uId"));
+//        Long uId = Long.valueOf(31); // TODO 테스트용 uID, 나중에 지우기
+        Store store = storeRepository.findByUId(uId)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Page<Order> orderList = orderRepository.findBySIdAndConStatus(store.getSId(), ConferenceStatus.WAITING, pageable);
         return orderList;
     }
-
 
     // 주분번호 : 날짜 + (DB 마지막 번호+1)
     public String createOrderNum(LocalDate today){
@@ -322,5 +328,18 @@ public class FloliveService {
         // 세션 ID, 토큰 반환
         return new ConferenceRes(null, sessionId, connectionToken);
     }
+
     // 미팅 방 종료
+    public void closeFlolive(Long oId) throws OpenViduJavaClientException, OpenViduHttpException {
+        Order order = orderRepository.findById(oId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        openViduService.closeSession(order.getConId().getSessionId());
+
+        Conference conference = conferenceRepository.findById(order.getConId().getConId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        // 화상미팅상태 변경
+        conference.updateStatus(ConferenceStatus.COMPLETED);
+    }
 }

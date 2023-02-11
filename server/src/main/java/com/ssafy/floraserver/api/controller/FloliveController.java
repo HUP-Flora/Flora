@@ -127,13 +127,13 @@ public class FloliveController {
         return new ResponseEntity<>(userWaitResList, HttpStatus.OK);
     }
 
-    @GetMapping("/wait/stores/{sId}")
-    public ResponseEntity<?> findStoresWaitFlolive(@PathVariable Long sId, Pageable pageable) {
+    @GetMapping("/wait/stores")
+    public ResponseEntity<?> findStoresWaitFlolive(Pageable pageable) {
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        Page<Order> storeWaitList = floliveService.findStoreWaitFlolive(sId, pageable, authInfo);
+        Page<Order> storeWaitList = floliveService.findStoreWaitFlolive(pageable, authInfo);
         Page<WaitRes> storeWaitResList = storeWaitList
                 .map(o -> WaitRes.builder().order(o).build());
-        log.info("가게 번호 {} 의 플로라이브 수락 대기 목록", sId);
+        log.info("사용자 번호(가게) {} 의 플로라이브 수락 대기 목록", authInfo.get("uId"));
         return new ResponseEntity<>(storeWaitResList, HttpStatus.OK);
     }
 
@@ -147,13 +147,13 @@ public class FloliveController {
         return new ResponseEntity<>(userConfirmResList, HttpStatus.OK);
     }
 
-    @GetMapping("/confirm/stores/{sId}")
-    public ResponseEntity<?> findStoreConfirmFlolive(@PathVariable Long sId, Pageable pageable) {
+    @GetMapping("/confirm/stores")
+    public ResponseEntity<?> findStoreConfirmFlolive(Pageable pageable) {
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        Page<Order> storeConfirmList = floliveService.findStoreConfirmFlolive(sId, pageable, authInfo);
+        Page<Order> storeConfirmList = floliveService.findStoreConfirmFlolive(pageable, authInfo);
         Page<ConfirmRes> storeConfirmResList = storeConfirmList
                 .map(o -> ConfirmRes.builder().order(o).build());
-        log.info("가게 번호 {} 의 플로라이브 예정 목록", sId);
+        log.info("사용자 번호(가게) 의 플로라이브 예정 목록", authInfo.get("uId"));
         return new ResponseEntity<>(storeConfirmResList, HttpStatus.OK);
     }
 

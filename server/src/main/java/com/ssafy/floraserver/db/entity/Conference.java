@@ -1,6 +1,7 @@
 package com.ssafy.floraserver.db.entity;
 
 import com.ssafy.floraserver.db.entity.enums.ConferenceStatus;
+import com.ssafy.floraserver.db.entity.enums.PaymentStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -54,5 +55,9 @@ public class Conference extends BaseEntity{
         this.sessionId = sessionId;
         this.token = token;
         this.status = status;
+    }
+
+    public void updateStatus(ConferenceStatus conferenceStatus) {
+        this.status = conferenceStatus;
     }
 }
