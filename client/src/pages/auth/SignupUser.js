@@ -9,7 +9,7 @@ import {
 } from "../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import { useRecoilState } from "recoil";
 import { nicknameState, phoneNumberState } from "../../recoil/signup";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { SignupLabelDiv, SignupTextInput } from "../../styles/chatting/input/InputStyle";
 import { useUserFormApi } from "../../hooks/useUserFormApi";
 import { SignupPaddingX16Container } from "../../styles/container/ContainerStyle";
