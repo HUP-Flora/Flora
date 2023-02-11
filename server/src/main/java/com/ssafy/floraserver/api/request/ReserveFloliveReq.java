@@ -7,8 +7,8 @@ import lombok.ToString;
 @ToString
 public class ReserveFloliveReq {
 
-    private Long sId;
-    private Long pId;
+    private Long sid;
+    private Long pid;
     private String reservationDate;
     private Long reservationTime;
 

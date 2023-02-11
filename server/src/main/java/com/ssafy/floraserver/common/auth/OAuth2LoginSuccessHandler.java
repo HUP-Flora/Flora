@@ -83,7 +83,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                         .build().toUriString();
             }else {
                 log.info("CUSTOMER OR STORE");
-                targetUrl = UriComponentsBuilder.fromUriString(redirectUri.orElse("http://localhost:3030"))
+                targetUrl = UriComponentsBuilder.fromUriString(redirectUri.orElse("http://localhost:3000"))
                         .queryParam("token", accessToken)
                         .build().toUriString();
             }

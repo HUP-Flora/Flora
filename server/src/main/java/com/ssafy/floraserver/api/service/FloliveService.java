@@ -219,8 +219,8 @@ public class FloliveService {
     public void reserveFlolive(ReserveFloliveReq reserveFloliveReq, Map<String, String> authInfo) throws OpenViduJavaClientException, OpenViduHttpException {
         Long uId = Long.parseLong(authInfo.get("uId"));
         String role = authInfo.get("role");
-        log.info("예약 정보 - sId : {} ", reserveFloliveReq.getSId());
-        log.info("예약 정보 - pId : {} ", reserveFloliveReq.getPId());
+        log.info("예약 정보 - sId : {} ", reserveFloliveReq.getSid());
+        log.info("예약 정보 - pId : {} ", reserveFloliveReq.getPid());
         log.info("예약 정보 - reservationDate : {} ", reserveFloliveReq.getReservationDate());
         log.info("예약 정보 - reservationTime : {} ", reserveFloliveReq.getReservationTime());
 
@@ -228,11 +228,11 @@ public class FloliveService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         log.info(user.toString());
 
-        Store store = storeRepository.findById(reserveFloliveReq.getSId())
+        Store store = storeRepository.findById(reserveFloliveReq.getSid())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         log.info(store.toString());
 
-        Product product = productRepository.findById(reserveFloliveReq.getPId())
+        Product product = productRepository.findById(reserveFloliveReq.getPid())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         log.info(product.toString());
 

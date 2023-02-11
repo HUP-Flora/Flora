@@ -87,4 +87,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             countQuery = "select count(o) from Order o where o.sId.sId = :sId and o.conId.status = :status")
     Page<Order> findBySIdAndConStatus(@Param("sId") Long sId, ConferenceStatus status, Pageable pageable);
 
+    @Query(value = "select o from Order o " +
+            "join fetch o.sId store " +
+            "join fetch o.recId receipt " +
+            "where o.oId = :oId")
+    Optional<Order> findByOId(long oId);
+
 }

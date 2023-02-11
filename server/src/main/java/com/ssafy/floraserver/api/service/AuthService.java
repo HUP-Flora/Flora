@@ -137,7 +137,11 @@ public class AuthService {
     }
 
     public RoleRes getLoginRole(Map<String, String> authInfo) {
+        Long uId = Long.parseLong(authInfo.get("uId"));
 
-        return RoleRes.builder().userType(authInfo.get("role")).build();
+        User user = userRepository.findById(uId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        return RoleRes.builder().userType(user.getRole().getKey()).build();
     }
 }

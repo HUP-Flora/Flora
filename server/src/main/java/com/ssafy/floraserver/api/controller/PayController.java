@@ -1,5 +1,6 @@
 package com.ssafy.floraserver.api.controller;
 
+import com.ssafy.floraserver.api.response.PaySucessRes;
 import com.ssafy.floraserver.api.service.PayService;
 import com.ssafy.floraserver.api.vo.PayAppResVo;
 import com.ssafy.floraserver.api.vo.PayReadyReqVo;
@@ -27,7 +28,7 @@ public class PayController {
     // 결제 준비 -> 주문 정보 가져오기 : 상품명, 상품 총액
     // 테스트에서는 cid = TC0ONETIME
     @PostMapping("/{oId}")
-    public ResponseEntity<?> payReady(@PathVariable("oId") Long oId) {
+    public ResponseEntity<?> payReady(@PathVariable Long oId) {
         log.info("주문 번호 {} 에 대한 결제 준비", oId);
         map = payService.payReady(oId);
         PayReadyResVo payReadyResVo = (PayReadyResVo) map.get("PayReadyResVo");
@@ -38,9 +39,17 @@ public class PayController {
     public void payApproval(HttpServletResponse response, @RequestParam String pg_token) {
         PayReadyResVo payReadyResVo = (PayReadyResVo) map.get("PayReadyResVo");
         log.info("결제 번호 {} 에 대한 결제 승인", payReadyResVo.getTid());
-        System.out.println("Approval: " + payReadyResVo.getTid());
-        System.out.println("pg_token : "+pg_token);
+        log.info("Approval: " + payReadyResVo.getTid());
+        log.info("pg_token : "+pg_token);
         Long oId = ((Order) map.get("Order")).getOId();
         payService.payApproval(payReadyResVo, pg_token, oId);
+    }
+
+    @GetMapping("{oId}/sucess")
+    public ResponseEntity<?> paySucess(@PathVariable Long oId) {
+        log.info("주문 번호 {} 에 대한 결제 완료 정보 요청", oId);
+        PaySucessRes paySucessRes = payService.paySucess(oId);
+        log.info("주문 번호 {} 에 대한 결제 완료 정보 반환", oId);
+        return new ResponseEntity<>(paySucessRes, HttpStatus.OK);
     }
 }
