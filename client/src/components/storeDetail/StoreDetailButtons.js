@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { storeState, isFloMarkClickedState } from "../../recoil/storeDetail";
+import { LmySessionIdState, LmyTypeState } from "../../recoil/flolive";
+
+import { useIsFloMarkApi, useFloMarkAddApi, useFloMarkDeleteApi } from "../../hooks/useStoreApi";
 
 import {
 	ButtonsContainer,
 	FloLiveButtonContainer,
 	FlorMarkWrapper,
 } from "../../styles/storeDetail/StoreDetailButtonsStyle";
-
 import { Primary400Button, Primary50Button } from "../../styles/button/ButtonStyle";
 
 import floMarkGraySrc from "../../assets/floMarkGray.png";
@@ -17,10 +22,18 @@ import { useSetRecoilState } from "recoil";
 import useStroeDetail from "../../hooks/useStroeDetail";
 
 function StoreDetailButtons() {
+	const navigate = useNavigate();
+
+	const [store, setStore] = useRecoilState(storeState);
+	const [isFloMarkClicked, setIsFloMarkClicked] = useRecoilState(isFloMarkClickedState);
+
 	// 플로라이브 입장 테스트 코드
 	const setLmyType = useSetRecoilState(LmyTypeState);
 	const setLmySessionId = useSetRecoilState(LmySessionIdState);
-	const navigate = useNavigate();
+
+	const isFloMarkApi = useIsFloMarkApi();
+	const floMarkAddApi = useFloMarkAddApi();
+	const floMarkDeleteApi = useFloMarkDeleteApi();
 
 	const { enterFloliveAPI } = useStroeDetail();
 
@@ -30,12 +43,22 @@ function StoreDetailButtons() {
 	};
 
 	const handleFloMarkClick = () => {
+		// 클릭 여부로 백에 추가 / 삭제 요청
+		if (isFloMarkClicked && store?.bookmarkCnt > 0) {
+			floMarkDeleteApi(sId);
+		} else if (!isFloMarkClicked) {
+			floMarkAddApi(sId);
+		}
 		setIsFloMarkClicked(!isFloMarkClicked);
 	};
 
 	// 더미 데이터
-	const floMark = 100;
-	const [isFloMarkClicked, setIsFloMarkClicked] = useState(false);
+	const sId = 8;
+
+	useEffect(() => {
+		// 꽃갈피 등록 여부
+		isFloMarkApi(sId);
+	}, []);
 
 	return (
 		<>
@@ -43,10 +66,9 @@ function StoreDetailButtons() {
 			<ButtonsContainer isCustomer={true}>
 				{/* 고객 */}
 				<>
-					{/* 꽃갈피 */}
 					<FlorMarkWrapper onClick={handleFloMarkClick} isFloMarkClicked={isFloMarkClicked}>
 						<img src={isFloMarkClicked ? floMarkPinkSrc : floMarkGraySrc} alt="flomark-icon" />
-						<div>{floMark}</div>
+						<div>{store?.bookmarkCnt}</div>
 					</FlorMarkWrapper>
 					{/* 플로라이브 신청 버튼 */}
 					<FloLiveButtonContainer>
