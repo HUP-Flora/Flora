@@ -34,9 +34,9 @@ public class ProductController {
                                            @RequestPart("productReq") ProductReq productReq
                                            ){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        productService.createProduct(productReq, file, authInfo);
+        Long pId = productService.createProduct(productReq, authInfo);
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(pId, HttpStatus.CREATED);
     }
 
     @PutMapping("/{pId}")

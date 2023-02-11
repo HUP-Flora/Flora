@@ -68,6 +68,7 @@ public class ProductService {
     }
 
     public void updateProduct(ProductReq productReq, Long pId,
+                              String filePath,
                               MultipartFile file,
                               Map<String, String> authInfo) {
 
