@@ -76,21 +76,13 @@ public class StoreService {
         return productResList;
     }
 
-    public StoreMypageRes findStoreMypageInfo(Long sId, Map<String, String> authInfo) {
+    public StoreMypageRes findStoreMypageInfo(Map<String, String> authInfo) {
 
         Long uId = Long.parseLong(authInfo.get("uId"));
 
-        // 로그인한 유저
-        User user = userRepository.findById(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
         // 가게 확인
-        Store store = storeRepository.findById(sId)
+        Store store = storeRepository.findByUId(uId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        // 가게 주인이 네가 맞냐
-        if(!Objects.equals(store.getUId().getUId(), uId))
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
         return StoreMypageRes.builder()
                 .store(store)

@@ -30,7 +30,7 @@ public class JwtProvider {
         this.SECRET_KEY = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createAccessToken(Authentication authentication, String uId) {
+    public String createAccessToken(Authentication authentication, String uId, String role) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + ACCESS_TOKEN_VALIDATE_TIME);
 
@@ -43,9 +43,9 @@ public class JwtProvider {
             email = ((CustomOAuth2User) authentication.getPrincipal()).getEmail();
         }
 
-        String role = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(","));
+//        String role = authentication.getAuthorities().stream()
+//                .map(GrantedAuthority::getAuthority)
+//                .collect(Collectors.joining(","));
 
         log.info("createAccessToken {} ", authentication.getPrincipal() );
 

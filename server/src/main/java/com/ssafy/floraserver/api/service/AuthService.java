@@ -17,11 +17,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -55,10 +57,10 @@ public class AuthService {
             throw new RuntimeException("invalid refresh token");
         }
 
-        return jwtProvider.createAccessToken(authentication, findUser.getUId().toString());
+        return jwtProvider.createAccessToken(authentication, findUser.getUId().toString(), findUser.getRole().toString());
     }
 
-    public void createUserExtraInfo(UserExtraInfoReq userExtraInfoReq, Map<String, String> authInfo){
+    public String createUserExtraInfo(UserExtraInfoReq userExtraInfoReq, Map<String, String> authInfo){
         String email = authInfo.get("email");
         Long uId = Long.parseLong(authInfo.get("uId"));
         // 닉네임, 전화번호 저장 및 Role CUSTOMER로 바꾸기
@@ -73,10 +75,15 @@ public class AuthService {
                 .refreshToken(user.getRefreshToken())
                 .build();
 
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String accessToken = jwtProvider.createAccessToken(authentication, user.getUId().toString(), user.getRole().toString());
+
         userRepository.save(user);
+
+        return accessToken;
     }
 
-    public Store createStoreExtraInfo(StoreExtraInfoReq storeExtraInfoReq,
+    public String createStoreExtraInfo(StoreExtraInfoReq storeExtraInfoReq,
                                       MultipartFile file,
                                       Map<String, String> authInfo) {
 
@@ -133,15 +140,29 @@ public class AuthService {
 
         Store save = storeRepository.save(store);
 
-        return save;
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String accessToken = jwtProvider.createAccessToken(authentication, user.getUId().toString(), user.getRole().toString());
+
+        return accessToken;
     }
 
-    public RoleRes getLoginRole(Map<String, String> authInfo) {
-        Long uId = Long.parseLong(authInfo.get("uId"));
+    public Map<String, String> getLoginInfo(Map<String, String> authInfo) {
+        Map<String, String> map = new HashMap<>();
 
-        User user = userRepository.findById(uId)
+        log.info(String.valueOf(Long.parseLong(authInfo.get("uId"))));
+        User user = userRepository.findById(Long.parseLong(authInfo.get("uId")))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        log.info(user.getRole().getKey());
+        if(authInfo.get("role").equals("ROLE_CUSTOMER")){
+//            map.put("role", user.getRole().getKey());
+            map.put("role", authInfo.get("role"));
+        }else{
+            Long uId = Long.parseLong(authInfo.get("uId"));
 
-        return RoleRes.builder().userType(user.getRole().getKey()).build();
+            Store store = storeRepository.findByUId(uId)
+                            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        return RoleRes.builder().userType(authInfo.get("role")).build();
     }
 }
