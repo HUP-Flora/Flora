@@ -14,7 +14,7 @@ import {
 } from "../../styles/common/modal/ModalStyle";
 import { Primary400Button, Primary50Button } from "../../styles/button/ButtonStyle";
 
-function ModalContainer({ isModalShow, setIsModalShow }) {
+function ModalContainer({ isModalShow, setIsModalShow, pId, sId }) {
 	const navigate = useNavigate();
 
 	const productDeleteApi = useProductDeleteApi();
@@ -25,8 +25,8 @@ function ModalContainer({ isModalShow, setIsModalShow }) {
 
 	const handleClickYes = () => {
 		// (백) requset
-		navigate("/storeDetail");
-		// productDeleteApi(sId, pId);
+		// navigate("/storeDetail");
+		productDeleteApi(sId, pId);
 	};
 
 	return (
