@@ -7,16 +7,21 @@ export function TabMenuBar({ isOwner, selectedMenu }) {
 
 	const tabMenu = ["Main", "FloLive", "FloMark", "MyPage"];
 	const tabMenuName = ["메인", "플로라이브", "꽃갈피", "내 정보"];
-
+	const redirectPageList = ["/", "/reservation/list", "/flomark/list", "/mypage"];
 	if (isOwner) {
 		tabMenu[2] = "MyStore";
 		tabMenuName[2] = "내 가게";
+		redirectPageList[2] = `/store/${"storeId가 있어야함"}/detail`;
 	}
 
 	return (
 		<TabBarDiv>
 			{tabMenu.map((menu, index) => (
-				<TabMenu key={menu} isSelected={menu === selectedMenu} onClick={() => navigate("/")}>
+				<TabMenu
+					key={menu}
+					isSelected={menu === selectedMenu}
+					onClick={() => navigate(redirectPageList[index])}
+				>
 					<TabImgWrapper>
 						<TabImg
 							src={require(`../../assets/tapIcon/${

@@ -61,6 +61,7 @@ export const TabMenu = styled.div`
 `;
 
 export const TabImg = styled.img`
+	cursor: pointer;
 	height: 100%;
 	align-items: center;
 	justify-content: center;
