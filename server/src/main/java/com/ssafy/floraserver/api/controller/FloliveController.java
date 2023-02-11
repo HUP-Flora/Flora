@@ -91,7 +91,7 @@ public class FloliveController {
     }
 
     @PostMapping("/{oId}/receipt") // 수령 정보 작성
-    public ResponseEntity<?> createReceipt(@PathVariable long oId, @RequestBody ReceiptReq receiptReq) {
+    public ResponseEntity<?> createReceipt(@PathVariable Long oId, @RequestBody ReceiptReq receiptReq) {
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         log.info("수령 정보 작성 시도");
         floliveService.createReceipt(oId, receiptReq, authInfo);
