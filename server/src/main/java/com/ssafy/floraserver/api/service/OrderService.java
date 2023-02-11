@@ -67,6 +67,7 @@ public class OrderService {
         Page<UserOrderRes> userOrderResList = orderList
                 .map(o -> UserOrderRes.builder()
                         .order(o)
+                        .status(makeOrderResStatus(o))
                         .build());
 
         return userOrderResList;
@@ -79,6 +80,7 @@ public class OrderService {
 
         OrderRes orderRes = OrderRes.builder()
                 .order(order)
+                .status(makeOrderResStatus(order))
                 .build();
 
         return orderRes;
