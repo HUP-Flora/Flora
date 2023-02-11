@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { storeState, isFloMarkClickedState } from "../../recoil/storeDetail";
 import { LmySessionIdState, LmyTypeState } from "../../recoil/flolive";
+import useStroeDetail from "../../hooks/useStroeDetail";
 
 import { useIsFloMarkApi, useFloMarkAddApi, useFloMarkDeleteApi } from "../../hooks/useStoreApi";
 
@@ -17,9 +18,7 @@ import { Primary400Button, Primary50Button } from "../../styles/button/ButtonSty
 import floMarkGraySrc from "../../assets/floMarkGray.png";
 import floMarkPinkSrc from "../../assets/floMarkPink.png";
 import liveTvSrc from "../../assets/live-tv-white.png";
-import { LmySessionIdState, LmyTypeState } from "../../recoil/flolive";
-import { useSetRecoilState } from "recoil";
-import useStroeDetail from "../../hooks/useStroeDetail";
+
 
 function StoreDetailButtons() {
 	const navigate = useNavigate();
