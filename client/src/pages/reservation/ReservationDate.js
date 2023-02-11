@@ -15,8 +15,11 @@ import Select from "react-select";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
 	RisModalShowState,
+	RorderDayOfWeekState,
 	RorderDayState,
+	RorderHolidayState,
 	RorderMonthState,
+	RorderTimeAvailableState,
 	RorderTimeState,
 	RorderTypeState,
 	RorderYearState,
@@ -25,8 +28,7 @@ import NextButton from "../../components/common/NextButton";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import ReservationWarningModal from "../../components/reservation/ReservationWarningModal";
-
-let placeholder = "시간을 선택해주세요";
+import useReservation from "../../hooks/useReservation";
 
 function ReservationDate() {
 	const [RorderTime, setRorderTime] = useRecoilState(RorderTimeState);
@@ -35,37 +37,55 @@ function ReservationDate() {
 	const RorderMonth = useRecoilValue(RorderMonthState);
 	const RorderDay = useRecoilValue(RorderDayState);
 
+	const RorderTimeAvailable = useRecoilValue(RorderTimeAvailableState);
+	const RorderHoliday = useRecoilValue(RorderHolidayState);
+
+	const RorderDayOfWeek = useRecoilValue(RorderDayOfWeekState);
 	const [RisModalShow, setRisModalShow] = useRecoilState(RisModalShowState);
 
-	// 백엔드 보낼 데이터 로그 확인
+	const { getHolidayAPI, getAvailableTimeAPI } = useReservation();
+
+	// 휴무일 받아오기
 	useEffect(() => {
-		console.log("RorderTime: ", RorderTime);
-		console.log("RorderType: ", RorderType);
-		console.log("RorderYear: ", RorderYear);
-		console.log("RorderMonth: ", RorderMonth + 1);
-		console.log("RorderDay: ", RorderDay);
-		console.log("====================================");
-	}, [RorderTime, RorderType, RorderYear, RorderMonth, RorderDay]);
+		getHolidayAPI();
+	}, []);
+
+	// 예약 가능 시간 받아오기
+	useEffect(() => {
+		// 보낼 날짜 가공
+		const formatRorderMonth = RorderMonth < 10 ? `0${RorderMonth}` : RorderMonth;
+		const formatRoderDay = RorderDay < 10 ? `0${RorderDay}` : RorderDay;
+		const date = RorderYear + "-" + formatRorderMonth + "-" + formatRoderDay;
+
+		getAvailableTimeAPI(date);
+	}, [RorderYear, RorderMonth, RorderDay]);
+
+	let placeholder = "시간을 선택해주세요";
+	const holiday = RorderHoliday.split(",");
+	// 휴무일이면
+	if (holiday.includes(RorderDayOfWeek)) {
+		placeholder = "휴무일 입니다";
+	}
 
 	const options = [
-		{ value: "1", label: "09:00 ~ 09:30" },
-		{ value: "2", label: "09:30 ~ 10:00" },
-		{ value: "3", label: "10:00 ~ 10:30" },
-		{ value: "4", label: "10:30 ~ 11:00" },
-		{ value: "5", label: "11:00 ~ 11:30" },
-		{ value: "6", label: "11:30 ~ 12:00" },
-		{ value: "7", label: "12:00 ~ 12:30" },
-		{ value: "8", label: "12:30 ~ 13:00" },
-		{ value: "9", label: "13:00 ~ 13:30" },
-		{ value: "10", label: "13:30 ~ 14:00" },
-		{ value: "11", label: "14:00 ~ 14:30" },
-		{ value: "12", label: "14:30 ~ 15:00" },
-		{ value: "13", label: "15:00 ~ 15:30" },
-		{ value: "14", label: "15:30 ~ 16:00" },
-		{ value: "15", label: "16:00 ~ 16:30" },
-		{ value: "16", label: "16:30 ~ 17:00" },
-		{ value: "17", label: "17:00 ~ 17:30" },
-		{ value: "18", label: "17:30 ~ 18:00" },
+		{ value: 18, label: "09:00 ~ 09:30" },
+		{ value: 19, label: "09:30 ~ 10:00" },
+		{ value: 20, label: "10:00 ~ 10:30" },
+		{ value: 21, label: "10:30 ~ 11:00" },
+		{ value: 22, label: "11:00 ~ 11:30" },
+		{ value: 23, label: "11:30 ~ 12:00" },
+		{ value: 24, label: "12:00 ~ 12:30" },
+		{ value: 25, label: "12:30 ~ 13:00" },
+		{ value: 26, label: "13:00 ~ 13:30" },
+		{ value: 27, label: "13:30 ~ 14:00" },
+		{ value: 28, label: "14:00 ~ 14:30" },
+		{ value: 29, label: "14:30 ~ 15:00" },
+		{ value: 30, label: "15:00 ~ 15:30" },
+		{ value: 31, label: "15:30 ~ 16:00" },
+		{ value: 32, label: "16:00 ~ 16:30" },
+		{ value: 33, label: "16:30 ~ 17:00" },
+		{ value: 34, label: "17:00 ~ 17:30" },
+		{ value: 35, label: "17:30 ~ 18:00" },
 	];
 
 	const disabledOptions = ["3", "4"];

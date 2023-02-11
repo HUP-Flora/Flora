@@ -1,13 +1,15 @@
+import { useParams } from "react-router";
 import StatusBar from "../../components/common/StatusBar";
 import { StoreForm } from "../../components/form/StoreForm";
 import { WhiteLayout } from "../../styles/common/CommonStyle";
 
-export function SignupOwnerStore() {
+export function StoreEdit() {
+	const { storeId } = useParams();
 	return (
 		<>
-			<StatusBar text="꽃집 등록" />
+			<StatusBar text="꽃집 정보 수정" />
 			<WhiteLayout>
-				<StoreForm nextURL={"/"} />
+				<StoreForm nextURL={`/store/${storeId}/detail`} type="edit" />
 			</WhiteLayout>
 		</>
 	);

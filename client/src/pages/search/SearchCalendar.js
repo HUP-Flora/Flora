@@ -78,7 +78,7 @@ function SearchCalendar() {
 
 		const generateCalendar = (month, year) => {
 			setRorderYear(year);
-			setRorderMonth(month);
+			setRorderMonth(month + 1);
 
 			let calendar_days = calendar.querySelector(".calendar-days");
 			let calendar_header_year = calendar.querySelector("#year");
@@ -163,6 +163,7 @@ function SearchCalendar() {
 
 	const ClickDayHandler = e => {
 		setRorderDay(e.target.innerText);
+		setDate(`${RorderYear}년 ${RorderMonth}월 ${RorderDay}일 ${RorderDayOfWeek}요일`);
 		getDayOfWeek(RorderYear, RorderMonth + 1, e.target.innerText);
 		if (e.target.classList.contains("calendar-day-hover")) {
 			if (currDateDiv) {

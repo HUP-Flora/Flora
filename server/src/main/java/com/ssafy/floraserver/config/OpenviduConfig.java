@@ -15,7 +15,6 @@ public class OpenviduConfig {
                           @Value("${openvidu.https.secret}") String secret) {
         this.OPENVIDU_URL = url;
         this.OPENVIDU_SECRET = secret;
-
     }
 
     @Bean

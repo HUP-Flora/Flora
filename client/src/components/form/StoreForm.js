@@ -21,7 +21,7 @@ import {
 	InputLabel,
 	SearchAddressContainerButton,
 } from "../../styles/chatting/Messages/Message/forms/OtherFormStyle";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
 	isFocusedInputState,
@@ -43,7 +43,7 @@ import { isDaumPostShowState } from "../../recoil/chatting";
 import { StoreFormApi, useStoreFormApi } from "../../hooks/useStoreFormApi";
 import { locationState } from "../../recoil/map";
 
-export function StoreForm({ nextURL }) {
+export function StoreForm({ nextURL, type }) {
 	const [storePhoneNumber, setStorePhoneNumber] = useRecoilState(phoneNumberState);
 	const [storeName, setStoreName] = useRecoilState(storeNameState);
 	const [storeDescription, setStoreDescription] = useRecoilState(storeDescriptionState);
@@ -65,13 +65,28 @@ export function StoreForm({ nextURL }) {
 	const inputRef = useRef([]);
 
 	const storeRegionDepthName = useRecoilValue(storeRegionDepthNameState);
-
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (type === "edit") {
+			// 가게 상세 api 요청
+		}
+	}, [type]);
+
+	useEffect(() => {
+		if (storeFirstAddress) {
+			storeAddressValidate(storeFirstAddress);
+		}
+	}, [storeFirstAddress]);
 
 	const handleStoreForm = e => {
 		e.preventDefault();
 
-		if (storeNameValidate(storeName) && phoneNumberValidate(storePhoneNumber)) {
+		if (
+			storeNameValidate(storeName) &&
+			phoneNumberValidate(storePhoneNumber) &&
+			storeAddressValidate(storeFirstAddress)
+		) {
 			const storeHolidays = ["월", "화", "수", "목", "금", "토", "일"]
 				.filter((_, index) => storeHoliday[index])
 				.join();
@@ -95,7 +110,7 @@ export function StoreForm({ nextURL }) {
 			console.log(data);
 
 			const formData = new FormData();
-			// formData.append("file", storeImageFile);
+			formData.append("file", storeImageFile);
 			formData.append(
 				"storeExtraInfoReq",
 				new Blob([JSON.stringify(data)], { type: "application/json" })
@@ -140,6 +155,17 @@ export function StoreForm({ nextURL }) {
 		},
 		[setStoreName]
 	);
+
+	const storeAddressValidate = address => {
+		console.log(address);
+		if (!address.trim()) {
+			setStoreAddressErrorMessage("배송지를 설정해주세요.");
+			return false;
+		} else {
+			setStoreAddressErrorMessage("");
+			return true;
+		}
+	};
 
 	const storeNameValidate = storeName => {
 		if (!storeName.trim()) {
@@ -208,18 +234,10 @@ export function StoreForm({ nextURL }) {
 						storeNameHandler(e.target);
 					}}
 					onBlur={e => {
-						setIsFocusedInput(false);
 						storeNameValidate(e.target.value);
 					}}
 					value={storeName}
 					HasError={storeNameErrorMessage}
-					onClick={() => {
-						setIsFocusedInput(true);
-						setTimeout(() => {
-							inputRef.current[0].scrollIntoView({ behavior: "smooth", block: "end" });
-						}, 200);
-					}}
-					ref={el => (inputRef.current[0] = el)}
 				/>
 				<InputCounterContainer>
 					{storeNameErrorMessage && <ErrorMessage>{storeNameErrorMessage}</ErrorMessage>}
@@ -237,19 +255,11 @@ export function StoreForm({ nextURL }) {
 					onChange={e => {
 						phoneNumberHandler(e.target);
 					}}
-					// onFocus={e => VsendUserPhoneChangeFalseIsTouched(e)}
 					onBlur={e => {
-						setIsFocusedInput(false);
 						phoneNumberValidate(e.target.value);
 					}}
 					value={storePhoneNumber}
 					HasError={storePhoneNumberErrorMessage}
-					onClick={() => {
-						setIsFocusedInput(true);
-						setTimeout(() => {
-							inputRef.current[1].scrollIntoView({ block: "end" });
-						}, 200);
-					}}
 					ref={el => (inputRef.current[1] = el)}
 					isFocused={isFocusedInput}
 				/>
@@ -264,32 +274,20 @@ export function StoreForm({ nextURL }) {
 					<SignupFirstAddressInput
 						type="text"
 						id="storeAddress"
-						placeholder="&nbsp;&nbsp;내용을 입력해주세요."
+						placeholder="&nbsp;&nbsp;주소를 입력해주세요."
 						disabled
 						value={formatFirstAddress(storeFirstAddress)}
 						HasError={storeAddressErrorMessage}
-						onClick={() => {
-							setTimeout(() => {
-								inputRef.current[2].scrollIntoView({ block: "end" });
-							}, 200);
-						}}
-						ref={el => (inputRef.current[2] = el)}
 						isFocused={isFocusedInput}
 						// onClick={e => daumPostHandler(e)}
 					/>
 				</SignupAddressContainerButton>
-				{storeAddressErrorMessage && <ErrorMessage>배송지를 입력해주세요.</ErrorMessage>}
+				{storeAddressErrorMessage && <ErrorMessage>{storeAddressErrorMessage}</ErrorMessage>}
 				<SignupSecondAddressInput
 					type="text"
 					placeholder="&nbsp;&nbsp;상세 주소"
 					onChange={e => setStoreSecondAddress(e.target.value)}
 					value={storeSecondAddress}
-					onClick={() => {
-						setTimeout(() => {
-							inputRef.current[3].scrollIntoView({ block: "end" });
-						}, 200);
-					}}
-					ref={el => (inputRef.current[3] = el)}
 				/>
 				<SignupLabelDiv>
 					<InputLabel htmlFor="storeDescription">설명글 입력</InputLabel>
@@ -299,13 +297,6 @@ export function StoreForm({ nextURL }) {
 					placeholder="내용을 입력해주세요."
 					onChange={e => setStoreDescription(e.target.value)}
 					value={storeDescription}
-					onClick={() => {
-						console.log(inputRef.current[4]);
-						setTimeout(() => {
-							inputRef.current[4].scrollIntoView({ block: "end" });
-						}, 200);
-					}}
-					ref={el => (inputRef.current[4] = el)}
 				/>
 				<InputCounterContainer>
 					<InputCounter>{storeDescription.length}/500자</InputCounter>

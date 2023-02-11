@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
 
-import axios from "axios";
+import { useInfoApi, useNicknameEditApi, usePhoneNumberEditApi } from "../../hooks/useMypageApi";
+
+import { useRecoilState } from "recoil";
+import {
+	userState,
+	isNicknameValidState,
+	isPhoneNumberValidState,
+	isNicknameEditState,
+	isPhoneNumberEditState,
+} from "../../recoil/mypage";
 
 import {
 	HeaderConianer,
@@ -21,63 +30,43 @@ import EditIcon from "../../assets/myPage/EditIcon.png";
 import StoreImage from "../../assets/store.png";
 
 function MyPageHeader(props) {
-	// 더미 데이터
-	// const uId = 11111;
-
-	// edit 여부로 편집창 open / close
-	const [isNameEdit, setIsNameEdit] = useState(false);
-	const [isPhoneNumberEdit, setIsPhoneNumberEdit] = useState(false);
-
-	const [user, setUser] = useState({});
-
-	useEffect(() => {
-		// 고객
-		// const response = axios.get(`/api/users/${uId}`);
-		const response = {
-			nickname: "홍길동",
-			phoneNumber: "01034032342",
-		};
-
-		// setNickname(response.nickname);
-		// setPhoneNumber(response.phoneNumber);
-
-		// 가게
-		// const response = axios.get(`/api/stores/{sId}`);
-		// const response = {
-		// 	sId: 11111,
-		// 	name: "lorem Ipsum",
-		// 	sImg: { StoreImage },
-		// };
-
-		// setUser(response.data);
-		setUser(response);
-	}, []);
-
+	// 더미 데이터 시작 -------------
 	// const type = "owner";
 	const type = "customer";
-
 	// 더미 데이터 끝 -----
 
+	const [user, setUser] = useRecoilState(userState);
+
+	// edit 여부로 편집창 open / close
+	const [isNameEdit, setIsNicknameEdit] = useRecoilState(isNicknameEditState);
+	const [isPhoneNumberEdit, setIsPhoneNumberEdit] = useRecoilState(isPhoneNumberEditState);
+
 	// 유효성 검사
-	const [isNameValid, setIsNameValid] = useState(true);
-	const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(true);
+	const [isNameValid, setIsNicknameValid] = useRecoilState(isNicknameValidState);
+	const [isPhoneNumberValid, setIsPhoneNumberValid] = useRecoilState(isPhoneNumberValidState);
+
+	const infoApi = useInfoApi();
+	const nicknameEditApi = useNicknameEditApi();
+	const phoneNumberEditApi = usePhoneNumberEditApi();
+
+	useEffect(() => {
+		infoApi();
+	}, []);
 
 	const handleClickNameEdit = () => {
-		setIsNameEdit(true);
+		setIsNicknameEdit(true);
 	};
 
 	const handleClickNameEditCheck = () => {
-		// (백) 연동
 		if (user?.nickname === "") {
-			setIsNameValid(false);
+			setIsNicknameValid(false);
 		} else {
-			setIsNameValid(true);
-			setIsNameEdit(false);
+			nicknameEditApi(user.nickname);
 		}
 	};
 
 	const handleClickNameEditCancel = () => {
-		setIsNameEdit(false);
+		setIsNicknameEdit(false);
 	};
 
 	const handleChangeName = e => {
@@ -94,21 +83,7 @@ function MyPageHeader(props) {
 		if (user.phoneNumber === "") {
 			setIsPhoneNumberValid(false);
 		} else {
-			setIsPhoneNumberValid(true);
-			setIsPhoneNumberEdit(false);
-
-			// axios
-			// 	.put(`/users`, {
-			// 		nickname: user.nickname,
-			// 		phoneNumber: user.phoneNumber,
-			// 	})
-			// 	.then(res => {
-			// 		setIsPhoneNumberValid(true);
-			// 		setIsPhoneNumberEdit(false);
-			// 	})
-			// 	.catch(err => {
-			// 		// 예외 처리
-			// 	});
+			phoneNumberEditApi(user.phoneNumber);
 		}
 	};
 
@@ -133,7 +108,7 @@ function MyPageHeader(props) {
 								<div>
 									<BottomBorderInput onChange={handleChangeName} value={user?.nickname} />
 									<TextLimit>
-										<GrayText size="11">{user.nickname.length} / 25자</GrayText>
+										<GrayText size="11">{user?.nickname?.length} / 25자</GrayText>
 									</TextLimit>
 								</div>
 								<div>
@@ -163,7 +138,7 @@ function MyPageHeader(props) {
 								<BottomBorderInput
 									onChange={handleChangePhoneNumber}
 									value={user?.phoneNumber
-										.replace(/-/g, "")
+										?.replace(/-/g, "")
 										.replace(/[^0-9]/g, "")
 										.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
 										.replace(/\-{1,2}$/g, "")}

@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { SetRecoilState, useRecoilState } from "recoil";
+import { nameState, productState } from "../../recoil/productForms";
+
+import { useProductAddApi, useProductEditApi } from "../../hooks/useProductApi";
+
 import { BottomDoubleButtonContainer } from "../../styles/common/CommonStyle";
 import { Primary400Button, Primary50Button } from "../../styles/button/ButtonStyle";
 
 function ProductAddBottomButtons({
 	type,
-	name,
-	price,
-	description,
+	// name,
+	// price,
+	// description,
 	setNameValidMessage,
 	setPriceValidMessage,
 	setDescriptionValidMessage,
 }) {
 	const navigate = useNavigate();
 
+	const [product, setProduct] = useRecoilState(productState);
+
+	const productAddApi = useProductAddApi();
+	const productEditApi = useProductEditApi();
+
 	const isNameValid = () => {
-		if (name === "") {
+		if (product?.name === "") {
 			setNameValidMessage("상품명을 입력해주세요.");
 			return false;
 		} else {
@@ -27,10 +37,10 @@ function ProductAddBottomButtons({
 
 	const isPriceValid = () => {
 		// 숫자만 입력 가능
-		if (price === "") {
+		if (product?.price === "") {
 			setPriceValidMessage("가격을 입력해주세요.");
 			return false;
-		} else if (isNaN(price.replace(/,/g, ""))) {
+		} else if (isNaN(product?.price.replace(/,/g, ""))) {
 			setPriceValidMessage("숫자만 입력해주세요.");
 			return false;
 		} else {
@@ -40,7 +50,7 @@ function ProductAddBottomButtons({
 	};
 
 	const isDescriptionValid = () => {
-		if (description === "") {
+		if (product?.description === "") {
 			setDescriptionValidMessage("상세 설명을 입력해주세요.");
 			return false;
 		} else {
@@ -59,11 +69,11 @@ function ProductAddBottomButtons({
 			// (백) request
 			if (type === "add") {
 				console.log("상품 등록");
+				productAddApi(product?.name, product?.price.replace(",", ""), product?.description);
 			} else if (type === "edit") {
 				console.log("상품 수정");
+				// productEditApi(pId, product?.name, product?.price.replace(",", ""), product?.description);
 			}
-
-			navigate("/productDetail");
 		}
 	};
 

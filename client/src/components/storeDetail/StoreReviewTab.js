@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
 
+import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
+import { storeState, reviewsState } from "../../recoil/storeDetail";
+
+import { useReviewsApi } from "../../hooks/useStoreApi";
+
+import StoreTabEmpty from "./StoreTabEmpty";
+
 import {
 	ReviewsContainer,
 	ReviewContainer,
@@ -11,40 +18,21 @@ import {
 import { BoldText, GrayText, GrayHr } from "../../styles/common/CommonStyle";
 
 import productImgSrc from "../../assets/store.png";
-import StoreTabEmpty from "./StoreTabEmpty";
-import axios from "axios";
 
 function StoreReview(props) {
-	const [reviews, setReviews] = useState([]);
+	const store = useRecoilValue(storeState);
+	const [reviews, setReviews] = useRecoilState(reviewsState);
+
+	const reviewsApi = useReviewsApi();
+
+	// 더미 데이터
+	const sId = 8;
 
 	useEffect(() => {
-		// const response = axios.get("reviews/stores/{sId}?page=&size=");
-		const response = [
-			{
-				revId: 111111111,
-				name: "닉네임",
-				content: "lorem Ipsum lorem ipsum dolor sit amet",
-				createDate: "23.01.19",
-				img: { productImgSrc },
-			},
-			{
-				revId: 111111111,
-				name: "닉네임",
-				content: "lorem Ipsum lorem ipsum dolor sit amet",
-				createDate: "23.01.19",
-				img: { productImgSrc },
-			},
-			{
-				revId: 111111111,
-				name: "닉네임",
-				content: "lorem Ipsum lorem ipsum dolor sit amet",
-				createDate: "23.01.19",
-				img: { productImgSrc },
-			},
-		];
-
-		// setReviews(response.data);
-		setReviews(response);
+		// 리뷰가 있을 때만 get 요청
+		if (store?.reviewCnt > 0) {
+			reviewsApi(sId);
+		}
 	}, []);
 
 	return (
@@ -62,13 +50,13 @@ function StoreReview(props) {
 										{review?.createDate}
 									</GrayText>
 									<GrayText size="13" weight="bold" right="4">
-										{/* {review.time} */}
+										{/* {review?.time} */}
 									</GrayText>
 								</HeaderContainer>
 								<div>{review?.content}</div>
 							</LeftContainer>
 							<ImageWrapper>
-								<img src={review.img.productImgSrc} alt="product-img" />
+								<img src={review?.rImg} alt="product-img" />
 							</ImageWrapper>
 						</ReviewContainer>
 						<GrayHrWrapper>
