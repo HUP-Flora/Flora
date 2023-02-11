@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 
-import { ButtonToolBar } from "../../styles/bar/BarStyle";
 import { BoldText } from "../../styles/common/CommonStyle";
 import { GrayText, ButtonImage } from "../../styles/reservation/ReservationStyle.js";
 import { Primary400LargeButton, WhiteLargeButton } from "../../styles/button/ButtonStyle";
@@ -11,7 +10,6 @@ import {
 	SignupContentSection,
 	SignupButtonSection,
 } from "../../styles/common/SectionStyle";
-import { SignupPaddingX16Frame } from "../../styles/common/FrameStyle";
 
 import UserIcon from "../../assets/signup/UserIcon.png";
 import OwnerIcon from "../../assets/signup/OwnerIcon.png";
