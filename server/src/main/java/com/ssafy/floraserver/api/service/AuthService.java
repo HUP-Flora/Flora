@@ -163,6 +163,10 @@ public class AuthService {
             Store store = storeRepository.findByUId(uId)
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        return RoleRes.builder().userType(authInfo.get("role")).build();
+            map.put("role", authInfo.get("role"));
+//            map.put("role", user.getRole().getKey());
+            map.put("sId", store.getSId().toString());
+        }
+        return map;
     }
 }
