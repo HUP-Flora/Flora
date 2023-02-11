@@ -75,8 +75,8 @@ function AppRouter() {
 				<Route path="/signup/owner/store" element={<SignupOwnerStore />} />
 
 				{/* 가게 상세 페이지 */}
+				<Route path="/store/:storeId/detail" element={<StoreDetail />} />
 				<Route path="/store/detail" element={<StoreDetail />} />
-				{/* <Route path="/store/:store-id/detail" element={<StoreDetail />} /> */}
 
 				{/* 가게 정보 수정 페이지 */}
 				<Route path="/store/:storeId/edit" element={<StoreEdit />} />

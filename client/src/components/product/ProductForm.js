@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+import { SetRecoilState, useRecoilState } from "recoil";
+import { nameState, productState } from "../../recoil/productForms";
+
 import TextareaAutosize from "react-textarea-autosize";
 
 import { UploadPicture } from "../store/UploadPicture";
@@ -17,35 +20,48 @@ import { GrayText, ValidText } from "../../styles/common/CommonStyle";
 import { priceComma } from "../../hooks/priceComma";
 
 function ProductForm({
-	name,
-	setName,
-	price,
-	setPrice,
-	description,
-	setDescription,
+	// name,
+	// setName,
+	// price,
+	// setPrice,
+	// description,
+	// setDescription,
 	nameValidMessage,
 	priceValidMessage,
 	descriptionValidMessage,
 }) {
+	const [product, setProduct] = useRecoilState(productState);
+
 	const [nameCount, setNameCount] = useState(0);
 	const [descriptionCount, setDescriptionCount] = useState(0);
 
 	const handleChangeNameValue = e => {
-		setName(e.target.value);
+		// setName(e.target.value);
+		setProduct({ ...product, name: e.target.value });
 		setNameCount(e.target.value.length);
 	};
 
 	const handleChangePriceValue = e => {
 		// 천 단위로 콤마(,)
-		setPrice(
-			priceComma(e.target.value)
+		// setPrice(
+		// 	priceComma(e.target.value)
+		// 		.toString()
+		// 		.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+		// );
+		setProduct({
+			...product,
+			price: priceComma(e.target.value)
 				.toString()
-				.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-		);
+				.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+		});
 	};
 
 	const handleChangeDescriptionValue = e => {
-		setDescription(e.target.value);
+		// setDescription(e.target.value);
+		setProduct({
+			...product,
+			description: e.target.value,
+		});
 		setDescriptionCount(e.target.value.length);
 	};
 
@@ -61,7 +77,7 @@ function ProductForm({
 						placeholder="상품명을 입력해주세요."
 						maxLength={50}
 						onChange={handleChangeNameValue}
-						value={name}
+						value={product?.name}
 					/>
 					{nameValidMessage && (
 						<ValidTextWrapper>
@@ -78,7 +94,7 @@ function ProductForm({
 							type="text"
 							placeholder="가격을 입력해주세요."
 							onChange={handleChangePriceValue}
-							value={price}
+							value={product?.price}
 						/>
 						<p>원</p>
 					</div>
@@ -90,7 +106,7 @@ function ProductForm({
 						placeholder="상품 상세 설명을 입력해주세요."
 						maxLength={500}
 						onChange={handleChangeDescriptionValue}
-						value={description}
+						value={product?.description}
 					/>
 					<TextLimit>
 						<GrayText size="11">{descriptionCount} / 500자</GrayText>
