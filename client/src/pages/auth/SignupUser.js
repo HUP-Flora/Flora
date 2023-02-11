@@ -9,7 +9,7 @@ import {
 } from "../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import { useRecoilState } from "recoil";
 import { nicknameState, phoneNumberState } from "../../recoil/signup";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { SignupLabelDiv, SignupTextInput } from "../../styles/chatting/input/InputStyle";
 import { useUserFormApi } from "../../hooks/useUserFormApi";
 import { SignupPaddingX16Container } from "../../styles/container/ContainerStyle";
@@ -19,6 +19,7 @@ import {
 	SignupContentSection,
 	SignupTitleSection,
 } from "../../styles/common/SectionStyle";
+import { useNavigate } from "react-router-dom";
 
 export function SignupUser() {
 	const [nickname, setNickname] = useRecoilState(nicknameState);
@@ -27,6 +28,7 @@ export function SignupUser() {
 	const [phoneNumberErrorMessage, setPhoneNumberErrorMessage] = useState("");
 
 	const userFormApi = useUserFormApi();
+	const navigate = useNavigate();
 
 	const handleSignup = () => {
 		if (nicknameValidate(nickname) && phoneNumberValidate(phoneNumber)) {
@@ -37,6 +39,7 @@ export function SignupUser() {
 
 			// 서버로 보내고 이전에 가려했던 페이지로 이동
 			userFormApi(data);
+			navigate("/");
 		}
 	};
 

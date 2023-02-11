@@ -22,10 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -49,7 +46,9 @@ public class ReviewService {
         return storeReviewResList;
     }
 
-    public Page<UserReviewRes> findReviewListByUser(Long uId, Pageable pageable) {
+    public Page<UserReviewRes> findReviewListByUser(Pageable pageable, Map<String, String> authInfo) {
+        Long uId = Long.parseLong(authInfo.get("uId"));
+
         Page<Review> reviewList = reviewRepository.findAllByUId(uId, pageable);
 
         Page<UserReviewRes> reviewResList = reviewList

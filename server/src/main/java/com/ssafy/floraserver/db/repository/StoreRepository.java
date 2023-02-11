@@ -18,9 +18,9 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     Page<RegionRes> findAllDtoByWord(@Param("word") String word, Pageable pageable);
 
     @Query(value = "select distinct s from Store s " +
-            "where s.region_1depth_name = :region_1depth_name and s.region_2depth_name = :region_2depth_name and s.region_3depth_name = :region_3depth_name " +
+            "where s.holiday not like %:day1% and s.region_1depth_name = :region_1depth_name and s.region_2depth_name = :region_2depth_name and s.region_3depth_name = :region_3depth_name " +
             "order by field(s.isOnair, 'ON', 'INPROGRESS', 'OFF') ")
-    Page<Store> findAllByRegionDepthName(@Param("region_1depth_name") String region_1depth_name, @Param("region_2depth_name") String region_2depth_name, @Param("region_3depth_name") String region_3depth_name, Pageable pageable);
+    Page<Store> findAllByRegionDepthName(@Param("day1") String day1, @Param("region_1depth_name") String region_1depth_name, @Param("region_2depth_name") String region_2depth_name, @Param("region_3depth_name") String region_3depth_name, Pageable pageable);
 
     @Query("select distinct s from Store s join fetch s.start join fetch s.end where s.sId = :sId")
     Optional<Store> findById(@Param("sId") Long sId);

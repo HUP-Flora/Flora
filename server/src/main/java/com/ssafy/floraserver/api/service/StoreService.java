@@ -45,13 +45,13 @@ public class StoreService {
         return regionList;
     }
 
-    public Page<StoreListRes> findStoreList(String address, Pageable pageable) {
+    public Page<StoreListRes> findStoreList(String address, String day, Pageable pageable) {
         String[] splitAddress = address.split(" ");
         log.info(Arrays.toString(splitAddress));
 
         pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),  Sort.by("bookmarkCnt").descending());
 
-        Page<Store> storeList = storeRepository.findAllByRegionDepthName(splitAddress[0], splitAddress[1], splitAddress[2], pageable);
+        Page<Store> storeList = storeRepository.findAllByRegionDepthName(day, splitAddress[0], splitAddress[1], splitAddress[2], pageable);
 
         Page<StoreListRes> storeResList = storeList
                 .map(s -> StoreListRes.builder().store(s).build());
@@ -97,7 +97,7 @@ public class StoreService {
                 .build();
     }
 
-    public void updateStoreInfo(Long sId, StoreInfoReq storeInfoReq,
+    public void updateStoreInfo(StoreInfoReq storeInfoReq,
                                 MultipartFile file,
                                 Map<String, String> authInfo) {
 
@@ -108,12 +108,8 @@ public class StoreService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         // 가게 확인
-        Store store = storeRepository.findById(sId)
+        Store store = storeRepository.findByUId(uId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        // 가게 주인이 네가 맞냐
-        if(!Objects.equals(store.getUId().getUId(), uId))
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
         TimeUnit start = timeUnitRepository.findById(storeInfoReq.getStart())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -127,7 +123,7 @@ public class StoreService {
         }
 
         storeRepository.save(Store.builder()
-                .sId(sId)
+                .sId(store.getSId())
                 .uId(user)
                 .businessLicense(store.getBusinessLicense())
                 .name(storeInfoReq.getName())
@@ -147,23 +143,14 @@ public class StoreService {
                 .imgPath(file.isEmpty() ? null : fileVO.getImgPath())
                 .imgUploadTime(file.isEmpty() ? null : fileVO.getImgUploadTime())
                 .build());
-
     }
 
-    public void toggleOnair(Long sId, Map<String, String> authInfo) {
+    public void toggleOnair( Map<String, String> authInfo) {
         Long uId = Long.parseLong(authInfo.get("uId"));
 
-        // 로그인한 유저
-        User user = userRepository.findById(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
         // 가게 확인
-        Store store = storeRepository.findById(sId)
+        Store store = storeRepository.findByUId(uId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        if(store.getUId() != user){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
 
         // IsOnairType ON, OFF
         store.updateIsOnair(store.getIsOnair() == OnAirType.ON ? OnAirType.OFF : OnAirType.ON);

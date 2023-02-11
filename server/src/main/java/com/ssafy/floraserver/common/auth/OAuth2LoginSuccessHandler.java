@@ -1,8 +1,10 @@
 package com.ssafy.floraserver.common.auth;
 
 import com.ssafy.floraserver.common.jwt.JwtProvider;
+import com.ssafy.floraserver.common.util.SecurityUtil;
 import com.ssafy.floraserver.db.entity.User;
 import com.ssafy.floraserver.db.entity.enums.Role;
+import javax.servlet.http.Cookie;
 import com.ssafy.floraserver.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Optional;
 
 @Slf4j
@@ -23,7 +26,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-//    private final TokenProvider tokenProvider;
     private final JwtProvider jwtProvider;
     private final UserRepository userRepository;
 
@@ -36,19 +38,26 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         try {
             CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
 
+            Optional<String> redirectUri = SecurityUtil.getCookie(request, "redirect-uri")
+                    .map(Cookie::getValue);
+
+            if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
+                throw new IllegalArgumentException(("Authentication Failed: Unauthorized Redirect URI"));
+            }
+
             log.info(authentication.getAuthorities().toString()); // [ROLE_GUEST]
             log.info(((CustomOAuth2User) authentication.getPrincipal()).getUId().toString()); // 7
             String uId = ((CustomOAuth2User) authentication.getPrincipal()).getUId().toString();
             log.info(String.valueOf(oAuth2User));
             log.info(oAuth2User.getEmail());
-//            log.info(String.valueOf(oAuth2User));
-//            log.info(authentication.getName());
+
             String accessToken = jwtProvider.createAccessToken(authentication, uId);
             String refreshToken = jwtProvider.createRefreshToken(authentication);
 
             log.info("accessToken : {}", accessToken);
             log.info("refreshToken : {}", refreshToken);
             log.info("OAuth2LoginSuccessHandler");
+
             saveOrUpdateUser(refreshToken, oAuth2User);
 
             ResponseCookie cookie = ResponseCookie.from("refresh", refreshToken)
@@ -72,13 +81,15 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                 targetUrl = UriComponentsBuilder.fromUriString("http://localhost:3000/signup")
                         .queryParam("token", accessToken)
                         .build().toUriString();
-
-                getRedirectStrategy().sendRedirect(request, response, targetUrl);
-//                response.sendRedirect("http://localhost:8080/guest");//프론트엔드의 회원가입 주소로 reDirect
-
             }else {
                 log.info("CUSTOMER OR STORE");
+                targetUrl = UriComponentsBuilder.fromUriString(redirectUri.orElse("http://localhost:3030"))
+                        .queryParam("token", accessToken)
+                        .build().toUriString();
             }
+
+            getRedirectStrategy().sendRedirect(request, response, targetUrl);
+
         }catch (Exception e){
             throw e;
         }
@@ -104,5 +115,14 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         }
 
         userRepository.save(user);
+    }
+
+    private boolean isAuthorizedRedirectUri(String uri) {
+
+        URI clientRedirectUri = URI.create(uri);
+        if(clientRedirectUri.getHost().equals("http://localhost:8080")){
+            return true;
+        }
+        return false;
     }
 }

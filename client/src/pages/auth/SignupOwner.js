@@ -1,16 +1,15 @@
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import StatusBar from "../../components/common/StatusBar";
 import { storeBrnState } from "../../recoil/signup";
-import { ButtonToolBar, SignupStatusBar } from "../../styles/bar/BarStyle";
+import { SignupStatusBar } from "../../styles/bar/BarStyle";
 import { Primary400LargeButton } from "../../styles/button/ButtonStyle";
 import { SignupLabelDiv, SignupTextInput } from "../../styles/chatting/input/InputStyle";
 import {
 	ErrorMessage,
 	InputLabel,
 } from "../../styles/chatting/Messages/Message/forms/OtherFormStyle";
-import { BoldText, WhiteLayout } from "../../styles/common/CommonStyle";
+import { BoldText } from "../../styles/common/CommonStyle";
 import { SignupBodyFrame } from "../../styles/common/FrameStyle";
 import {
 	SignupButtonSection,
