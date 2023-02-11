@@ -1,7 +1,7 @@
 package com.ssafy.floraserver.api.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.floraserver.api.response.PaySucessRes;
+import com.ssafy.floraserver.api.response.PaySuccessRes;
 import com.ssafy.floraserver.api.vo.PayReadyResVo;
 import com.ssafy.floraserver.db.entity.Order;
 import com.ssafy.floraserver.db.entity.enums.PaymentStatus;
@@ -154,11 +154,11 @@ public class PayService {
         return res;
     }
 
-    public PaySucessRes paySuccess(Long oId) {
+    public PaySuccessRes paySuccess(Long oId) {
         Order order = orderRepository.findByOId(oId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        PaySucessRes paySucessRes = new PaySucessRes(order);
+        PaySuccessRes paySucessRes = new PaySuccessRes(order);
         return paySucessRes;
     }
 

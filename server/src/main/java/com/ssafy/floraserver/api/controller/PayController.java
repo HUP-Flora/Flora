@@ -1,6 +1,6 @@
 package com.ssafy.floraserver.api.controller;
 
-import com.ssafy.floraserver.api.response.PaySucessRes;
+import com.ssafy.floraserver.api.response.PaySuccessRes;
 import com.ssafy.floraserver.api.service.PayService;
 import com.ssafy.floraserver.api.vo.PayReadyResVo;
 import com.ssafy.floraserver.db.entity.Order;
@@ -44,7 +44,7 @@ public class PayController {
     @GetMapping("{oId}/success")
     public ResponseEntity<?> paySuccess(@PathVariable Long oId) {
         log.info("주문 번호 {} 에 대한 결제 완료 정보 요청", oId);
-        PaySucessRes paySucessRes = payService.paySuccess(oId);
+        PaySuccessRes paySucessRes = payService.paySuccess(oId);
         log.info("주문 번호 {} 에 대한 결제 완료 정보 반환", oId);
         return new ResponseEntity<>(paySucessRes, HttpStatus.OK);
     }
