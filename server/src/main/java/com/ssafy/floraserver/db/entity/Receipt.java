@@ -1,5 +1,6 @@
 package com.ssafy.floraserver.db.entity;
 
+import com.ssafy.floraserver.db.entity.enums.OrderStatus;
 import com.ssafy.floraserver.db.entity.enums.ReceiptStatus;
 import com.ssafy.floraserver.db.entity.enums.ReceiptType;
 import lombok.AccessLevel;
@@ -61,4 +62,12 @@ public class Receipt extends BaseEntity{
         this.deliveryDestination = deliveryDestination;
         this.status = status;
     }
+
+    public void updateStatus(ReceiptStatus status) {
+        this.status = status;
+    }
+    public void updatereceiptDate(LocalDate receiptDate) {
+        this.receiptDate = receiptDate;
+    }
+
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class PaySucessRes {
+public class PaySuccessRes {
 
     private String sName;
     private String addressName;
@@ -19,7 +19,7 @@ public class PaySucessRes {
     private ReceiptType recType;
     private String recDeliveryDestination;
 
-    public PaySucessRes(Order order) {
+    public PaySuccessRes(Order order) {
         this.sName = order.getSId().getName();
         this.phoneNumber = order.getSId().getPhoneNumber();
         this.addressName = order.getSId().getAddress_name();

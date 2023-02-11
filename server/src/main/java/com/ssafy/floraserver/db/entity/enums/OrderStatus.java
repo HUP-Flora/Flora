@@ -2,5 +2,5 @@ package com.ssafy.floraserver.db.entity.enums;
 
 public enum OrderStatus {
 
-    WAITING, ACCEPT, REFUSE, INPROGRESS, COMPLETED
+    WAITING, ACCEPT, REFUSE, COMPLETED
 }

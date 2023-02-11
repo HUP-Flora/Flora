@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 @Service
@@ -118,8 +119,11 @@ public class OrderService {
 
         OrderStatus orderStatus = order.getStatus();
         PaymentStatus paymentStatus = order.getPaymentStatus();
+        ReceiptStatus receiptStatus = order.getRecId().getStatus();
+
         log.info("order status : {}", orderStatus);
         log.info("payment status : {}", paymentStatus);
+        log.info("receipt status : {}", receiptStatus);
 
         if(orderStatus == OrderStatus.REFUSE || orderStatus == OrderStatus.WAITING || orderStatus == OrderStatus.COMPLETED) {
             log.info("주문 상태를 변경할 수 없는 주문입니다 : {}", orderStatus);
@@ -127,11 +131,13 @@ public class OrderService {
         } else if(paymentStatus == PaymentStatus.UNDONE) {
             log.info("주문 상태 배송중으로 변경 요청 실패 : 결제 미완료");
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-        } else if(paymentStatus == PaymentStatus.DONE && orderStatus != OrderStatus.INPROGRESS) {
-            order.updateStatus(OrderStatus.INPROGRESS);
+        } else if(paymentStatus == PaymentStatus.DONE && orderStatus == OrderStatus.ACCEPT && receiptStatus != ReceiptStatus.INPROGRESS) {
+            order.getRecId().updateStatus(ReceiptStatus.INPROGRESS);
             log.info("주문 상태 배송중으로 변경 완료");
-        } else if(orderStatus == OrderStatus.INPROGRESS) {
+        } else if(receiptStatus == ReceiptStatus.INPROGRESS) {
             order.updateStatus(OrderStatus.COMPLETED);
+            order.getRecId().updateStatus(ReceiptStatus.DONE);
+            order.getRecId().updatereceiptDate(LocalDate.now());
             log.info("주문 상태 배송완료로 변경 완료");
         } else {
             log.info("주문 상태를 변경할 수 없습니다.");
