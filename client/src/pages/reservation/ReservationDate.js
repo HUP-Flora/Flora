@@ -69,12 +69,15 @@ function ReservationDate() {
 			return;
 		}
 		const reserveData ={
-			orderType: RorderType,
+			// orderType: RorderType,
 			sId: 8,
 			// pId: pId,
+			pId: 1,
 			reservationDate: date,
 			reservationTime: RorderTime,
 		}
+
+		console.log(reserveData);
 
 		submitReservationAPI(reserveData);
 

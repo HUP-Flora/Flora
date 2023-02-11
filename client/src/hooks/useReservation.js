@@ -29,7 +29,7 @@ function useReservation() {
 		console.log(selecteddate);
 		api({
 			method: "GET",
-			url: `flolive/8?date=${selecteddate}`,
+			url: `flolive/time/8?date=${selecteddate}`,
 		})
 			.then(res => {
 				console.log(res);

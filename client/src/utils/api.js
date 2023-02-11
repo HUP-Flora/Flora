@@ -10,7 +10,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(function (config) {
-	console.log(config);
+	// console.log(config);
 	const ACCESS_TOKEN = localStorage.getItem("AccessToken");
 	if (!ACCESS_TOKEN) {
 		window.location.href = "/login";
