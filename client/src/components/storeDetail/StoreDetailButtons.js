@@ -36,7 +36,7 @@ function StoreDetailButtons() {
 
 	const { enterFloliveAPI } = useStroeDetail();
 
-	const enterFloliveHandler = () => {
+	const handleEnterFlolive = () => {
 		enterFloliveAPI();
 		navigate("/flolive/waiting");
 	};
@@ -71,7 +71,7 @@ function StoreDetailButtons() {
 					</FlorMarkWrapper>
 					{/* 플로라이브 신청 버튼 */}
 					<FloLiveButtonContainer>
-						<Primary400Button onClick={enterFloliveHandler}>
+						<Primary400Button onClick={handleEnterFlolive}>
 							<img src={liveTvSrc} alt="live-tv-icon" />
 							플로라이브 신청
 						</Primary400Button>

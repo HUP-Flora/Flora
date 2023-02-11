@@ -3,7 +3,6 @@ package com.ssafy.floraserver.api.service;
 import com.ssafy.floraserver.api.request.ProductReq;
 import com.ssafy.floraserver.api.response.ProductRes;
 import com.ssafy.floraserver.api.vo.FileVO;
-import com.ssafy.floraserver.common.util.SecurityUtil;
 import com.ssafy.floraserver.db.entity.Product;
 import com.ssafy.floraserver.db.entity.Store;
 import com.ssafy.floraserver.db.repository.ProductRepository;
@@ -38,7 +37,7 @@ public class ProductService {
                 .build();
     }
 
-    public void createProduct(ProductReq productReq,
+    public Long createProduct(ProductReq productReq,
                               MultipartFile file,
                               Map<String, String> authInfo) {
 
@@ -54,17 +53,18 @@ public class ProductService {
             fileVO = fileService.uploadFile(file);
         }
 
-        productRepository.save(Product.builder()
-                        .name(productReq.getName())
-                        .desc(productReq.getDesc())
-                        .price(productReq.getPrice())
-                        .sId(store)
-                        .imgOriginalName(file.isEmpty() ? null : fileVO.getImgOriginalName())
-                        .imgNewName(file.isEmpty() ? null : fileVO.getImgNewName())
-                        .imgPath(file.isEmpty() ? null : fileVO.getImgPath())
-                        .imgUploadTime(file.isEmpty() ? null : fileVO.getImgUploadTime())
-                        .build()
+        Product product = productRepository.save(Product.builder()
+                .name(productReq.getName())
+                .desc(productReq.getDesc())
+                .price(productReq.getPrice())
+                .sId(store)
+                .imgOriginalName(file.isEmpty() ? null : fileVO.getImgOriginalName())
+                .imgNewName(file.isEmpty() ? null : fileVO.getImgNewName())
+                .imgPath(file.isEmpty() ? null : fileVO.getImgPath())
+                .imgUploadTime(file.isEmpty() ? null : fileVO.getImgUploadTime())
+                .build()
         );
+        return product.getPId();
     }
 
     public void updateProduct(ProductReq productReq, Long pId,

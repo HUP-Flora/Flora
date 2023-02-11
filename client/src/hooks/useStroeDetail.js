@@ -14,7 +14,7 @@ function useStroeDetail() {
 			method: "POST",
 		})
 			.then(res => {
-				console.log(res.data);
+				// console.log(res.data);
 				// 응답으로 온 오더아이디를 저장
 				setLorderNumber(res.data)
 			})
