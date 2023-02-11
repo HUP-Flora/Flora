@@ -10,8 +10,11 @@ import { isCalenderModalState, isSearchStoreModalState } from "../../recoil/sear
 import { addressState, dateState } from "../../recoil/searchBar";
 import { SearchBarContainer, SearchBarContent } from "../../styles/bar/BarStyle";
 import { Text, GrayText } from "../../styles/common/CommonStyle";
+import SearchIcon from "../../assets/SearchBarIcon.png";
+import { SearchBarIcon } from "../../styles/icon/IconStyle";
+import { useNavigate } from "react-router-dom";
 
-export function SearchBar() {
+export function SearchBar({ isMain }) {
 	const [date, setDate] = useRecoilState(dateState);
 	const [address, setAddress] = useRecoilState(addressState);
 	const [isCalendarModal, setIsCalendarModal] = useRecoilState(isCalenderModalState);
@@ -21,12 +24,16 @@ export function SearchBar() {
 	const RorderDay = useRecoilValue(RorderDayState);
 	const RorderDayOfWeek = useRecoilValue(RorderDayOfWeekState);
 
+	const navigate = useNavigate();
+
 	const formatFirstAddress = firstAddress => {
-		if (firstAddress.length > 15) {
+		if (isMain && firstAddress.length > 12) {
+			return firstAddress.slice(0, 12) + "...";
+		} else if (firstAddress.length > 15) {
 			return firstAddress.slice(0, 15) + "...";
-		} else {
-			return firstAddress;
 		}
+
+		return firstAddress;
 	};
 
 	return (
@@ -38,6 +45,14 @@ export function SearchBar() {
 			<SearchBarContent onClick={() => setIsSearchStoreModal(true)}>
 				<Text size="13">{formatFirstAddress(address)}</Text>
 			</SearchBarContent>
+			{isMain && (
+				<SearchBarIcon
+					src={SearchIcon}
+					onClick={() => {
+						navigate("/search");
+					}}
+				/>
+			)}
 		</SearchBarContainer>
 	);
 }
