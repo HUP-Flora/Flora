@@ -18,6 +18,6 @@ public class ReceiptReq {
     private String ordererPhoneNumber;
     private String giftMessage;
     private String recipient;
-    private String recipientPhoneNumber;
+    private String receipientPhoneNumber;
     private String deliveryDestination;
 }
