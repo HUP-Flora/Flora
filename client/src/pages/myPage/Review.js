@@ -9,7 +9,7 @@ function Review(props) {
 		<>
 			<StatusBar text="리뷰 목록" />
 			<Container>
-				<ReviewList />
+				<ReviewList size={5} />
 			</Container>
 		</>
 	);

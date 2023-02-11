@@ -1,20 +1,29 @@
 import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
 import { productState } from "../recoil/productForms";
+import { storeImageFileState } from "../recoil/signup";
+
+import { priceComma } from "./priceComma";
 
 export const useProductDetailApi = () => {
 	const [product, setProduct] = useRecoilState(productState);
 
-	const productDetail = () => {
-		api({
+	const productDetail = async pId => {
+		await api({
 			method: "GET",
-			url: "/product",
+			url: `/products/${pId}`,
 		})
 			.then(response => {
 				console.log(response.data);
-				setProduct(response.data);
+
+				setProduct({
+					...response.data,
+					price: priceComma(response.data.price)
+						.toString()
+						.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+				});
 			})
 			.catch(error => {
 				console.log(error);
@@ -26,21 +35,21 @@ export const useProductDetailApi = () => {
 
 export const useProductAddApi = () => {
 	const navigate = useNavigate();
+	const resetProduct = useResetRecoilState(productState);
+	const resetProductImg = useResetRecoilState(storeImageFileState);
 
-	const productAdd = (name, price, description) => {
+	const productAdd = data => {
 		api({
 			method: "POST",
-			url: "/product",
-			data: {
-				productReq: {
-					name: name,
-					desc: description,
-					price: price,
-				},
+			url: "/products",
+			headers: {
+				"Content-Type": "multipart/form-data",
 			},
+			data,
 		})
 			.then(response => {
-				console.log(response);
+				resetProduct();
+				resetProductImg();
 				navigate("/productDetail");
 			})
 			.catch(error => {
@@ -53,22 +62,22 @@ export const useProductAddApi = () => {
 
 export const useProductEditApi = () => {
 	const navigate = useNavigate();
+	const resetProduct = useResetRecoilState(productState);
+	const resetProductImg = useResetRecoilState(storeImageFileState);
 
-	const productEdit = (pId, name, price, description) => {
+	const productEdit = (sId, pId, data) => {
 		api({
 			method: "PUT",
-			url: `/product/${pId}`,
-			data: {
-				productReq: {
-					name: name,
-					desc: description,
-					price: price,
-				},
+			url: `/products/${pId}`,
+			headers: {
+				"Content-Type": "multipart/form-data",
 			},
+			data,
 		})
 			.then(response => {
-				console.log(response);
-				navigate(`/product/:${pId}`);
+				resetProduct();
+				resetProductImg();
+				navigate(`/store/${sId}/product/${pId}`);
 			})
 			.catch(error => {
 				console.log(error);
@@ -87,8 +96,7 @@ export const useProductDeleteApi = () => {
 			url: `/product/${pId}`,
 		})
 			.then(response => {
-				console.log(response);
-				navigate(`/store/${sId}/detail`);
+				navigate(`/store/${sId}`);
 			})
 			.catch(error => {
 				console.log(error);

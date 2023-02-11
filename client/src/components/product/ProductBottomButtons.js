@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { SetRecoilState, useRecoilState } from "recoil";
+import { SetRecoilState, useRecoilState, useResetRecoilState } from "recoil";
 import { nameState, productState } from "../../recoil/productForms";
+import { storeImageFileState } from "../../recoil/signup";
 
 import { useProductAddApi, useProductEditApi } from "../../hooks/useProductApi";
 
 import { BottomDoubleButtonContainer } from "../../styles/common/CommonStyle";
 import { Primary400Button, Primary50Button } from "../../styles/button/ButtonStyle";
+// import { defaultAriaLiveMessages } from "react-select/dist/declarations/src/accessibility";
+
+import defaultImage from "../../assets/default-flower.png";
 
 function ProductAddBottomButtons({
 	type,
-	// name,
-	// price,
-	// description,
+	sId,
+	pId,
 	setNameValidMessage,
 	setPriceValidMessage,
 	setDescriptionValidMessage,
@@ -21,6 +24,9 @@ function ProductAddBottomButtons({
 	const navigate = useNavigate();
 
 	const [product, setProduct] = useRecoilState(productState);
+	const resetProduct = useResetRecoilState(productState);
+	const [imageFile, setImageFile] = useRecoilState(storeImageFileState);
+	const resetImageFile = useResetRecoilState(storeImageFileState);
 
 	const productAddApi = useProductAddApi();
 	const productEditApi = useProductEditApi();
@@ -66,23 +72,59 @@ function ProductAddBottomButtons({
 
 		if (isNameValid() && isPriceValid() && isDescriptionValid()) {
 			// 유효성 검사 통과
-			// (백) request
 			if (type === "add") {
-				console.log("상품 등록");
-				productAddApi(product?.name, product?.price.replace(",", ""), product?.description);
+				const data = {
+					name: product?.name,
+					desc: product?.description,
+					price: product?.price?.replace(/,/g, ""),
+				};
+
+				const formData = new FormData();
+
+				if (imageFile === "") {
+					const file = new File(["null"], "null.png", {});
+					formData.append("file", file);
+				} else {
+					formData.append("file", imageFile);
+				}
+
+				formData.append(
+					"productReq",
+					new Blob([JSON.stringify(data)], { type: "application/json" })
+				);
+
+				productAddApi(formData);
 			} else if (type === "edit") {
-				console.log("상품 수정");
-				// productEditApi(pId, product?.name, product?.price.replace(",", ""), product?.description);
+				const data = {
+					name: product?.name,
+					desc: product?.desc,
+					price: product?.price?.replace(/,/g, ""),
+				};
+
+				const formData = new FormData();
+
+				if (imageFile === "") {
+					const file = new File(["null"], "null.png", {});
+					formData.append("file", file);
+				} else {
+					formData.append("file", imageFile);
+				}
+
+				formData.append(
+					"productReq",
+					new Blob([JSON.stringify(data)], { type: "application/json" })
+				);
+
+				productEditApi(sId, pId, formData);
 			}
 		}
 	};
 
 	const handleClickCancel = () => {
-		if (type === "add") {
-			navigate("/store/detail");
-		} else if (type === "edit") {
-			navigate("/productDetail");
-		}
+		resetProduct();
+		resetImageFile();
+
+		navigate(`/store/${sId}/product/${pId}`);
 	};
 
 	return (

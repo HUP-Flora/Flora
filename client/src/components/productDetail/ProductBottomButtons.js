@@ -7,7 +7,7 @@ import { Primary50Button, Primary400Button } from "../../styles/button/ButtonSty
 import { BottomRowDoubleButtonContainer } from "../../styles/common/CommonStyle";
 import useStroeDetail from "../../hooks/useStroeDetail";
 
-function ProductDetailButtons(props) {
+function ProductDetailButtons({ pId, sId }) {
 	const navigate = useNavigate();
 
 	const [isModalShow, setIsModalShow] = useState(false);
@@ -17,11 +17,11 @@ function ProductDetailButtons(props) {
 	const enterFloliveHandler = () => {
 		enterFloliveAPI();
 		navigate("/flolive/waiting");
-	}
+	};
 
 	// 더미 데이터
-	const type = "customer";
-	// const type = "owner";
+	// const type = "customer";
+	const type = "owner";
 
 	return (
 		<BottomRowDoubleButtonContainer>
@@ -34,10 +34,15 @@ function ProductDetailButtons(props) {
 			) : (
 				<>
 					{/* 사장 */}
-					<Primary400Button onClick={() => navigate(`/product/edit`)}>수정</Primary400Button>
+					<Primary400Button onClick={() => navigate(`edit`)}>수정</Primary400Button>
 					<Primary50Button onClick={() => setIsModalShow(true)}>삭제</Primary50Button>
 					{isModalShow && (
-						<ModalContainer isModalShow={isModalShow} setIsModalShow={setIsModalShow} />
+						<ModalContainer
+							isModalShow={isModalShow}
+							setIsModalShow={setIsModalShow}
+							pId={pId}
+							sId={sId}
+						/>
 					)}
 				</>
 			)}

@@ -17,8 +17,6 @@ import { Search } from "./pages/search/Search";
 // 가게 상세 페이지
 import StoreDetail from "./pages/storeDetail/StoreDetail";
 
-// 가게 정보 수정 페이지
-
 // 상품 페이지
 import ProductDetail from "./pages/product/ProductDetail";
 import ProductForms from "./pages/product/ProductForms";
@@ -75,18 +73,15 @@ function AppRouter() {
 				<Route path="/signup/owner/store" element={<SignupOwnerStore />} />
 
 				{/* 가게 상세 페이지 */}
-				<Route path="/store/:storeId/" element={<StoreDetail />} />
-				{/* <Route path="/store/detail" element={<StoreDetail />} /> */}
+				<Route path="/store/:storeId" element={<StoreDetail />} />
 
 				{/* 가게 정보 수정 페이지 */}
 				<Route path="/store/:storeId/edit" element={<StoreEdit />} />
 
 				{/* 상품 페이지 */}
 				<Route path="/store/:storeId/product/:productId" element={<ProductDetail />} />
-				{/* <Route path="/product/:product-id" element={<ProductDetail />} /> */}
 				<Route path="/store/:storeId/product/add" element={<ProductForms />} />
 				<Route path="/store/:storeId/product/:productId/edit" element={<ProductForms />} />
-				{/* <Route path="/product/:product-id/edit" element={<ProductForms />} /> */}
 
 				{/* 예약 페이지 */}
 				{/*<Route path="/store/:storeId/product/:product-id/reservation/type" element={<ReservationType />} />*/}
@@ -94,9 +89,18 @@ function AppRouter() {
 				{/*<Route path="/store/:storeId/product/:product-id/reservation/complete" element={<ReservationComplete />} />*/}
 
 				{/*예약 페이지 테스트*/}
-				<Route path="/reservation/type" element={<ReservationType />} />
-				<Route path="/reservation/date" element={<ReservationDate />} />
-				<Route path="/reservation/complete" element={<ReservationComplete />} />
+				<Route
+					path="/store/:storeId/product/:productId/reservation/type"
+					element={<ReservationType />}
+				/>
+				<Route
+					path="/store/:storeId/product/:productId/reservation/date"
+					element={<ReservationDate />}
+				/>
+				<Route
+					path="/store/:storeId/product/:productId/reservation/complete"
+					element={<ReservationComplete />}
+				/>
 
 				{/* 플로라이브 페이지 */}
 				<Route path="/flolive" element={<Flolive />} />

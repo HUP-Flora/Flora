@@ -27,12 +27,12 @@ import { GreenCheckButton, Primary50CancelButton } from "../../styles/button/But
 import { TextLimit } from "../../styles/product/productForm/ProductFormStyle";
 
 import EditIcon from "../../assets/myPage/EditIcon.png";
-import StoreImage from "../../assets/store.png";
+import defaultImg from "../../assets/default-store.png";
 
 function MyPageHeader(props) {
 	// 더미 데이터 시작 -------------
-	// const type = "owner";
-	const type = "customer";
+	const type = "owner";
+	// const type = "customer";
 	// 더미 데이터 끝 -----
 
 	const [user, setUser] = useRecoilState(userState);
@@ -50,7 +50,12 @@ function MyPageHeader(props) {
 	const phoneNumberEditApi = usePhoneNumberEditApi();
 
 	useEffect(() => {
-		infoApi();
+		if (type === "customer") {
+			infoApi(type);
+		} else {
+			infoApi(type, 8);
+			// infoApi(type, sId);
+		}
 	}, []);
 
 	const handleClickNameEdit = () => {
@@ -79,7 +84,6 @@ function MyPageHeader(props) {
 	};
 
 	const handleClickPhoneNumberEditCheck = () => {
-		// (백) 연동
 		if (user.phoneNumber === "") {
 			setIsPhoneNumberValid(false);
 		} else {
@@ -175,7 +179,7 @@ function MyPageHeader(props) {
 							{user?.name} 님
 						</BoldText>
 						<div>
-							<img type="owner" src={user?.sImg?.StoreImage} alt="" />
+							<img type="owner" src={user?.simg === null ? defaultImg : user?.simg} alt="" />
 						</div>
 					</div>
 				</>

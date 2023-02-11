@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { useRecoilState } from "recoil";
+import { floMarksState } from "../../recoil/floMark";
+
+import { useFloMarkApi } from "../../hooks/useFloMarkApi";
+
 import {
 	FloMarkListContianer,
 	TextContainer,
@@ -9,84 +14,50 @@ import {
 } from "../../styles/floMark/FloMarkListStyle";
 import { EmptyContainer, BoldText, GrayText, ShadowCard } from "../../styles/common/CommonStyle";
 
-import Image from "../../assets/store.png";
+import defaultImg from "../../assets/default-store.png";
 
 function FloMarkList(props) {
 	const navigate = useNavigate();
 
-	const [stores, setStores] = useState([]);
+	const [floMarks, setFlomarks] = useRecoilState(floMarksState);
 
-	const handleClickStore = () => {
-		navigate("/store/detail");
-	};
+	const flomarkApi = useFloMarkApi();
 
 	useEffect(() => {
-		// const response = axios.get(`/api/flowermarks/page=&size=`);
-
-		const response = [
-			{
-				phoneNumber: "01011111111",
-				address_name:
-					"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem",
-				start: "09:00",
-				end: "18:00",
-				sImg: { Image },
-				sid: 1111111,
-				name: "lorem",
-			},
-			{
-				phoneNumber: "01011111111",
-				address_name:
-					"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem",
-				start: "09:00",
-				end: "18:00",
-				sImg: { Image },
-				sid: 1111111,
-				name: "lorem",
-			},
-			{
-				phoneNumber: "01011111111",
-				address_name:
-					"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem",
-				start: "09:00",
-				end: "18:00",
-				sImg: { Image },
-				sid: 1111111,
-				name: "lorem",
-			},
-		];
-
-		setStores(response);
+		flomarkApi(0, 5);
 	}, []);
 
 	return (
 		<FloMarkListContianer>
-			{stores.length === 0 ? (
+			{floMarks.length === 0 ? (
 				<EmptyContainer isFull={true} exceptHeight="198">
 					등록된 꽃갈피가 없어요
 				</EmptyContainer>
 			) : (
 				<>
-					{stores.map(store => (
-						<ShadowCard onClick={handleClickStore} marginBottom="16">
+					{floMarks.map(floMark => (
+						<ShadowCard onClick={() => navigate(`/store/${floMark?.sid}`)} marginBottom="16">
 							<ShadowCardContent>
 								<div>
-									<img src={store?.sImg?.Image} alt={store.storeName} />
+									<img
+										src={floMark?.bimg === null ? defaultImg : floMark?.bimg}
+										alt="floMarkName"
+									/>
 								</div>
 								<TextContainer>
 									<RowContainer>
-										<BoldText>{store?.name}</BoldText>
+										<BoldText>{floMark?.sname}</BoldText>
 										<BoldText size="13" color="var(--primary-500)">
 											가게 보기 &gt;
 										</BoldText>
 									</RowContainer>
-									<GrayText size="13">{store?.address_name}</GrayText>
+									<GrayText size="13">{floMark?.address_name}</GrayText>
 									<RowContainer>
 										<GrayText size="13">
-											{store?.start} : {store?.end}
+											{floMark?.start} ~ {floMark?.end}
 										</GrayText>
 										<GrayText size="13">|</GrayText>
-										<GrayText size="13">{store?.phoneNumber}</GrayText>
+										<GrayText size="13">{floMark?.phoneNumber}</GrayText>
 									</RowContainer>
 								</TextContainer>
 							</ShadowCardContent>

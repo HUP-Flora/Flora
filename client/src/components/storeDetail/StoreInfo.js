@@ -17,7 +17,7 @@ import {
 } from "../../styles/storeDetail/StoreDetailStyle";
 import { BoldText, Text, GrayHr, OnOffToggle, OnOff } from "../../styles/common/CommonStyle";
 
-import dummyImg from "../../assets/store.png";
+import defaultImg from "../../assets/default-store.png";
 
 function StoreInfo(props) {
 	const store = useRecoilValue(storeState);
@@ -51,7 +51,7 @@ function StoreInfo(props) {
 			</Header>
 			<InfoContainer>
 				<ImageWrapper>
-					<Image src={store?.img?.dummyImg} alt="store-img" />
+					<Image src={store?.simg === null ? defaultImg : store?.simg} alt="store-img" />
 				</ImageWrapper>
 				<Description>{store?.desc}</Description>
 			</InfoContainer>
