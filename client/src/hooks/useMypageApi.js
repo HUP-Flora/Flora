@@ -12,13 +12,22 @@ import {
 export const useInfoApi = () => {
 	const setUser = useSetRecoilState(userState);
 
-	const infoApi = () => {
+	const infoApi = (type, sId) => {
+		let url = "";
+
+		if (type === "customer") {
+			url = `/users`;
+		} else {
+			url = `/stores/${sId}/mypage`;
+		}
+
 		api({
 			method: "GET",
-			url: `/users`,
+			url: url,
 		})
 			.then(res => {
-				// console.log(res);
+				console.log(res.data);
+
 				setUser(res.data);
 			})
 			.catch(error => {
@@ -77,4 +86,21 @@ export const usePhoneNumberEditApi = () => {
 	};
 
 	return phoneNumberEditApi;
+};
+
+export const useLogoutApi = () => {
+	const logoutApi = () => {
+		api({
+			method: "GET",
+			url: `/auth`,
+		})
+			.then(res => {
+				console.log(res);
+			})
+			.catch(error => {
+				console.log("로그아웃 에러", error);
+			});
+	};
+
+	return logoutApi;
 };
