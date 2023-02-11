@@ -18,11 +18,9 @@ public class OrderRes {
     private String pImg;
     private String paymentNum;
     private int payment;
-    private PaymentStatus paymentStatus;
-    private ReceiptStatus recStatus;
-
+    private int status;
     @Builder
-    public OrderRes(Order order) {
+    public OrderRes(Order order, int status) {
         this.oId = order.getOId();
         this.num = order.getNum();
         this.date = order.getDate();
@@ -31,7 +29,6 @@ public class OrderRes {
         this.pImg = order.getPId().getImgPath();
         this.paymentNum = order.getPaymentNum();
         this.payment = order.getPayment();
-        this.paymentStatus = order.getPaymentStatus();
-        this.recStatus = order.getRecId().getStatus();
+        this.status = status;
     }
 }
