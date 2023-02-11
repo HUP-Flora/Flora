@@ -23,23 +23,20 @@ import { FloMarkImage } from "../../styles/icon/IconStyle";
 import { useNavigate } from "react-router";
 
 export function StoreCard({
-	sId,
+	sid,
 	name,
 	phoneNumber,
 	address_name,
 	bookmarkCnt,
 	start,
 	end,
-	lat,
-	lng,
 	isOnair,
-	img,
+	simg,
 }) {
 	const navigate = useNavigate();
 
-	const handleClick = sId => {
-		// navigate(`/store/${sId}/detail`);
-		navigate(`/store/detail`);
+	const handleClick = sid => {
+		navigate(`/store/${sid}/detail`);
 	};
 
 	const formatStoreTitle = title => {
@@ -53,7 +50,7 @@ export function StoreCard({
 	return (
 		<StoreCardContainer
 			onClick={() => {
-				handleClick(sId);
+				handleClick(sid);
 			}}
 		>
 			<StoreCardTextSection>
@@ -83,7 +80,7 @@ export function StoreCard({
 				</StoreCardTextContent>
 			</StoreCardTextSection>
 			<StoreCardImageSection>
-				<StoreCardImage src={img} />
+				<StoreCardImage src={simg} />
 			</StoreCardImageSection>
 		</StoreCardContainer>
 	);

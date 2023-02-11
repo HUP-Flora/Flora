@@ -22,11 +22,13 @@ import { isSearchStoreModalState, resultAddressListState } from "../../recoil/se
 import SearchAddressImage from "../../assets/chatting/SearchAddressImage.png";
 import { useSearchStoresApi } from "../../hooks/useSearchStoresApi";
 import { useNavigate } from "react-router-dom";
+import { addressState } from "../../recoil/searchBar";
 
 export function SearchStore() {
 	const [words, setWords] = useState("");
-	const [resultAddressList, setResultSearchAddressList] = useRecoilState(resultAddressListState);
 	const setIsSearchStoreModal = useSetRecoilState(isSearchStoreModalState);
+	const resultAddressList = useRecoilValue(resultAddressListState);
+	const setAddress = useSetRecoilState(addressState);
 	const searchAddressApi = useSearchAddressApi();
 	const searchStoresApi = useSearchStoresApi();
 	const [submitSearch, setSubmitSearch] = useState(false);
@@ -74,6 +76,7 @@ export function SearchStore() {
 								top="8"
 								bottom="8"
 								onClick={() => {
+									setAddress(resultAddress);
 									searchStoresHandler(resultAddress);
 								}}
 							>

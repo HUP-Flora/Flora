@@ -1,4 +1,7 @@
 import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
+
+const { persistAtom } = recoilPersist();
 
 export const isCalenderModalState = atom({
 	key: "isCalenderModalState",
@@ -18,4 +21,5 @@ export const resultAddressListState = atom({
 export const storeListState = atom({
 	key: "storeListState",
 	default: [],
+	effects_UNSTABLE: [persistAtom],
 });

@@ -10,3 +10,12 @@ export const LmySessionIdState = atom({
 	default: "",
 });
 
+export const LliveStatusState = atom({
+	key: "LliveStatusState",
+	default: "",
+});
+
+export const LorderNumberState = atom({
+	key: "LorderNumberState",
+	default: "",
+});

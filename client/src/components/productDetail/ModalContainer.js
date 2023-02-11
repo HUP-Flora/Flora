@@ -2,6 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import PortalReactDom from "react-dom";
 
+import { useProductDeleteApi } from "../../hooks/useProductApi";
+
 import {
 	Container,
 	Backdrop,
@@ -15,6 +17,8 @@ import { Primary400Button, Primary50Button } from "../../styles/button/ButtonSty
 function ModalContainer({ isModalShow, setIsModalShow }) {
 	const navigate = useNavigate();
 
+	const productDeleteApi = useProductDeleteApi();
+
 	const toggleModal = () => {
 		setIsModalShow(!isModalShow);
 	};
@@ -22,6 +26,7 @@ function ModalContainer({ isModalShow, setIsModalShow }) {
 	const handleClickYes = () => {
 		// (백) requset
 		navigate("/storeDetail");
+		// productDeleteApi(sId, pId);
 	};
 
 	return (

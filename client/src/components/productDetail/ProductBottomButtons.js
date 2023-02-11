@@ -5,11 +5,19 @@ import ModalContainer from "./ModalContainer";
 
 import { Primary50Button, Primary400Button } from "../../styles/button/ButtonStyle";
 import { BottomRowDoubleButtonContainer } from "../../styles/common/CommonStyle";
+import useStroeDetail from "../../hooks/useStroeDetail";
 
 function ProductDetailButtons(props) {
 	const navigate = useNavigate();
 
 	const [isModalShow, setIsModalShow] = useState(false);
+
+	const { enterFloliveAPI } = useStroeDetail();
+
+	const enterFloliveHandler = () => {
+		enterFloliveAPI();
+		navigate("/flolive/waiting");
+	}
 
 	// 더미 데이터
 	const type = "customer";
@@ -20,7 +28,7 @@ function ProductDetailButtons(props) {
 			{type === "customer" ? (
 				<>
 					{/* 고객 */}
-					<Primary400Button onClick={() => navigate("/flolive/waiting")}>플로라이브 신청</Primary400Button>
+					<Primary400Button onClick={enterFloliveHandler}>플로라이브 신청</Primary400Button>
 					<Primary50Button onClick={() => navigate("")}>플로라이브 예약</Primary50Button>
 				</>
 			) : (

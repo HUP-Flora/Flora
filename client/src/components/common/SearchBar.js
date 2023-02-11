@@ -32,11 +32,7 @@ export function SearchBar() {
 	return (
 		<SearchBarContainer>
 			<SearchBarContent onClick={() => setIsCalendarModal(true)}>
-				<Text size="13">
-					{RorderYear
-						? `${RorderYear}년 ${RorderMonth}월 ${RorderDay}일 ${RorderDayOfWeek}요일`
-						: "날짜 선택"}
-				</Text>
+				<Text size="13">{date}</Text>
 			</SearchBarContent>
 			<GrayText size="13">|</GrayText>
 			<SearchBarContent onClick={() => setIsSearchStoreModal(true)}>

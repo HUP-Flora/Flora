@@ -30,7 +30,7 @@ function MyCalendar() {
 	// 현재 날짜에 대한 요일을 구하는 함수
 	const getDayOfWeek = useCallback(
 		(year, month, day) => {
-			const dayOfWeek = new Date(year, month - 1, day).getDay();
+			const dayOfWeek = new Date(year, month, day).getDay();
 			let dayOfWeekStr = "";
 			if (dayOfWeek === 0) {
 				dayOfWeekStr = "일";
@@ -77,7 +77,8 @@ function MyCalendar() {
 
 		const generateCalendar = (month, year) => {
 			setRorderYear(year.toString());
-			setRorderMonth(month.toString());
+			const monthMinus = month + 1;
+			setRorderMonth(monthMinus.toString());
 
 			let calendar_days = calendar.querySelector(".calendar-days");
 			let calendar_header_year = calendar.querySelector("#year");
@@ -116,7 +117,7 @@ function MyCalendar() {
 						// Sun, Mon, Tue, Wed, Thu, Fri, Sat
 						setRorderDay(day.innerText.trim());
 						currDateDiv = day;
-						getDayOfWeek(year, month + 1, day.innerText.trim());
+						getDayOfWeek(year, month, day.innerText.trim());
 					}
 				}
 				calendar_days.appendChild(day);
@@ -162,7 +163,7 @@ function MyCalendar() {
 
 	const ClickDayHandler = e => {
 		setRorderDay(e.target.innerText);
-		getDayOfWeek(RorderYear, RorderMonth + 1, e.target.innerText);
+		getDayOfWeek(RorderYear, RorderMonth, e.target.innerText);
 		if (e.target.classList.contains("calendar-day-hover")) {
 			if (currDateDiv) {
 				currDateDiv.classList.remove("curr-date");

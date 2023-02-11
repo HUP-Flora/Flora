@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { Map, MapMarker, ZoomControl } from "react-kakao-maps-sdk";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { locationState } from "../../recoil/map";
@@ -10,21 +10,22 @@ const { kakao } = window;
 export function KakaoMap() {
 	const [position, setPosition] = useRecoilState(locationState);
 	const storeList = useRecoilValue(storeListState);
-	// const [level, setLevel] = useRecoilState(levelState);
 
 	const mapRef = useRef();
-
-	useEffect(() => {
+	const bounds = useMemo(() => {
 		const bounds = new kakao.maps.LatLngBounds();
-
 		storeList.forEach(store => {
 			bounds.extend(new kakao.maps.LatLng(store.lat, store.lng));
 		});
+		return bounds;
+	}, [storeList]);
 
+	useEffect(() => {
+		console.log("fff");
 		if (mapRef.current) {
 			mapRef.current.setBounds(bounds);
 		}
-	}, [storeList]);
+	}, [bounds]);
 
 	// const handlePosition = (lat, lng, isPanto) => {
 	// 	setPosition({
@@ -43,22 +44,20 @@ export function KakaoMap() {
 		<Map // 지도를 표시할 Container
 			center={{
 				// 지도의 중심좌표
-				lat: position.center.lat,
-				lng: position.center.lng,
+				lat: 36.3549777,
+				lng: 127.2983403,
 			}}
 			style={MapStyle}
 			level={3} // 지도의 확대 레벨
-			isPanto={position.isPanto}
 			ref={mapRef}
 		>
 			{storeList.map(store => (
 				<MapMarker // 마커를 생성합니다
-					key={store.sId}
+					key={store.sid}
 					position={{
 						lat: store.lat,
 						lng: store.lng,
 					}}
-					clickable={true}
 					image={MapMarkerStyle}
 				/>
 			))}

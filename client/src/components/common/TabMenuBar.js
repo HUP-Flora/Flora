@@ -1,6 +1,10 @@
+import { useNavigate } from "react-router-dom";
+
 import { TabBarDiv, TabImg, TabMenu, TabText, TabImgWrapper } from "../../styles/bar/BarStyle";
 
 export function TabMenuBar({ isOwner, selectedMenu }) {
+	const navigate = useNavigate();
+
 	const tabMenu = ["Main", "FloLive", "FloMark", "MyPage"];
 	const tabMenuName = ["메인", "플로라이브", "꽃갈피", "내 정보"];
 
@@ -12,7 +16,7 @@ export function TabMenuBar({ isOwner, selectedMenu }) {
 	return (
 		<TabBarDiv>
 			{tabMenu.map((menu, index) => (
-				<TabMenu key={menu} isSelected={menu === selectedMenu}>
+				<TabMenu key={menu} isSelected={menu === selectedMenu} onClick={() => navigate("/")}>
 					<TabImgWrapper>
 						<TabImg
 							src={require(`../../assets/tapIcon/${
