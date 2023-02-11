@@ -13,18 +13,18 @@ public class UserOrderRes {
 
     private Long oId;
     private Long sId;
-    private String pName;
-    private LocalDate receiptDate;
+    private String orderDate;
+    private int status;
     private int payment;
     private boolean review;
     private String sImg;
 
     @Builder
-    public UserOrderRes(Order order) {
+    public UserOrderRes(Order order, int status) {
         this.oId = order.getOId();
         this.sId = order.getSId().getSId();
-        this.pName = order.getPId().getName();
-        this.receiptDate = order.getRecId().getReceiptDate();
+        this.orderDate = order.getDate().toString();
+        this.status = status;
         this.payment = order.getPayment();
         this.review = order.isReview();
         this.sImg = order.getSId().getImgPath();

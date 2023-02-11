@@ -4,6 +4,10 @@ import com.ssafy.floraserver.api.response.OrderRes;
 import com.ssafy.floraserver.api.response.StoreOrderRes;
 import com.ssafy.floraserver.api.response.UserOrderRes;
 import com.ssafy.floraserver.db.entity.Store;
+import com.ssafy.floraserver.db.entity.enums.ConferenceStatus;
+import com.ssafy.floraserver.db.entity.enums.OrderStatus;
+import com.ssafy.floraserver.db.entity.enums.PaymentStatus;
+import com.ssafy.floraserver.db.entity.enums.ReceiptStatus;
 import com.ssafy.floraserver.db.repository.ReceiptRepository;
 import com.ssafy.floraserver.db.entity.Order;
 import com.ssafy.floraserver.db.entity.Receipt;
@@ -47,6 +51,7 @@ public class OrderService {
         Page<StoreOrderRes> storeOrderResList = orderList
                 .map(o -> StoreOrderRes.builder()
                         .order(o)
+                        .status(makeOrderResStatus(o))
                         .build());
 
         return storeOrderResList;
@@ -76,5 +81,31 @@ public class OrderService {
                 .build();
 
         return orderRes;
+    }
+
+    public int makeOrderResStatus(Order order){
+        if(order.getStatus().equals(OrderStatus.ACCEPT)
+                && order.getConId().getStatus().equals(ConferenceStatus.COMPLETED)
+                && order.getPaymentStatus().equals(PaymentStatus.UNDONE)
+                && order.getRecId().getStatus().equals(ReceiptStatus.UNDONE)){
+            return 0;
+        }
+        else if(order.getStatus().equals(OrderStatus.ACCEPT)
+                && order.getConId().getStatus().equals(ConferenceStatus.COMPLETED)
+                && order.getPaymentStatus().equals(PaymentStatus.DONE)
+                && order.getRecId().getStatus().equals(ReceiptStatus.UNDONE)){
+            return 1;
+        }else if(order.getStatus().equals(OrderStatus.ACCEPT)
+                && order.getConId().getStatus().equals(ConferenceStatus.COMPLETED)
+                && order.getPaymentStatus().equals(PaymentStatus.DONE)
+                && order.getRecId().getStatus().equals(ReceiptStatus.INPROGRESS)){
+            return 2;
+        }else if(order.getStatus().equals(OrderStatus.ACCEPT)
+                && order.getConId().getStatus().equals(ConferenceStatus.COMPLETED)
+                && order.getPaymentStatus().equals(PaymentStatus.DONE)
+                && order.getRecId().getStatus().equals(ReceiptStatus.DONE)){
+            return 3;
+        }
+        return -1;
     }
 }
