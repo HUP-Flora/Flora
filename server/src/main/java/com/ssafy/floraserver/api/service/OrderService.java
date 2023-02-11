@@ -111,4 +111,31 @@ public class OrderService {
         }
         return -1;
     }
+
+    public void changeOrderStatus(Long oId) {
+        Order order = orderRepository.findById(oId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        OrderStatus orderStatus = order.getStatus();
+        PaymentStatus paymentStatus = order.getPaymentStatus();
+        log.info("order status : {}", orderStatus);
+        log.info("payment status : {}", paymentStatus);
+
+        if(orderStatus == OrderStatus.REFUSE || orderStatus == OrderStatus.WAITING || orderStatus == OrderStatus.COMPLETED) {
+            log.info("주문 상태를 변경할 수 없는 주문입니다 : {}", orderStatus);
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        } else if(paymentStatus == PaymentStatus.UNDONE) {
+            log.info("주문 상태 배송중으로 변경 요청 실패 : 결제 미완료");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        } else if(paymentStatus == PaymentStatus.DONE && orderStatus != OrderStatus.INPROGRESS) {
+            order.updateStatus(OrderStatus.INPROGRESS);
+            log.info("주문 상태 배송중으로 변경 완료");
+        } else if(orderStatus == OrderStatus.INPROGRESS) {
+            order.updateStatus(OrderStatus.COMPLETED);
+            log.info("주문 상태 배송완료로 변경 완료");
+        } else {
+            log.info("주문 상태를 변경할 수 없습니다.");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+    }
 }

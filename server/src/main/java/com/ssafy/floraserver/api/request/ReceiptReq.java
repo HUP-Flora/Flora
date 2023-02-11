@@ -20,4 +20,5 @@ public class ReceiptReq {
     private String receipientPhoneNumber;
     private String deliveryDestination;
     private String giftMessage;
+    private int payment;
 }
