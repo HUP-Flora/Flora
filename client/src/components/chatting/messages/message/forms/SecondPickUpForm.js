@@ -25,9 +25,10 @@ import {
 	TextInput,
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import useInputValidate from "../../../../../hooks/useInputValidate";
+import useChatting from "../../../../../hooks/useChatting";
 
 function SecondPickUpForm({ time }) {
-	const setOrderType = useSetRecoilState(orderTypeState);
+	const [orderType, setOrderType] = useRecoilState(orderTypeState);
 	const [sendUser, setSendUser] = useRecoilState(sendUserState);
 	const [sendUserPhone, setSendUserPhone] = useRecoilState(sendUserPhoneState);
 	const [giftCard, setGiftCard] = useRecoilState(giftCardState);
@@ -62,6 +63,8 @@ function SecondPickUpForm({ time }) {
 		toggleHasError: VpaymentAmountToggleHasError,
 	} = useInputValidate(isNotEmpty);
 
+
+	const { sendFormDataAPI } = useChatting();
 	const ThirdPickUpFormHandler = e => {
 		const formData = [
 			{ key: "sendUser", value: sendUser, toggleError: VsendUserToggleHasError },
@@ -77,6 +80,20 @@ function SecondPickUpForm({ time }) {
 			}
 		}
 		setIsSubmit(true);
+
+		const orederFormData = {
+			type: orderType,
+			orderer: sendUser,
+			ordererPhoneNumber: sendUserPhone,
+			recipient: null,
+			recipientPhoneNumber: null,
+			deliveryDestination: null,
+			giftMessage: giftCard,
+		}
+
+		// console.log(orederFormData);
+		sendFormDataAPI(orederFormData);
+
 		sendThirdPickUpFormMessage(e);
 	};
 
