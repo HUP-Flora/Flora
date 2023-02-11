@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
+import { useRecoilState } from "recoil";
+import { ordersState } from "../../recoil/order";
+
+import { useOrdersApi } from "../../hooks/useOrderApi";
 
 import MyPageListEmpty from "./MyPageListEmpty";
 import ReviewAddModal from "./ReviewAddModal";
@@ -23,10 +27,12 @@ import {
 import defaultImg from "../../assets/default-flower.png";
 import image from "../../assets/store.png";
 
-function OrderList(props) {
+function OrderList({ size }) {
 	const navigate = useNavigate();
 
-	const [orders, setOrders] = useState([]);
+	// const ordersApi = useOrdersApi();
+
+	const [orders, setOrders] = useRecoilState(ordersState);
 
 	const [isModalShow, setIsModalShow] = useState(false);
 
@@ -43,40 +49,7 @@ function OrderList(props) {
 	const type = "owner";
 
 	useEffect(() => {
-		// const response = axios.get("/api/order/users?page=&size=");
-
-		const response = [
-			{
-				oId: 3333333,
-				sId: 44444,
-				sName: "lorem",
-				receiptDate: "22.22.22",
-				payment: 15000,
-				review: true,
-				sImg: { image },
-			},
-			{
-				// 상품 없음, 디폴트 값
-				oId: 1111111,
-				sId: 44444,
-				sName: null,
-				receiptDate: "22.22.22",
-				payment: 10000,
-				review: false,
-				sImg: null,
-			},
-			{
-				oId: 3333333,
-				sId: 44444,
-				sName: "lorem",
-				receiptDate: "22.22.22",
-				payment: 10000,
-				review: true,
-				sImg: { image },
-			},
-		];
-
-		setOrders(response);
+		// ordersApi(size);
 	}, []);
 
 	return (

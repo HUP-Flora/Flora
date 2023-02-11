@@ -1,13 +1,17 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 import ProductInfo from "../../components/productDetail/ProductInfo";
-import ProductDetailButtons from "../../components/productDetail/ProductBottomButtons";
+import ProductBottomButtons from "../../components/productDetail/ProductBottomButtons";
 
 function ProductDetail(props) {
+	let { storetId } = useParams();
+	let { productId } = useParams();
+
 	return (
 		<>
-			<ProductInfo />
-			<ProductDetailButtons />
+			<ProductInfo pId={productId} />
+			<ProductBottomButtons pId={productId} sId={storetId} />
 		</>
 	);
 }

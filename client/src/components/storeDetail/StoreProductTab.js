@@ -8,6 +8,8 @@ import { useProductsApi } from "../../hooks/useStoreApi";
 
 import StoreTabEmpty from "./StoreTabEmpty";
 
+import { priceComma } from "../../hooks/priceComma";
+
 import {
 	ProductsContainer,
 	ProductContainer,
@@ -16,7 +18,7 @@ import {
 	ProductPrice,
 } from "../../styles/storeDetail/StoreProductTabStyle";
 
-import productImgSrc from "../../assets/store.png";
+import defaultImg from "../../assets/default-flower.png";
 
 function StoreProductTab(props) {
 	const navigate = useNavigate();
@@ -37,13 +39,16 @@ function StoreProductTab(props) {
 			{products.length === 0 ? (
 				<StoreTabEmpty type="product" />
 			) : (
-				products.map(product => (
-					<ProductContainer onClick={() => navigate("/productDetail")}>
+				products.map((product, index) => (
+					<ProductContainer key={index} onClick={() => navigate(`product/${product.pid}`)}>
 						<ProductImageWrapper>
-							<img src={product?.pImg} alt="product-img" />
+							<img
+								src={product?.pimg.split("-")[10] === "null.png" ? defaultImg : product?.pimg}
+								alt="product-img"
+							/>
 						</ProductImageWrapper>
 						<ProductName>{product?.name}</ProductName>
-						<ProductPrice>{product?.price}원</ProductPrice>
+						<ProductPrice>{priceComma(product?.price)}원</ProductPrice>
 					</ProductContainer>
 				))
 			)}

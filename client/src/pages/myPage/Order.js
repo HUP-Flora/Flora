@@ -1,6 +1,6 @@
 import React from "react";
 
-import StatusBar from "../../components/common/NoPaddingStatusBar";
+import StatusBar from "../../components/common/StatusBar";
 import OrderList from "../../components/myPage/OrderList";
 
 import { Container } from "../../styles/myPage/ListDetailStyle";
@@ -10,7 +10,7 @@ function OrderDetail(props) {
 		<div>
 			<StatusBar text="주문 목록" />
 			<Container>
-				<OrderList />
+				<OrderList size={5}/>
 			</Container>
 		</div>
 	);

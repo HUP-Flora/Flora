@@ -17,7 +17,7 @@ function MyPageOrderList(props) {
 					더보기
 				</GrayText>
 			</ListHeader>
-			<OrderList />
+			<OrderList size={3} />
 		</ListContiner>
 	);
 }

@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-import StatusBar from "../common/NoPaddingStatusBar";
+import { useRecoilState } from "recoil";
+import { productState } from "../../recoil/productForms";
+
+import { useProductDetailApi } from "../../hooks/useProductApi";
+
+import StatusBar from "../common/StatusBar";
 
 import {
 	ImageWrapper,
@@ -10,34 +15,25 @@ import {
 } from "../../styles/product/productDetail/ProductInfoStyle";
 import { Text, BoldText, GrayHr } from "../../styles/common/CommonStyle";
 
-import productImg from "../../assets/store.png";
+import defaultImg from "../../assets/default-flower.png";
 
-function ProductInfo(props) {
-	const [product, setProduct] = useState(props.product);
+function ProductInfo({ pId }) {
+	const [product, setProduct] = useRecoilState(productState);
 
-	// 더미 데이터
-	const pId = 1111111;
+	const productDetailApi = useProductDetailApi();
 
 	useEffect(() => {
-		// const response = axios.get(`/api/products/${pId}`);
-
-		const response = {
-			name: "lorem Ipsum",
-			desc: "lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem",
-
-			price: 15000,
-			iImg: { productImg },
-		};
-
-		// setProduct(response.data);
-		setProduct(response);
+		productDetailApi(pId);
 	}, []);
 
 	return (
 		<div>
 			<StatusBar text="상품 상세" />
 			<ImageWrapper>
-				<img src={product?.iImg?.productImg} alt="" />
+				<img
+					src={product?.pimg?.split("-")[10] === "null.png" ? defaultImg : product?.pimg}
+					alt="product-img"
+				/>
 			</ImageWrapper>
 			<Header>
 				<BoldText size="23" font="nexon">

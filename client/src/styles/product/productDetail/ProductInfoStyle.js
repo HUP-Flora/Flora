@@ -4,11 +4,24 @@ export const ImageWrapper = styled.div`
 	margin: 0 24px;
 	margin-bottom: 40px;
 
-	> img {
-		width: 100%;
-		// padding-bottom: 100px;
+	position: relative;
+	// width: 100%;
 
+	::after {
+		display: block;
+		content: "";
+		padding-bottom: 100%;
+	}
+
+	> img {
 		border-radius: 16px;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 `;
 

@@ -82,7 +82,7 @@ function StoreDetailButtons() {
 			<ButtonsContainer isCustomer={false}>
 				<>
 					<Primary400Button>가게 정보 수정</Primary400Button>
-					<Primary50Button onClick={() => navigate("/product/add")}>상품 등록</Primary50Button>
+					<Primary50Button onClick={() => navigate(`product/add`)}>상품 등록</Primary50Button>
 				</>
 			</ButtonsContainer>
 		</>

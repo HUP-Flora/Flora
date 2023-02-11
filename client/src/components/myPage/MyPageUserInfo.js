@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+import { useLogoutApi } from "../../hooks/useMypageApi";
+
 import { BoldText, GrayText, ShadowCard } from "../../styles/common/CommonStyle";
 import { ListContiner, ListHeader } from "../../styles/myPage/MyPageStyle";
 import { ShadowCardContent } from "../../styles/myPage/MyPageUserInfoStyle";
@@ -8,9 +10,10 @@ import { ShadowCardContent } from "../../styles/myPage/MyPageUserInfoStyle";
 function MyPageUserInfo(props) {
 	const navigate = useNavigate();
 
+	const logoutApi = useLogoutApi();
+
 	const handleLogout = () => {
-		// (백) 로그아웃
-		// navigate("/");
+		logoutApi();
 	};
 
 	return (
