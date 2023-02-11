@@ -14,20 +14,18 @@ import java.time.LocalDateTime;
 public class StoreOrderRes {
     private Long oId;
     private String sName;
-    private LocalDate receiptDate;
+    private String orderDate;
     private String pImg;
     private int payment;
-    private PaymentStatus paymentStatus;
-    private ReceiptStatus recStatus;
+    private int status;
 
     @Builder
-    public StoreOrderRes(Order order) {
+    public StoreOrderRes(Order order, int status) {
         this.oId = order.getOId();
         this.sName = order.getSId().getName();
-        this.receiptDate = order.getRecId().getReceiptDate();
+        this.orderDate = order.getDate().toString();
         this.pImg = order.getPId().getImgPath();
         this.payment = order.getPayment();
-        this.paymentStatus = order.getPaymentStatus();
-        this.recStatus = order.getRecId().getStatus();
+        this.status = status;
     }
 }
