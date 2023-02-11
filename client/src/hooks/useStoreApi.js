@@ -5,7 +5,7 @@ import {
 	storeState,
 	isFloMarkClickedState,
 	productsState,
-	reviewsState,
+	storeReviewsState,
 } from "../recoil/storeDetail";
 
 export const useStoreInfoApi = () => {
@@ -113,7 +113,7 @@ export const useProductsApi = () => {
 	const productsApi = async sId => {
 		await api({
 			method: "GET",
-			url: `/stores/${sId}/products?page=0&size=5`,
+			url: `/stores/${sId}/products?page=0&size=100`,
 		})
 			.then(response => {
 				setProducts(response.data.content);
@@ -125,7 +125,7 @@ export const useProductsApi = () => {
 };
 
 export const useReviewsApi = () => {
-	const [reviews, setReviews] = useRecoilState(reviewsState);
+	const [reviews, setReviews] = useRecoilState(storeReviewsState);
 
 	const reviewsApi = async sId => {
 		await api({

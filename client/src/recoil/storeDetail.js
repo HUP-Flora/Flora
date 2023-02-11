@@ -22,7 +22,7 @@ export const productsState = atom({
 	default: [],
 });
 
-export const reviewsState = atom({
-	key: "reviewsState",
+export const storeReviewsState = atom({
+	key: "storeReviewsState",
 	default: [],
 });
