@@ -66,7 +66,7 @@ public class StoreController {
 
     @PutMapping("/{sId}")
     public ResponseEntity<?> updateStoreInfo(@PathVariable("sId") Long sId,
-                                             @RequestPart("file") MultipartFile file,
+                                             @RequestPart(value = "file", required = false) MultipartFile file,
                                              @RequestPart("storeInfoReq") StoreInfoReq storeInfoReq){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         storeService.updateStoreInfo(sId,storeInfoReq, file, authInfo);

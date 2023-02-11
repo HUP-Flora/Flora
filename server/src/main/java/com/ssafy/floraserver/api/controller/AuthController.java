@@ -49,7 +49,7 @@ public class AuthController {
     @PutMapping("/stores")
 //    @PreAuthorize("hasRole('ROLE_GUEST')")
     public ResponseEntity<?> createStoreExtraInfo(
-                                                  @RequestPart("file") MultipartFile file,
+                                                  @RequestPart(value = "file", required = false) MultipartFile file,
                                                   @RequestPart("storeExtraInfoReq") StoreExtraInfoReq storeExtraInfoReq){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         log.info("현재 로그인 {} ", authInfo.toString());
