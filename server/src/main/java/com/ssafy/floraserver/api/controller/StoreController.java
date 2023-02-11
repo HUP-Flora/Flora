@@ -66,19 +66,19 @@ public class StoreController {
         return storeMypageRes;
     }
 
-    @PutMapping("/{sId}")
-    public ResponseEntity<?> updateStoreInfo(@PathVariable("sId") Long sId,
+    @PutMapping
+    public ResponseEntity<?> updateStoreInfo(
                                              @RequestPart(value = "file", required = false) MultipartFile file,
                                              @RequestPart("storeInfoReq") StoreInfoReq storeInfoReq){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        storeService.updateStoreInfo(sId,storeInfoReq, file, authInfo);
+        storeService.updateStoreInfo(storeInfoReq, file, authInfo);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/{sId}/onair")
-    public ResponseEntity<?> toggleOnair(@PathVariable("sId") Long sId){
+    @PostMapping("/onair")
+    public ResponseEntity<?> toggleOnair(){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        storeService.toggleOnair(sId, authInfo);
+        storeService.toggleOnair(authInfo);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

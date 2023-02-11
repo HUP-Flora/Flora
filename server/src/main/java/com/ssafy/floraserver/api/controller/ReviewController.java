@@ -36,11 +36,11 @@ public class ReviewController {
         return reviewList;
     }
 
-    @GetMapping("/users/{uId}")
+    @GetMapping("/users")
 //    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    public Page<UserReviewRes> findReviewListByUser(@PathVariable("uId") Long uId, Pageable pageable){
-
-        Page<UserReviewRes> reviewList = reviewService.findReviewListByUser(uId, pageable);
+    public Page<UserReviewRes> findReviewListByUser(Pageable pageable){
+        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
+        Page<UserReviewRes> reviewList = reviewService.findReviewListByUser(pageable, authInfo);
 
         return reviewList;
     }
