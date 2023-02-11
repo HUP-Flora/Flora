@@ -29,3 +29,15 @@ export const BigSearchAddressIcon = styled.img`
 export const AddressItem = styled(Text)`
 	cursor: pointer;
 `;
+
+export const SearchBarIcon = styled.img`
+	width: 19px;
+	height: 19px;
+
+	cursor: pointer;
+
+	position: absolute;
+	top: 50%;
+	left: 95%;
+	transform: translate(-50%, -50%);
+`;

@@ -75,23 +75,23 @@ function AppRouter() {
 				<Route path="/signup/owner/store" element={<SignupOwnerStore />} />
 
 				{/* 가게 상세 페이지 */}
-				<Route path="/store/:storeId/detail" element={<StoreDetail />} />
-				<Route path="/store/detail" element={<StoreDetail />} />
+				<Route path="/store/:storeId/" element={<StoreDetail />} />
+				{/* <Route path="/store/detail" element={<StoreDetail />} /> */}
 
 				{/* 가게 정보 수정 페이지 */}
 				<Route path="/store/:storeId/edit" element={<StoreEdit />} />
 
 				{/* 상품 페이지 */}
-				<Route path="/productDetail" element={<ProductDetail />} />
+				<Route path="/store/:storeId/product/:productId" element={<ProductDetail />} />
 				{/* <Route path="/product/:product-id" element={<ProductDetail />} /> */}
-				<Route path="/product/add" element={<ProductForms />} />
-				<Route path="/product/edit" element={<ProductForms />} />
+				<Route path="/store/:storeId/product/add" element={<ProductForms />} />
+				<Route path="/store/:storeId/product/:productId/edit" element={<ProductForms />} />
 				{/* <Route path="/product/:product-id/edit" element={<ProductForms />} /> */}
 
 				{/* 예약 페이지 */}
-				{/*<Route path="/product/:product-id/reservation/type" element={<ReservationType />} />*/}
-				{/*<Route path="/product/:product-id/reservation/date" element={<ReservationDate />} />*/}
-				{/*<Route path="/product/:product-id/reservation/complete" element={<ReservationComplete />} />*/}
+				{/*<Route path="/store/:storeId/product/:product-id/reservation/type" element={<ReservationType />} />*/}
+				{/*<Route path="/store/:storeId/product/:product-id/reservation/date" element={<ReservationDate />} />*/}
+				{/*<Route path="/store/:storeId/product/:product-id/reservation/complete" element={<ReservationComplete />} />*/}
 
 				{/*예약 페이지 테스트*/}
 				<Route path="/reservation/type" element={<ReservationType />} />
@@ -100,13 +100,16 @@ function AppRouter() {
 
 				{/* 플로라이브 페이지 */}
 				<Route path="/flolive" element={<Flolive />} />
+				{/* <Route path="/flolive/:orderId/:sessionId" element={<Flolive />} /> */}
 				<Route path="/flolive/exit" element={<FloliveExit />} />
+				{/* <Route path="/flolive/:sessionId/exit" element={<FloliveExit />} /> */}
 				<Route path="/flolive/waiting" element={<FloliveWaiting />} />
+				{/* <Route path="/flolive/:orderId/waiting" element={<FloliveWaiting />} /> */}
+				<Route path="/flolive/kakao-payment/success" element={<KakaoPaymentSuccess />} />
 
 				{/* 마크업 테스트 */}
 				<Route path="/flolive-test" element={<FloliveTest />} />
 				{/* <Route path="/flolive/:session-id" element={<Flolive />} /> */}
-				<Route path="/kakao-payment/success" element={<KakaoPaymentSuccess />} />
 
 				{/* 마이페이지 */}
 				<Route path="/mypage" element={<MyPage />} />

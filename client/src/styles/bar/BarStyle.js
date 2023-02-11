@@ -112,6 +112,7 @@ export const SearchBarContainer = styled.section`
 	margin: 16px;
 	padding: 8px;
 	display: flex;
+	position: relative;
 `;
 
 export const SearchBarContent = styled.div`
