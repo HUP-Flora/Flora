@@ -27,14 +27,14 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "select o from Order o " +
             "join fetch o.uId " +
             "join fetch o.sId " +
-            "where o.sId.sId = :sId",
+            "where o.sId.sId = :sId and o.recId is not null",
             countQuery = "select count(o) from Order o where o.sId.sId = :sId")
     Page<Order> findAllByStore(@Param("sId") Long sId, Pageable pageable);
 
     @Query(value = "select o from Order o " +
             "join fetch o.uId " +
             "join fetch o.sId " +
-            "where o.uId.uId = :uId",
+            "where o.uId.uId = :uId and o.recId is not null",
             countQuery = "select count(o) from Order o where o.sId.sId = :sId")
     Page<Order> findAllByUser(@Param("uId") Long uId, Pageable pageable);
 
