@@ -129,20 +129,22 @@ public class ProductService {
         product.deleteProduct();
     }
 
-    public void createProduct(ProductReq productReq, Map<String, String> authInfo) {
+    public Long createProduct(ProductReq productReq, Map<String, String> authInfo) {
         Long uId = Long.valueOf(authInfo.get("uId"));
 
         // 접속한 사람이 주인인 가게를 찾는다.
         Store store = storeRepository.findByUId(uId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        productRepository.save(Product.builder()
+        Product save = productRepository.save(Product.builder()
                 .name(productReq.getName())
                 .desc(productReq.getDesc())
                 .price(productReq.getPrice())
                 .sId(store)
                 .build()
         );
+
+        return save.getPId();
     }
 
     public void updateProduct(ProductReq productReq, Long pId, Map<String, String> authInfo) {
