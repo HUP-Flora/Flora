@@ -59,10 +59,10 @@ public class StoreController {
         return productResList;
     }
 
-    @GetMapping("/{sId}/mypage")
-    public StoreMypageRes findStoreMypageInfo(@PathVariable("sId") Long sId){
+    @GetMapping("/mypage")
+    public StoreMypageRes findStoreMypageInfo(){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        StoreMypageRes storeMypageRes = storeService.findStoreMypageInfo(sId, authInfo);
+        StoreMypageRes storeMypageRes = storeService.findStoreMypageInfo(authInfo);
         return storeMypageRes;
     }
 
