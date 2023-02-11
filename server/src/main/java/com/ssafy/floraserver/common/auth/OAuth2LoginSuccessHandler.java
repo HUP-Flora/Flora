@@ -51,7 +51,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             log.info(String.valueOf(oAuth2User));
             log.info(oAuth2User.getEmail());
 
-            String accessToken = jwtProvider.createAccessToken(authentication, uId);
+            String accessToken = jwtProvider.createAccessToken(authentication, uId, authentication.getAuthorities().toString());
             String refreshToken = jwtProvider.createRefreshToken(authentication);
 
             log.info("accessToken : {}", accessToken);
