@@ -95,6 +95,7 @@ public class FloliveController {
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         log.info("수령 정보 작성 시도");
         floliveService.createReceipt(oId, receiptReq, authInfo);
+        log.info("수령 정보 작성 완료");
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -110,7 +111,7 @@ public class FloliveController {
         log.info("RESPONSE: 가게 번호 {} 의 {} 예약 불가능 시간 검색", sId, date);
         List<Order> orderList = floliveService.storeDate(sId, date);
         List<Long> reserveList = new ArrayList();
-        for(int i = 0; i < orderList.size(); i++) {
+        for (int i = 0; i < orderList.size(); i++) {
             reserveList.add(orderList.get(i).getConId().getReservationTime().getTuId());
             System.out.println(reserveList.get(i));
         }
@@ -155,6 +156,14 @@ public class FloliveController {
                 .map(o -> ConfirmRes.builder().order(o).build());
         log.info("사용자 번호(가게) 의 플로라이브 예정 목록", authInfo.get("uId"));
         return new ResponseEntity<>(storeConfirmResList, HttpStatus.OK);
+    }
+
+    @GetMapping("close/{oId}")
+    public ResponseEntity<?> closeFlolive(@PathVariable Long oId) throws OpenViduJavaClientException, OpenViduHttpException {
+        log.info("주문 번호 {} 화상회의 종료 시도", oId);
+        floliveService.closeFlolive(oId);
+        log.info("주문 번호 {} 화상회의 종료 성공", oId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

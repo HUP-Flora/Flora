@@ -183,6 +183,8 @@ public class FloliveService {
                         .status(ReceiptStatus.UNDONE)
                         .build()
         );
+
+        order.updatePayment(receiptReq.getPayment());
     }
 
     public String storeCalendar(Long sId) {
@@ -262,6 +264,8 @@ public class FloliveService {
                         .build()
         );
 
+        log.info(String.valueOf(conference.getConId()));
+
         // order 저장 상품 O
         Order savedOrder = orderRepository.save(
                 Order.builder()
@@ -272,7 +276,7 @@ public class FloliveService {
                         .uId(user)
                         .sId(store)
                         .pId(product)
-                        .conId(null) // TODO 위에 conId랑 연결하기
+                        .conId(conference)
                         .build()
         );
     }

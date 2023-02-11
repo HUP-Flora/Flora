@@ -2,18 +2,14 @@ package com.ssafy.floraserver.api.controller;
 
 import com.ssafy.floraserver.api.response.PaySucessRes;
 import com.ssafy.floraserver.api.service.PayService;
-import com.ssafy.floraserver.api.vo.PayAppResVo;
-import com.ssafy.floraserver.api.vo.PayReadyReqVo;
 import com.ssafy.floraserver.api.vo.PayReadyResVo;
 import com.ssafy.floraserver.db.entity.Order;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
-import java.net.URI;
 import java.util.Map;
 
 @RestController
@@ -45,10 +41,10 @@ public class PayController {
         payService.payApproval(payReadyResVo, pg_token, oId);
     }
 
-    @GetMapping("{oId}/sucess")
-    public ResponseEntity<?> paySucess(@PathVariable Long oId) {
+    @GetMapping("{oId}/success")
+    public ResponseEntity<?> paySuccess(@PathVariable Long oId) {
         log.info("주문 번호 {} 에 대한 결제 완료 정보 요청", oId);
-        PaySucessRes paySucessRes = payService.paySucess(oId);
+        PaySucessRes paySucessRes = payService.paySuccess(oId);
         log.info("주문 번호 {} 에 대한 결제 완료 정보 반환", oId);
         return new ResponseEntity<>(paySucessRes, HttpStatus.OK);
     }

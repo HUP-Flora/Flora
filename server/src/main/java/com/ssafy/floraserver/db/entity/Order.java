@@ -90,7 +90,7 @@ public class Order extends BaseEntity{
         this.type = type;
         this.payment = 0;
         this.paymentNum = null;
-        this.paymentStatus = null;
+        this.paymentStatus = PaymentStatus.UNDONE;
         this.uId = uId;
         this.sId = sId;
         this.pId = pId;

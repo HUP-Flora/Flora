@@ -154,7 +154,7 @@ public class PayService {
         return res;
     }
 
-    public PaySucessRes paySucess(Long oId) {
+    public PaySucessRes paySuccess(Long oId) {
         Order order = orderRepository.findByOId(oId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
