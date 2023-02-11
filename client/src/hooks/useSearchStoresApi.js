@@ -1,5 +1,6 @@
 import { useSetRecoilState } from "recoil";
 import { storeListState } from "../recoil/search";
+import { addressState } from "../recoil/searchBar";
 import api from "../utils/api";
 
 export const useSearchStoresApi = () => {

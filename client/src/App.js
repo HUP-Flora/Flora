@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import AppRouter from "./AppRouter";
 import { AppContainer } from "./styles/common/CommonStyle";
 

@@ -18,6 +18,8 @@ export const useStoreFormApi = () => {
 			});
 	};
 
+	// storeFormApi();
+
 	// const storeFormApi = data => {
 	// 	axios({
 	// 		method: "PUT",
