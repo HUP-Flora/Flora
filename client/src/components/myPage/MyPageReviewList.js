@@ -11,34 +11,6 @@ import ReviewList from "./ReviewList";
 function MyPageReview(props) {
 	const navegate = useNavigate();
 
-	// 더미 데이터
-	const reviews = [
-		{
-			image: { image },
-			name: "꽃 파는 가게",
-			date: "2023.01.20",
-			time: "17:03",
-			content:
-				"lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem",
-		},
-		{
-			image: { image },
-			name: "꽃 파는 가게",
-			date: "2023.01.20",
-			time: "17:03",
-			content:
-				"lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem",
-		},
-		{
-			image: { image },
-			name: "꽃 파는 가게",
-			date: "2023.01.20",
-			time: "17:03",
-			content:
-				"lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem",
-		},
-	];
-
 	return (
 		<ListContiner>
 			<ListHeader>
@@ -47,7 +19,7 @@ function MyPageReview(props) {
 					더보기
 				</GrayText>
 			</ListHeader>
-			<ReviewList />
+			<ReviewList size={3} />
 			{/* {reviews.map((review, index) => (
 				<ShadowCardWrapper>
 					<ShadowCard marginBottom="16" display="flex" isSpaceBetween={true}>

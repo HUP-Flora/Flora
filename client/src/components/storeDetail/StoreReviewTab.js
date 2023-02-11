@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
-import { storeState, reviewsState } from "../../recoil/storeDetail";
+import { storeState, storeReviewsState } from "../../recoil/storeDetail";
 
 import { useReviewsApi } from "../../hooks/useStoreApi";
 
@@ -21,7 +21,7 @@ import productImgSrc from "../../assets/store.png";
 
 function StoreReview(props) {
 	const store = useRecoilValue(storeState);
-	const [reviews, setReviews] = useRecoilState(reviewsState);
+	const [reviews, setReviews] = useRecoilState(storeReviewsState);
 
 	const reviewsApi = useReviewsApi();
 
