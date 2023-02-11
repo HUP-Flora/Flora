@@ -18,7 +18,7 @@ export const useInfoApi = () => {
 		if (type === "customer") {
 			url = `/users`;
 		} else {
-			url = `/stores/${sId}/mypage`;
+			url = `/stores/mypage`;
 		}
 
 		api({
