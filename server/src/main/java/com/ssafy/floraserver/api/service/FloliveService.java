@@ -43,8 +43,8 @@ public class FloliveService {
 
         // CUSTOMER인지 확인 @PreAuthorize
         // 가게 존재하는지 확인
-//        Long uId = Long.parseLong(authInfo.get("uId"));
-        Long uId = Long.valueOf(31); // TODO 테스트용 uID, 나중에 지우기
+        Long uId = Long.parseLong(authInfo.get("uId"));
+//        Long uId = Long.valueOf(31); // TODO 테스트용 uID, 나중에 지우기
 
         User user = userRepository.findById(uId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
