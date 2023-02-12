@@ -1,14 +1,9 @@
 package com.ssafy.floraserver.api.response;
 
 import com.ssafy.floraserver.db.entity.Order;
-import com.ssafy.floraserver.db.entity.Receipt;
-import com.ssafy.floraserver.db.entity.enums.PaymentStatus;
-import com.ssafy.floraserver.db.entity.enums.ReceiptStatus;
+import com.ssafy.floraserver.db.entity.Product;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 public class StoreOrderRes {
@@ -20,11 +15,11 @@ public class StoreOrderRes {
     private int status;
 
     @Builder
-    public StoreOrderRes(Order order, int status) {
+    public StoreOrderRes(Order order, int status, Product defaultProduct) {
         this.oId = order.getOId();
-        this.pName = order.getPId().getName();
+        this.pName = order.getPId() == null ? defaultProduct.getName() : order.getPId().getName();
         this.orderDate = order.getDate().toString();
-        this.pImg = order.getPId().getImgPath();
+        this.pImg = order.getPId() == null ? defaultProduct.getImgPath() : order.getPId().getImgPath();
         this.payment = order.getPayment();
         this.status = status;
     }

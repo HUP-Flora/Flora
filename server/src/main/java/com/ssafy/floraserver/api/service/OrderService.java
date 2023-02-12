@@ -3,17 +3,16 @@ package com.ssafy.floraserver.api.service;
 import com.ssafy.floraserver.api.response.OrderRes;
 import com.ssafy.floraserver.api.response.StoreOrderRes;
 import com.ssafy.floraserver.api.response.UserOrderRes;
+import com.ssafy.floraserver.db.entity.Product;
 import com.ssafy.floraserver.db.entity.Store;
 import com.ssafy.floraserver.db.entity.enums.ConferenceStatus;
 import com.ssafy.floraserver.db.entity.enums.OrderStatus;
 import com.ssafy.floraserver.db.entity.enums.PaymentStatus;
 import com.ssafy.floraserver.db.entity.enums.ReceiptStatus;
-import com.ssafy.floraserver.db.repository.ReceiptRepository;
+import com.ssafy.floraserver.db.repository.*;
 import com.ssafy.floraserver.db.entity.Order;
 import com.ssafy.floraserver.db.entity.Receipt;
-import com.ssafy.floraserver.db.repository.OrderRepository;
 import com.ssafy.floraserver.db.repository.ReceiptRepository;
-import com.ssafy.floraserver.db.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -35,6 +34,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ReceiptRepository receiptRepository;
     private final StoreRepository storeRepository;
+    private final ProductRepository productRepository;
 
     public Page<StoreOrderRes> findStoreOrderList(Pageable pageable, Map<String, String> authInfo) {
 
@@ -48,11 +48,15 @@ public class OrderService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
+        Product defaultProduct = productRepository.findById(1L)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
         Page<Order> orderList = orderRepository.findAllByStore(store.getSId(), pageable);
 
         Page<StoreOrderRes> storeOrderResList = orderList
                 .map(o -> StoreOrderRes.builder()
                         .order(o)
+                        .defaultProduct(defaultProduct)
                         .status(makeOrderResStatus(o))
                         .build());
 

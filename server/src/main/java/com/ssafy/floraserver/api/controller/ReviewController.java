@@ -56,4 +56,11 @@ public class ReviewController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/{revId}")
+    public ResponseEntity<?> deleteProduct(@PathVariable("revId") Long revId){
+        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
+        reviewService.deleteReview(revId, authInfo);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }
