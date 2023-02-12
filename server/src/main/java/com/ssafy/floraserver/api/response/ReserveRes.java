@@ -6,11 +6,11 @@ import lombok.Getter;
 @Getter
 public class ReserveRes {
     private Long oId;
-    private String pImg;
+    private String sImg;
 
     @Builder
-    public ReserveRes(Long oId, String pImg) {
+    public ReserveRes(Long oId, String sImg) {
         this.oId = oId;
-        this.pImg = pImg;
+        this.sImg = sImg;
     }
 }
