@@ -7,6 +7,7 @@ import StoreModal from "./search/StoreModal";
 import CalendarModal from "../components/common/CalendarModal";
 import { isCalenderModalState, isSearchStoreModalState } from "../recoil/search";
 import { userInfoTypeState } from "../recoil/userInfo";
+import MainTopBanner from "../components/main/MainTopBanner";
 
 export function Main() {
 	const isSearchStoreModal = useRecoilValue(isSearchStoreModalState);
@@ -17,6 +18,9 @@ export function Main() {
 	useEffect(() => {
 		const params = new URLSearchParams(window.location.search);
 		const token = params.get("token");
+
+		console.log(token);
+
 		if (token) {
 			localStorage.setItem("AccessToken", token);
 			getUserTypeApi(token);
@@ -27,7 +31,8 @@ export function Main() {
 		<>
 			{isSearchStoreModal && <StoreModal />}
 			{isCalendarModal && <CalendarModal />}
-			<SearchBar />
+			<MainTopBanner />
+			{/* <SearchBar /> */}
 			<TabMenuBar selectedMenu="Main" />
 		</>
 	);
