@@ -5,7 +5,7 @@ import PortalReactDom from "react-dom";
 import { useRecoilState } from "recoil";
 import { storeImageFileState } from "../../recoil/signup";
 
-import { useReviewAddApi } from "../../hooks/useReviewApi";
+import { useReviewAddApi } from "../../hooks/useReviewAddApi";
 
 import { UploadPicture } from "../store/UploadPicture";
 

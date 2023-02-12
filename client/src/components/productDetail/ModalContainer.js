@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import PortalReactDom from "react-dom";
 
-import { useProductDeleteApi } from "../../hooks/useProductApi";
+import { useProductDeleteApi } from "../../hooks/useProductDeleteApi";
 
 import {
 	Container,

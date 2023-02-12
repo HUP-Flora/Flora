@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import { SetRecoilState, useRecoilState } from "recoil";
 import { nameState, productState } from "../../recoil/productForms";
 
-import { useProductDetailApi } from "../../hooks/useProductApi";
-
 import TextareaAutosize from "react-textarea-autosize";
 
 import { UploadPicture } from "../store/UploadPicture";

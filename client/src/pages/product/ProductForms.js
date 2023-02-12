@@ -8,7 +8,7 @@ import { storeImageFileState } from "../../recoil/signup";
 
 import { productState } from "../../recoil/productForms";
 
-import { useProductDetailApi } from "../../hooks/useProductApi";
+import { useProductDetailApi } from "../../hooks/useProductDetailApi";
 
 import StatusBar from "../../components/common/StatusBar";
 import ProductForm from "../../components/product/ProductForm";

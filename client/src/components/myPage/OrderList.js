@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { ordersState } from "../../recoil/order";
 
-import { useOrdersApi } from "../../hooks/useOrderApi";
+import { useOrdersApi } from "../../hooks/useOrdersApi";
 
 import MyPageListEmpty from "./MyPageListEmpty";
 import ReviewAddModal from "./ReviewAddModal";

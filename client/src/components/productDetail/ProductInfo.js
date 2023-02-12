@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { productState } from "../../recoil/productForms";
 
-import { useProductDetailApi } from "../../hooks/useProductApi";
+import { useProductDetailApi } from "../../hooks/useProductDetailApi";
 
 import StatusBar from "../common/StatusBar";
 

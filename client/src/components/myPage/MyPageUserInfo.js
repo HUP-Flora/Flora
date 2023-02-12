@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useLogoutApi } from "../../hooks/useMypageApi";
+import { useLogoutApi } from "../../hooks/useLogoutApi";
 
 import { BoldText, GrayText, ShadowCard } from "../../styles/common/CommonStyle";
 import { ListContiner, ListHeader } from "../../styles/myPage/MyPageStyle";
