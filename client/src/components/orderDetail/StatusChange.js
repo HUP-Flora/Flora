@@ -2,11 +2,13 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { isShowConfirmModalState, orderDetailState } from "../../recoil/orderDetail";
 import { StatusChageButton } from "../../styles/orderDetail/ProgressBarStyle";
 import ConfirmModal from "./ConfirmModal";
-import { decideLeftSize } from "../../utils/orderDetail";
+import { decideLeftSize, decideOrderStatus } from "../../utils/orderDetail";
 
 function StatusChange() {
-	const { orderType, orderStatus } = useRecoilValue(orderDetailState);
+	const { receiptType, status } = useRecoilValue(orderDetailState);
 	const [isShowConfirmModal, setIsShowConfirmModal] = useRecoilState(isShowConfirmModalState);
+
+	const nowStatus = decideOrderStatus(status);
 
 	// 테스트 코드
 	const [orderDetail, setOrderDetail] = useRecoilState(orderDetailState);
@@ -16,15 +18,15 @@ function StatusChange() {
 		// 1. 처음 orderDetail이 렌더링 되면 orderStatus의 모든 정보를 가져오고(orderDetail.js의 useEffect 참고)
 
 		// 2. 현재 recoil로 관리하고 있는 orderDetail안의 orderStatus를 변경한다.
-		if (orderType === "DELIVERY") {
+		if (receiptType === "DELIVERY") {
 			setOrderDetail({
 				...orderDetail,
-				orderStatus: orderStatus === "결제 완료" ? "배송 중" : "배송 완료",
+				status: status === 1 ? 2 : 3,
 			});
-		} else if (orderType === "PICKUP") {
+		} else if (receiptType === "PICKUP") {
 			setOrderDetail({
 				...orderDetail,
-				orderStatus: orderStatus === "결제 완료" ? "수령 완료" : "수령 완료",
+				status: status === 1 ? 4 : 4,
 			});
 		}
 
@@ -34,13 +36,13 @@ function StatusChange() {
 		setIsShowConfirmModal(false);
 	};
 
-	const leftSize = decideLeftSize(orderType, orderStatus);
+	const leftSize = decideLeftSize(receiptType, nowStatus);
 
 	return (
 		<>
-			{!(orderStatus === "결제 전") &&
-				!(orderStatus === "배송 완료") &&
-				!(orderStatus === "수령 완료") &&
+			{!(nowStatus === "결제 전") &&
+				!(nowStatus === "배송 완료") &&
+				!(nowStatus === "수령 완료") &&
 				user === "사장" && (
 					<StatusChageButton onClick={() => setIsShowConfirmModal(true)} left={leftSize}>
 						변경하기

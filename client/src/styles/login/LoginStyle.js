@@ -14,9 +14,9 @@ export const ContentContainer = styled.div`
 	width: 100%;
 	height: calc(100vh - 70px);
 
-	> div {
-		width: 100%;
-	}
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
 
 	> div:first-child > img {
 		width: auto;
@@ -45,8 +45,10 @@ export const TextContainer = styled.div`
 export const MainImgWrapper = styled.div`
 	display: flex;
 	justify-content: center;
+	align-items: center;
+	height: 50%;
 
 	> img {
-		width: 70%;
+		height: 100%;
 	}
 `;

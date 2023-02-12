@@ -1,25 +1,31 @@
 import { useCallback, useEffect } from "react";
 
 import "./SearchCalendar.css";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import {
-	RorderDayOfWeekState,
-	RorderDayState,
-	RorderMonthState,
-	RorderYearState,
-} from "../../recoil/reservation";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { isCalenderModalState } from "../../recoil/search";
-import { addressState, dateState } from "../../recoil/searchBar";
+import {
+	addressState,
+	dateState,
+	searchBarDayOfWeekState,
+	searchBarDayState,
+	searchBarMonthState,
+	searchBarYearState,
+} from "../../recoil/searchBar";
+import { useLocation, useNavigate } from "react-router-dom";
 
 let currDateDiv;
 
 function SearchCalendar() {
 	const [date, setDate] = useRecoilState(dateState);
-	const [RorderYear, setRorderYear] = useRecoilState(RorderYearState);
-	const [RorderMonth, setRorderMonth] = useRecoilState(RorderMonthState);
-	const [RorderDay, setRorderDay] = useRecoilState(RorderDayState);
-	const [RorderDayOfWeek, setRorderDayOfWeek] = useRecoilState(RorderDayOfWeekState);
+	const [searchYear, setSearchYear] = useRecoilState(searchBarYearState);
+	const [searchMonth, setSearchMonth] = useRecoilState(searchBarMonthState);
+	const [searchDay, setSearchDay] = useRecoilState(searchBarDayState);
+	const [searchDayOfWeek, setSearchDayOfWeek] = useRecoilState(searchBarDayOfWeekState);
 	const [isCalendarModalShow, setIsCalendarModalShow] = useRecoilState(isCalenderModalState);
+	const address = useRecoilValue(addressState);
+
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	const isLeapYear = year => {
 		return (
@@ -48,9 +54,11 @@ function SearchCalendar() {
 			} else if (dayOfWeek === 6) {
 				dayOfWeekStr = "토";
 			}
-			setRorderDayOfWeek(dayOfWeekStr);
+			setSearchDayOfWeek(dayOfWeekStr);
+
+			return dayOfWeekStr;
 		},
-		[setRorderDayOfWeek]
+		[setSearchDayOfWeek]
 	);
 
 	useEffect(() => {
@@ -77,8 +85,8 @@ function SearchCalendar() {
 		};
 
 		const generateCalendar = (month, year) => {
-			setRorderYear(year);
-			setRorderMonth(month + 1);
+			setSearchYear(year);
+			setSearchMonth(month + 1);
 
 			let calendar_days = calendar.querySelector(".calendar-days");
 			let calendar_header_year = calendar.querySelector("#year");
@@ -115,7 +123,7 @@ function SearchCalendar() {
 					) {
 						day.classList.add("curr-date");
 						// Sun, Mon, Tue, Wed, Thu, Fri, Sat
-						setRorderDay(day.innerText.trim());
+						setSearchDay(day.innerText.trim());
 						currDateDiv = day;
 						getDayOfWeek(year, month + 1, day.innerText.trim());
 					}
@@ -162,9 +170,9 @@ function SearchCalendar() {
 	}, []);
 
 	const ClickDayHandler = e => {
-		setRorderDay(e.target.innerText);
-		setDate(`${RorderYear}년 ${RorderMonth}월 ${RorderDay}일 ${RorderDayOfWeek}요일`);
-		getDayOfWeek(RorderYear, RorderMonth + 1, e.target.innerText);
+		setSearchDay(e.target.innerText);
+		setDate(`${searchYear}년 ${searchMonth}월 ${searchDay}일 ${searchDayOfWeek}요일`);
+		const dayOfWeekData = getDayOfWeek(searchYear, searchMonth, e.target.innerText);
 		if (e.target.classList.contains("calendar-day-hover")) {
 			if (currDateDiv) {
 				currDateDiv.classList.remove("curr-date");
@@ -172,6 +180,12 @@ function SearchCalendar() {
 			currDateDiv = e.target;
 			currDateDiv.classList.add("curr-date");
 			setIsCalendarModalShow(!isCalendarModalShow);
+		}
+
+		if (location.pathname === "/search") {
+			navigate(
+				`/search?address=${address}&year=${searchYear}&month=${searchMonth}&day=${e.target.innerText}&dayOfWeek=${dayOfWeekData}`
+			);
 		}
 	};
 

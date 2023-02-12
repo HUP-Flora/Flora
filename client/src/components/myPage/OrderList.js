@@ -30,7 +30,7 @@ import image from "../../assets/store.png";
 function OrderList({ size }) {
 	const navigate = useNavigate();
 
-	const { ordersApi } = useOrdersApi();
+	const { ordersApi, getOrderDetail } = useOrdersApi();
 
 	const [orders, setOrders] = useRecoilState(ordersState);
 
@@ -38,8 +38,9 @@ function OrderList({ size }) {
 	const [sId, setSId] = useState("");
 	const [oId, setOId] = useState("");
 
-	const handleClickOrder = () => {
-		// navigate("/order/:id");
+	// 주문 상세 류원창이 수정합니다.
+	const handleClickOrder = (oid) => {
+		navigate(`/mypage/order/${oid}`);
 	};
 
 	const handleClickReviewAdd = (oId, sId) => {
@@ -62,7 +63,7 @@ function OrderList({ size }) {
 				<MyPageListEmpty text="주문 내역이" />
 			) : (
 				orders.map((order, index) => (
-					<ShadowCardWrapper key={index} onClick={handleClickOrder}>
+					<ShadowCardWrapper key={index} onClick={() => handleClickOrder(order.oid)}>
 						<ShadowCard display="flex" isSpaceBetween={false} marginBottom="16">
 							{order.simg === null && order.pimg === null ? (
 								<img src={defaultImg} alt="product-img" />

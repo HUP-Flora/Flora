@@ -135,8 +135,12 @@ export function StoreForm({ nextURL, type, sId }) {
 			setStorePhoneNumber(store.phoneNumber);
 			setStoreFirstAddress(fullNameAddress[0]);
 			setStoreSecondAddress(fullNameAddress[1]);
-			setStoreRegionDepthName(store.region_1depth_name);
-			// setStoreDescription(store.desc);
+			setStoreRegionDepthName({
+				region_1depth_name: store.region_1depth_name,
+				region_2depth_name: store.region_2depth_name,
+				region_3depth_name: store.region_3depth_name,
+			});
+			setStoreDescription(store.desc);
 			setStoreStartTime({ value: timeList.indexOf(store.start), label: store.start });
 			setStoreEndTime({ value: timeList.indexOf(store.end), label: store.end });
 			setStoreHoliday(filteredHolidayList);
@@ -161,21 +165,39 @@ export function StoreForm({ nextURL, type, sId }) {
 				.filter((_, index) => storeHoliday[index])
 				.join();
 
-			const data = {
-				businessLicense: storeBrn,
-				name: storeName,
-				phoneNumber: storePhoneNumber,
-				region_1depth_name: storeRegionDepthName.region_1depth_name,
-				region_2depth_name: storeRegionDepthName.region_2depth_name,
-				region_3depth_name: storeRegionDepthName.region_3depth_name,
-				address_name: `${storeFirstAddress}/${storeSecondAddress}`,
-				lat: location.center.lat,
-				lng: location.center.lng,
-				desc: storeDescription,
-				holiday: storeHolidays,
-				start: storeStartTime.value,
-				end: storeEndTime.value,
-			};
+			let data;
+			if (type === "edit") {
+				data = {
+					name: storeName,
+					phoneNumber: storePhoneNumber,
+					region_1depth_name: storeRegionDepthName.region_1depth_name,
+					region_2depth_name: storeRegionDepthName.region_2depth_name,
+					region_3depth_name: storeRegionDepthName.region_3depth_name,
+					address_name: `${storeFirstAddress}/${storeSecondAddress}`,
+					lat: location.center.lat,
+					lng: location.center.lng,
+					desc: storeDescription,
+					holiday: storeHolidays,
+					start: storeStartTime.value,
+					end: storeEndTime.value,
+				};
+			} else {
+				data = {
+					businessLicense: storeBrn,
+					name: storeName,
+					phoneNumber: storePhoneNumber,
+					region_1depth_name: storeRegionDepthName.region_1depth_name,
+					region_2depth_name: storeRegionDepthName.region_2depth_name,
+					region_3depth_name: storeRegionDepthName.region_3depth_name,
+					address_name: `${storeFirstAddress}/${storeSecondAddress}`,
+					lat: location.center.lat,
+					lng: location.center.lng,
+					desc: storeDescription,
+					holiday: storeHolidays,
+					start: storeStartTime.value,
+					end: storeEndTime.value,
+				};
+			}
 
 			console.log(data);
 			console.log(storeImageFile);

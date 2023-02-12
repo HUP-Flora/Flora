@@ -278,7 +278,7 @@ export const BottomButtonContainer = styled.div`
 	background-color: #fff;
 	border-top: 0.5px solid var(--gray-300);
 
-	z-index: 100;
+	z-index: 30;
 
 	bottom: 0;
 	left: 0;

@@ -6,24 +6,25 @@ import {
 import { orderDetailState } from "../../recoil/orderDetail";
 import { useRecoilValue } from "recoil";
 import reportImg from "../../assets/orderDetail/siren.png";
-import { decideTitle } from "../../utils/orderDetail";
+import { decideTitle, decideOrderStatus } from "../../utils/orderDetail";
 
 function OrderDetailHeader() {
 	const orderDetail = useRecoilValue(orderDetailState);
-	const { orderType, orderStatus } = orderDetail;
+	const { receiptType, status } = orderDetail;
 
 	const user = "사장";
 
-	const { titleText, subTitleText } = decideTitle(orderStatus, orderType, user);
+	const nowStatus = decideOrderStatus(status);
+	const { titleText, subTitleText } = decideTitle(nowStatus, receiptType, user);
 
 	return (
 		<>
 			<OrderDetailHeaderTitle dangerouslySetInnerHTML={{ __html: titleText }} />
 			<OrderDetailHeaderSubTitle
 				dangerouslySetInnerHTML={{ __html: subTitleText }}
-				status={orderStatus === "결제 전" && user === "사장"}
+				status={nowStatus === "결제 전" && user === "사장"}
 			/>
-			{orderStatus === "결제 전" && user === "사장" && (
+			{nowStatus === "결제 전" && user === "사장" && (
 				<ReportContainer>
 					<img src={reportImg} alt="reportImg" />
 					<p>no-show 신고하기</p>

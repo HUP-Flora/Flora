@@ -25,11 +25,11 @@ export const HeaderContainer = styled.div`
 export const ShadowCardWrapper = styled.div`
 	position: relative;
 
-	::after {
-		display: block;
-		content: "";
-		padding-bottom: 100%;
-	}
+	// ::after {
+	// 	display: block;
+	// 	content: "";
+	// 	padding-bottom: 100%;
+	// }
 
 	img {
 		width: 80px;
