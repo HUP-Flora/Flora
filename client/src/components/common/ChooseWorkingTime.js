@@ -62,7 +62,7 @@ export function ChooseWorkingTime() {
 		<ChooseWorkingTimeSection>
 			<GrayText size="13">시작</GrayText>
 			<Select
-				defaultValue={{ value: 18, label: "09:00" }}
+				defaultValue={storeStartTime}
 				options={options}
 				isSearchable={false}
 				isDisabled={false}
@@ -72,7 +72,7 @@ export function ChooseWorkingTime() {
 			<Text size="16">~</Text>
 			<GrayText size="13">종료</GrayText>
 			<Select
-				defaultValue={{ value: 36, label: "18:00" }}
+				defaultValue={storeEndTime}
 				options={options}
 				isSearchable={false}
 				isDisabled={false}

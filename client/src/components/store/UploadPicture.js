@@ -16,10 +16,10 @@ export function UploadPicture(img) {
 	const [imagePreview, setImagePreview] = useRecoilState(storeImagePreviewState);
 	const imageRef = useRef();
 
-	// 기존 이미지 삽입
-	if (!imagePreview && img && img.img?.split("-")[10] !== "null.png") {
-		setImagePreview(img?.img);
-	}
+	// // 기존 이미지 삽입
+	// if (!imagePreview && img && img.img?.split("-")[10] !== "null.png") {
+	// 	setImagePreview(img?.img);
+	// }
 
 	const onUploadImage = useCallback(() => {
 		const file = imageRef.current.files[0];
