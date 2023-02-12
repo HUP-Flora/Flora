@@ -76,7 +76,7 @@ function ProductAddBottomButtons({
 			if (type === "add") {
 				const data = {
 					name: product?.name,
-					desc: product?.description,
+					desc: product?.desc,
 					price: product?.price?.replace(/,/g, ""),
 				};
 
@@ -94,7 +94,7 @@ function ProductAddBottomButtons({
 					new Blob([JSON.stringify(data)], { type: "application/json" })
 				);
 
-				productAddApi(formData);
+				productAddApi(sId, formData);
 			} else if (type === "edit") {
 				const data = {
 					name: product?.name,

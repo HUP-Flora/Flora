@@ -7,7 +7,7 @@ export const useReviewAddApi = () => {
 
 	const reviewAddApi = data => {
 		api({
-			method: "PUT",
+			method: "POST",
 			url: "/reviews",
 			headers: {
 				"Content-Type": "multipart/form-data",

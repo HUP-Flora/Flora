@@ -10,7 +10,7 @@ export const usePhoneNumberEditApi = () => {
 	const phoneNumberEditApi = phoneNumber => {
 		api({
 			method: "PUT",
-			url: `/users`,
+			url: `/users/phonenumber`,
 			data: {
 				phoneNumber: phoneNumber,
 			},
@@ -21,7 +21,7 @@ export const usePhoneNumberEditApi = () => {
 				setIsPhoneNumberEdit(false);
 			})
 			.catch(error => {
-				console.log("유저 닉네임 수정 에러 ", error);
+				console.log("유저 전화번호 수정 에러 ", error);
 			});
 	};
 

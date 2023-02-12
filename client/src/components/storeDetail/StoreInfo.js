@@ -34,7 +34,11 @@ function StoreInfo(props) {
 
 	// on/off 토글 클릭 핸들러
 	const handleClickToggle = () => {
-		toggleApi(sId);
+		toggleApi();
+	};
+
+	const formatAddressName = addressName => {
+		return addressName?.replace("/", " ");
 	};
 
 	return (
@@ -64,8 +68,8 @@ function StoreInfo(props) {
 					</Text>
 				</BasicInfoRow>
 				<BasicInfoRow>
-					<Text size="13">{store?.address_name}</Text>
-					<Text size="13">{store?.holiday}</Text>
+					<Text size="13">{formatAddressName(store?.address_name)}</Text>
+					<Text size="13">매주 {store?.holiday}요일 휴무</Text>
 				</BasicInfoRow>
 			</BasicInfoContainer>
 		</StoreInfoContainer>

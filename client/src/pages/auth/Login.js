@@ -2,18 +2,21 @@ import { ButtonToolBar } from "../../styles/bar/BarStyle";
 import { KakaoLoginButton } from "../../styles/button/ButtonStyle";
 import { KakaoLogo, WhiteLayout } from "../../styles/common/CommonStyle";
 import KakaoLogoImg from "../../assets/kakao/KakaoLogo.png";
+import { useEffect } from "react";
+
+import LoginContent from "../../components/login/LoginContent";
+import LoginButton from "../../components/login/LoginButton";
+
+import { Container } from "../../styles/login/LoginStyle";
 
 export function Login() {
+	useEffect(() => {
+		localStorage.removeItem("AccessToken");
+	}, []);
 	return (
-		<WhiteLayout>
-			<ButtonToolBar>
-				<a href={`${process.env.REACT_APP_SERVER_URL}/oauth2/authorization/kakao`} alt="_self">
-					<KakaoLoginButton>
-						<KakaoLogo src={KakaoLogoImg} alt="KakaoLogo" />
-						<span>카카오톡으로 시작하기</span>
-					</KakaoLoginButton>
-				</a>
-			</ButtonToolBar>
-		</WhiteLayout>
+		<Container>
+			<LoginContent />
+			<LoginButton />
+		</Container>
 	);
 }

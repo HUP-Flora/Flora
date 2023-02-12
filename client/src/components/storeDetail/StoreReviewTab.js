@@ -19,14 +19,11 @@ import { BoldText, GrayText, GrayHr } from "../../styles/common/CommonStyle";
 
 import productImgSrc from "../../assets/store.png";
 
-function StoreReview(props) {
+function StoreReview({ sId }) {
 	const store = useRecoilValue(storeState);
 	const [reviews, setReviews] = useRecoilState(storeReviewsState);
 
 	const reviewsApi = useReviewTabApi();
-
-	// 더미 데이터
-	const sId = 8;
 
 	useEffect(() => {
 		// 리뷰가 있을 때만 get 요청

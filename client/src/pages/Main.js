@@ -15,7 +15,12 @@ export function Main() {
 	const getUserTypeApi = useGetUserTypeApi();
 
 	useEffect(() => {
-		getUserTypeApi();
+		const params = new URLSearchParams(window.location.search);
+		const token = params.get("token");
+		if (token) {
+			localStorage.setItem("AccessToken", token);
+			getUserTypeApi(token);
+		}
 	}, [getUserTypeApi]);
 
 	return (
@@ -23,7 +28,7 @@ export function Main() {
 			{isSearchStoreModal && <StoreModal />}
 			{isCalendarModal && <CalendarModal />}
 			<SearchBar />
-			<TabMenuBar userType={userType} selectedMenu="Main" />
+			<TabMenuBar selectedMenu="Main" />
 		</>
 	);
 }

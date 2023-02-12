@@ -16,6 +16,7 @@ import {
 import { Text, BoldText, GrayHr } from "../../styles/common/CommonStyle";
 
 import defaultImg from "../../assets/default-flower.png";
+import NoPaddingStatusBar from "../common/NoPaddingStatusBar";
 
 function ProductInfo({ pId }) {
 	const [product, setProduct] = useRecoilState(productState);
@@ -23,12 +24,13 @@ function ProductInfo({ pId }) {
 	const productDetailApi = useProductDetailApi();
 
 	useEffect(() => {
+		console.log("testtest", pId);
 		productDetailApi(pId);
 	}, []);
 
 	return (
 		<div>
-			<StatusBar text="상품 상세" />
+			<NoPaddingStatusBar text="상품 상세" />
 			<ImageWrapper>
 				<img
 					src={product?.pimg?.split("-")[10] === "null.png" ? defaultImg : product?.pimg}

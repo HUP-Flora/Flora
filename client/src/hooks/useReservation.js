@@ -2,6 +2,7 @@ import api from "../utils/api";
 import { RorderHolidayState, RorderTimeAvailableState } from "../recoil/reservation";
 import { useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
+import { useCallback } from "react";
 
 function useReservation() {
 	const setRorderHolidayState = useSetRecoilState(RorderHolidayState);
@@ -9,11 +10,11 @@ function useReservation() {
 
 	const navigate = useNavigate();
 
-	const getHolidayAPI = () => {
+	const getHolidayAPI = useCallback(() => {
 		console.log("getHolidayAPI");
 		api({
 			method: "GET",
-			url: `flolive/calendar/8`,
+			url: "flolive/calendar/8",
 		})
 			.then(res => {
 				console.log(res);
@@ -23,29 +24,29 @@ function useReservation() {
 			.catch(err => {
 				console.log(err);
 			});
-	};
+	}, [setRorderHolidayState]);
 
-	const getAvailableTimeAPI = selecteddate => {
+	const getAvailableTimeAPI = useCallback(selecteddate => {
 		console.log(selecteddate);
 		api({
 			method: "GET",
 			url: `flolive/time/8?date=${selecteddate}`,
 		})
 			.then(res => {
-				console.log(res);
+				console.log(res.data);
 				// 응답으로 온 예약 가능 시간을 저장
-				// setRorderTimeAvailableState(res);
+				setRorderTimeAvailableState(res.data);
 			})
 			.catch(err => {
 				console.log(err);
 			});
-	};
+	}, [setRorderTimeAvailableState]);
 
-	const submitReservationAPI = (reserveData) => {
+	const submitReservationAPI = reserveData => {
 		api({
 			method: "POST",
 			url: "flolive/reserve",
-			reserveData,
+			data: reserveData,
 		})
 			.then(res => {
 				console.log(res);
@@ -55,7 +56,7 @@ function useReservation() {
 			.catch(err => {
 				console.log(err);
 			});
-	}
+	};
 
 	return {
 		getHolidayAPI,

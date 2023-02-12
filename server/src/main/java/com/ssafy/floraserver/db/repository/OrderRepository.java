@@ -50,7 +50,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "select o from Order o " +
             "join fetch o.conId Conference " +
-            "where o.date = :date and o.sId.sId = :sId " +
+            "where o.conId.reservationDate = :date and o.sId.sId = :sId " +
             "and o.conId.reservationTime.tuId >= :start " +
             "and o.conId.reservationTime.tuId < :end")
     List<Order> findByDateAndSId(LocalDate date, Long sId, Long start, Long end);

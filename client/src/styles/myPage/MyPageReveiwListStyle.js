@@ -23,7 +23,20 @@ export const HeaderContainer = styled.div`
 `;
 
 export const ShadowCardWrapper = styled.div`
+	position: relative;
+
+	::after {
+		display: block;
+		content: "";
+		padding-bottom: 100%;
+	}
+
 	img {
+		width: 80px;
+		height: 80px;
 		margin-left: 32px;
+
+		object-fit: cover;
+		border-radius: 50%;
 	}
 `;

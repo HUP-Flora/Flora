@@ -1,11 +1,11 @@
 import api from "../utils/api";
 
-function useChatting() {
-	const sendFormDataAPI = orederFormData => {
+function useChattingAPI() {
+	const sendFormDataAPI = data => {
 		api({
 			method: "POST",
 			url: "flolive/1/receipt",
-			orederFormData,
+			data,
 		})
 			.then(res => {
 				console.log(res);
@@ -20,4 +20,4 @@ function useChatting() {
 	}
 }
 
-export default useChatting;
+export default useChattingAPI;

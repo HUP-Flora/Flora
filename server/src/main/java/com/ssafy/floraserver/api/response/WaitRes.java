@@ -22,6 +22,7 @@ public class WaitRes {
     private Long reservationTime;
     private String sName;
     private String pName;
+    private String pImge;
 
     @Builder
     public WaitRes(Order order) {
@@ -31,6 +32,7 @@ public class WaitRes {
         this.reservationTime = order.getConId().getReservationTime().getTuId();
         this.sName = order.getSId().getName();
         this.pName = order.getPId().getName();
+        this.pImge = order.getPId().getImgPath();
     }
 }
 

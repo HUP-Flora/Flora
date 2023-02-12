@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { SetRecoilState, useRecoilState } from "recoil";
+import { SetRecoilState, useRecoilState, useResetRecoilState } from "recoil";
 import { nameState, productState } from "../../recoil/productForms";
 
 import TextareaAutosize from "react-textarea-autosize";
@@ -31,6 +31,7 @@ function ProductForm({
 	descriptionValidMessage,
 }) {
 	const [product, setProduct] = useRecoilState(productState);
+	const resetProduct = useResetRecoilState(productState);
 
 	const [nameCount, setNameCount] = useState(0);
 	const [descriptionCount, setDescriptionCount] = useState(0);
@@ -58,6 +59,15 @@ function ProductForm({
 		setDescriptionCount(e.target.value.length);
 	};
 
+	// useEffect(() => {
+
+	// 	resetProduct();
+	// 	setProduct({
+	// 		...product,
+	// 		name: "왜 안돼",
+	// 	});
+	// }, []);
+
 	return (
 		<>
 			<UploadPictureWrapper>
@@ -66,6 +76,8 @@ function ProductForm({
 			</UploadPictureWrapper>
 			<FormWrapper>
 				<InputWrapper>
+					{console.log(product?.name)}
+
 					<BottomBorderInput
 						type="text"
 						placeholder="상품명을 입력해주세요."

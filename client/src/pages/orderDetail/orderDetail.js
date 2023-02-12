@@ -13,7 +13,7 @@ function OrderDetail() {
 	useEffect(() => {
 		setOrderDetail({
 			orderType: "DELIVERY",
-			orderStatus: "결제 전",
+			orderStatus: "결제 완료",
 			orderDate: "2021-08-01",
 			orderNumber: "B001230120001",
 			shopName: "꽃집이요",
@@ -23,7 +23,7 @@ function OrderDetail() {
 		});
 	}, [setOrderDetail]);
 
-	const user = "손님";
+	const user = "사장";
 
 	return (
 		<>

@@ -10,7 +10,7 @@ export const useNicknameEditApi = () => {
 	const nicknameEditApi = nickname => {
 		api({
 			method: "PUT",
-			url: `/users`,
+			url: `/users/nickname`,
 			data: {
 				nickname: nickname,
 			},
