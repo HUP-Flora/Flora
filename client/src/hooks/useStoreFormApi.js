@@ -12,6 +12,7 @@ import {
 	storeStartTimeState,
 } from "../recoil/signup";
 import api from "../utils/api";
+import { useGetUserTypeApi } from "./useGetUserTypeApi";
 
 export const useStoreFormApi = () => {
 	const setStorePhoneNumber = useSetRecoilState(phoneNumberState);
@@ -23,6 +24,7 @@ export const useStoreFormApi = () => {
 	const setStoreStartTime = useSetRecoilState(storeStartTimeState);
 	const setStoreBrn = useSetRecoilState(storeBrnState);
 	const setStoreImageFile = useSetRecoilState(storeImageFileState);
+	const getUserTypeApi = useGetUserTypeApi();
 
 	const navigate = useNavigate();
 
@@ -38,6 +40,7 @@ export const useStoreFormApi = () => {
 			.then(res => {
 				localStorage.setItem("AccessToken", res.data);
 
+				getUserTypeApi(res.data);
 				setStoreImageFile("");
 				setStoreBrn("");
 				setStoreName("");
