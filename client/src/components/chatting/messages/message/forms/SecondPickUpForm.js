@@ -88,7 +88,8 @@ function SecondPickUpForm({ time }) {
 			recipient: null,
 			recipientPhoneNumber: null,
 			deliveryDestination: null,
-			giftMessage: giftCard,
+			giftMessage: giftCard ? giftCard : null,
+			payment: paymentAmount,
 		}
 
 		// console.log(orederFormData);

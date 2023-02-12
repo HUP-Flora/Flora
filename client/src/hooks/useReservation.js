@@ -45,7 +45,7 @@ function useReservation() {
 		api({
 			method: "POST",
 			url: "flolive/reserve",
-			reserveData,
+			data: reserveData,
 		})
 			.then(res => {
 				console.log(res);

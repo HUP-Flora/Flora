@@ -15,7 +15,7 @@ import pickupPinkImage from "../../assets/reservation/FirstFormPickUpImage.png";
 import NextButton from "../../components/common/NextButton";
 import { useRecoilState } from "recoil";
 import { RisModalShowState, RorderTypeState } from "../../recoil/reservation";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ReservationWarningModal from "../../components/reservation/ReservationWarningModal";
 
 function ReservationType() {
@@ -24,13 +24,13 @@ function ReservationType() {
 	const [RisModalShow, setRisModalShow] = useRecoilState(RisModalShowState);
 
 	const navigate = useNavigate();
+	const { sId, pId } = useParams();
 	const typeNextHandler = () => {
 		if (orderType === "") {
 			setRisModalShow(true);
 			return;
 		}
-		// navigate("/product/:product-id/reservation/date");
-		navigate("/reservation/date");
+		navigate(`/store/${sId}/product/${pId}/reservation/date`);
 	};
 
 	return (
