@@ -11,8 +11,17 @@ export const ContentContainer = styled.div`
 	background-color: var(--primary-300);
 	border-radius: 0 0 15px 15px;
 
-	> img {
-		width: 72px;
+	> img:nth-child(3) {
+		width: 96px;
+
+		left: 20px;
+		bottom: 70px;
+	}
+
+	> img:nth-child(4) {
+		width: 62px;
+		top: 25px;
+		right: 20px;
 	}
 
 	> img {
