@@ -13,8 +13,9 @@ import { useProductDetailApi } from "../../hooks/useProductDetailApi";
 import StatusBar from "../../components/common/StatusBar";
 import ProductForm from "../../components/product/ProductForm";
 import ProductAddBottomButtons from "../../components/product/ProductBottomButtons";
+import NoPaddingStatusBar from "../../components/common/NoPaddingStatusBar";
 
-function ProductForms(props) {
+function ProductForms() {
 	const location = useLocation();
 	const { sId, pId } = useParams();
 
@@ -48,7 +49,7 @@ function ProductForms(props) {
 
 	return (
 		<>
-			<StatusBar text={type === "add" ? "상품 등록" : "상품 수정"} />
+			<NoPaddingStatusBar text={type === "add" ? "상품 등록" : "상품 수정"} />
 			<ProductForm
 				nameValidMessage={nameValidMessage}
 				priceValidMessage={priceValidMessage}

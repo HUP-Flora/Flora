@@ -1,10 +1,10 @@
 import api from "../utils/api";
 
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { isFloMarkClickedState } from "../recoil/storeDetail";
 
 export const useIsFloMarkApi = () => {
-	const [isFloMarkClicked, setIsFloMarkClicked] = useRecoilState(isFloMarkClickedState);
+	const setIsFloMarkClicked = useSetRecoilState(isFloMarkClickedState);
 
 	const isFloMark = async sId => {
 		await api({
@@ -12,6 +12,7 @@ export const useIsFloMarkApi = () => {
 			url: `/flowermarks/${sId}`,
 		})
 			.then(response => {
+				console.log(response.data);
 				setIsFloMarkClicked(response.data);
 			})
 			.catch(error => {

@@ -10,7 +10,7 @@ export const useProductAddApi = () => {
 	const resetProduct = useResetRecoilState(productState);
 	const resetProductImg = useResetRecoilState(storeImageFileState);
 
-	const productAdd = data => {
+	const productAdd = (sId, data) => {
 		api({
 			method: "POST",
 			url: "/products",
@@ -22,7 +22,7 @@ export const useProductAddApi = () => {
 			.then(response => {
 				resetProduct();
 				resetProductImg();
-				navigate("/productDetail");
+				navigate(`/store/${sId}/product/${response.data}`);
 			})
 			.catch(error => {
 				console.log(error);

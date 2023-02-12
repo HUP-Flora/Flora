@@ -28,7 +28,7 @@ export function Main() {
 			{isSearchStoreModal && <StoreModal />}
 			{isCalendarModal && <CalendarModal />}
 			<SearchBar />
-			<TabMenuBar userType={userType} selectedMenu="Main" />
+			<TabMenuBar selectedMenu="Main" />
 		</>
 	);
 }

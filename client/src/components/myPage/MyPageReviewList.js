@@ -1,7 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { BoldText, GrayText, ShadowCard } from "../../styles/common/CommonStyle";
+import {
+	BoldText,
+	GrayText,
+	PointerGrayText,
+	PointerText,
+	ShadowCard,
+} from "../../styles/common/CommonStyle";
 import { ListContiner, ListHeader } from "../../styles/myPage/MyPageStyle";
 import { HeaderContainer, ShadowCardWrapper } from "../../styles/myPage/MyPageReveiwListStyle";
 
@@ -15,9 +21,9 @@ function MyPageReview(props) {
 		<ListContiner>
 			<ListHeader>
 				<BoldText size="19">리뷰 관리</BoldText>
-				<GrayText onClick={() => navegate("review/list")} weight="bold">
+				<PointerText color="gray" onClick={() => navegate("review/list")} weight="bold">
 					더보기
-				</GrayText>
+				</PointerText>
 			</ListHeader>
 			<ReviewList size={3} />
 			{/* {reviews.map((review, index) => (
