@@ -1,7 +1,6 @@
 package com.ssafy.floraserver.api.controller;
 
-import com.ssafy.floraserver.api.request.UserNicknameReq;
-import com.ssafy.floraserver.api.request.UserPhoneNumberReq;
+import com.ssafy.floraserver.api.request.UserInfoReq;
 import com.ssafy.floraserver.api.response.UserMypageRes;
 import com.ssafy.floraserver.api.service.UserService;
 import com.ssafy.floraserver.common.util.SecurityUtil;
@@ -28,17 +27,11 @@ public class UserController {
         return userMypageRes;
     }
 
-    @PutMapping("/nickname")
-    public ResponseEntity<?> updateUserNickname(@RequestBody UserNicknameReq userNicknameReq){
+    @PutMapping
+    public ResponseEntity<?> updateUserInfo(@RequestBody UserInfoReq userInfoReq) {
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        userService.updateUserNickname(userNicknameReq, authInfo);
+        userService.updateUserInfo(userInfoReq, authInfo);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/phonenumber")
-    public ResponseEntity<?> updateUserNickname(@RequestBody UserPhoneNumberReq userPhoneNumberReq){
-        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        userService.updateUserPhoneNumber(userPhoneNumberReq, authInfo);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
 }
