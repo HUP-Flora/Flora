@@ -22,7 +22,7 @@ import floMarkPinkSrc from "../../assets/floMarkPink.png";
 import liveTvSrc from "../../assets/live-tv-white.png";
 import { userInfoTypeState } from "../../recoil/userInfo";
 
-function StoreDetailButtons() {
+function StoreDetailButtons({ sId }) {
 	const navigate = useNavigate();
 
 	const [store, setStore] = useRecoilState(storeState);
@@ -39,7 +39,7 @@ function StoreDetailButtons() {
 
 	const { enterFloliveAPI } = useStoreDetail();
 
-	let { sId } = useParams();
+	// let { sId } = useParams();
 
 	const handleEnterFlolive = () => {
 		enterFloliveAPI();
@@ -56,9 +56,6 @@ function StoreDetailButtons() {
 		setIsFloMarkClicked(!isFloMarkClicked);
 	};
 
-	// 더미 데이터
-	// const sId = 8;
-
 	useEffect(() => {
 		// 꽃갈피 등록 여부
 		isFloMarkApi(sId);
@@ -70,7 +67,9 @@ function StoreDetailButtons() {
 			{userInfoType === "[[ROLE_STORE]]" ? (
 				<ButtonsContainer isCustomer={false}>
 					<>
-						<Primary400Button onClick={() => navigate(`/store`)}>가게 정보 수정</Primary400Button>
+						<Primary400Button onClick={() => navigate(`/store/${sId}/edit`)}>
+							가게 정보 수정
+						</Primary400Button>
 						<Primary50Button onClick={() => navigate(`product/add`)}>상품 등록</Primary50Button>
 					</>
 				</ButtonsContainer>

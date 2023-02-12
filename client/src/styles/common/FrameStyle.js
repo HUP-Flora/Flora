@@ -12,3 +12,11 @@ export const SignupBodyFrame = styled(BodyFrame)`
 	flex-direction: column;
 	justify-content: space-between;
 `;
+
+export const SearchListCenterFrame = styled.div`
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+`;

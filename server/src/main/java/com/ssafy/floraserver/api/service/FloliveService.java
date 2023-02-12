@@ -312,10 +312,12 @@ public class FloliveService {
 
     public Page<Order> findStoreWaitFlolive(Pageable pageable, Map<String, String> authInfo) {
         Long uId = Long.parseLong(authInfo.get("uId"));
-//        Long uId = Long.valueOf(31); // TODO 테스트용 uID, 나중에 지우기
+//        Long uId = Long.valueOf(310); // TODO 테스트용 uID, 나중에 지우기
         Store store = storeRepository.findByUId(uId)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        log.info("가게 번호 : {}", String.valueOf(store.getSId()));
         Page<Order> orderList = orderRepository.findBySId(store.getSId(), OrderStatus.WAITING, pageable);
+        log.info("수락 대기 목록 개수 : {}", String.valueOf(orderList.getTotalElements()));
         return orderList;
     }
 

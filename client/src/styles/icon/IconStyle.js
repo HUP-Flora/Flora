@@ -21,8 +21,8 @@ transform: translate(0%, 0%)
 `;
 
 export const BigSearchAddressIcon = styled.img`
-	width: 40px;
-	height: 40px;
+	width: ${props => props.size || 40}px;
+	height: ${props => props.size || 40}px;
 	margin-bottom: 8px;
 `;
 
@@ -40,4 +40,9 @@ export const SearchBarIcon = styled.img`
 	top: 50%;
 	left: 95%;
 	transform: translate(-50%, -50%);
+`;
+
+export const PencilIcon = styled.img`
+	width: 23px;
+	height: 23px;
 `;
