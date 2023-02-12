@@ -62,17 +62,15 @@ function ReservationDate() {
 
 	// 예약 완료 버튼 클릭
 	const navigate = useNavigate();
-	const { pId } = useParams();
+	const { sId, pId } = useParams();
 	const dateNextHandler = () => {
 		if (RorderTime === "") {
 			setRisModalShow(true);
 			return;
 		}
 		const reserveData ={
-			// orderType: RorderType,
-			sId: 8,
-			// pId: pId,
-			pId: 1,
+			sid: sId,
+			pid: pId,
 			reservationDate: date,
 			reservationTime: RorderTime,
 		}
@@ -80,9 +78,6 @@ function ReservationDate() {
 		console.log(reserveData);
 
 		submitReservationAPI(reserveData);
-
-		// navigate("/product/:product-id/reservation/complete");
-		// navigate("/reservation/complete");
 	};
 
 	let placeholder = "시간을 선택해주세요";
