@@ -33,8 +33,8 @@ import defaultImg from "../../assets/default-store.png";
 
 function MyPageHeader(props) {
 	// 더미 데이터 시작 -------------
-	const type = "owner";
-	// const type = "customer";
+	// const type = "owner";
+	const type = "customer";
 	// 더미 데이터 끝 -----
 
 	const [user, setUser] = useRecoilState(userState);
