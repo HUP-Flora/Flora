@@ -97,3 +97,19 @@ export const decideProgressInfo = (orderType, orderStatus, setStates) => {
 		}
 	}
 }
+
+export const decideOrderStatus = (status) => {
+	let nowStatus;
+	if (status === 0) {
+		nowStatus = "결제 전";
+	} else if (status === 1) {
+		nowStatus = "결제 완료";
+	} else if (status === 2) {
+		nowStatus = "배송 중";
+	} else if (status === 3) {
+		nowStatus = "배송 완료";
+	} else if (status === 4) {
+		nowStatus = "수령 완료";
+	}
+	return nowStatus;
+};

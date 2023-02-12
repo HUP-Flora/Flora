@@ -8,15 +8,17 @@ import {
 import { useRecoilValue } from "recoil";
 import { orderDetailState } from "../../recoil/orderDetail";
 import StatusChange from "./StatusChange";
-import { decideProgressInfo } from "../../utils/orderDetail";
+import { decideOrderStatus, decideProgressInfo } from "../../utils/orderDetail";
 
 function ProgressBar() {
-	const { orderType, orderStatus } = useRecoilValue(orderDetailState);
+	const { receiptType, status } = useRecoilValue(orderDetailState);
 	const [barWidth, setBarWidth] = useState("12%");
 	const [first, setFirst] = useState(false);
 	const [second, setSecond] = useState(false);
 	const [third, setThird] = useState(false);
 	const [fourth, setFourth] = useState(false);
+
+	const nowStatus = decideOrderStatus(status);
 
 	const setStates = (first, second, third, fourth, barWidth) => {
 		setFirst(first);
@@ -27,8 +29,8 @@ function ProgressBar() {
 	};
 
 	useEffect(() => {
-		decideProgressInfo(orderType, orderStatus, setStates);
-	}, [orderType, orderStatus]);
+		decideProgressInfo(receiptType, nowStatus, setStates);
+	}, [receiptType, nowStatus]);
 
 	return (
 		<>
@@ -36,13 +38,13 @@ function ProgressBar() {
 			<OrderStatusContainer>
 				<OrderStatusText isNow={first}>결제 전</OrderStatusText>
 				<OrderStatusText isNow={second}>결제 완료</OrderStatusText>
-				{orderType === "DELIVERY" && (
+				{receiptType === "DELIVERY" && (
 					<>
 						<OrderStatusText isNow={third}>배송 중</OrderStatusText>
 						<OrderStatusText isNow={fourth}>배송 완료</OrderStatusText>
 					</>
 				)}
-				{orderType === "PICKUP" && <OrderStatusText isNow={third}>수령 완료</OrderStatusText>}
+				{receiptType === "PICKUP" && <OrderStatusText isNow={third}>수령 완료</OrderStatusText>}
 			</OrderStatusContainer>
 			<OrderStatusLine>
 				<OrderStatusLineNow width={barWidth} />

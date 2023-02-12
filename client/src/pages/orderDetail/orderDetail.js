@@ -6,22 +6,18 @@ import { orderDetailState } from "../../recoil/orderDetail";
 import { useEffect } from "react";
 import ProgressBar from "../../components/orderDetail/ProgressBar";
 import OrderDetailContent from "../../components/orderDetail/OrderDetailContent";
+import { useOrdersApi } from "../../hooks/useOrdersApi";
+import { useParams } from "react-router-dom";
 
 function OrderDetail() {
 	const [orderDetail, setOrderDetail] = useRecoilState(orderDetailState);
+	const { getOrderDetail } = useOrdersApi();
+	const { oId } = useParams();
 
 	useEffect(() => {
-		setOrderDetail({
-			orderType: "DELIVERY",
-			orderStatus: "결제 완료",
-			orderDate: "2021-08-01",
-			orderNumber: "B001230120001",
-			shopName: "꽃집이요",
-			flowerName: "안개꽃 한 송이",
-			flowerPrice: "10,000원",
-			paymentNumber: "F230A233P1",
-		});
-	}, [setOrderDetail]);
+		console.log("oid", oId);
+		getOrderDetail(oId);
+	}, [getOrderDetail, oId]);
 
 	const user = "사장";
 
@@ -32,7 +28,7 @@ function OrderDetail() {
 				<OrderDetailHeader />
 				<ProgressBar />
 				<OrderDetailContent />
-				{orderDetail.orderStatus === "결제 전" && user === "손님" && <RepaymentButton>{orderDetail.flowerPrice} 재결제하기</RepaymentButton>}
+				{orderDetail?.status === 0 && user === "손님" && <RepaymentButton>{orderDetail.flowerPrice} 재결제하기</RepaymentButton>}
 			</OrderDetailContainer>
 		</>
 	);
