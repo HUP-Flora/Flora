@@ -3,6 +3,7 @@ import { isShowConfirmModalState, orderDetailState } from "../../recoil/orderDet
 import { StatusChageButton } from "../../styles/orderDetail/ProgressBarStyle";
 import ConfirmModal from "./ConfirmModal";
 import { decideLeftSize, decideOrderStatus } from "../../utils/orderDetail";
+import { userType } from "../../utils/user";
 
 function StatusChange() {
 	const { receiptType, status } = useRecoilValue(orderDetailState);
@@ -12,7 +13,7 @@ function StatusChange() {
 
 	// 테스트 코드
 	const [orderDetail, setOrderDetail] = useRecoilState(orderDetailState);
-	const user = "사장";
+	const user = userType();
 
 	const changeStatusHandler = () => {
 		// 1. 처음 orderDetail이 렌더링 되면 orderStatus의 모든 정보를 가져오고(orderDetail.js의 useEffect 참고)

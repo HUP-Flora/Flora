@@ -75,8 +75,6 @@ function ReservationDate() {
 			reservationTime: RorderTime,
 		}
 
-		// console.log(reserveData);
-
 		submitReservationAPI(reserveData);
 	};
 

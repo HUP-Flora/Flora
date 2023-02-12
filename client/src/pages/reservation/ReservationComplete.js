@@ -8,14 +8,15 @@ import {
 	ShopInfoContainer,
 	ShopName,
 } from "../../styles/reservation/ReservationCompleteStyle";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function ReservationComplete() {
 	const navigate = useNavigate();
 
+	const { oid, pimg } = useLocation().state.resData;
+
 	const onClickOrderInfo = () => {
-		// TODO: 주문 내역으로 이동하기
-		// navigate("/orderinfo");
+		navigate(`/mypage/order/${oid}`);
 	};
 
 	const onClickHome = () => {
@@ -32,9 +33,7 @@ function ReservationComplete() {
 			</RcompleteContent>
 			<ShopInfoContainer>
 				<ShopImage
-					src={
-						"https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/4146050202/B.jpg?642000000"
-					}
+					src={pimg}
 				/>
 				<ShopName>꽃집이요</ShopName>
 			</ShopInfoContainer>

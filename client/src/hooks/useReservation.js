@@ -51,7 +51,12 @@ function useReservation() {
 			.then(res => {
 				console.log(res);
 				// 성공시 예약 완료 페이지로 이동
-				navigate("/store/:sId/product/:pId/reservation/complete");
+				const resData = res.data;
+				navigate("/store/:sId/product/:pId/reservation/complete", {
+					state: {
+						resData,
+					}
+				});
 			})
 			.catch(err => {
 				console.log(err);
