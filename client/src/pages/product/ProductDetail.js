@@ -5,13 +5,13 @@ import ProductInfo from "../../components/productDetail/ProductInfo";
 import ProductBottomButtons from "../../components/productDetail/ProductBottomButtons";
 
 function ProductDetail(props) {
-	let { storetId } = useParams();
-	let { productId } = useParams();
+	let { sId } = useParams();
+	let { pId } = useParams();
 
 	return (
 		<>
-			<ProductInfo pId={productId} />
-			<ProductBottomButtons pId={productId} sId={storetId} />
+			<ProductInfo pId={pId} />
+			<ProductBottomButtons pId={pId} sId={sId} />
 		</>
 	);
 }
