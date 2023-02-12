@@ -1,9 +1,9 @@
 import { useSetRecoilState } from "recoil";
-import { ownersIdState, userTypeState } from "../recoil/userInfo";
+import { ownersIdState, userInfoTypeState } from "../recoil/userInfo";
 import api from "../utils/api";
 
 export const useGetUserTypeApi = () => {
-	const setUserType = useSetRecoilState(userTypeState);
+	const setUserType = useSetRecoilState(userInfoTypeState);
 	const setOwnersIdState = useSetRecoilState(ownersIdState);
 
 	const getUserTypeApi = token => {

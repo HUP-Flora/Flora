@@ -4,7 +4,7 @@ import { useMypageInfoApi } from "../../hooks/useMypageInfoApi";
 import { useNicknameEditApi } from "../../hooks/useNicknameEditApi";
 import { usePhoneNumberEditApi } from "../../hooks/usePhoneNumberEditApi";
 
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
 	userState,
 	isNicknameValidState,
@@ -30,14 +30,11 @@ import { TextLimit } from "../../styles/product/productForm/ProductFormStyle";
 
 import EditIcon from "../../assets/myPage/EditIcon.png";
 import defaultImg from "../../assets/default-store.png";
+import { userInfoTypeState } from "../../recoil/userInfo";
 
 function MyPageHeader(props) {
-	// 더미 데이터 시작 -------------
-	// const type = "owner";
-	const type = "customer";
-	// 더미 데이터 끝 -----
-
 	const [user, setUser] = useRecoilState(userState);
+	const userInfoType = useRecoilValue(userInfoTypeState);
 
 	// edit 여부로 편집창 open / close
 	const [isNameEdit, setIsNicknameEdit] = useRecoilState(isNicknameEditState);
@@ -52,10 +49,10 @@ function MyPageHeader(props) {
 	const phoneNumberEditApi = usePhoneNumberEditApi();
 
 	useEffect(() => {
-		if (type === "customer") {
-			mypageInfoApi(type);
+		if (userInfoType === "[[ROLE_CUSTOMER]]") {
+			mypageInfoApi(userInfoType);
 		} else {
-			mypageInfoApi(type, 8);
+			mypageInfoApi(userInfoType, 8);
 			// mypageInfoApi(type, sId);
 		}
 	}, []);
@@ -105,8 +102,8 @@ function MyPageHeader(props) {
 	};
 
 	return (
-		<HeaderConianer type={type}>
-			{type === "customer" ? (
+		<HeaderConianer type={userInfoType}>
+			{userInfoType === "[[ROLE_CUSTOMER]]" ? (
 				<>
 					{isNameEdit ? (
 						<>
@@ -134,7 +131,7 @@ function MyPageHeader(props) {
 								<BoldText size="23" font="nexon">
 									{user?.nickname} 님
 								</BoldText>
-								<img type="customer" src={EditIcon} onClick={handleClickNameEdit} />
+								<img type="customer" src={EditIcon} onClick={handleClickNameEdit} alt="editIcon" />
 							</div>
 						</>
 					)}
@@ -169,7 +166,12 @@ function MyPageHeader(props) {
 										?.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
 										?.replace(/\-{1,2}$/g, "")}
 								</Text>
-								<img type="customer" src={EditIcon} onClick={handleClickPhoneNumberEdit} />
+								<img
+									type="[[ROLE_CUSTOMER]]"
+									src={EditIcon}
+									onClick={handleClickPhoneNumberEdit}
+									alt=""
+								/>
 							</div>
 						</>
 					)}
@@ -181,7 +183,11 @@ function MyPageHeader(props) {
 							{user?.name} 님
 						</BoldText>
 						<div>
-							<img type="owner" src={user?.simg === null ? defaultImg : user?.simg} alt="" />
+							<img
+								type="[[ROLE_STORE]]"
+								src={user?.simg === null ? defaultImg : user?.simg}
+								alt=""
+							/>
 						</div>
 					</div>
 				</>

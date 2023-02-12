@@ -6,7 +6,7 @@ export const HeaderConianer = styled.div`
 	> div {
 		display: flex;
 		justify-content: space-between;
-		// justify-content: ${props => props.type === "owner" && "space-between"};
+		// justify-content: ${props => props.type === "[[ROLE_STORE]]" && "space-between"};
 		align-items: center;
 	}
 

@@ -9,11 +9,11 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import NoPaddingStatusBar from "../../components/common/NoPaddingStatusBar";
-import { userTypeState } from "../../recoil/userInfo";
+import { userInfoTypeState } from "../../recoil/userInfo";
 import { TabMenuBar } from "../../components/common/TabMenuBar";
 
 function StoreDetail() {
-	const userType = useRecoilValue(userTypeState);
+	const userType = useRecoilValue(userInfoTypeState);
 
 	const { sId } = useParams();
 

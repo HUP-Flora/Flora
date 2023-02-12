@@ -5,16 +5,17 @@ import MyPageOrderList from "../../components/myPage/MyPageOrderList";
 import MyPageReviewList from "../../components/myPage/MyPageReviewList";
 import MyPageUserInfo from "../../components/myPage/MyPageUserInfo";
 import { TabMenuBar } from "../../components/common/TabMenuBar";
+import { useRecoilValue } from "recoil";
+import { userInfoTypeState } from "../../recoil/userInfo";
 
 function MyPage(props) {
-	// const type = "owner";
-	const type = "customer";
+	const userInfoType = useRecoilValue(userInfoTypeState);
 
 	return (
 		<>
 			<MyPageHeader />
 			<MyPageOrderList />
-			{type === "customer" && <MyPageReviewList />}
+			{userInfoType === "[[ROLE_CUSTOMER]]" && <MyPageReviewList />}
 			<MyPageUserInfo />
 			<TabMenuBar selectedMenu="MyPage" />
 		</>
