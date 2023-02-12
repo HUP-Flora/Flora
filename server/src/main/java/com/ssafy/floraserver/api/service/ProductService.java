@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -49,7 +50,7 @@ public class ProductService {
 
         FileVO fileVO = null;
         // 이미지 저장
-        if(!file.isEmpty()){
+        if(file != null){
             fileVO = fileService.uploadFile(file);
         }
 
@@ -58,10 +59,10 @@ public class ProductService {
                 .desc(productReq.getDesc())
                 .price(productReq.getPrice())
                 .sId(store)
-                .imgOriginalName(file.isEmpty() ? null : fileVO.getImgOriginalName())
-                .imgNewName(file.isEmpty() ? null : fileVO.getImgNewName())
-                .imgPath(file.isEmpty() ? null : fileVO.getImgPath())
-                .imgUploadTime(file.isEmpty() ? null : fileVO.getImgUploadTime())
+                .imgOriginalName(fileVO != null ? fileVO.getImgOriginalName() : null)
+                .imgNewName(fileVO != null ? fileVO.getImgNewName() : null)
+                .imgPath(fileVO != null ? fileVO.getImgPath() : null)
+                .imgUploadTime(fileVO != null ? fileVO.getImgUploadTime() : null)
                 .build()
         );
         return product.getPId();
@@ -94,7 +95,7 @@ public class ProductService {
                 .build();
 
         // 이미지 저장
-        if(!file.isEmpty()){
+        if(file != null){
             fileVO = fileService.uploadFile(file);
         }
 
@@ -104,10 +105,10 @@ public class ProductService {
                 .desc(productReq.getDesc())
                 .price(productReq.getPrice())
                 .sId(store)
-                .imgOriginalName(file.isEmpty() ? null : fileVO.getImgOriginalName())
-                .imgNewName(file.isEmpty() ? null : fileVO.getImgNewName())
-                .imgPath(file.isEmpty() ? null : fileVO.getImgPath())
-                .imgUploadTime(file.isEmpty() ? null : fileVO.getImgUploadTime())
+                .imgOriginalName(fileVO != null ? fileVO.getImgOriginalName() : null)
+                .imgNewName(fileVO != null ? fileVO.getImgNewName() : null)
+                .imgPath(fileVO != null ? fileVO.getImgPath() : null)
+                .imgUploadTime(fileVO != null ? fileVO.getImgUploadTime() : null)
                 .build()
         );
     }

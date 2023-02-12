@@ -113,7 +113,7 @@ public class AuthService {
 
         FileVO fileVO = null;
         // 이미지 저장
-        if(!file.isEmpty()){
+        if(file != null){
             fileVO = fileService.uploadFile(file);
         }
 
@@ -132,10 +132,10 @@ public class AuthService {
                 .holiday(storeExtraInfoReq.getHoliday())
                 .start(start)
                 .end(end)
-                .imgOriginalName(Optional.of(fileVO.getImgOriginalName()).orElse(null))
-                .imgNewName(file.isEmpty() ? null : fileVO.getImgNewName())
-                .imgPath(file.isEmpty() ? null : Objects.requireNonNull(fileVO).getImgPath())
-                .imgUploadTime(file.isEmpty() ? null : fileVO.getImgUploadTime())
+                .imgOriginalName(fileVO != null ? fileVO.getImgOriginalName() : null)
+                .imgNewName(fileVO != null ? fileVO.getImgNewName() : null)
+                .imgPath(fileVO != null ? fileVO.getImgPath() : null)
+                .imgUploadTime(fileVO != null ? fileVO.getImgUploadTime() : null)
                 .build();
 
         Store save = storeRepository.save(store);

@@ -130,10 +130,10 @@ public class StoreService {
                 .holiday(storeInfoReq.getHoliday())
                 .start(start)
                 .end(end)
-                .imgOriginalName(file.isEmpty() ? null : fileVO.getImgOriginalName())
-                .imgNewName(file.isEmpty() ? null : fileVO.getImgNewName())
-                .imgPath(file.isEmpty() ? null : fileVO.getImgPath())
-                .imgUploadTime(file.isEmpty() ? null : fileVO.getImgUploadTime())
+                .imgOriginalName(file.isEmpty() ? store.getImgOriginalName() : fileVO.getImgOriginalName())
+                .imgNewName(file.isEmpty() ? store.getImgNewName() : fileVO.getImgNewName())
+                .imgPath(file.isEmpty() ? store.getImgPath() : fileVO.getImgPath())
+                .imgUploadTime(file.isEmpty() ? store.getImgUploadTime() : fileVO.getImgUploadTime())
                 .build());
     }
 

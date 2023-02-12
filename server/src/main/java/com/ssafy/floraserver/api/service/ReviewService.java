@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -74,7 +75,7 @@ public class ReviewService {
 
         FileVO fileVO = null;
         // 이미지 저장
-        if(!file.isEmpty()){
+        if(file != null){
             fileVO = fileService.uploadFile(file);
         }
 
@@ -83,10 +84,10 @@ public class ReviewService {
                 .oId(order)
                 .sId(store)
                 .content(reviewReq.getContent())
-                .imgOriginalName(file.isEmpty() ? null : fileVO.getImgOriginalName())
-                .imgNewName(file.isEmpty() ? null : fileVO.getImgNewName())
-                .imgPath(file.isEmpty() ? null : fileVO.getImgPath())
-                .imgUploadTime(file.isEmpty() ? null : fileVO.getImgUploadTime())
+                .imgOriginalName(fileVO != null ? fileVO.getImgOriginalName() : null)
+                .imgNewName(fileVO != null ? fileVO.getImgNewName() : null)
+                .imgPath(fileVO != null ? fileVO.getImgPath() : null)
+                .imgUploadTime(fileVO != null ? fileVO.getImgUploadTime() : null)
                 .build());
 
         order.setReviewflag(true);
