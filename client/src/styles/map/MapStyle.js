@@ -40,4 +40,6 @@ export const StoreListSection = styled.div`
 	padding-left: 16px;
 	padding-right: 16px;
 	overflow-y: auto;
+
+	position: relative;
 `;

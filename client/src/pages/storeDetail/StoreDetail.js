@@ -33,7 +33,7 @@ function StoreDetail() {
 			<StoreInfo sId={sId} />
 			<StoreDetailButtons sId={sId} />
 			<StoreTabs sId={sId} />
-			{userType === "[[ROLE_STORE]]" && <TabMenuBar selectedMenu="MyStore" />}
+			{userType === "STORE" && <TabMenuBar selectedMenu="MyStore" />}
 		</>
 	);
 }

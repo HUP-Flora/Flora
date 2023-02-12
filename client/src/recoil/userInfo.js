@@ -5,7 +5,7 @@ const { persistAtom } = recoilPersist();
 
 export const userInfoTypeState = atom({
 	key: "userTypeState",
-	default: "[[ROLE_CUSTOMER]]",
+	default: "CUSTOMER",
 	effects_UNSTABLE: [persistAtom],
 });
 

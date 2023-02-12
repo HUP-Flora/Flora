@@ -9,7 +9,7 @@ export const useMypageInfoApi = () => {
 	const infoApi = (type, sId) => {
 		let url = "";
 
-		if (type === "[[ROLE_CUSTOMER]]") {
+		if (type === "CUSTOMER") {
 			url = `/users`;
 		} else {
 			url = `/stores/mypage`;

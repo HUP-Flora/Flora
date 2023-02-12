@@ -15,7 +15,7 @@ function MyPage(props) {
 		<>
 			<MyPageHeader />
 			<MyPageOrderList />
-			{userInfoType === "[[ROLE_CUSTOMER]]" && <MyPageReviewList />}
+			{userInfoType === "CUSTOMER" && <MyPageReviewList />}
 			<MyPageUserInfo />
 			<TabMenuBar selectedMenu="MyPage" />
 		</>

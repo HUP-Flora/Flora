@@ -6,7 +6,7 @@ export const HeaderConianer = styled.div`
 	> div {
 		display: flex;
 		justify-content: space-between;
-		// justify-content: ${props => props.type === "[[ROLE_STORE]]" && "space-between"};
+		// justify-content: ${props => props.type === "STORE" && "space-between"};
 		align-items: center;
 	}
 
@@ -15,13 +15,13 @@ export const HeaderConianer = styled.div`
 	}
 
 	& img {
-		width: ${props => (props.type === "customer" ? "16px" : "88px")};
-		height: ${props => (props.type === "customer" ? "auto" : "88px")};
+		width: ${props => (props.type === "CUSTOMER" ? "16px" : "88px")};
+		height: ${props => (props.type === "CUSTOMER" ? "auto" : "88px")};
 
-		// margin-left: ${props => props.type === "customer" && 16}px;
-		float: ${props => props.type === "customer" && "right"};
+		// margin-left: ${props => props.type === "CUSTOMER" && 16}px;
+		float: ${props => props.type === "CUSTOMER" && "right"};
 
-		border-radius: ${props => props.type === "owner" && "50%"};
+		border-radius: ${props => props.type === "STORE" && "50%"};
 	}
 `;
 
