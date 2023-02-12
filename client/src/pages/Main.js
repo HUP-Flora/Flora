@@ -8,12 +8,15 @@ import { isCalenderModalState, isSearchStoreModalState } from "../recoil/search"
 import { userInfoTypeState } from "../recoil/userInfo";
 import MainTopBanner from "../components/main/MainTopBanner";
 import MainFLolive from "../components/main/MainFLolive";
+import { useNavigate } from "react-router-dom";
 
 export function Main() {
 	const isSearchStoreModal = useRecoilValue(isSearchStoreModalState);
 	const isCalendarModal = useRecoilValue(isCalenderModalState);
 	const userType = useRecoilValue(userInfoTypeState);
 	const getUserTypeApi = useGetUserTypeApi();
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const params = new URLSearchParams(window.location.search);
@@ -24,6 +27,11 @@ export function Main() {
 		if (token) {
 			localStorage.setItem("AccessToken", token);
 			getUserTypeApi(token);
+		}
+
+		const auth = localStorage.getItem("AccessToken");
+		if (!auth) {
+			navigate("/login");
 		}
 	}, [getUserTypeApi]);
 

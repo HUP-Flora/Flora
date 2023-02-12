@@ -13,7 +13,7 @@ export function TabMenuBar({ selectedMenu }) {
 	const tabMenuName = ["메인", "플로라이브", "꽃갈피", "내 정보"];
 	const redirectPageList = ["/", "/reservation/list", "/flomark/list", "/mypage"];
 
-	if (userType === "[[ROLE_STORE]]") {
+	if (userType === "STORE") {
 		tabMenu[2] = "MyStore";
 		tabMenuName[2] = "내 가게";
 		redirectPageList[2] = `/store/${ownersId}`;

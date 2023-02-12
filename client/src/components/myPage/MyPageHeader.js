@@ -49,7 +49,7 @@ function MyPageHeader(props) {
 	const phoneNumberEditApi = usePhoneNumberEditApi();
 
 	useEffect(() => {
-		if (userInfoType === "[[ROLE_CUSTOMER]]") {
+		if (userInfoType === "CUSTOMER") {
 			mypageInfoApi(userInfoType);
 		} else {
 			mypageInfoApi(userInfoType, 8);
@@ -103,7 +103,7 @@ function MyPageHeader(props) {
 
 	return (
 		<HeaderConianer type={userInfoType}>
-			{userInfoType === "[[ROLE_CUSTOMER]]" ? (
+			{userInfoType === "CUSTOMER" ? (
 				<>
 					{isNameEdit ? (
 						<>
@@ -131,7 +131,7 @@ function MyPageHeader(props) {
 								<BoldText size="23" font="nexon">
 									{user?.nickname} 님
 								</BoldText>
-								<img type="customer" src={EditIcon} onClick={handleClickNameEdit} alt="editIcon" />
+								<img type="CUSTOMER" src={EditIcon} onClick={handleClickNameEdit} alt="editIcon" />
 							</div>
 						</>
 					)}
@@ -166,12 +166,7 @@ function MyPageHeader(props) {
 										?.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
 										?.replace(/\-{1,2}$/g, "")}
 								</Text>
-								<img
-									type="[[ROLE_CUSTOMER]]"
-									src={EditIcon}
-									onClick={handleClickPhoneNumberEdit}
-									alt=""
-								/>
+								<img type="CUSTOMER" src={EditIcon} onClick={handleClickPhoneNumberEdit} alt="" />
 							</div>
 						</>
 					)}
@@ -183,11 +178,7 @@ function MyPageHeader(props) {
 							{user?.name} 님
 						</BoldText>
 						<div>
-							<img
-								type="[[ROLE_STORE]]"
-								src={user?.simg === null ? defaultImg : user?.simg}
-								alt=""
-							/>
+							<img type="STORE" src={user?.simg === null ? defaultImg : user?.simg} alt="" />
 						</div>
 					</div>
 				</>

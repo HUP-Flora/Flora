@@ -23,7 +23,7 @@ function ProductDetailButtons({ pId, sId }) {
 
 	return (
 		<BottomRowDoubleButtonContainer>
-			{userType === "[[ROLE_STORE]]" ? (
+			{userType === "STORE" ? (
 				<>
 					{/* 사장 */}
 					<Primary400Button onClick={() => navigate(`/store/${sId}/product/${pId}/edit`)}>
