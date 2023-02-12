@@ -16,7 +16,7 @@ public class OpenViduService {
 
     private final OpenVidu openVidu;
 
-    // cusomSesstionId = 화상미팅번호나 주문번호
+    // cusomSesstionId = 주문번호
     // 세션 만들기
     public String createSession(String customSessionId) throws OpenViduHttpException, OpenViduJavaClientException {
         openVidu.fetch();

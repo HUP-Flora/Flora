@@ -16,8 +16,9 @@ public class ReceiptReq {
     private ReceiptType type;
     private String orderer;
     private String ordererPhoneNumber;
-    private String giftMessage;
     private String recipient;
-    private String recipientPhoneNumber;
+    private String receipientPhoneNumber;
     private String deliveryDestination;
+    private String giftMessage;
+    private int payment;
 }

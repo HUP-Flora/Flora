@@ -12,7 +12,7 @@ export const ProductsContainer = styled.div`
 		margin-right: 8px;
 		width: calc(50% - 8px);
 	}
-	
+
 	> div:nth-child(even) {
 		margin-left: 8px;
 		width: calc(50% - 8px);
@@ -25,8 +25,24 @@ export const ProductContainer = styled.div`
 `;
 
 export const ProductImageWrapper = styled.div`
+	position: relative;
+
+	&::after {
+		content: "";
+		display: block;
+		padding-bottom: 100%;
+	}
+
 	> img {
 		width: 100%;
+		height: 100%;
+
+		position: absolute;
+
+		top: 0;
+		left: 0;
+
+		object-fit: cover;
 		border-radius: 15px;
 	}
 `;

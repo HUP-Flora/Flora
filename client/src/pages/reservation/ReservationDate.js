@@ -25,7 +25,7 @@ import {
 	RorderYearState,
 } from "../../recoil/reservation";
 import NextButton from "../../components/common/NextButton";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import ReservationWarningModal from "../../components/reservation/ReservationWarningModal";
 import useReservation from "../../hooks/useReservation";
@@ -43,22 +43,47 @@ function ReservationDate() {
 	const RorderDayOfWeek = useRecoilValue(RorderDayOfWeekState);
 	const [RisModalShow, setRisModalShow] = useRecoilState(RisModalShowState);
 
-	const { getHolidayAPI, getAvailableTimeAPI } = useReservation();
+	const { getHolidayAPI, getAvailableTimeAPI, submitReservationAPI } = useReservation();
 
 	// 휴무일 받아오기
 	useEffect(() => {
 		getHolidayAPI();
-	}, []);
+	}, [getHolidayAPI]);
+
+	// 보낼 날짜 가공
+	const formatRorderMonth = RorderMonth < 10 ? `0${RorderMonth}` : RorderMonth;
+	const formatRoderDay = RorderDay < 10 ? `0${RorderDay}` : RorderDay;
+	const date = RorderYear + "-" + formatRorderMonth + "-" + formatRoderDay;
 
 	// 예약 가능 시간 받아오기
 	useEffect(() => {
-		// 보낼 날짜 가공
-		const formatRorderMonth = RorderMonth < 10 ? `0${RorderMonth}` : RorderMonth;
-		const formatRoderDay = RorderDay < 10 ? `0${RorderDay}` : RorderDay;
-		const date = RorderYear + "-" + formatRorderMonth + "-" + formatRoderDay;
-
 		getAvailableTimeAPI(date);
-	}, [RorderYear, RorderMonth, RorderDay]);
+	}, [getAvailableTimeAPI, date]);
+
+	// 예약 완료 버튼 클릭
+	const navigate = useNavigate();
+	const { pId } = useParams();
+	const dateNextHandler = () => {
+		if (RorderTime === "") {
+			setRisModalShow(true);
+			return;
+		}
+		const reserveData ={
+			// orderType: RorderType,
+			sId: 8,
+			// pId: pId,
+			pId: 1,
+			reservationDate: date,
+			reservationTime: RorderTime,
+		}
+
+		console.log(reserveData);
+
+		submitReservationAPI(reserveData);
+
+		// navigate("/product/:product-id/reservation/complete");
+		// navigate("/reservation/complete");
+	};
 
 	let placeholder = "시간을 선택해주세요";
 	const holiday = RorderHoliday.split(",");
@@ -88,21 +113,6 @@ function ReservationDate() {
 		{ value: 35, label: "17:30 ~ 18:00" },
 	];
 
-	const disabledOptions = ["3", "4"];
-
-	// placeholder = "휴무일 입니다"
-
-	const navigate = useNavigate();
-	const dateNextHandler = () => {
-		if (RorderTime === "") {
-			setRisModalShow(true);
-			return;
-		}
-		// navigate("/product/:product-id/reservation/complete");
-		console.log("storId:");
-		navigate("/reservation/complete");
-	};
-
 	return (
 		<>
 			<StatusBar text="플로라이브 예약" />
@@ -119,7 +129,7 @@ function ReservationDate() {
 				<TimeContainer>
 					<Select
 						options={options}
-						isOptionDisabled={option => disabledOptions.includes(option.value)}
+						// isOptionDisabled={option => disabledOptions.includes(option.value)}
 						styles={{
 							control: provided => ({
 								...provided,
@@ -132,7 +142,7 @@ function ReservationDate() {
 						}}
 						placeholder={placeholder}
 						onChange={e => {
-							setRorderTime(e.label);
+							setRorderTime(e.value);
 						}}
 						isSearchable={false}
 						isDisabled={placeholder === "휴무일 입니다"}

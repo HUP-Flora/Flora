@@ -1,5 +1,5 @@
 export const priceComma = price => {
-	if (isNaN(price)) {
+	if (price && isNaN(price)) {
 		price = price?.replace(/\,/g, "");
 	}
 

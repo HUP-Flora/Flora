@@ -33,9 +33,10 @@ import {
 	TextInput,
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import PostcodeModal from "../../../../common/PostcodeModal";
+import useChatting from "../../../../../hooks/useChatting";
 
 function SecondDeliveryForm({ time }) {
-	const setOrderType = useSetRecoilState(orderTypeState);
+	const [orderType, setOrderType] = useRecoilState(orderTypeState);
 	const [sendUser, setSendUser] = useRecoilState(sendUserState);
 	const [sendUserPhone, setSendUserPhone] = useRecoilState(sendUserPhoneState);
 	const [receiveUser, setReceiveUser] = useRecoilState(receiveUserState);
@@ -105,6 +106,9 @@ function SecondDeliveryForm({ time }) {
 		toggleHasError: VpaymentAmountToggleHasError,
 	} = useInputValidate(isNotEmpty);
 
+	// 수령 정보 API 보내기
+	const { sendFormDataAPI } = useChatting();
+
 	const ThirdDeliveryFormHandler = e => {
 		const formData = [
 			{ key: "sendUser", value: sendUser, toggleError: VsendUserToggleHasError },
@@ -132,6 +136,20 @@ function SecondDeliveryForm({ time }) {
 			return;
 		}
 		setIsSubmit(true);
+
+		const orederFormData = {
+			type: orderType,
+			orderer: sendUser,
+			ordererPhoneNumber: sendUserPhone,
+			recipient: receiveUser,
+			recipientPhoneNumber: receiveUserPhone,
+			deliveryDestination: receiveUserFirstAddress + receiveUserSecondAddress,
+			giftMessage: giftCard,
+		}
+
+		console.log(orederFormData);
+		sendFormDataAPI(orederFormData);
+
 		sendThirdDeliveryFormMessage(e);
 	};
 

@@ -11,10 +11,15 @@ import { useCallback, useRef } from "react";
 import { useRecoilState } from "recoil";
 import { storeImageFileState, storeImagePreviewState } from "../../recoil/signup";
 
-export function UploadPicture() {
+export function UploadPicture(img) {
 	const [imageFile, setImageFile] = useRecoilState(storeImageFileState);
 	const [imagePreview, setImagePreview] = useRecoilState(storeImagePreviewState);
 	const imageRef = useRef();
+
+	// 기존 이미지 삽입
+	if (!imagePreview && img && img.img?.split("-")[10] !== "null.png") {
+		setImagePreview(img?.img);
+	}
 
 	const onUploadImage = useCallback(() => {
 		const file = imageRef.current.files[0];

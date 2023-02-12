@@ -1,50 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+
+import { useRecoilState } from "recoil";
+import { reviewsState } from "../../recoil/review";
+
+import { useReviewsApi } from "../../hooks/useReviewsApi";
+
+import MyPageListEmpty from "./MyPageListEmpty";
 
 import { BoldText, GrayText, ShadowCard } from "../../styles/common/CommonStyle";
 import { HeaderContainer, ShadowCardWrapper } from "../../styles/myPage/MyPageReveiwListStyle";
 
-import image from "../../assets/store.png";
-import MyPageListEmpty from "./MyPageListEmpty";
-import axios from "axios";
+import defaultImg from "../../assets/default-flower.png";
 
-function ReviewList(props) {
+function ReviewList({ size }) {
+	const reviewsApi = useReviewsApi();
+
+	const [reviews, setReviews] = useRecoilState(reviewsState);
+
 	// 더미 데이터
 	const sId = "1111";
 	// 더미 데이터 끝 --------------------
 
-	const [reviews, setReviews] = useState([]);
-
 	useEffect(() => {
-		// const response = axios.get(`/api/reviews/stores/${sId}?page=&size=`);
-
-		const response = [
-			{
-				revId: "222222",
-				name: "lorem",
-				content:
-					"lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum",
-				createDate: "22.22.22",
-				rImg: { image },
-			},
-			{
-				revId: "222222",
-				name: "lorem",
-				content:
-					"lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum",
-				createDate: "22.22.22",
-				rImg: { image },
-			},
-			{
-				revId: "222222",
-				name: "lorem",
-				content:
-					"lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum",
-				createDate: "22.22.22",
-				rImg: { image },
-			},
-		];
-
-		setReviews(response);
+		reviewsApi(size);
 	}, []);
 
 	return (
@@ -70,7 +48,7 @@ function ReviewList(props) {
 								<div>{review?.content}</div>
 							</div>
 							<div>
-								<img src={review?.rImg?.image} />
+								<img src={review?.rimg} />
 							</div>
 						</ShadowCard>
 					</ShadowCardWrapper>

@@ -1,6 +1,7 @@
 package com.ssafy.floraserver.api.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.floraserver.api.response.PaySuccessRes;
 import com.ssafy.floraserver.api.vo.PayReadyResVo;
 import com.ssafy.floraserver.db.entity.Order;
 import com.ssafy.floraserver.db.entity.enums.PaymentStatus;
@@ -8,8 +9,10 @@ import com.ssafy.floraserver.db.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.*;
 import java.net.*;
@@ -150,4 +153,13 @@ public class PayService {
         }
         return res;
     }
+
+    public PaySuccessRes paySuccess(Long oId) {
+        Order order = orderRepository.findByOId(oId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        PaySuccessRes paySucessRes = new PaySuccessRes(order);
+        return paySucessRes;
+    }
+
 }

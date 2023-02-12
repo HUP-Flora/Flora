@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { SetRecoilState, useRecoilState } from "recoil";
 import { nameState, productState } from "../../recoil/productForms";
@@ -36,18 +36,12 @@ function ProductForm({
 	const [descriptionCount, setDescriptionCount] = useState(0);
 
 	const handleChangeNameValue = e => {
-		// setName(e.target.value);
 		setProduct({ ...product, name: e.target.value });
 		setNameCount(e.target.value.length);
 	};
 
 	const handleChangePriceValue = e => {
 		// 천 단위로 콤마(,)
-		// setPrice(
-		// 	priceComma(e.target.value)
-		// 		.toString()
-		// 		.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-		// );
 		setProduct({
 			...product,
 			price: priceComma(e.target.value)
@@ -57,10 +51,9 @@ function ProductForm({
 	};
 
 	const handleChangeDescriptionValue = e => {
-		// setDescription(e.target.value);
 		setProduct({
 			...product,
-			description: e.target.value,
+			desc: e.target.value,
 		});
 		setDescriptionCount(e.target.value.length);
 	};
@@ -68,7 +61,8 @@ function ProductForm({
 	return (
 		<>
 			<UploadPictureWrapper>
-				<UploadPicture />
+				{/* {console.log(product?.pimg)} */}
+				<UploadPicture img={product?.pimg} />
 			</UploadPictureWrapper>
 			<FormWrapper>
 				<InputWrapper>
@@ -94,7 +88,9 @@ function ProductForm({
 							type="text"
 							placeholder="가격을 입력해주세요."
 							onChange={handleChangePriceValue}
+							// value={priceComma(product?.price)}
 							value={product?.price}
+							// value={product?.price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
 						/>
 						<p>원</p>
 					</div>
@@ -106,7 +102,7 @@ function ProductForm({
 						placeholder="상품 상세 설명을 입력해주세요."
 						maxLength={500}
 						onChange={handleChangeDescriptionValue}
-						value={product?.description}
+						value={product?.desc}
 					/>
 					<TextLimit>
 						<GrayText size="11">{descriptionCount} / 500자</GrayText>

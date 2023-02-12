@@ -1,5 +1,6 @@
 package com.ssafy.floraserver.db.entity;
 
+import com.ssafy.floraserver.db.entity.enums.OrderStatus;
 import com.ssafy.floraserver.db.entity.enums.ReceiptStatus;
 import com.ssafy.floraserver.db.entity.enums.ReceiptType;
 import lombok.AccessLevel;
@@ -37,7 +38,7 @@ public class Receipt extends BaseEntity{
     private String recipient;
 
     @Column(name = "rec_recipient_phone_number")
-    private String recipientPhoneNumber;
+    private String receipientPhoneNumber;
 
     @Column(name = "rec_receipt_date")
     private LocalDate receiptDate;
@@ -50,15 +51,23 @@ public class Receipt extends BaseEntity{
     private ReceiptStatus status;
 
     @Builder
-    public Receipt(ReceiptType type, String orderer, String ordererPhoneNumber, String giftMessage, String recipient, String recipientPhoneNumber, LocalDate receiptDate, String deliveryDestination, ReceiptStatus status) {
+    public Receipt(ReceiptType type, String orderer, String ordererPhoneNumber, String giftMessage, String recipient, String receipientPhoneNumber, LocalDate receiptDate, String deliveryDestination, ReceiptStatus status) {
         this.type = type;
         this.orderer = orderer;
         this.ordererPhoneNumber = ordererPhoneNumber;
         this.giftMessage = giftMessage;
         this.recipient = recipient;
-        this.recipientPhoneNumber = recipientPhoneNumber;
+        this.receipientPhoneNumber = receipientPhoneNumber;
         this.receiptDate = receiptDate;
         this.deliveryDestination = deliveryDestination;
         this.status = status;
     }
+
+    public void updateStatus(ReceiptStatus status) {
+        this.status = status;
+    }
+    public void updatereceiptDate(LocalDate receiptDate) {
+        this.receiptDate = receiptDate;
+    }
+
 }

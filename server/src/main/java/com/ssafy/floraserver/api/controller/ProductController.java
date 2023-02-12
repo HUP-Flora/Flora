@@ -1,13 +1,11 @@
 package com.ssafy.floraserver.api.controller;
 
 import com.ssafy.floraserver.api.request.ProductReq;
-import com.ssafy.floraserver.api.request.StoreExtraInfoReq;
 import com.ssafy.floraserver.api.response.ProductRes;
 import com.ssafy.floraserver.api.service.ProductService;
 import com.ssafy.floraserver.common.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,26 +30,22 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<?> createProduct(
-//                                           @Value("${file.upload.location}") String filePath,
-//                                           @RequestPart("file") MultipartFile file,
+                                           @RequestPart(value = "file", required = false) MultipartFile file,
                                            @RequestPart("productReq") ProductReq productReq
                                            ){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-//        productService.createProduct(productReq, filePath, file, authInfo);
-        productService.createProduct(productReq, authInfo);
+        Long pId = productService.createProduct(productReq, file, authInfo);
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(pId, HttpStatus.CREATED);
     }
 
     @PutMapping("/{pId}")
     public ResponseEntity<?> updateProduct(@RequestPart("productReq") ProductReq productReq,
-                                           @PathVariable("pId") Long pId
-//                                           @Value("${file.upload.location}") String filePath,
-//                                           @RequestPart("file") MultipartFile file
+                                           @PathVariable("pId") Long pId,
+                                           @RequestPart(value = "file", required = false) MultipartFile file
     ){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-//        productService.updateProduct(productReq, pId, filePath, file, authInfo);
-        productService.updateProduct(productReq, pId, authInfo);
+        productService.updateProduct(productReq, pId, file, authInfo);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

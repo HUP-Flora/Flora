@@ -1,6 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+import { useRecoilState } from "recoil";
+import { reservationsState } from "../../recoil/reservations";
+
+import { useReservationRefuseApi } from "../../hooks/useReservationRefuseApi";
+import { useReservationEntranceApi } from "../../hooks/useReservationEntranceApi";
+import { useReservationAcceptApi } from "../../hooks/useReservationAcceptApi";
+
 import { BoldText, EmptyContainer, GrayHr, ShadowCard } from "../../styles/common/CommonStyle";
 import {
 	Header,
@@ -15,38 +22,32 @@ import { GraySmallButton, Primary400SmallButton } from "../../styles/button/Butt
 function ReservationCard({ type }) {
 	const navigate = useNavigate();
 
-	const handleClickEntrance = () => {};
+	const reservationRefuseApi = useReservationRefuseApi();
+	const reservationEntranceApi = useReservationEntranceApi();
+	const reservationAcceptApi = useReservationAcceptApi();
 
-	const handleClickCancel = () => {};
-
-	const handleClickAccept = () => {};
-
-	const handleClickRefuse = () => {};
+	const [reservations, setReservations] = useRecoilState(reservationsState);
 
 	// 더미 데이터
 	const userType = "owner";
 	// const userType = "customer";
 
-	const reservations = [
-		// {
-		// 	image: { image },
-		// 	name: "꽃 파는 가게",
-		// 	title: "시그니처",
-		// 	price: "15000",
-		// 	date: "2023.01.20",
-		// 	time: "19:00",
-		// 	status: "entrance",
-		// },
-		// {
-		// 	image: { image },
-		// 	name: "꽃 파는 가게",
-		// 	title: "시그니처",
-		// 	price: "15000",
-		// 	date: "2023.01.20",
-		// 	time: "19:00",
-		// 	status: "waiting",
-		// },
-	];
+	const oId = "0000";
+	const conId = "0000";
+
+	const handleClickEntrance = () => {
+		reservationEntranceApi(userType, conId);
+	};
+
+	const handleClickCancel = () => {};
+
+	const handleClickAccept = () => {
+		reservationAcceptApi(oId);
+	};
+
+	const handleClickRefuse = () => {
+		reservationRefuseApi(oId);
+	};
 
 	return (
 		<>
@@ -55,26 +56,28 @@ function ReservationCard({ type }) {
 					예약된 플로라이브가 없어요.
 				</EmptyContainer>
 			) : (
-				reservations.map(reservation => (
-					<ShadowCard marginBottom="16">
+				reservations.map((reservation, index) => (
+					<ShadowCard key={index} marginBottom="16">
 						<Header>
 							<div>
 								<BoldText>{reservation.date}</BoldText>
 								<BoldText>{reservation.time}</BoldText>
 							</div>
-							{type === "confirm" ? (
-								reservation.status === "entrance" ? (
-									<Primary400SmallButton onClick={() => navigate("/flolive/waiting")}>
-										입장
-									</Primary400SmallButton>
-								) : (
-									<GraySmallButton disabled>대기 중</GraySmallButton>
-								)
-							) : (
-								userType !== "owner" && (
-									<GraySmallButton onClick={handleClickCancel}>예약 취소</GraySmallButton>
-								)
-							)}
+							{
+								type === "confirm" &&
+									(reservation.status === "entrance" ? (
+										<Primary400SmallButton onClick={() => navigate("/flolive/waiting")}>
+											입장
+										</Primary400SmallButton>
+									) : (
+										<GraySmallButton disabled>대기 중</GraySmallButton>
+									))
+								// : (
+								// 	userType !== "owner" && (
+								// 		<GraySmallButton onClick={handleClickCancel}>예약 취소</GraySmallButton>
+								// 	)
+								// )
+							}
 						</Header>
 						<GrayHrWrapper>
 							<GrayHr />

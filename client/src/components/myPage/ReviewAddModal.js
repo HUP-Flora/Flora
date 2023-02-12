@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PortalReactDom from "react-dom";
 
+import { useRecoilState } from "recoil";
+import { storeImageFileState } from "../../recoil/signup";
+
+import { useReviewAddApi } from "../../hooks/useReviewAddApi";
+
 import { UploadPicture } from "../store/UploadPicture";
 
 import { Container, FlexBox } from "../../styles/myPage/ReviewAddModalStyle";
@@ -15,23 +20,44 @@ import {
 import { BoldText, GrayText, ValidText } from "../../styles/common/CommonStyle";
 
 function ReviewAddModal({ isModalShow, setIsModalShow }) {
-	const navigate = useNavigate();
+	const [imageFile, setImageFile] = useRecoilState(storeImageFileState);
 
 	const [description, setDescription] = useState("");
 	const [isDescriptionValid, setIsDescriptionValid] = useState(true);
+
+	const reviewAddApi = useReviewAddApi();
 
 	const toggleModal = () => {
 		setIsModalShow(!isModalShow);
 	};
 
+	// 더미 데이터
+	const sId = "000";
+	const oId = "111";
+
 	const handleClickRevieAddCheck = () => {
 		if (description === "") {
 			setIsDescriptionValid(false);
 		} else {
-			setIsDescriptionValid(true);
-			// (백) requset
+			const data = {
+				store: sId,
+				order: oId,
+				content: description,
+			};
 
-			navigate("/mypage/review/list");
+			const formData = new FormData();
+
+			if (imageFile === "") {
+				const file = new File(["null"], "null.png", {});
+				formData.append("file", file);
+			} else {
+				formData.append("file", imageFile);
+			}
+
+			formData.append("productReq", new Blob([JSON.stringify(data)], { type: "application/json" }));
+
+			reviewAddApi(formData);
+			setIsDescriptionValid(true);
 		}
 	};
 

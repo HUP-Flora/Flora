@@ -36,11 +36,11 @@ public class ReviewController {
         return reviewList;
     }
 
-    @GetMapping("/users/{uId}")
+    @GetMapping("/users")
 //    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    public Page<UserReviewRes> findReviewListByUser(@PathVariable("uId") Long uId, Pageable pageable){
-
-        Page<UserReviewRes> reviewList = reviewService.findReviewListByUser(uId, pageable);
+    public Page<UserReviewRes> findReviewListByUser(Pageable pageable){
+        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
+        Page<UserReviewRes> reviewList = reviewService.findReviewListByUser(pageable, authInfo);
 
         return reviewList;
     }
@@ -48,13 +48,11 @@ public class ReviewController {
     @PostMapping
 //    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     public ResponseEntity<?> createReview(
-//                                          @Value("${file.upload.location}") String filePath,
-//                                          @RequestPart("file") MultipartFile file,
+                                          @RequestPart(value = "file", required = false) MultipartFile file,
                                           @RequestPart("reviewReq") ReviewReq reviewReq){
 
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-//        reviewService.createReview(reviewReq, filePath, file, authInfo);
-        reviewService.createReview(reviewReq, authInfo);
+        reviewService.createReview(reviewReq, file, authInfo);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

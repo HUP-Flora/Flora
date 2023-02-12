@@ -4,3 +4,8 @@ export const productState = atom({
 	key: "productState",
 	default: {},
 });
+
+export const imageFileState = atom({
+	key: "imageFileState",
+	default: "",
+});

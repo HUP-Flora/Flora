@@ -42,24 +42,22 @@ public class AuthController {
 //    @PreAuthorize("hasRole('ROLE_GUEST')")
     public ResponseEntity<?> createUserExtraInfo(@RequestBody UserExtraInfoReq userExtraInfoReq){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        authService.createUserExtraInfo(userExtraInfoReq, authInfo);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        String accessToken = authService.createUserExtraInfo(userExtraInfoReq, authInfo);
+        return new ResponseEntity<>(accessToken, HttpStatus.CREATED);
     }
 
     @PutMapping("/stores")
 //    @PreAuthorize("hasRole('ROLE_GUEST')")
     public ResponseEntity<?> createStoreExtraInfo(
-//                                                @Value("${file.upload.location}") String filePath,
-//                                                  @RequestPart("file") MultipartFile file,
+                                                  @RequestPart(value = "file", required = false) MultipartFile file,
                                                   @RequestPart("storeExtraInfoReq") StoreExtraInfoReq storeExtraInfoReq){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         log.info("현재 로그인 {} ", authInfo.toString());
         log.info(storeExtraInfoReq.toString());
-//        Store store = authService.createStoreExtraInfo(storeExtraInfoReq, filePath, file, authInfo);
-        Store store = authService.createStoreExtraInfo(storeExtraInfoReq, authInfo);
 
-        // TODO 확인용으로 저장한 Store 객체 리턴했음. 수정하기
-        return new ResponseEntity<>(store, HttpStatus.CREATED);
+        String accessToken = authService.createStoreExtraInfo(storeExtraInfoReq, file, authInfo);
+
+        return new ResponseEntity<>(accessToken, HttpStatus.CREATED);
     }
 
     @GetMapping("/reissue")
@@ -78,9 +76,9 @@ public class AuthController {
     }
 
     @GetMapping("/role")
-    public RoleRes getLoginToken(){
+    public Map<String, String> getLoginInfo(){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        RoleRes roleRes = authService.getLoginToken(authInfo);
-        return roleRes;
+        Map<String, String> loginInfo = authService.getLoginInfo(authInfo);
+        return loginInfo;
     }
 }

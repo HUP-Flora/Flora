@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import { useInfoApi, useNicknameEditApi, usePhoneNumberEditApi } from "../../hooks/useMypageApi";
+import { useMypageInfoApi } from "../../hooks/useMypageInfoApi";
+import { useNicknameEditApi } from "../../hooks/useNicknameEditApi";
+import { usePhoneNumberEditApi } from "../../hooks/usePhoneNumberEditApi";
 
 import { useRecoilState } from "recoil";
 import {
@@ -27,12 +29,12 @@ import { GreenCheckButton, Primary50CancelButton } from "../../styles/button/But
 import { TextLimit } from "../../styles/product/productForm/ProductFormStyle";
 
 import EditIcon from "../../assets/myPage/EditIcon.png";
-import StoreImage from "../../assets/store.png";
+import defaultImg from "../../assets/default-store.png";
 
 function MyPageHeader(props) {
 	// 더미 데이터 시작 -------------
-	// const type = "owner";
-	const type = "customer";
+	const type = "owner";
+	// const type = "customer";
 	// 더미 데이터 끝 -----
 
 	const [user, setUser] = useRecoilState(userState);
@@ -45,12 +47,17 @@ function MyPageHeader(props) {
 	const [isNameValid, setIsNicknameValid] = useRecoilState(isNicknameValidState);
 	const [isPhoneNumberValid, setIsPhoneNumberValid] = useRecoilState(isPhoneNumberValidState);
 
-	const infoApi = useInfoApi();
+	const mypageInfoApi = useMypageInfoApi();
 	const nicknameEditApi = useNicknameEditApi();
 	const phoneNumberEditApi = usePhoneNumberEditApi();
 
 	useEffect(() => {
-		infoApi();
+		if (type === "customer") {
+			mypageInfoApi(type);
+		} else {
+			mypageInfoApi(type, 8);
+			// mypageInfoApi(type, sId);
+		}
 	}, []);
 
 	const handleClickNameEdit = () => {
@@ -79,7 +86,6 @@ function MyPageHeader(props) {
 	};
 
 	const handleClickPhoneNumberEditCheck = () => {
-		// (백) 연동
 		if (user.phoneNumber === "") {
 			setIsPhoneNumberValid(false);
 		} else {
@@ -175,7 +181,7 @@ function MyPageHeader(props) {
 							{user?.name} 님
 						</BoldText>
 						<div>
-							<img type="owner" src={user?.sImg?.StoreImage} alt="" />
+							<img type="owner" src={user?.simg === null ? defaultImg : user?.simg} alt="" />
 						</div>
 					</div>
 				</>

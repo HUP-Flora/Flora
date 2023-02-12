@@ -6,7 +6,9 @@ import { storeState, isFloMarkClickedState } from "../../recoil/storeDetail";
 import { LmySessionIdState, LmyTypeState } from "../../recoil/flolive";
 import useStoreDetail from "../../hooks/useStoreDetail";
 
-import { useIsFloMarkApi, useFloMarkAddApi, useFloMarkDeleteApi } from "../../hooks/useStoreApi";
+import { useIsFloMarkApi } from "../../hooks/useIsFloMarkApi";
+import { useFloMarkAddApi } from "../../hooks/useFloMarkAddApi";
+import { useFloMarkDeleteApi } from "../../hooks/useFloMarkDeleteApi";
 
 import {
 	ButtonsContainer,
@@ -35,7 +37,7 @@ function StoreDetailButtons() {
 
 	const { enterFloliveAPI } = useStoreDetail();
 
-	const enterFloliveHandler = () => {
+	const handleEnterFlolive = () => {
 		enterFloliveAPI();
 		navigate("/flolive/waiting");
 	};
@@ -70,7 +72,7 @@ function StoreDetailButtons() {
 					</FlorMarkWrapper>
 					{/* 플로라이브 신청 버튼 */}
 					<FloLiveButtonContainer>
-						<Primary400Button onClick={enterFloliveHandler}>
+						<Primary400Button onClick={handleEnterFlolive}>
 							<img src={liveTvSrc} alt="live-tv-icon" />
 							플로라이브 신청
 						</Primary400Button>
@@ -81,7 +83,7 @@ function StoreDetailButtons() {
 			<ButtonsContainer isCustomer={false}>
 				<>
 					<Primary400Button>가게 정보 수정</Primary400Button>
-					<Primary50Button onClick={() => navigate("/product/add")}>상품 등록</Primary50Button>
+					<Primary50Button onClick={() => navigate(`product/add`)}>상품 등록</Primary50Button>
 				</>
 			</ButtonsContainer>
 		</>

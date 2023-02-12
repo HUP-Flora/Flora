@@ -1,10 +1,13 @@
 import api from "../utils/api";
 import { RorderHolidayState, RorderTimeAvailableState } from "../recoil/reservation";
 import { useSetRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 
 function useReservation() {
 	const setRorderHolidayState = useSetRecoilState(RorderHolidayState);
 	const setRorderTimeAvailableState = useSetRecoilState(RorderTimeAvailableState);
+
+	const navigate = useNavigate();
 
 	const getHolidayAPI = () => {
 		console.log("getHolidayAPI");
@@ -26,7 +29,7 @@ function useReservation() {
 		console.log(selecteddate);
 		api({
 			method: "GET",
-			url: `flolive/8?date=${selecteddate}`,
+			url: `flolive/time/8?date=${selecteddate}`,
 		})
 			.then(res => {
 				console.log(res);
@@ -38,9 +41,26 @@ function useReservation() {
 			});
 	};
 
+	const submitReservationAPI = (reserveData) => {
+		api({
+			method: "POST",
+			url: "flolive/reserve",
+			reserveData,
+		})
+			.then(res => {
+				console.log(res);
+				// 성공시 예약 완료 페이지로 이동
+				// navigate("/reservation/complete");
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	}
+
 	return {
 		getHolidayAPI,
 		getAvailableTimeAPI,
+		submitReservationAPI,
 	};
 }
 

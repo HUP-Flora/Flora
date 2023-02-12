@@ -22,10 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -49,7 +46,9 @@ public class ReviewService {
         return storeReviewResList;
     }
 
-    public Page<UserReviewRes> findReviewListByUser(Long uId, Pageable pageable) {
+    public Page<UserReviewRes> findReviewListByUser(Pageable pageable, Map<String, String> authInfo) {
+        Long uId = Long.parseLong(authInfo.get("uId"));
+
         Page<Review> reviewList = reviewRepository.findAllByUId(uId, pageable);
 
         Page<UserReviewRes> reviewResList = reviewList
@@ -59,7 +58,6 @@ public class ReviewService {
     }
 
     public void createReview(ReviewReq reviewReq,
-                             String filePath,
                              MultipartFile file,
                              Map<String, String> authInfo) {
 
@@ -77,7 +75,7 @@ public class ReviewService {
         FileVO fileVO = null;
         // 이미지 저장
         if(!file.isEmpty()){
-            fileVO = fileService.uploadFile(filePath, file);
+            fileVO = fileService.uploadFile(file);
         }
 
         reviewRepository.save(Review.builder()
@@ -89,28 +87,6 @@ public class ReviewService {
                 .imgNewName(file.isEmpty() ? null : fileVO.getImgNewName())
                 .imgPath(file.isEmpty() ? null : fileVO.getImgPath())
                 .imgUploadTime(file.isEmpty() ? null : fileVO.getImgUploadTime())
-                .build());
-
-        order.setReviewflag(true);
-    }
-
-    public void createReview(ReviewReq reviewReq, Map<String, String> authInfo) {
-        Long uId = Long.parseLong(authInfo.get("uId"));
-
-        User user = userRepository.findById(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        Store store = storeRepository.findById((long) reviewReq.getStore())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        Order order = orderRepository.findById(reviewReq.getOrder())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        reviewRepository.save(Review.builder()
-                .uId(user)
-                .oId(order)
-                .sId(store)
-                .content(reviewReq.getContent())
                 .build());
 
         order.setReviewflag(true);
