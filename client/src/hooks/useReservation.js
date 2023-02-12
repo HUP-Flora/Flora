@@ -42,7 +42,7 @@ function useReservation() {
 			});
 	}, [setRorderTimeAvailableState]);
 
-	const submitReservationAPI = reserveData => {
+	const submitReservationAPI = useCallback(reserveData => {
 		api({
 			method: "POST",
 			url: "flolive/reserve",
@@ -51,12 +51,12 @@ function useReservation() {
 			.then(res => {
 				console.log(res);
 				// 성공시 예약 완료 페이지로 이동
-				// navigate("/reservation/complete");
+				navigate("/store/:sId/product/:pId/reservation/complete");
 			})
 			.catch(err => {
 				console.log(err);
 			});
-	};
+	}, [navigate]);
 
 	return {
 		getHolidayAPI,

@@ -18,16 +18,6 @@ function OrderDetailContent() {
 	// payment 문자열 형태인 금액을 ,를 포함해줌
 	const paymentAmount = payment?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-
-// date: "2023-02-12"
-	// num: "202302123"
-	// oid: 38
-	// payment: 0
-	// paymentNum: null
-	// pimg: "https://hurry-up-push-bucket.s3.ap-northeast-2.amazonaws.com/b3fe56a6-6bc0-477d-a925-9d84fe1e6823-8c67c227f3fb3545a0cb7a637d1495e8.jpg"
-	// pname: "ㅁㄴㅇㄹ"
-	// sname: "염유리꽃집"
-	// status: 1
 	return (
 		<OrderDetailContentContainer>
 			<FlowerImage src={pimg} />
@@ -36,7 +26,7 @@ function OrderDetailContent() {
 				<FlexBox>
 					<p>{date}</p>
 					<p>|</p>
-					<p>{num}</p>
+					<p>B{num}</p>
 				</FlexBox>
 			</OrderDetailTitleContainer>
 			<MB16FlexBox>
