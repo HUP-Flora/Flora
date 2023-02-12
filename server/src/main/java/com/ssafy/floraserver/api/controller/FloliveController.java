@@ -35,8 +35,9 @@ public class FloliveController {
     @PostMapping("/{sId}") // 가게에서 바로 신청, 상품 코드 1,
     public ResponseEntity<?> applyFlolive(@PathVariable Long sId) {
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
+        log.info("가게 번호 {}에 대한 고객 번호 {} 의 플로라이브 신청 시도", sId, authInfo.get("uId"));
         String orderNum = floliveService.applyFlolive(sId, authInfo);
-        log.info("가게 번호 {}에 대한 고객 번호 {} 의 플로라이브 신청 : {}", sId, authInfo.get("uId"), orderNum);
+        log.info("가게 번호 {}에 대한 고객 번호 {} 의 플로라이브 신청 완료 : {}", sId, authInfo.get("uId"), orderNum);
         return new ResponseEntity<>(orderNum, HttpStatus.CREATED);
     }
 
@@ -88,6 +89,15 @@ public class FloliveController {
         floliveService.reserveFlolive(reserveFloliveReq, authInfo);
         log.info("예약 성공");
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("cancle/{oId}")
+    public ResponseEntity<?> deleteFlolice(@PathVariable Long oId) {
+        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
+        log.info("주문 번호 {}에 대핸 플로라이브 예약 취소 시도", oId);
+        floliveService.deleteFlolive(oId, authInfo);
+        log.info("주문 번호 {}에 대핸 플로라이브 예약 취소 성공", oId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/{oId}/receipt") // 수령 정보 작성

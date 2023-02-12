@@ -10,6 +10,7 @@ import io.openvidu.java.client.OpenViduHttpException;
 import io.openvidu.java.client.OpenViduJavaClientException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -42,7 +43,8 @@ public class FloliveService {
 
         // CUSTOMER인지 확인 @PreAuthorize
         // 가게 존재하는지 확인
-        Long uId = Long.parseLong(authInfo.get("uId"));
+//        Long uId = Long.parseLong(authInfo.get("uId"));
+        Long uId = Long.valueOf(31); // TODO 테스트용 uID, 나중에 지우기
 
         User user = userRepository.findById(uId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -102,6 +104,18 @@ public class FloliveService {
                         .conId(null)
                         .build()
         );
+    }
+
+    // 취소
+    public void deleteFlolive(Long oId, Map<String, String> authInfo) {
+        Order order = orderRepository.findById(oId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        if(order.getStatus() != OrderStatus.WAITING) {
+            log.info("취소할 수 없는 주문입니다.");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+        orderRepository.deleteById(oId);
     }
 
     // 수락
@@ -318,7 +332,12 @@ public class FloliveService {
         String num = "";
         num += today.toString().replaceAll("-", "");
         Long lastOId = orderRepository.findLastOId();
+        if(lastOId == null) {
+            log.info("order에 데이터가 없습니다.");
+            lastOId = Long.valueOf(0);
+        }
         num += (lastOId + 1) + "";
+        log.info("create order num : {}", num);
         return num;
     }
 
@@ -346,4 +365,5 @@ public class FloliveService {
         // 화상미팅상태 변경
         conference.updateStatus(ConferenceStatus.COMPLETED);
     }
+
 }
