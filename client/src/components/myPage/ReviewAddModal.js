@@ -19,7 +19,7 @@ import {
 } from "../../styles/product/productForm/ProductFormStyle";
 import { BoldText, GrayText, ValidText } from "../../styles/common/CommonStyle";
 
-function ReviewAddModal({ isModalShow, setIsModalShow }) {
+function ReviewAddModal({ isModalShow, setIsModalShow, sId, oId }) {
 	const [imageFile, setImageFile] = useRecoilState(storeImageFileState);
 
 	const [description, setDescription] = useState("");
@@ -31,10 +31,6 @@ function ReviewAddModal({ isModalShow, setIsModalShow }) {
 		setIsModalShow(!isModalShow);
 	};
 
-	// 더미 데이터
-	const sId = "000";
-	const oId = "111";
-
 	const handleClickRevieAddCheck = () => {
 		if (description === "") {
 			setIsDescriptionValid(false);
@@ -45,6 +41,8 @@ function ReviewAddModal({ isModalShow, setIsModalShow }) {
 				content: description,
 			};
 
+			console.log(data)
+
 			const formData = new FormData();
 
 			if (imageFile === "") {
@@ -54,7 +52,7 @@ function ReviewAddModal({ isModalShow, setIsModalShow }) {
 				formData.append("file", imageFile);
 			}
 
-			formData.append("productReq", new Blob([JSON.stringify(data)], { type: "application/json" }));
+			formData.append("reviewReq", new Blob([JSON.stringify(data)], { type: "application/json" }));
 
 			reviewAddApi(formData);
 			setIsDescriptionValid(true);
