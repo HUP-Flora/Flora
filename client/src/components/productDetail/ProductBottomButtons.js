@@ -43,7 +43,11 @@ function ProductDetailButtons({ pId, sId }) {
 				<>
 					{/* 고객 */}
 					<Primary400Button onClick={enterFloliveHandler}>플로라이브 신청</Primary400Button>
-					<Primary50Button onClick={() => navigate("")}>플로라이브 예약</Primary50Button>
+					<Primary50Button
+						onClick={() => navigate(`/store/${sId}/product/${pId}/reservation/type`)}
+					>
+						플로라이브 예약
+					</Primary50Button>
 				</>
 			)}
 		</BottomRowDoubleButtonContainer>

@@ -39,7 +39,7 @@ function StoreDetailButtons({ sId }) {
 
 	const { enterFloliveAPI } = useStoreDetail();
 
-	let { sId } = useParams();
+	// let { sId } = useParams();
 
 	const handleEnterFlolive = () => {
 		enterFloliveAPI();
