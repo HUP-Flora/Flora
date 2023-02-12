@@ -299,7 +299,7 @@ public class FloliveService {
 
         return ReserveRes.builder()
                 .oId(savedOrder.getOId())
-                .pImg(product.getImgPath())
+                .sImg(store.getImgPath())
                 .build();
     }
 
