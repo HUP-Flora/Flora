@@ -75,7 +75,7 @@ public class ReviewService {
 
         FileVO fileVO = null;
         // 이미지 저장
-        if(file != null){
+        if(!file.isEmpty()){
             fileVO = fileService.uploadFile(file);
         }
 

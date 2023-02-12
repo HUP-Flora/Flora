@@ -1,9 +1,12 @@
 package com.ssafy.floraserver.db.entity;
 
+import com.ssafy.floraserver.api.request.ProductReq;
+import com.ssafy.floraserver.api.vo.FileVO;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +15,7 @@ import java.time.LocalDateTime;
 @Table(name = "products")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@DynamicUpdate
 public class Product extends BaseEntity{
 
     @Id
@@ -49,6 +53,16 @@ public class Product extends BaseEntity{
     private boolean softDelete;
 
     public void deleteProduct(){ this.softDelete = true; }
+
+    public void updateProduct(Product product, ProductReq productReq, FileVO fileVO){
+        this.name = productReq.getName();
+        this.desc = productReq.getDesc();
+        this.price = productReq.getPrice();
+        this.imgOriginalName = fileVO == null ? product.getImgOriginalName() : fileVO.getImgOriginalName();
+        this.imgNewName = fileVO == null ? product.getImgNewName() : fileVO.getImgNewName();
+        this.imgPath = fileVO == null ? product.getImgPath() : fileVO.getImgPath();
+        this.imgUploadTime = fileVO == null ? product.getImgUploadTime() : fileVO.getImgUploadTime();
+    }
 
     @Builder
     public Product(Long pId, String name, String desc, int price, Store sId, String imgOriginalName, String imgNewName, String imgPath, LocalDateTime imgUploadTime) {
