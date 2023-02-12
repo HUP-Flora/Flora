@@ -30,7 +30,7 @@ import image from "../../assets/store.png";
 function OrderList({ size }) {
 	const navigate = useNavigate();
 
-	const ordersApi = useOrdersApi();
+	const { ordersApi } = useOrdersApi();
 
 	const [orders, setOrders] = useRecoilState(ordersState);
 

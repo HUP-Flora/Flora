@@ -59,5 +59,5 @@ export const RorderHolidayState = atom({
 // 예약 시간 가능 여부 (객체? 배열?)
 export const RorderTimeAvailableState = atom({
 	key: "RorderTimeAvailableState",
-	default: {},
+	default: [],
 });
