@@ -25,7 +25,7 @@ import {
 	TextInput,
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import useInputValidate from "../../../../../hooks/useInputValidate";
-import useChatting from "../../../../../hooks/useChatting";
+import useChattingAPI from "../../../../../hooks/useChattingAPI";
 
 function SecondPickUpForm({ time }) {
 	const [orderType, setOrderType] = useRecoilState(orderTypeState);
@@ -64,7 +64,7 @@ function SecondPickUpForm({ time }) {
 	} = useInputValidate(isNotEmpty);
 
 
-	const { sendFormDataAPI } = useChatting();
+	const { sendFormDataAPI } = useChattingAPI();
 	const ThirdPickUpFormHandler = e => {
 		const formData = [
 			{ key: "sendUser", value: sendUser, toggleError: VsendUserToggleHasError },
