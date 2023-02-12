@@ -33,7 +33,7 @@ import {
 	TextInput,
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import PostcodeModal from "../../../../common/PostcodeModal";
-import useChatting from "../../../../../hooks/useChatting";
+import useChattingAPI from "../../../../../hooks/useChattingAPI";
 
 function SecondDeliveryForm({ time }) {
 	const [orderType, setOrderType] = useRecoilState(orderTypeState);
@@ -54,7 +54,7 @@ function SecondDeliveryForm({ time }) {
 	const setIsSubmit = useSetRecoilState(isSubmitState);
 
 	useEffect(() => {
-		setOrderType("DELIVERY");
+		setOrderType("DEILIVERY");
 	}, [setOrderType]);
 
 	const phoneValidate = useCallback(
@@ -107,47 +107,53 @@ function SecondDeliveryForm({ time }) {
 	} = useInputValidate(isNotEmpty);
 
 	// 수령 정보 API 보내기
-	const { sendFormDataAPI } = useChatting();
+	const { sendFormDataAPI } = useChattingAPI();
+
+	const reFormatPhoneNumber = phone => {
+		return phone.replace(/-/g, "");
+	};
 
 	const ThirdDeliveryFormHandler = e => {
-		const formData = [
-			{ key: "sendUser", value: sendUser, toggleError: VsendUserToggleHasError },
-			{ key: "sendUserPhone", value: sendUserPhone, toggleError: VsendUserPhoneToggleHasError },
-			{ key: "receiveUser", value: receiveUser, toggleError: VreceiveUserToggleHasError },
-			{
-				key: "receiveUserPhone",
-				value: receiveUserPhone,
-				toggleError: VreceiveUserPhoneToggleHasError,
-			},
-			{ key: "paymentAmount", value: paymentAmount, toggleError: VpaymentAmountToggleHasError },
-		];
-
-		for (const data of formData) {
-			if (!isNotEmpty(data.value)) {
-				data.toggleError();
-				setIsErrorModalShow(true);
-				return;
-			}
-		}
-
-		if (!isNotEmpty(receiveUserFirstAddress)) {
-			setIsReceiveUserFistAddressHasError(true);
-			setIsErrorModalShow(true);
-			return;
-		}
-		setIsSubmit(true);
+		// const formData = [
+		// 	{ key: "sendUser", value: sendUser, toggleError: VsendUserToggleHasError },
+		// 	{ key: "sendUserPhone", value: sendUserPhone, toggleError: VsendUserPhoneToggleHasError },
+		// 	{ key: "receiveUser", value: receiveUser, toggleError: VreceiveUserToggleHasError },
+		// 	{
+		// 		key: "receiveUserPhone",
+		// 		value: receiveUserPhone,
+		// 		toggleError: VreceiveUserPhoneToggleHasError,
+		// 	},
+		// 	{ key: "paymentAmount", value: paymentAmount, toggleError: VpaymentAmountToggleHasError },
+		// ];
+		//
+		// for (const data of formData) {
+		// 	if (!isNotEmpty(data.value)) {
+		// 		data.toggleError();
+		// 		setIsErrorModalShow(true);
+		// 		return;
+		// 	}
+		// }
+		//
+		// if (!isNotEmpty(receiveUserFirstAddress)) {
+		// 	setIsReceiveUserFistAddressHasError(true);
+		// 	setIsErrorModalShow(true);
+		// 	return;
+		// }
+		// setIsSubmit(true);
 
 		const orederFormData = {
 			type: orderType,
 			orderer: sendUser,
-			ordererPhoneNumber: sendUserPhone,
+			ordererPhoneNumber: reFormatPhoneNumber(sendUserPhone),
 			recipient: receiveUser,
-			recipientPhoneNumber: receiveUserPhone,
-			deliveryDestination: receiveUserFirstAddress + receiveUserSecondAddress,
-			giftMessage: giftCard,
-		}
+			receipientPhoneNumber: reFormatPhoneNumber(receiveUserPhone),
+			deliveryDestination: receiveUserFirstAddress + "/" + receiveUserSecondAddress,
+			giftMessage: giftCard ? giftCard : null,
+			payment: paymentAmount,
+		};
 
-		console.log(orederFormData);
+		// console.log(orederFormData);
+
 		sendFormDataAPI(orederFormData);
 
 		sendThirdDeliveryFormMessage(e);
