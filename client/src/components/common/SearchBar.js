@@ -1,13 +1,14 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { isDaumPostShowState } from "../../recoil/chatting";
-import {
-	RorderDayOfWeekState,
-	RorderDayState,
-	RorderMonthState,
-	RorderYearState,
-} from "../../recoil/reservation";
 import { isCalenderModalState, isSearchStoreModalState } from "../../recoil/search";
-import { addressState, dateState } from "../../recoil/searchBar";
+import {
+	addressState,
+	dateState,
+	searchBarDayOfWeekState,
+	searchBarDayState,
+	searchBarMonthState,
+	searchBarYearState,
+} from "../../recoil/searchBar";
 import { SearchBarContainer, SearchBarContent } from "../../styles/bar/BarStyle";
 import { Text, GrayText } from "../../styles/common/CommonStyle";
 import SearchIcon from "../../assets/SearchBarIcon.png";
@@ -20,21 +21,23 @@ export function SearchBar({ isMain }) {
 	const [address, setAddress] = useRecoilState(addressState);
 	const [isCalendarModal, setIsCalendarModal] = useRecoilState(isCalenderModalState);
 	const [isSearchStoreModal, setIsSearchStoreModal] = useRecoilState(isSearchStoreModalState);
-	const RorderYear = useRecoilValue(RorderYearState);
-	const RorderMonth = useRecoilValue(RorderMonthState);
-	const RorderDay = useRecoilValue(RorderDayState);
-	const RorderDayOfWeek = useRecoilValue(RorderDayOfWeekState);
+	const searchBarYear = useRecoilValue(searchBarYearState);
+	const searchBarMonth = useRecoilValue(searchBarMonthState);
+	const searchBarDay = useRecoilValue(searchBarDayState);
+	const searchBarDayOfWeek = useRecoilValue(searchBarDayOfWeekState);
 	const searchStoresApi = useSearchStoresApi();
 
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	const searchHandler = () => {
-		if (RorderDay && address !== "지역 선택") {
+		if (searchBarDay && address !== "지역 선택") {
 			searchStoresApi(address);
 
 			if (location.pathname === "/") {
-				navigate("/search");
+				navigate(
+					`/search?address=${address}&year=${searchBarYear}&month=${searchBarMonth}&day=${searchBarDay}&dayOfWeek=${searchBarDayOfWeek}`
+				);
 			}
 		}
 	};
@@ -42,7 +45,7 @@ export function SearchBar({ isMain }) {
 	const formatFirstAddress = firstAddress => {
 		if (isMain && firstAddress.length > 12) {
 			return firstAddress.slice(0, 12) + "...";
-		} else if (firstAddress.length > 15) {
+		} else if (firstAddress?.length > 15) {
 			return firstAddress.slice(0, 15) + "...";
 		}
 
@@ -53,8 +56,8 @@ export function SearchBar({ isMain }) {
 		<SearchBarContainer>
 			<SearchBarContent onClick={() => setIsCalendarModal(true)}>
 				<Text size="13">
-					{RorderDay
-						? `${RorderYear}년 ${RorderMonth}월 ${RorderDay}일 ${RorderDayOfWeek}요일`
+					{searchBarDay
+						? `${searchBarYear}년 ${searchBarMonth}월 ${searchBarDay}일 ${searchBarDayOfWeek}요일`
 						: date}
 				</Text>
 			</SearchBarContent>
@@ -62,7 +65,7 @@ export function SearchBar({ isMain }) {
 			<SearchBarContent onClick={() => setIsSearchStoreModal(true)}>
 				<Text size="13">{formatFirstAddress(address)}</Text>
 			</SearchBarContent>
-			<SearchBarIcon src={SearchIcon} onClick={searchHandler} />
+			{location.pathname === "/" && <SearchBarIcon src={SearchIcon} onClick={searchHandler} />}
 		</SearchBarContainer>
 	);
 }
