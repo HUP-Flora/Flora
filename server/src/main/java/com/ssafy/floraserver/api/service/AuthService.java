@@ -154,8 +154,9 @@ public class AuthService {
         log.info(String.valueOf(Long.parseLong(authInfo.get("uId"))));
         User user = userRepository.findById(Long.parseLong(authInfo.get("uId")))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        log.info(user.getRole().getKey());
-        if(authInfo.get("role").equals("ROLE_CUSTOMER")){
+        log.info(authInfo.get("role"));
+
+        if(authInfo.get("role").equals("[[ROLE_CUSTOMER]]")){
             map.put("role", authInfo.get("role"));
         }else{
             Long uId = Long.parseLong(authInfo.get("uId"));
