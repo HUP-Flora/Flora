@@ -60,12 +60,12 @@ function ReservationCard({ type }) {
 					<ShadowCard key={index} marginBottom="16">
 						<Header>
 							<div>
-								<BoldText>{reservation.date}</BoldText>
-								<BoldText>{reservation.time}</BoldText>
+								<BoldText>{reservation?.reservationDate}</BoldText>
+								<BoldText>{reservation?.reservationTime}</BoldText>
 							</div>
 							{
 								type === "confirm" &&
-									(reservation.status === "entrance" ? (
+									(reservation?.status === "entrance" ? (
 										<Primary400SmallButton onClick={() => navigate("/flolive/waiting")}>
 											입장
 										</Primary400SmallButton>
@@ -83,11 +83,11 @@ function ReservationCard({ type }) {
 							<GrayHr />
 						</GrayHrWrapper>
 						<ContentContainer>
-							<img src={reservation.image?.image} alt="" />
+							<img src={reservation?.image} alt="" />
 							<div>
-								<BoldText>{reservation.name}</BoldText>
-								<div>{reservation.title}</div>
-								<div>{reservation.price} 원</div>
+								<BoldText>{reservation?.sname}</BoldText>
+								<div>{reservation?.pname}</div>
+								<div>{reservation?.price} 원</div>
 							</div>
 						</ContentContainer>
 						{type === "waiting" && userType === "owner" && (
