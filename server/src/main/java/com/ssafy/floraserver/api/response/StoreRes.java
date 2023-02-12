@@ -13,6 +13,7 @@ public class StoreRes {
     private String name;
     private String phoneNumber;
     private String address_name;
+    private String desc;
     private String holiday;
     private OnAirType isOnair;
     private String start;
@@ -27,6 +28,7 @@ public class StoreRes {
         this.name = store.getName();
         this.phoneNumber = store.getPhoneNumber();
         this.address_name = store.getAddress_name();
+        this.desc = store.getDesc();
         this.holiday = store.getHoliday();
         this.isOnair = store.getIsOnair();
         this.start = store.getStart().getTime();
