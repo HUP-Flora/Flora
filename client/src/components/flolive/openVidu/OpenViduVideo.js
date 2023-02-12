@@ -23,8 +23,10 @@ class OpenViduVideo extends Component {
 
 		// These properties are in the state's component in order to re-render the HTML whenever their values change
 		this.state = {
-			mySessionId: this.props.LmySessionId,
-			myUserName: this.props.LmyType,
+			mySessionId: "flora-test",
+			myUserName: "갤북",
+			// mySessionId: this.props.LmySessionId,
+			// myUserName: this.props.LmyType,
 			session: this.props.LmySessionId,
 			mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
 			publisher: undefined,
@@ -43,6 +45,8 @@ class OpenViduVideo extends Component {
 
 	componentDidMount() {
 		window.addEventListener("beforeunload", this.onbeforeunload);
+
+		this.joinSession();
 	}
 
 	componentWillUnmount() {
@@ -107,6 +111,7 @@ class OpenViduVideo extends Component {
 					var subscriber = mySession.subscribe(event.stream, undefined);
 					var subscribers = this.state.subscribers;
 					subscribers.push(subscriber);
+					// subscribers[1] = subscriber;
 
 					// Update the state with the new subscribers
 					this.setState({
@@ -197,8 +202,8 @@ class OpenViduVideo extends Component {
 		this.setState({
 			session: undefined,
 			subscribers: [],
-			mySessionId: "flora",
-			myUserName: "Participant" + Math.floor(Math.random() * 100),
+			mySessionId: "flora-test",
+			myUserName: "갤북",
 			mainStreamManager: undefined,
 			publisher: undefined,
 		});
@@ -297,14 +302,6 @@ class OpenViduVideo extends Component {
 				{this.state.session !== undefined ? (
 					<SessionWrapper>
 						<SessionHeader>
-							{/* <h1 id="session-title">{mySessionId}</h1> */}
-							{/* <input
-								className="btn btn-large btn-danger"
-								type="button"
-								id="buttonLeaveSession"
-								onClick={this.leaveSession}
-								value="종료"
-							/> */}
 							<div>
 								<LeaveSessionButton onClick={this.handleClickExit}>종료</LeaveSessionButton>
 								<input
@@ -344,7 +341,10 @@ class OpenViduVideo extends Component {
 								</CustomerVideo>
 							) : null} */}
 							{/* 다른 참여자 화면 */}
+							{console.log(this.state.subscribers)}
 							{/* {this.state.subscribers.map((sub, i) => (
+								<>
+									{console.log(sub.id)}
 									<CustomerVideo
 										key={sub.id}
 										className="stream-container col-md-6 col-xs-6"
@@ -353,7 +353,8 @@ class OpenViduVideo extends Component {
 										<span>{sub.id}</span>
 										<UserVideoComponent streamManager={sub} />
 									</CustomerVideo>
-								))} */}
+								</>
+							))} */}
 							{/* </div> */}
 						</VideoContainer>
 					</SessionWrapper>
