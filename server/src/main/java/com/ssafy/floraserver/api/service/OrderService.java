@@ -5,10 +5,7 @@ import com.ssafy.floraserver.api.response.StoreOrderRes;
 import com.ssafy.floraserver.api.response.UserOrderRes;
 import com.ssafy.floraserver.db.entity.Product;
 import com.ssafy.floraserver.db.entity.Store;
-import com.ssafy.floraserver.db.entity.enums.ConferenceStatus;
-import com.ssafy.floraserver.db.entity.enums.OrderStatus;
-import com.ssafy.floraserver.db.entity.enums.PaymentStatus;
-import com.ssafy.floraserver.db.entity.enums.ReceiptStatus;
+import com.ssafy.floraserver.db.entity.enums.*;
 import com.ssafy.floraserver.db.repository.*;
 import com.ssafy.floraserver.db.entity.Order;
 import com.ssafy.floraserver.db.entity.Receipt;
@@ -122,31 +119,58 @@ public class OrderService {
         Order order = orderRepository.findById(oId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        OrderStatus orderStatus = order.getStatus();
-        PaymentStatus paymentStatus = order.getPaymentStatus();
-        ReceiptStatus receiptStatus = order.getRecId().getStatus();
+        try {
+            order.getStatus();
+            order.getPaymentStatus();
+            order.getRecId().getStatus();
+            order.getRecId().getStatus();
+        } catch(NullPointerException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
 
+        OrderStatus orderStatus = order.getStatus();
         log.info("order status : {}", orderStatus);
+        PaymentStatus paymentStatus = order.getPaymentStatus();
         log.info("payment status : {}", paymentStatus);
+        ReceiptStatus receiptStatus = order.getRecId().getStatus();
         log.info("receipt status : {}", receiptStatus);
 
-        if(orderStatus == OrderStatus.REFUSE || orderStatus == OrderStatus.WAITING || orderStatus == OrderStatus.COMPLETED) {
-            log.info("주문 상태를 변경할 수 없는 주문입니다 : {}", orderStatus);
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-        } else if(paymentStatus == PaymentStatus.UNDONE) {
-            log.info("주문 상태 배송중으로 변경 요청 실패 : 결제 미완료");
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-        } else if(paymentStatus == PaymentStatus.DONE && orderStatus == OrderStatus.ACCEPT && receiptStatus != ReceiptStatus.INPROGRESS) {
-            order.getRecId().updateStatus(ReceiptStatus.INPROGRESS);
-            log.info("주문 상태 배송중으로 변경 완료");
-        } else if(receiptStatus == ReceiptStatus.INPROGRESS) {
-            order.updateStatus(OrderStatus.COMPLETED);
-            order.getRecId().updateStatus(ReceiptStatus.DONE);
-            order.getRecId().updatereceiptDate(LocalDate.now());
-            log.info("주문 상태 배송완료로 변경 완료");
+        ReceiptType receiptType = order.getRecId().getType();
+        log.info("receipt type : {}", receiptType);
+
+        if (receiptType == ReceiptType.PICKUP) {
+            if (orderStatus == OrderStatus.REFUSE || orderStatus == OrderStatus.WAITING || orderStatus == OrderStatus.COMPLETED) {
+                log.info("주문 상태를 변경할 수 없는 주문입니다 : {}", orderStatus);
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            } else if (paymentStatus == PaymentStatus.UNDONE) {
+                log.info("주문 상태 픽업 완료로 변경 요청 실패 : 결제 미완료");
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            } else if (paymentStatus == PaymentStatus.DONE && orderStatus == OrderStatus.ACCEPT && receiptStatus == ReceiptStatus.UNDONE) {
+                order.getRecId().updateStatus(ReceiptStatus.DONE);
+                log.info("주문 상태 픽업 완료로 변경 완료");
+            } else {
+                log.info("주문 상태를 변경할 수 없습니다.");
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            }
         } else {
-            log.info("주문 상태를 변경할 수 없습니다.");
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            if (orderStatus == OrderStatus.REFUSE || orderStatus == OrderStatus.WAITING || orderStatus == OrderStatus.COMPLETED) {
+                log.info("주문 상태를 변경할 수 없는 주문입니다 : {}", orderStatus);
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            } else if (paymentStatus == PaymentStatus.UNDONE) {
+                log.info("주문 상태 배송중으로 변경 요청 실패 : 결제 미완료");
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            } else if (paymentStatus == PaymentStatus.DONE && orderStatus == OrderStatus.ACCEPT && receiptStatus != ReceiptStatus.INPROGRESS){
+                order.getRecId().updateStatus(ReceiptStatus.INPROGRESS);
+                log.info("주문 상태 배송중으로 변경 완료");
+            } else if (receiptStatus == ReceiptStatus.INPROGRESS) {
+                order.updateStatus(OrderStatus.COMPLETED);
+                order.getRecId().updateStatus(ReceiptStatus.DONE);
+                order.getRecId().updatereceiptDate(LocalDate.now());
+                log.info("주문 상태 배송완료로 변경 완료");
+            } else {
+                log.info("주문 상태를 변경할 수 없습니다.");
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            }
         }
     }
 }
