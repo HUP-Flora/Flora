@@ -3,6 +3,7 @@ package com.ssafy.floraserver.api.service;
 import com.ssafy.floraserver.api.request.ReceiptReq;
 import com.ssafy.floraserver.api.request.ReserveFloliveReq;
 import com.ssafy.floraserver.api.response.ConferenceRes;
+import com.ssafy.floraserver.api.response.ReserveRes;
 import com.ssafy.floraserver.db.entity.*;
 import com.ssafy.floraserver.db.entity.enums.*;
 import com.ssafy.floraserver.db.repository.*;
@@ -234,7 +235,7 @@ public class FloliveService {
         return order.getStatus().toString();
     }
 
-    public void reserveFlolive(ReserveFloliveReq reserveFloliveReq, Map<String, String> authInfo) throws OpenViduJavaClientException, OpenViduHttpException {
+    public ReserveRes reserveFlolive(ReserveFloliveReq reserveFloliveReq, Map<String, String> authInfo) throws OpenViduJavaClientException, OpenViduHttpException {
         Long uId = Long.parseLong(authInfo.get("uId"));
         String role = authInfo.get("role");
         log.info("예약 정보 - sId : {} ", reserveFloliveReq.getSid());
@@ -295,6 +296,11 @@ public class FloliveService {
                         .conId(conference)
                         .build()
         );
+
+        return ReserveRes.builder()
+                .oId(savedOrder.getOId())
+                .pImg(product.getImgPath())
+                .build();
     }
 
     public Page<Order> findUserWaitFlolive(Pageable pageable, Map<String, String> authInfo) {

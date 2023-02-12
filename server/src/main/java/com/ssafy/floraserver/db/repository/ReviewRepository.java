@@ -12,11 +12,13 @@ import java.util.Optional;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    @Query(value = "select distinct r from Review r join fetch r.uId where r.sId.sId = :sId and r.softDelete = false",
+    @Query(value = "select distinct r from Review r join fetch r.uId " +
+            "where r.sId.sId = :sId and r.softDelete = false",
             countQuery = "select count(r) from Review r") // join fetch r.uId
     Page<Review> findAllBySId(@Param("sId") Long sId, Pageable pageable);
 
-    @Query(value = "select distinct r from Review r join fetch r.uId where r.uId.uId = :uId and r.softDelete = false",
+    @Query(value = "select distinct r from Review r join fetch r.uId " +
+            "where r.uId.uId = :uId and r.softDelete = false",
             countQuery = "select count(r) from Review r") // join fetch r.uId
     Page<Review> findAllByUId(@Param("uId") Long uId, Pageable pageable);
 

@@ -21,6 +21,8 @@ public class StoreRes {
     private OnAirType isOnair;
     private String start;
     private String end;
+    private float lat;
+    private float lng;
     private int bookmarkCnt;
     private int reviewCnt;
     private String sImg;
@@ -39,6 +41,8 @@ public class StoreRes {
         this.isOnair = store.getIsOnair();
         this.start = store.getStart().getTime();
         this.end = store.getEnd().getTime();
+        this.lat = store.getLat();
+        this.lng = store.getLng();
         this.bookmarkCnt = store.getBookmarkCnt();
         this.reviewCnt = store.getReviewCnt();
         this.sImg = store.getImgPath();

@@ -4,6 +4,7 @@ import com.ssafy.floraserver.api.request.ReceiptReq;
 import com.ssafy.floraserver.api.request.ReserveFloliveReq;
 import com.ssafy.floraserver.api.response.ConferenceRes;
 import com.ssafy.floraserver.api.response.ConfirmRes;
+import com.ssafy.floraserver.api.response.ReserveRes;
 import com.ssafy.floraserver.api.response.WaitRes;
 import com.ssafy.floraserver.api.service.FloliveService;
 import com.ssafy.floraserver.common.util.SecurityUtil;
@@ -88,9 +89,9 @@ public class FloliveController {
     public ResponseEntity<?> reserveFlolive(@RequestBody ReserveFloliveReq reserveFloliveReq) throws OpenViduJavaClientException, OpenViduHttpException {
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         log.info("예약 시도");
-        floliveService.reserveFlolive(reserveFloliveReq, authInfo);
+        ReserveRes reserveRes = floliveService.reserveFlolive(reserveFloliveReq, authInfo);
         log.info("예약 성공");
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(reserveRes, HttpStatus.CREATED);
     }
 
     @DeleteMapping("cancle/{oId}")

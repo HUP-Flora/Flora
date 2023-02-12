@@ -39,6 +39,7 @@ public class AuthService {
     private final TimeUnitRepository timeUnitRepository;
     private final JwtProvider jwtProvider;
     private final FileService fileService;
+    private final FlowermarksService flowermarksService;
 
     public String reissueAccessToken(String oldAccessToken, String refreshToken){
         if(!jwtProvider.validateToken(refreshToken)){
@@ -166,5 +167,17 @@ public class AuthService {
             map.put("sId", store.getSId().toString());
         }
         return map;
+    }
+
+    public void withdrawal(Map<String, String> authInfo) {
+        Long uId = Long.parseLong(authInfo.get("uId"));
+
+        User user = userRepository.findById(uId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        user.deleteUser();
+
+        // 꽃갈피 삭제
+        flowermarksService.deleteFlowermarks(uId);
     }
 }
