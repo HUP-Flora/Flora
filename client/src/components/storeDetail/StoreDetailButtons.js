@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { storeState, isFloMarkClickedState } from "../../recoil/storeDetail";
@@ -38,6 +38,8 @@ function StoreDetailButtons({ sId }) {
 	const floMarkDeleteApi = useFloMarkDeleteApi();
 
 	const { enterFloliveAPI } = useStoreDetail();
+
+	let { sId } = useParams();
 
 	const handleEnterFlolive = () => {
 		enterFloliveAPI();

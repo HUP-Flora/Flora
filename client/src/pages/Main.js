@@ -1,5 +1,4 @@
 import { TabMenuBar } from "../components/common/TabMenuBar";
-import { SearchBar } from "../components/common/SearchBar";
 import { useEffect } from "react";
 import { useGetUserTypeApi } from "../hooks/useGetUserTypeApi";
 import { useRecoilValue } from "recoil";
@@ -8,6 +7,7 @@ import CalendarModal from "../components/common/CalendarModal";
 import { isCalenderModalState, isSearchStoreModalState } from "../recoil/search";
 import { userInfoTypeState } from "../recoil/userInfo";
 import MainTopBanner from "../components/main/MainTopBanner";
+import MainFLolive from "../components/main/MainFLolive";
 
 export function Main() {
 	const isSearchStoreModal = useRecoilValue(isSearchStoreModalState);
@@ -32,7 +32,7 @@ export function Main() {
 			{isSearchStoreModal && <StoreModal />}
 			{isCalendarModal && <CalendarModal />}
 			<MainTopBanner />
-			{/* <SearchBar /> */}
+			<MainFLolive />
 			<TabMenuBar selectedMenu="Main" />
 		</>
 	);

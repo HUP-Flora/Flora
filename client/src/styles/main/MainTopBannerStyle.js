@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
 	position: relative;
+	margin-bottom: 56px;
 `;
 
 export const ContentContainer = styled.div`
@@ -11,8 +12,17 @@ export const ContentContainer = styled.div`
 	background-color: var(--primary-300);
 	border-radius: 0 0 15px 15px;
 
-	> img {
-		width: 72px;
+	> img:nth-child(3) {
+		width: 96px;
+
+		left: 20px;
+		bottom: 70px;
+	}
+
+	> img:nth-child(4) {
+		width: 62px;
+		top: 25px;
+		right: 20px;
 	}
 
 	> img {
@@ -59,5 +69,9 @@ export const SearchBarContainer = styled.div`
 	> div {
 		color: #fff;
 		margin-bottom: 8px;
+	}
+
+	> section {
+		box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 	}
 `;
