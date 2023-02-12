@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
 	position: relative;
+	margin-bottom: 56px;
 `;
 
 export const ContentContainer = styled.div`
@@ -68,5 +69,9 @@ export const SearchBarContainer = styled.div`
 	> div {
 		color: #fff;
 		margin-bottom: 8px;
+	}
+
+	> section {
+		box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 	}
 `;
