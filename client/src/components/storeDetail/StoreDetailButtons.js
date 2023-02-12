@@ -22,7 +22,7 @@ import floMarkPinkSrc from "../../assets/floMarkPink.png";
 import liveTvSrc from "../../assets/live-tv-white.png";
 import { userInfoTypeState } from "../../recoil/userInfo";
 
-function StoreDetailButtons() {
+function StoreDetailButtons({ sId }) {
 	const navigate = useNavigate();
 
 	const [store, setStore] = useRecoilState(storeState);
@@ -54,9 +54,6 @@ function StoreDetailButtons() {
 		setIsFloMarkClicked(!isFloMarkClicked);
 	};
 
-	// 더미 데이터
-	const sId = 8;
-
 	useEffect(() => {
 		// 꽃갈피 등록 여부
 		isFloMarkApi(sId);
@@ -65,7 +62,7 @@ function StoreDetailButtons() {
 	return (
 		<>
 			{/* 사장, 고객 조건부 렌더링 */}
-			{userInfoType !== "[[ROLE_STORE]]" ? (
+			{userInfoType === "[[ROLE_STORE]]" ? (
 				<ButtonsContainer isCustomer={false}>
 					<>
 						<Primary400Button onClick={() => navigate(`/store`)}>가게 정보 수정</Primary400Button>
