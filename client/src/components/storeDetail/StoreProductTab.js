@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
 import { productsState } from "../../recoil/storeDetail";
 
-import { useProductsApi } from "../../hooks/useStoreApi";
+import { useProductsApi } from "../../hooks/useProductsApi";
 
 import StoreTabEmpty from "./StoreTabEmpty";
 

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
 import { storeState, storeReviewsState } from "../../recoil/storeDetail";
 
-import { useReviewsApi } from "../../hooks/useStoreApi";
+import { useReviewTabApi } from "../../hooks/useReviewTabApi";
 
 import StoreTabEmpty from "./StoreTabEmpty";
 
@@ -23,7 +23,7 @@ function StoreReview(props) {
 	const store = useRecoilValue(storeState);
 	const [reviews, setReviews] = useRecoilState(storeReviewsState);
 
-	const reviewsApi = useReviewsApi();
+	const reviewsApi = useReviewTabApi();
 
 	// 더미 데이터
 	const sId = 8;

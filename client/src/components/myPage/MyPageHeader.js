@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import { useInfoApi, useNicknameEditApi, usePhoneNumberEditApi } from "../../hooks/useMypageApi";
+import { useMypageInfoApi } from "../../hooks/useMypageInfoApi";
+import { useNicknameEditApi } from "../../hooks/useNicknameEditApi";
+import { usePhoneNumberEditApi } from "../../hooks/usePhoneNumberEditApi";
 
 import { useRecoilState } from "recoil";
 import {
@@ -45,16 +47,16 @@ function MyPageHeader(props) {
 	const [isNameValid, setIsNicknameValid] = useRecoilState(isNicknameValidState);
 	const [isPhoneNumberValid, setIsPhoneNumberValid] = useRecoilState(isPhoneNumberValidState);
 
-	const infoApi = useInfoApi();
+	const mypageInfoApi = useMypageInfoApi();
 	const nicknameEditApi = useNicknameEditApi();
 	const phoneNumberEditApi = usePhoneNumberEditApi();
 
 	useEffect(() => {
 		if (type === "customer") {
-			infoApi(type);
+			mypageInfoApi(type);
 		} else {
-			infoApi(type, 8);
-			// infoApi(type, sId);
+			mypageInfoApi(type, 8);
+			// mypageInfoApi(type, sId);
 		}
 	}, []);
 

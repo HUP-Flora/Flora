@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import { useStoreInfoApi, useToggleApi } from "../../hooks/useStoreApi";
+import { useStoreInfoApi } from "../../hooks/useStoreInfoApi";
+import { useToggleApi } from "../../hooks/useToggleApi";
 
 import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
 import { storeState } from "../../recoil/storeDetail";

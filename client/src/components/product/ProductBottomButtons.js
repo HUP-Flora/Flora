@@ -5,7 +5,8 @@ import { SetRecoilState, useRecoilState, useResetRecoilState } from "recoil";
 import { nameState, productState } from "../../recoil/productForms";
 import { storeImageFileState } from "../../recoil/signup";
 
-import { useProductAddApi, useProductEditApi } from "../../hooks/useProductApi";
+import { useProductAddApi } from "../../hooks/useProductAddApi";
+import { useProductEditApi } from "../../hooks/useProductEditApi";
 
 import { BottomDoubleButtonContainer } from "../../styles/common/CommonStyle";
 import { Primary400Button, Primary50Button } from "../../styles/button/ButtonStyle";

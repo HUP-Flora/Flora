@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { reviewsState } from "../../recoil/review";
 
-import { useReviewsApi } from "../../hooks/useReviewApi";
+import { useReviewsApi } from "../../hooks/useReviewsApi";
 
 import MyPageListEmpty from "./MyPageListEmpty";
 
