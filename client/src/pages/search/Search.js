@@ -37,6 +37,7 @@ export function Search() {
 			{isCalendarModal && <CalendarModal />}
 			<NoPaddingStatusBar text="꽃집 검색" />
 			<SearchBar />
+			<BlankSection height="16" />
 			<KakaoMap />
 			<StoreListBottomSheet isLarge={storeListLargeMode}>
 				<ArrowSection>

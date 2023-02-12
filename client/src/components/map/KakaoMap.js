@@ -37,6 +37,7 @@ export function KakaoMap() {
 			style={MapStyle}
 			level={3} // 지도의 확대 레벨
 			ref={mapRef}
+			isPanto={true}
 		>
 			{storeList.map(store => (
 				<MapMarker // 마커 생성

@@ -12,7 +12,13 @@ import {
 	ShadowCardContent,
 	RowContainer,
 } from "../../styles/floMark/FloMarkListStyle";
-import { EmptyContainer, BoldText, GrayText, ShadowCard } from "../../styles/common/CommonStyle";
+import {
+	EmptyContainer,
+	BoldText,
+	GrayText,
+	ShadowCard,
+	PointerText,
+} from "../../styles/common/CommonStyle";
 
 import defaultImg from "../../assets/default-store.png";
 
@@ -26,6 +32,10 @@ function FloMarkList(props) {
 	useEffect(() => {
 		flomarkApi(0, 5);
 	}, []);
+
+	const formatAddressName = addressName => {
+		return addressName?.replace("/", " ");
+	};
 
 	return (
 		<FloMarkListContianer>
@@ -47,11 +57,11 @@ function FloMarkList(props) {
 								<TextContainer>
 									<RowContainer>
 										<BoldText>{floMark?.sname}</BoldText>
-										<BoldText size="13" color="var(--primary-500)">
+										<PointerText isBold={true} size="13" color="primary">
 											가게 보기 &gt;
-										</BoldText>
+										</PointerText>
 									</RowContainer>
-									<GrayText size="13">{floMark?.address_name}</GrayText>
+									<GrayText size="13">{formatAddressName(floMark?.address_name)}</GrayText>
 									<RowContainer>
 										<GrayText size="13">
 											{floMark?.start} ~ {floMark?.end}
