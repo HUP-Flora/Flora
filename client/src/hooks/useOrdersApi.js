@@ -6,7 +6,7 @@ import { ordersState } from "../recoil/order";
 export const useOrdersApi = () => {
 	const [orders, setOrders] = useRecoilState(ordersState);
 
-	const oredersApi = (type, size) => {
+	const ordersApi = (type, size) => {
 		let url = "";
 
 		if (type === "customer") {
@@ -39,5 +39,5 @@ export const useOrdersApi = () => {
 				console.log(err);
 			});
 	};
-	return { oredersApi, getOrderDetail };
+	return { ordersApi, getOrderDetail };
 };
