@@ -2,9 +2,13 @@ import api from "../utils/api";
 
 import { useRecoilState } from "recoil";
 import { ordersState } from "../recoil/order";
+import { useNavigate } from "react-router-dom";
+import { orderDetailState } from "../recoil/orderDetail";
+import { useCallback } from "react";
 
 export const useOrdersApi = () => {
 	const [orders, setOrders] = useRecoilState(ordersState);
+	const [orderDetail, setOrderDetail] = useRecoilState(orderDetailState);
 
 	const ordersApi = (type, size) => {
 		let url = "";
@@ -27,17 +31,19 @@ export const useOrdersApi = () => {
 			});
 	};
 
-	const getOrderDetail = oId => {
+	const getOrderDetail = useCallback(oId => {
 		api({
 			method: "GET",
 			url: `/orders/${oId}`,
 		})
 			.then(res => {
 				console.log(res.data);
+				setOrderDetail(res.data);
 			})
 			.catch(err => {
 				console.log(err);
 			});
-	};
+	}, [setOrderDetail]);
+
 	return { ordersApi, getOrderDetail };
 };
