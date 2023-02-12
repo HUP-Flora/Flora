@@ -9,14 +9,13 @@ export const ContentContainer = styled.div`
 	padding-top: 40px;
 	padding-bottom: 100px;
 
-	background-color: var(--primary-300);
-	border-radius: 0 0 15px 15px;
-
+	// background-color: var(--primary-300);
+	background: linear-gradient(0deg, #ff5da6 0%, rgba(255, 166, 208, 0.86) 100%);
 	> img:nth-child(3) {
 		width: 96px;
 
-		left: 20px;
-		bottom: 70px;
+		left: 10px;
+		bottom: 80px;
 	}
 
 	> img:nth-child(4) {
@@ -34,6 +33,8 @@ export const TextContainer = styled.div`
 	color: #fff;
 
 	text-align: center;
+
+	letter-spacing: 1.5px;
 
 	> div:last-child {
 		margin-top: 24px;
