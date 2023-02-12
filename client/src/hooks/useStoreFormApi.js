@@ -29,7 +29,7 @@ export const useStoreFormApi = () => {
 	const storeFormApi = (data, nextURL) => {
 		api({
 			method: "PUT",
-			url: "/auth/stores",
+			url: nextURL === "/" ? "/auth/stores" : "/stores",
 			headers: {
 				"Content-Type": "multipart/form-data",
 			},

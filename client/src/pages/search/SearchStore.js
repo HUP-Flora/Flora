@@ -21,18 +21,29 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { isSearchStoreModalState, resultAddressListState } from "../../recoil/search";
 import SearchAddressImage from "../../assets/chatting/SearchAddressImage.png";
 import { useSearchStoresApi } from "../../hooks/useSearchStoresApi";
-import { useNavigate } from "react-router-dom";
-import { addressState } from "../../recoil/searchBar";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+	searchBarDayOfWeekState,
+	addressState,
+	searchBarDayState,
+	searchBarMonthState,
+	searchBarYearState,
+} from "../../recoil/searchBar";
 
 export function SearchStore() {
 	const [words, setWords] = useState("");
 	const setIsSearchStoreModal = useSetRecoilState(isSearchStoreModalState);
 	const resultAddressList = useRecoilValue(resultAddressListState);
 	const setAddress = useSetRecoilState(addressState);
+	const searchBarYear = useRecoilValue(searchBarYearState);
+	const searchBarMonth = useRecoilValue(searchBarMonthState);
+	const searchBarDay = useRecoilValue(searchBarDayState);
+	const searchBarDayOfWeek = useRecoilValue(searchBarDayOfWeekState);
 	const searchAddressApi = useSearchAddressApi();
 	const searchStoresApi = useSearchStoresApi();
 	const [submitSearch, setSubmitSearch] = useState(false);
 
+	const location = useLocation();
 	const navigate = useNavigate();
 
 	const searchHandler = () => {
@@ -50,6 +61,8 @@ export function SearchStore() {
 			searchHandler();
 		}
 	};
+
+	const addressClickHandler = () => {};
 
 	return (
 		<SearchStoreContainer>
@@ -78,6 +91,11 @@ export function SearchStore() {
 								onClick={() => {
 									setAddress(resultAddress);
 									searchStoresHandler(resultAddress);
+									if (location.pathname === "/search") {
+										navigate(
+											`/search?address=${resultAddress}&year=${searchBarYear}&month=${searchBarMonth}&day=${searchBarDay}&dayOfWeek=${searchBarDayOfWeek}`
+										);
+									}
 								}}
 							>
 								{resultAddress}

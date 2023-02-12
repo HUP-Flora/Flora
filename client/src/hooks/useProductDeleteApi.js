@@ -7,7 +7,7 @@ export const useProductDeleteApi = () => {
 	const productDelete = (sId, pId) => {
 		api({
 			method: "DELETE",
-			url: `/product/${pId}`,
+			url: `/products/${pId}`,
 		})
 			.then(response => {
 				navigate(`/store/${sId}`);
