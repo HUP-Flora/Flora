@@ -6,9 +6,12 @@ import StoreModal from "./search/StoreModal";
 import CalendarModal from "../components/common/CalendarModal";
 import { isCalenderModalState, isSearchStoreModalState } from "../recoil/search";
 import { userInfoTypeState } from "../recoil/userInfo";
+
 import MainTopBanner from "../components/main/MainTopBanner";
 import MainFLolive from "../components/main/MainFLolive";
 import { useNavigate } from "react-router-dom";
+
+import { MainContainer } from "../styles/main/MainStyle";
 
 export function Main() {
 	const isSearchStoreModal = useRecoilValue(isSearchStoreModalState);
@@ -39,8 +42,10 @@ export function Main() {
 		<>
 			{isSearchStoreModal && <StoreModal />}
 			{isCalendarModal && <CalendarModal />}
-			<MainTopBanner />
-			<MainFLolive />
+			<MainContainer>
+				<MainTopBanner />
+				<MainFLolive />
+			</MainContainer>
 			<TabMenuBar selectedMenu="Main" />
 		</>
 	);

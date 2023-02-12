@@ -64,7 +64,7 @@ function StoreDetailButtons({ sId }) {
 	return (
 		<>
 			{/* 사장, 고객 조건부 렌더링 */}
-			{userInfoType === "STORE" ? (
+			{userInfoType === "[[ROLE_STORE]]" ? (
 				<ButtonsContainer isCustomer={false}>
 					<>
 						<Primary400Button onClick={() => navigate(`/store/${sId}/edit`)}>

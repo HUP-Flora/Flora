@@ -7,14 +7,14 @@ import ReservationCard from "./ReservationCard";
 import { Container } from "../../styles/reservation/ReservationListStyle";
 
 function ReservationWaitingTab(props) {
-	const waitingReservationsApi = useReservationWaitingApi();
+	const reservationWaitingApi = useReservationWaitingApi();
 
 	// 더미 데이터 
 	const type = 'customer' 
 	// const type = 'owner' 
 
 	useEffect(() => {
-		waitingReservationsApi(type, 0, 5);
+		reservationWaitingApi(type, 0, 5);
 	}, []);
 
 	return (

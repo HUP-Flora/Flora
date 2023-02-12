@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { reservationsState } from "../../recoil/reservations";
 
+import { useReservationWaitingApi } from "../../hooks/useReservationWaitingApi";
 import { useReservationRefuseApi } from "../../hooks/useReservationRefuseApi";
 import { useReservationEntranceApi } from "../../hooks/useReservationEntranceApi";
 import { useReservationAcceptApi } from "../../hooks/useReservationAcceptApi";
@@ -22,6 +23,7 @@ import { GraySmallButton, Primary400SmallButton } from "../../styles/button/Butt
 function ReservationCard({ type }) {
 	const navigate = useNavigate();
 
+	const reservationWaitingApi = useReservationWaitingApi();
 	const reservationRefuseApi = useReservationRefuseApi();
 	const reservationEntranceApi = useReservationEntranceApi();
 	const reservationAcceptApi = useReservationAcceptApi();
@@ -43,10 +45,13 @@ function ReservationCard({ type }) {
 
 	const handleClickAccept = () => {
 		reservationAcceptApi(oId);
+		reservationWaitingApi(type, 0, 5);
+		reservationWaitingApi();
 	};
 
 	const handleClickRefuse = () => {
 		reservationRefuseApi(oId);
+		reservationWaitingApi(type, 0, 5);
 	};
 
 	return (
@@ -87,7 +92,6 @@ function ReservationCard({ type }) {
 							<div>
 								<BoldText>{reservation?.sname}</BoldText>
 								<div>{reservation?.pname}</div>
-								<div>{reservation?.price} 원</div>
 							</div>
 						</ContentContainer>
 						{type === "waiting" && userType === "owner" && (
