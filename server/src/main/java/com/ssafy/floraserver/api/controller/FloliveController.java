@@ -19,9 +19,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -152,8 +154,16 @@ public class FloliveController {
     public ResponseEntity<?> findUserConfirmFlolive(Pageable pageable) {
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         Page<Order> userConfirmList = floliveService.findUserConfirmFlolive(pageable, authInfo);
+
+        LocalTime localTime = LocalTime.now();
+        String slocalTime = String.valueOf(localTime);
+        log.info("현재 시각 : {}", slocalTime);
+
         Page<ConfirmRes> userConfirmResList = userConfirmList
-                .map(o -> ConfirmRes.builder().order(o).build());
+                .map(o -> ConfirmRes.builder()
+                        .order(o)
+                        .check(floliveService.checkEntry(localTime, slocalTime, o))
+                        .build());
         log.info("사용자 번호 {} 의 플로라이브 예정 목록", authInfo.get("uId"));
         return new ResponseEntity<>(userConfirmResList, HttpStatus.OK);
     }
@@ -162,8 +172,16 @@ public class FloliveController {
     public ResponseEntity<?> findStoreConfirmFlolive(Pageable pageable) {
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         Page<Order> storeConfirmList = floliveService.findStoreConfirmFlolive(pageable, authInfo);
+
+        LocalTime localTime = LocalTime.now();
+        String slocalTime = String.valueOf(localTime);
+        log.info("현재 시각 : {}", slocalTime);
+
         Page<ConfirmRes> storeConfirmResList = storeConfirmList
-                .map(o -> ConfirmRes.builder().order(o).build());
+                .map(o -> ConfirmRes.builder()
+                        .order(o)
+                        .check(floliveService.checkEntry(localTime, slocalTime, o))
+                        .build());
         log.info("사용자 번호(가게) 의 플로라이브 예정 목록", authInfo.get("uId"));
         return new ResponseEntity<>(storeConfirmResList, HttpStatus.OK);
     }
@@ -175,5 +193,4 @@ public class FloliveController {
         log.info("주문 번호 {} 화상회의 종료 성공", oId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
