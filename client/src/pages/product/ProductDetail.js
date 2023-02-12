@@ -5,8 +5,7 @@ import ProductInfo from "../../components/productDetail/ProductInfo";
 import ProductBottomButtons from "../../components/productDetail/ProductBottomButtons";
 
 function ProductDetail(props) {
-	let { sId } = useParams();
-	let { pId } = useParams();
+	const { sId, pId } = useParams();
 
 	return (
 		<>

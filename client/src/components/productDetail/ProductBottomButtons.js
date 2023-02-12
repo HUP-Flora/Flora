@@ -34,7 +34,9 @@ function ProductDetailButtons({ pId, sId }) {
 			) : (
 				<>
 					{/* 사장 */}
-					<Primary400Button onClick={() => navigate(`edit`)}>수정</Primary400Button>
+					<Primary400Button onClick={() => navigate(`/store/${sId}/product/${pId}/edit`)}>
+						수정
+					</Primary400Button>
 					<Primary50Button onClick={() => setIsModalShow(true)}>삭제</Primary50Button>
 					{isModalShow && (
 						<ModalContainer

@@ -16,8 +16,7 @@ import ProductAddBottomButtons from "../../components/product/ProductBottomButto
 
 function ProductForms(props) {
 	const location = useLocation();
-	const { storeId } = useParams();
-	const { productId } = useParams();
+	const { sId, pId } = useParams();
 
 	const [product, setProduct] = useRecoilState(productState);
 	const resetProduct = useResetRecoilState(productState);
@@ -36,9 +35,8 @@ function ProductForms(props) {
 	// }, []);
 
 	useEffect(() => {
-		if (type === "edit") {
-			console.log("이런 이런");
-			productDetailApi(productId);
+		if (pId) {
+			productDetailApi(pId);
 		} else {
 			const reset = () => {
 				resetProduct();
@@ -58,8 +56,8 @@ function ProductForms(props) {
 			/>
 			<ProductAddBottomButtons
 				type={type}
-				sId={storeId}
-				pId={productId}
+				sId={sId}
+				pId={pId}
 				setNameValidMessage={setNameValidMessage}
 				setPriceValidMessage={setPriceValidMessage}
 				setDescriptionValidMessage={setDescriptionValidMessage}
