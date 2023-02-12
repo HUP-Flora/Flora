@@ -75,7 +75,7 @@ function ReservationDate() {
 			reservationTime: RorderTime,
 		}
 
-		console.log(reserveData);
+		// console.log(reserveData);
 
 		submitReservationAPI(reserveData);
 	};
@@ -124,7 +124,7 @@ function ReservationDate() {
 				<TimeContainer>
 					<Select
 						options={options}
-						// isOptionDisabled={option => disabledOptions.includes(option.value)}
+						isOptionDisabled={option => RorderTimeAvailable.includes(option.value)}
 						styles={{
 							control: provided => ({
 								...provided,
