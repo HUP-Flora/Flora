@@ -68,6 +68,7 @@ export const TabImg = styled.img`
 `;
 
 export const TabText = styled.div`
+	cursor: pointer;
 	position: absolute;
 	top: 72%;
 	left: 50%;
@@ -109,7 +110,6 @@ export const SearchBarContainer = styled.section`
 	background-color: var(--gray-50);
 	border: 1px solid var(--gray-400);
 	border-radius: 5px;
-	margin: 16px;
 	padding: 8px;
 	display: flex;
 	position: relative;

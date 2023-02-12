@@ -1,11 +1,29 @@
 import { TabMenuBar } from "../components/common/TabMenuBar";
 import { SearchBar } from "../components/common/SearchBar";
+import { useEffect } from "react";
+import { useGetUserTypeApi } from "../hooks/useGetUserTypeApi";
+import { useRecoilValue } from "recoil";
+import StoreModal from "./search/StoreModal";
+import CalendarModal from "../components/common/CalendarModal";
+import { isCalenderModalState, isSearchStoreModalState } from "../recoil/search";
+import { userTypeState } from "../recoil/userInfo";
 
 export function Main() {
+	const isSearchStoreModal = useRecoilValue(isSearchStoreModalState);
+	const isCalendarModal = useRecoilValue(isCalenderModalState);
+	const userType = useRecoilValue(userTypeState);
+	const getUserTypeApi = useGetUserTypeApi();
+
+	useEffect(() => {
+		getUserTypeApi();
+	}, [getUserTypeApi]);
+
 	return (
 		<>
-			<SearchBar isMain={true} />
-			<TabMenuBar isOwner="true" selectedMenu="Main" />
+			{isSearchStoreModal && <StoreModal />}
+			{isCalendarModal && <CalendarModal />}
+			<SearchBar />
+			<TabMenuBar userType={userType} selectedMenu="Main" />
 		</>
 	);
 }

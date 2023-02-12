@@ -8,7 +8,7 @@ export const useUserFormApi = () => {
 			data,
 		})
 			.then(response => {
-				console.log(response);
+				localStorage.setItem("AccessToken", response.data);
 			})
 			.catch(error => {
 				console.log(error);

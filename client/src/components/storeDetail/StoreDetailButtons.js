@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { storeState, isFloMarkClickedState } from "../../recoil/storeDetail";
 import { LmySessionIdState, LmyTypeState } from "../../recoil/flolive";
-import useStroeDetail from "../../hooks/useStroeDetail";
+import useStoreDetail from "../../hooks/useStoreDetail";
 
 import { useIsFloMarkApi } from "../../hooks/useIsFloMarkApi";
 import { useFloMarkAddApi } from "../../hooks/useFloMarkAddApi";
@@ -35,7 +35,7 @@ function StoreDetailButtons() {
 	const floMarkAddApi = useFloMarkAddApi();
 	const floMarkDeleteApi = useFloMarkDeleteApi();
 
-	const { enterFloliveAPI } = useStroeDetail();
+	const { enterFloliveAPI } = useStoreDetail();
 
 	const handleEnterFlolive = () => {
 		enterFloliveAPI();

@@ -1,17 +1,20 @@
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { ownersIdState } from "../../recoil/userInfo";
 
 import { TabBarDiv, TabImg, TabMenu, TabText, TabImgWrapper } from "../../styles/bar/BarStyle";
 
-export function TabMenuBar({ isOwner, selectedMenu }) {
+export function TabMenuBar({ userType, selectedMenu }) {
+	const ownersId = useRecoilValue(ownersIdState);
 	const navigate = useNavigate();
 
 	const tabMenu = ["Main", "FloLive", "FloMark", "MyPage"];
 	const tabMenuName = ["메인", "플로라이브", "꽃갈피", "내 정보"];
 	const redirectPageList = ["/", "/reservation/list", "/flomark/list", "/mypage"];
-	if (isOwner) {
+	if (userType === "ROLE_OWNER") {
 		tabMenu[2] = "MyStore";
 		tabMenuName[2] = "내 가게";
-		redirectPageList[2] = `/store/${"storeId가 있어야함"}/detail`;
+		redirectPageList[2] = `/store/${ownersId}/detail`;
 	}
 
 	return (

@@ -73,52 +73,46 @@ function AppRouter() {
 				<Route path="/signup/owner/store" element={<SignupOwnerStore />} />
 
 				{/* 가게 상세 페이지 */}
-				<Route path="/store/:storeId" element={<StoreDetail />} />
+				<Route path="/store/:sId/" element={<StoreDetail />} />
 
 				{/* 가게 정보 수정 페이지 */}
-				<Route path="/store/:storeId/edit" element={<StoreEdit />} />
+				<Route path="/store/:sId/edit" element={<StoreEdit />} />
 
 				{/* 상품 페이지 */}
-				<Route path="/store/:storeId/product/:productId" element={<ProductDetail />} />
-				<Route path="/store/:storeId/product/add" element={<ProductForms />} />
-				<Route path="/store/:storeId/product/:productId/edit" element={<ProductForms />} />
+				<Route path="/store/:sId/product/:pId" element={<ProductDetail />} />
+				<Route path="/store/:sId/product/add" element={<ProductForms />} />
+				<Route path="/store/:sId/product/:pId/edit" element={<ProductForms />} />
 
 				{/* 예약 페이지 */}
-				{/*<Route path="/store/:storeId/product/:product-id/reservation/type" element={<ReservationType />} />*/}
-				{/*<Route path="/store/:storeId/product/:product-id/reservation/date" element={<ReservationDate />} />*/}
-				{/*<Route path="/store/:storeId/product/:product-id/reservation/complete" element={<ReservationComplete />} />*/}
+				{/*<Route path="/store/:sId/product/:pId/reservation/type" element={<ReservationType />} />*/}
+				{/*<Route path="/store/:sId/product/:pId/reservation/date" element={<ReservationDate />} />*/}
+				{/*<Route path="/store/:sId/product/:pId/reservation/complete" element={<ReservationComplete />} />*/}
 
 				{/*예약 페이지 테스트*/}
+				<Route path="/store/:sId/product/:pId/reservation/type" element={<ReservationType />} />
+				<Route path="/store/:sId/product/:pId/reservation/date" element={<ReservationDate />} />
 				<Route
-					path="/store/:storeId/product/:productId/reservation/type"
-					element={<ReservationType />}
-				/>
-				<Route
-					path="/store/:storeId/product/:productId/reservation/date"
-					element={<ReservationDate />}
-				/>
-				<Route
-					path="/store/:storeId/product/:productId/reservation/complete"
+					path="/store/:sId/product/:pId/reservation/complete"
 					element={<ReservationComplete />}
 				/>
 
 				{/* 플로라이브 페이지 */}
 				<Route path="/flolive" element={<Flolive />} />
-				{/* <Route path="/flolive/:orderId/:sessionId" element={<Flolive />} /> */}
+				{/* <Route path="/flolive/:oId/:sId" element={<Flolive />} /> */}
 				<Route path="/flolive/exit" element={<FloliveExit />} />
-				{/* <Route path="/flolive/:sessionId/exit" element={<FloliveExit />} /> */}
+				{/* <Route path="/flolive/:sId/exit" element={<FloliveExit />} /> */}
 				<Route path="/flolive/waiting" element={<FloliveWaiting />} />
-				{/* <Route path="/flolive/:orderId/waiting" element={<FloliveWaiting />} /> */}
-				<Route path="/flolive/kakao-payment/success" element={<KakaoPaymentSuccess />} />
+				{/* <Route path="/flolive/:oId/waiting" element={<FloliveWaiting />} /> */}
+				<Route path="/flolive/:oId/kakao-payment/success" element={<KakaoPaymentSuccess />} />
 
 				{/* 마크업 테스트 */}
 				<Route path="/flolive-test" element={<FloliveTest />} />
-				{/* <Route path="/flolive/:session-id" element={<Flolive />} /> */}
+				{/* <Route path="/flolive/:sId" element={<Flolive />} /> */}
 
 				{/* 마이페이지 */}
 				<Route path="/mypage" element={<MyPage />} />
 				<Route path="/mypage/order/list" element={<OrdersList />} />
-				{/*<Route path="/mypage/order/:order-id" element={<OrderDetail />} />*/}
+				{/*<Route path="/mypage/order/:oId" element={<OrderDetail />} />*/}
 				<Route path="/mypage/order/detail" element={<OrderDetail />} />
 				<Route path="/mypage/review/list" element={<Review />} />
 				<Route path="/mypage/signout" element={<UserDelete />} />

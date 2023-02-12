@@ -1,4 +1,7 @@
 import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
+
+const { persistAtom } = recoilPersist();
 
 export const RorderTypeState = atom({
 	key: "RorderTypeState",
@@ -8,16 +11,19 @@ export const RorderTypeState = atom({
 export const RorderYearState = atom({
 	key: "RorderYearState",
 	default: "",
+	effects_UNSTABLE: [persistAtom],
 });
 
 export const RorderMonthState = atom({
 	key: "RorderMonthState",
 	default: "",
+	effects_UNSTABLE: [persistAtom],
 });
 
 export const RorderDayState = atom({
 	key: "RorderDayState",
 	default: "",
+	effects_UNSTABLE: [persistAtom],
 });
 
 export const RorderTimeState = atom({
@@ -28,6 +34,7 @@ export const RorderTimeState = atom({
 export const RorderDayOfWeekState = atom({
 	key: "RorderDayOfWeekState",
 	default: "",
+	effects_UNSTABLE: [persistAtom],
 });
 
 export const RisModalShowState = atom({

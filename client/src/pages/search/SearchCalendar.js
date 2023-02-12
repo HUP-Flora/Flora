@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 
 import "./SearchCalendar.css";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import {
 	RorderDayOfWeekState,
 	RorderDayState,
@@ -9,7 +9,7 @@ import {
 	RorderYearState,
 } from "../../recoil/reservation";
 import { isCalenderModalState } from "../../recoil/search";
-import { dateState } from "../../recoil/searchBar";
+import { addressState, dateState } from "../../recoil/searchBar";
 
 let currDateDiv;
 
