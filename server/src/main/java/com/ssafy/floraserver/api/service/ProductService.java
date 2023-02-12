@@ -50,7 +50,7 @@ public class ProductService {
 
         FileVO fileVO = null;
         // 이미지 저장
-        if(file != null){
+        if(!file.isEmpty()){
             fileVO = fileService.uploadFile(file);
         }
 
@@ -87,30 +87,21 @@ public class ProductService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        FileVO fileVO = FileVO.builder()
-                .imgOriginalName(product.getImgOriginalName())
-                .imgNewName(product.getImgNewName())
-                .imgPath(product.getImgPath())
-                .imgUploadTime(product.getImgUploadTime())
-                .build();
+        FileVO fileVO = null;
 
         // 이미지 저장
-        if(file != null){
+        if(!file.isEmpty()){
             fileVO = fileService.uploadFile(file);
+        }else{
+            fileVO = FileVO.builder()
+                    .imgOriginalName(product.getImgOriginalName())
+                    .imgNewName(product.getImgNewName())
+                    .imgPath(product.getImgPath())
+                    .imgUploadTime(product.getImgUploadTime())
+                    .build();
         }
 
-        productRepository.save(Product.builder()
-                .pId(pId)
-                .name(productReq.getName())
-                .desc(productReq.getDesc())
-                .price(productReq.getPrice())
-                .sId(store)
-                .imgOriginalName(fileVO != null ? fileVO.getImgOriginalName() : null)
-                .imgNewName(fileVO != null ? fileVO.getImgNewName() : null)
-                .imgPath(fileVO != null ? fileVO.getImgPath() : null)
-                .imgUploadTime(fileVO != null ? fileVO.getImgUploadTime() : null)
-                .build()
-        );
+        product.updateProduct(product, productReq, fileVO);
     }
 
     public void deleteProduct(Long pId, Map<String, String> authInfo) {

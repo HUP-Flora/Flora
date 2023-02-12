@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 public class StoreOrderRes {
     private Long oId;
-    private String sName;
+    private String pName;
     private String orderDate;
     private String pImg;
     private int payment;
@@ -22,7 +22,7 @@ public class StoreOrderRes {
     @Builder
     public StoreOrderRes(Order order, int status) {
         this.oId = order.getOId();
-        this.sName = order.getSId().getName();
+        this.pName = order.getPId().getName();
         this.orderDate = order.getDate().toString();
         this.pImg = order.getPId().getImgPath();
         this.payment = order.getPayment();
