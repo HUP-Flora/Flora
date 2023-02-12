@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { storeState, isFloMarkClickedState } from "../../recoil/storeDetail";
@@ -39,6 +39,8 @@ function StoreDetailButtons() {
 
 	const { enterFloliveAPI } = useStoreDetail();
 
+	let { sId } = useParams();
+
 	const handleEnterFlolive = () => {
 		enterFloliveAPI();
 		navigate("/flolive/waiting");
@@ -55,7 +57,7 @@ function StoreDetailButtons() {
 	};
 
 	// 더미 데이터
-	const sId = 8;
+	// const sId = 8;
 
 	useEffect(() => {
 		// 꽃갈피 등록 여부
