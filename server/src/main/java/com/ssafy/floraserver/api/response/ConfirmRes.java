@@ -23,9 +23,11 @@ public class ConfirmRes {
     private String token;
     private String sName;
     private String pName;
+    private String pImg;
+    private boolean check;
 
     @Builder
-    public ConfirmRes(Order order) {
+    public ConfirmRes(Order order, boolean check) {
         this.userRole = order.getUId().getRole();
         this.oId = order.getOId();
         this.conId = order.getConId().getConId();
@@ -35,6 +37,8 @@ public class ConfirmRes {
         this.token = order.getConId().getToken();
         this.sName = order.getSId().getName();
         this.pName = order.getPId().getName();
+        this.pImg = order.getPId().getImgPath();
+        this.check = check;
     }
 }
 
