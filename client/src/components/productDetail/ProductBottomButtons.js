@@ -7,11 +7,11 @@ import { Primary50Button, Primary400Button } from "../../styles/button/ButtonSty
 import { BottomRowDoubleButtonContainer } from "../../styles/common/CommonStyle";
 import useStoreDetail from "../../hooks/useStoreDetail";
 import { useRecoilValue } from "recoil";
-import { userTypeState } from "../../recoil/userInfo";
+import { userInfoTypeState } from "../../recoil/userInfo";
 
 function ProductDetailButtons({ pId, sId }) {
 	const [isModalShow, setIsModalShow] = useState(false);
-	const userType = useRecoilValue(userTypeState);
+	const userType = useRecoilValue(userInfoTypeState);
 	const { enterFloliveAPI } = useStoreDetail();
 
 	const navigate = useNavigate();

@@ -46,7 +46,11 @@ function FloMarkList(props) {
 			) : (
 				<>
 					{floMarks.map(floMark => (
-						<ShadowCard onClick={() => navigate(`/store/${floMark?.sid}`)} marginBottom="16">
+						<ShadowCard
+							key={floMark.sid}
+							onClick={() => navigate(`/store/${floMark?.sid}`)}
+							marginBottom="16"
+						>
 							<ShadowCardContent>
 								<div>
 									<img

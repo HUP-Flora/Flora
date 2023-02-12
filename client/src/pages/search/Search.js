@@ -23,6 +23,7 @@ import {
 	searchBarMonthState,
 	searchBarYearState,
 } from "../../recoil/searchBar";
+import { storeListState } from "../../recoil/search";
 import { useSearchStoresApi } from "../../hooks/useSearchStoresApi";
 import NoPaddingStatusBar from "../../components/common/NoPaddingStatusBar";
 import { useParams } from "react-router-dom";
@@ -31,12 +32,16 @@ export function Search() {
 	const [storeListLargeMode, setStoreListLargeMode] = useState(false);
 	const [isSearchStoreModal, setIsSearchStoreModal] = useRecoilState(isSearchStoreModalState);
 	const isCalendarModal = useRecoilValue(isCalenderModalState);
+	const setStoreList = useSetRecoilState(storeListState);
 	const setAddress = useSetRecoilState(addressState);
 	const setSearchBarYear = useSetRecoilState(searchBarYearState);
 	const setSearchBarMonth = useSetRecoilState(searchBarMonthState);
 	const setSearchBarDay = useSetRecoilState(searchBarDayState);
 	const setSearchBarDayOfWeek = useSetRecoilState(searchBarDayOfWeekState);
 	const searchStoresApi = useSearchStoresApi();
+
+	const searchYear = useRecoilValue(searchBarYearState);
+	const searchMonth = useRecoilValue(searchBarMonthState);
 
 	useEffect(() => {
 		const params = new URLSearchParams(window.location.search);
@@ -45,12 +50,17 @@ export function Search() {
 		const month = params.get("month");
 		const day = params.get("day");
 		const dayOfWeek = params.get("dayOfWeek");
-		setAddress(address);
-		setSearchBarYear(year);
-		setSearchBarMonth(month);
-		setSearchBarDay(day);
-		setSearchBarDayOfWeek(dayOfWeek);
-		searchStoresApi(address, dayOfWeek);
+		console.log(searchMonth, searchYear, year, month);
+		setAddress(address ? address : "");
+		setSearchBarYear(year ? year : searchYear);
+		setSearchBarMonth(month ? month : searchMonth);
+		setSearchBarDay(day ? day : "");
+		setSearchBarDayOfWeek(dayOfWeek ? dayOfWeek : "");
+		if (address && dayOfWeek) {
+			searchStoresApi(address, dayOfWeek);
+		} else {
+			setStoreList([]);
+		}
 	}, [
 		searchStoresApi,
 		setAddress,
@@ -58,6 +68,7 @@ export function Search() {
 		setSearchBarMonth,
 		setSearchBarDay,
 		setSearchBarDayOfWeek,
+		setStoreList,
 	]);
 
 	return (

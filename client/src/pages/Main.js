@@ -6,12 +6,12 @@ import { useRecoilValue } from "recoil";
 import StoreModal from "./search/StoreModal";
 import CalendarModal from "../components/common/CalendarModal";
 import { isCalenderModalState, isSearchStoreModalState } from "../recoil/search";
-import { userTypeState } from "../recoil/userInfo";
+import { userInfoTypeState } from "../recoil/userInfo";
 
 export function Main() {
 	const isSearchStoreModal = useRecoilValue(isSearchStoreModalState);
 	const isCalendarModal = useRecoilValue(isCalenderModalState);
-	const userType = useRecoilValue(userTypeState);
+	const userType = useRecoilValue(userInfoTypeState);
 	const getUserTypeApi = useGetUserTypeApi();
 
 	useEffect(() => {

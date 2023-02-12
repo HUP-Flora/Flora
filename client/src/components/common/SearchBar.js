@@ -43,7 +43,9 @@ export function SearchBar({ isMain }) {
 	};
 
 	const formatFirstAddress = firstAddress => {
-		if (isMain && firstAddress.length > 12) {
+		if (!firstAddress) {
+			return "지역 선택";
+		} else if (isMain && firstAddress.length > 12) {
 			return firstAddress.slice(0, 12) + "...";
 		} else if (firstAddress?.length > 15) {
 			return firstAddress.slice(0, 15) + "...";
@@ -58,7 +60,7 @@ export function SearchBar({ isMain }) {
 				<Text size="13">
 					{searchBarDay
 						? `${searchBarYear}년 ${searchBarMonth}월 ${searchBarDay}일 ${searchBarDayOfWeek}요일`
-						: date}
+						: "날짜 선택"}
 				</Text>
 			</SearchBarContent>
 			<GrayText size="13">|</GrayText>

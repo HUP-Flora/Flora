@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { ownersIdState, userTypeState } from "../../recoil/userInfo";
+import { ownersIdState, userInfoTypeState } from "../../recoil/userInfo";
 
 import { TabBarDiv, TabImg, TabMenu, TabText, TabImgWrapper } from "../../styles/bar/BarStyle";
 
 export function TabMenuBar({ selectedMenu }) {
-	const userType = useRecoilValue(userTypeState);
+	const userType = useRecoilValue(userInfoTypeState);
 	const ownersId = useRecoilValue(ownersIdState);
 	const navigate = useNavigate();
 
