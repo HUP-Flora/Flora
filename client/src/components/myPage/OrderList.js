@@ -30,7 +30,7 @@ import image from "../../assets/store.png";
 function OrderList({ size }) {
 	const navigate = useNavigate();
 
-	// const ordersApi = useOrdersApi();
+	const ordersApi = useOrdersApi();
 
 	const [orders, setOrders] = useRecoilState(ordersState);
 
@@ -49,7 +49,7 @@ function OrderList({ size }) {
 	const type = "owner";
 
 	useEffect(() => {
-		// ordersApi(size);
+		ordersApi(size);
 	}, []);
 
 	return (

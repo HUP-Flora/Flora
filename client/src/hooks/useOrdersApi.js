@@ -12,12 +12,25 @@ export const useOrdersApi = () => {
 			url: `/orders/users?page=0&size=${size}`,
 		})
 			.then(response => {
-				console.log(response.data);
-				setOrders(response.data);
+				console.log(response.data.content);
+				setOrders(response.data.content);
 			})
 			.catch(error => {
 				console.log("주문 내역 에러", error);
 			});
 	};
-	return oredersApi;
+
+	const getOrderDetail = oId => {
+		api({
+			method: "GET",
+			url: `/orders/${oId}`,
+		})
+			.then(res => {
+				console.log(res.data);
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	};
+	return { oredersApi, getOrderDetail };
 };
