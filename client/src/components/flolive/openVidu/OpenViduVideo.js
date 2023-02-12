@@ -23,9 +23,12 @@ class OpenViduVideo extends Component {
 
 		// These properties are in the state's component in order to re-render the HTML whenever their values change
 		this.state = {
-			mySessionId: this.props.LmySessionId,
-			myUserName: this.props.LmyType,
-			session: this.props.LmySessionId,
+			// mySessionId: this.props.LmySessionId,
+			mySessionId: 123,
+			// myUserName: this.props.LmyType,
+			myUserName: "손님1",
+			// session: this.props.LmySessionId,
+			session: 123,
 			mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
 			publisher: undefined,
 			subscribers: [],
@@ -245,9 +248,12 @@ class OpenViduVideo extends Component {
 		this.leaveSession();
 	}
 
+
 	render() {
 		const mySessionId = this.state.mySessionId;
 		const myUserName = this.state.myUserName;
+
+		this.joinSession();
 
 		return (
 			<SessionContainer>
