@@ -88,7 +88,9 @@ function StoreDetailButtons() {
 					<Primary400Button onClick={() => navigate(`/store/${RstoreId}/edit`)}>
 						가게 정보 수정
 					</Primary400Button>
-					<Primary50Button onClick={() => navigate(`product/add`)}>상품 등록</Primary50Button>
+					<Primary50Button onClick={() => navigate(`/store/:sId/product/add`)}>
+						상품 등록
+					</Primary50Button>
 				</>
 			</ButtonsContainer>
 		</>

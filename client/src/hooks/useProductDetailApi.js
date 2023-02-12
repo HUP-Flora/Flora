@@ -14,7 +14,7 @@ export const useProductDetailApi = () => {
 			url: `/products/${pId}`,
 		})
 			.then(response => {
-				console.log(response.data);
+				console.log("111", response.data);
 
 				setProduct({
 					...response.data,
