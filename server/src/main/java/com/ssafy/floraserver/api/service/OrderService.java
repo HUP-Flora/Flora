@@ -88,16 +88,17 @@ public class OrderService {
     }
 
     public int makeOrderResStatus(Order order){
+//        if(order.getStatus().equals(OrderStatus.ACCEPT)
+//                && order.getConId().getStatus().equals(ConferenceStatus.COMPLETED)
+//                && order.getPaymentStatus().equals(PaymentStatus.UNDONE)
+//                && order.getRecId().getStatus().equals(ReceiptStatus.UNDONE)){
+//            return 0;
+//        }
+
         if(order.getStatus().equals(OrderStatus.ACCEPT)
-                && order.getConId().getStatus().equals(ConferenceStatus.COMPLETED)
-                && order.getPaymentStatus().equals(PaymentStatus.UNDONE)
-                && order.getRecId().getStatus().equals(ReceiptStatus.UNDONE)){
-            return 0;
-        }
-        else if(order.getStatus().equals(OrderStatus.ACCEPT)
-                && order.getConId().getStatus().equals(ConferenceStatus.COMPLETED)
-                && order.getPaymentStatus().equals(PaymentStatus.DONE)
-                && order.getRecId().getStatus().equals(ReceiptStatus.UNDONE)){
+            && order.getConId().getStatus().equals(ConferenceStatus.COMPLETED)
+            && order.getPaymentStatus().equals(PaymentStatus.DONE)
+            && order.getRecId().getStatus().equals(ReceiptStatus.UNDONE)){
             return 1;
         }else if(order.getStatus().equals(OrderStatus.ACCEPT)
                 && order.getConId().getStatus().equals(ConferenceStatus.COMPLETED)
@@ -110,7 +111,7 @@ public class OrderService {
                 && order.getRecId().getStatus().equals(ReceiptStatus.DONE)){
             return 3;
         }
-        return -1;
+        return 0;
     }
 
     public void changeOrderStatus(Long oId) {
