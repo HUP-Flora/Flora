@@ -12,6 +12,9 @@ public class StoreRes {
     private Long sId;
     private String name;
     private String phoneNumber;
+    private String region_1depth_name;
+    private String region_2depth_name;
+    private String region_3depth_name;
     private String address_name;
     private String desc;
     private String holiday;
@@ -27,6 +30,9 @@ public class StoreRes {
         this.sId = store.getSId();
         this.name = store.getName();
         this.phoneNumber = store.getPhoneNumber();
+        this.region_1depth_name = store.getRegion_1depth_name();
+        this.region_2depth_name = store.getRegion_2depth_name();
+        this.region_3depth_name = store.getRegion_3depth_name();
         this.address_name = store.getAddress_name();
         this.desc = store.getDesc();
         this.holiday = store.getHoliday();

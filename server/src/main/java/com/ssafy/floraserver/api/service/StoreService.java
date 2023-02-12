@@ -114,27 +114,7 @@ public class StoreService {
             fileVO = fileService.uploadFile(file);
         }
 
-        storeRepository.save(Store.builder()
-                .sId(store.getSId())
-                .uId(user)
-                .businessLicense(store.getBusinessLicense())
-                .name(storeInfoReq.getName())
-                .phoneNumber(storeInfoReq.getPhoneNumber())
-                .region_1depth_name(storeInfoReq.getRegion_1depth_name())
-                .region_2depth_name(storeInfoReq.getRegion_2depth_name())
-                .region_3depth_name(storeInfoReq.getRegion_3depth_name())
-                .address_name(storeInfoReq.getAddress_name())
-                .lat(storeInfoReq.getLat())
-                .lng(storeInfoReq.getLng())
-                .desc(storeInfoReq.getDesc())
-                .holiday(storeInfoReq.getHoliday())
-                .start(start)
-                .end(end)
-                .imgOriginalName(file.isEmpty() ? store.getImgOriginalName() : fileVO.getImgOriginalName())
-                .imgNewName(file.isEmpty() ? store.getImgNewName() : fileVO.getImgNewName())
-                .imgPath(file.isEmpty() ? store.getImgPath() : fileVO.getImgPath())
-                .imgUploadTime(file.isEmpty() ? store.getImgUploadTime() : fileVO.getImgUploadTime())
-                .build());
+        store.updateStoreInfo(store, storeInfoReq, start, end, fileVO);
     }
 
     public void toggleOnair( Map<String, String> authInfo) {
