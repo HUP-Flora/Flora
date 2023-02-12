@@ -22,7 +22,7 @@ import floMarkPinkSrc from "../../assets/floMarkPink.png";
 import liveTvSrc from "../../assets/live-tv-white.png";
 import { RstoreIdState } from "../../recoil/reservation";
 
-function StoreDetailButtons() {
+function StoreDetailButtons({ sId }) {
 	const navigate = useNavigate();
 
 	const [store, setStore] = useRecoilState(storeState);
@@ -42,22 +42,18 @@ function StoreDetailButtons() {
 
 	const handleEnterFlolive = () => {
 		enterFloliveAPI();
-		navigate("/flolive/waiting");
+		navigate(`/flolive/waiting`);
 	};
 
 	const handleFloMarkClick = () => {
 		// 클릭 여부로 백에 추가 / 삭제 요청
-		if (isFloMarkClicked && store?.bookmarkCnt > 0) {
+		if (isFloMarkClicked) {
 			floMarkDeleteApi(sId);
-		} else if (!isFloMarkClicked) {
+		} else {
 			floMarkAddApi(sId);
 		}
 		setIsFloMarkClicked(!isFloMarkClicked);
 	};
-
-	// 더미 데이터
-	const sId = 8;
-
 	useEffect(() => {
 		// 꽃갈피 등록 여부
 		isFloMarkApi(sId);
@@ -88,7 +84,7 @@ function StoreDetailButtons() {
 					<Primary400Button onClick={() => navigate(`/store/${RstoreId}/edit`)}>
 						가게 정보 수정
 					</Primary400Button>
-					<Primary50Button onClick={() => navigate(`/store/:sId/product/add`)}>
+					<Primary50Button onClick={() => navigate(`/store/${sId}/product/add`)}>
 						상품 등록
 					</Primary50Button>
 				</>

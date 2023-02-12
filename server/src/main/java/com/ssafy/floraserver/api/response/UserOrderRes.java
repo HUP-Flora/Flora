@@ -13,6 +13,7 @@ public class UserOrderRes {
 
     private Long oId;
     private Long sId;
+    private String sName;
     private String orderDate;
     private int status;
     private int payment;
@@ -23,6 +24,7 @@ public class UserOrderRes {
     public UserOrderRes(Order order, int status) {
         this.oId = order.getOId();
         this.sId = order.getSId().getSId();
+        this.sName = order.getSId().getName();
         this.orderDate = order.getDate().toString();
         this.status = status;
         this.payment = order.getPayment();

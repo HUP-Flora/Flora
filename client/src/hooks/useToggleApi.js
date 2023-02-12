@@ -6,10 +6,10 @@ import { storeState } from "../recoil/storeDetail";
 export const useToggleApi = () => {
 	const [store, setStore] = useRecoilState(storeState);
 
-	const toggle = async sId => {
-		await api({
+	const toggle = () => {
+		api({
 			method: "POST",
-			url: `/stores/${sId}/onair`,
+			url: `/stores/onair`,
 		})
 			.then(() => {
 				setStore({ ...store, isOnair: store.isOnair === "ON" ? "OFF" : "ON" });

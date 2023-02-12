@@ -47,6 +47,10 @@ export function StoreCard({
 		}
 	};
 
+	const formatAddressName = addressName => {
+		return addressName.replace("/", " ");
+	};
+
 	return (
 		<StoreCardContainer
 			onClick={() => {
@@ -66,7 +70,7 @@ export function StoreCard({
 				</StoreCardTextTitle>
 				<StoreCardTextContent>
 					<StoreCardTextContentAddress>
-						<Text size="13">{address_name}</Text>
+						<Text size="13">{formatAddressName(address_name)}</Text>
 					</StoreCardTextContentAddress>
 					<StoreCardTextContentPhoneAndWorkingTime>
 						<Text size="13">{phoneNumber}</Text>

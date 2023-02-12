@@ -5,13 +5,14 @@ import DoubleTabs from "../../components/common/DoubleTabs";
 import ReservationConfirmTab from "../../components/reservation/ReservationConfirmTab";
 import ReservationWaitingTab from "../../components/reservation/ReservationWaitingTab";
 import { TabMenuBar } from "../../components/common/TabMenuBar";
+import NoPaddingStatusBar from "../../components/common/NoPaddingStatusBar";
 
 function ReservationList(props) {
 	const [isDefaultTabActive, setIsDefaultTabActive] = useState(true);
 
 	return (
 		<div>
-			<StatusBar text="플로라이브 예약 내역" />
+			<NoPaddingStatusBar text="플로라이브 예약 내역" />
 			<DoubleTabs
 				isDefaultTabActive={isDefaultTabActive}
 				setIsDefaultTabActive={setIsDefaultTabActive}

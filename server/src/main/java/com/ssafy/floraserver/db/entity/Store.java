@@ -1,12 +1,14 @@
 package com.ssafy.floraserver.db.entity;
 
+import com.ssafy.floraserver.api.request.StoreInfoReq;
+import com.ssafy.floraserver.api.vo.FileVO;
 import com.ssafy.floraserver.db.entity.enums.OnAirType;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
@@ -17,6 +19,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @DynamicInsert
+@DynamicUpdate
 public class Store extends BaseEntity{
 
     @Id
@@ -97,6 +100,23 @@ public class Store extends BaseEntity{
     private int reviewCnt;
 
     public void updateIsOnair(OnAirType onAirType){ this.isOnair = onAirType; }
+
+    public void updateStoreInfo(Store store, StoreInfoReq storeInfoReq, TimeUnit start, TimeUnit end, FileVO fileVO) {
+        this.name = storeInfoReq.getName();
+        this.phoneNumber = storeInfoReq.getPhoneNumber();
+        this.region_1depth_name = storeInfoReq.getRegion_1depth_name();
+        this.region_2depth_name = storeInfoReq.getRegion_2depth_name();
+        this.region_3depth_name = storeInfoReq.getRegion_3depth_name();
+        this.address_name = storeInfoReq.getAddress_name();
+        this.desc = storeInfoReq.getDesc();
+        this.holiday = storeInfoReq.getHoliday();
+        this.start = start;
+        this.end = end;
+        this.imgOriginalName = fileVO == null ? store.getImgOriginalName() : fileVO.getImgOriginalName();
+        this.imgNewName = fileVO == null ? store.getImgNewName() : fileVO.getImgNewName();
+        this.imgPath = fileVO == null ? store.getImgPath() : fileVO.getImgPath();
+        this.imgUploadTime = fileVO == null ? store.getImgUploadTime() : fileVO.getImgUploadTime();
+    }
 
     @Builder
     public Store(Long sId, User uId, String businessLicense, String name, String phoneNumber, String region_1depth_name, String region_2depth_name, String region_3depth_name, String address_name, float lat, float lng, String desc, String holiday, TimeUnit start, TimeUnit end, String imgOriginalName, String imgNewName, String imgPath, LocalDateTime imgUploadTime) {

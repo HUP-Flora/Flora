@@ -20,15 +20,12 @@ import {
 
 import defaultImg from "../../assets/default-flower.png";
 
-function StoreProductTab(props) {
+function StoreProductTab({ sId }) {
 	const navigate = useNavigate();
 
 	const [products, setProducts] = useRecoilState(productsState);
 
 	const productsApi = useProductsApi();
-
-	// 더미 데이터
-	const sId = 8;
 
 	useEffect(() => {
 		productsApi(sId);

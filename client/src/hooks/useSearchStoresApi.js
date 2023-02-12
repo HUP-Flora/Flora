@@ -1,16 +1,14 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { RorderDayOfWeekState } from "../recoil/reservation";
+import { useSetRecoilState } from "recoil";
 import { storeListState } from "../recoil/search";
 import api from "../utils/api";
 
 export const useSearchStoresApi = () => {
 	const setStoreList = useSetRecoilState(storeListState);
-	const rorderDayOfWeek = useRecoilValue(RorderDayOfWeekState);
 
-	const searchStoresApi = address => {
+	const searchStoresApi = (address, dayOfWeek) => {
 		api({
 			method: "GET",
-			url: `/stores?address=${address}&day=${rorderDayOfWeek}`,
+			url: `/stores?address=${address}&day=${dayOfWeek}`,
 		})
 			.then(response => {
 				console.log(response.data);

@@ -18,6 +18,7 @@ public class OrderRes {
     private String pImg;
     private String paymentNum;
     private int payment;
+    private String receiptType;
     private int status;
 
     @Builder
@@ -30,6 +31,7 @@ public class OrderRes {
         this.pImg = order.getPId().getImgPath();
         this.paymentNum = order.getPaymentNum();
         this.payment = order.getPayment();
+        this.receiptType = order.getRecId().getType().toString();
         this.status = status;
     }
 }

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import OrderList from "./OrderList";
 
-import { BoldText, GrayText } from "../../styles/common/CommonStyle";
+import { BoldText, GrayText, PointerGrayText, PointerText } from "../../styles/common/CommonStyle";
 import { ListContiner, ListHeader } from "../../styles/myPage/MyPageStyle";
 
 function MyPageOrderList(props) {
@@ -13,9 +13,9 @@ function MyPageOrderList(props) {
 		<ListContiner>
 			<ListHeader>
 				<BoldText size="19">주문 내역</BoldText>
-				<GrayText weight="bold" onClick={() => navigate("order/list")}>
+				<PointerText color="gray" weight="bold" onClick={() => navigate("order/list")}>
 					더보기
-				</GrayText>
+				</PointerText>
 			</ListHeader>
 			<OrderList size={3} />
 		</ListContiner>

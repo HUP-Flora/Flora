@@ -58,6 +58,9 @@ public class Review extends BaseEntity{
     @Column(name = "rev_soft_delete", columnDefinition = "TINYINT(1)")
     private boolean softDelete;
 
+    public void deleteReview(){ this.softDelete = true; }
+
+
     @Builder
     public Review(User uId, Store sId, Order oId, String content, String imgOriginalName, String imgNewName, String imgPath, LocalDateTime imgUploadTime) {
         this.uId = uId;

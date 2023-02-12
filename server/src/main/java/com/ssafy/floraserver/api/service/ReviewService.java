@@ -4,10 +4,7 @@ import com.ssafy.floraserver.api.request.ReviewReq;
 import com.ssafy.floraserver.api.response.StoreReviewRes;
 import com.ssafy.floraserver.api.response.UserReviewRes;
 import com.ssafy.floraserver.api.vo.FileVO;
-import com.ssafy.floraserver.db.entity.Order;
-import com.ssafy.floraserver.db.entity.Review;
-import com.ssafy.floraserver.db.entity.Store;
-import com.ssafy.floraserver.db.entity.User;
+import com.ssafy.floraserver.db.entity.*;
 import com.ssafy.floraserver.db.repository.OrderRepository;
 import com.ssafy.floraserver.db.repository.ReviewRepository;
 import com.ssafy.floraserver.db.repository.StoreRepository;
@@ -75,7 +72,7 @@ public class ReviewService {
 
         FileVO fileVO = null;
         // 이미지 저장
-        if(file != null){
+        if(!file.isEmpty()){
             fileVO = fileService.uploadFile(file);
         }
 
@@ -91,5 +88,15 @@ public class ReviewService {
                 .build());
 
         order.setReviewflag(true);
+    }
+
+    public void deleteReview(Long revId, Map<String, String> authInfo) {
+        Long uId = Long.parseLong(authInfo.get("uId"));
+
+        // 삭제할 리뷰
+        Review review = reviewRepository.findById(revId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        review.deleteReview();
     }
 }

@@ -3,7 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 import { useLogoutApi } from "../../hooks/useLogoutApi";
 
-import { BoldText, GrayText, ShadowCard } from "../../styles/common/CommonStyle";
+import {
+	BoldText,
+	GrayText,
+	PointerGrayText,
+	PointerText,
+	ShadowCard,
+} from "../../styles/common/CommonStyle";
 import { ListContiner, ListHeader } from "../../styles/myPage/MyPageStyle";
 import { ShadowCardContent } from "../../styles/myPage/MyPageUserInfoStyle";
 
@@ -23,12 +29,12 @@ function MyPageUserInfo(props) {
 			</ListHeader>
 			<ShadowCard padding="24">
 				<ShadowCardContent>
-					<BoldText size="19" onClick={handleLogout}>
+					<PointerText size="19" isBold={true} onClick={handleLogout}>
 						로그아웃
-					</BoldText>
-					<BoldText size="19" onClick={() => navigate("signout")}>
+					</PointerText>
+					<PointerText size="19" isBold={true} color="primary" onClick={() => navigate("signout")}>
 						회원탈퇴
-					</BoldText>
+					</PointerText>
 				</ShadowCardContent>
 			</ShadowCard>
 		</ListContiner>

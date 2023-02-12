@@ -47,6 +47,17 @@ export const GrayText = styled.div`
 	color: var(--gray-500);
 `;
 
+export const PointerText = styled(GrayText)`
+	cursor: pointer;
+	font-weight: ${props => (props.isBold ? "bold" : "transparent")};
+	color: ${props =>
+		props.color === "primary"
+			? "var(--primary-500)"
+			: props.color === "gray"
+			? "var(--gray-500)"
+			: "black"};
+`;
+
 export const ValidText = styled.div`
 	margin-top: 4px;
 	color: red;
@@ -267,7 +278,7 @@ export const BottomButtonContainer = styled.div`
 	background-color: #fff;
 	border-top: 0.5px solid var(--gray-300);
 
-	z-index: 100;
+	z-index: 30;
 
 	bottom: 0;
 	left: 0;
@@ -316,6 +327,10 @@ export const ShadowCard = styled.div`
 	img {
 		border-radius: 50%;
 	}
+`;
+
+export const PointerShadowCard = styled(ShadowCard)`
+	cursor: pointer;
 `;
 
 export const Primary400CheckBox = styled.input`
@@ -405,6 +420,7 @@ export const AddressList = styled.div`
 	width: 100%;
 	height: 75%;
 	overflow-y: auto;
+	padding-top: 16px;
 
 	position: relative;
 `;

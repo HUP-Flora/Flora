@@ -3,6 +3,7 @@ package com.ssafy.floraserver.api.service;
 import com.ssafy.floraserver.api.request.ReceiptReq;
 import com.ssafy.floraserver.api.request.ReserveFloliveReq;
 import com.ssafy.floraserver.api.response.ConferenceRes;
+import com.ssafy.floraserver.api.response.ReserveRes;
 import com.ssafy.floraserver.db.entity.*;
 import com.ssafy.floraserver.db.entity.enums.*;
 import com.ssafy.floraserver.db.repository.*;
@@ -10,8 +11,8 @@ import io.openvidu.java.client.OpenViduHttpException;
 import io.openvidu.java.client.OpenViduJavaClientException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -173,6 +175,7 @@ public class FloliveService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         store.updateIsOnair(OnAirType.INPROGRESS);
+        conference.updateStatus(ConferenceStatus.INPROGRESS);
 
         // 입장 안내
         ConferenceRes conferenceRes = new ConferenceRes(role, conference.getSessionId(), conference.getToken());
@@ -232,7 +235,7 @@ public class FloliveService {
         return order.getStatus().toString();
     }
 
-    public void reserveFlolive(ReserveFloliveReq reserveFloliveReq, Map<String, String> authInfo) throws OpenViduJavaClientException, OpenViduHttpException {
+    public ReserveRes reserveFlolive(ReserveFloliveReq reserveFloliveReq, Map<String, String> authInfo) throws OpenViduJavaClientException, OpenViduHttpException {
         Long uId = Long.parseLong(authInfo.get("uId"));
         String role = authInfo.get("role");
         log.info("예약 정보 - sId : {} ", reserveFloliveReq.getSid());
@@ -293,6 +296,11 @@ public class FloliveService {
                         .conId(conference)
                         .build()
         );
+
+        return ReserveRes.builder()
+                .oId(savedOrder.getOId())
+                .pImg(product.getImgPath())
+                .build();
     }
 
     public Page<Order> findUserWaitFlolive(Pageable pageable, Map<String, String> authInfo) {
@@ -366,4 +374,43 @@ public class FloliveService {
         conference.updateStatus(ConferenceStatus.COMPLETED);
     }
 
+    public boolean checkEntry (LocalTime localTime, String slocalTime, Order order) {
+        log.info("현재 시각 : {}", slocalTime);
+
+        List<TimeUnit> timeUnitList = timeUnitRepository.findByTime(slocalTime, PageRequest.of(0, 1));
+        log.info("예약 시각 : {}", String.valueOf(timeUnitList.get(0).getTime()));
+
+        // 화상미팅 입장 가능 여부 확인\
+        String[] temp = order.getConId().getReservationTime().getTime().split(":");
+
+        int reserveHour = Integer.parseInt(temp[0]);
+        int nowHour = Integer.parseInt(String.valueOf(localTime.getHour()));
+        int reserveMinute = Integer.parseInt(temp[1]);
+        int nowMinute = Integer.parseInt(String.valueOf(localTime.getMinute()));
+        log.info("예약 시각 - {}:{} , 현재 시각 - {}:{}", String.valueOf(reserveHour), String.valueOf(reserveMinute),
+                String.valueOf(nowHour), String.valueOf(nowMinute));
+
+        if(nowHour < reserveHour) {
+            int diff = reserveMinute - nowMinute;
+            if(0 >= diff && diff >= -10) {
+                log.info("예약 시 > 현재 시, 입장 가능 : {}", diff);
+                return true;
+            } else {
+                log.info("예약 시 > 현재 시, 입장 불가능 : {}", diff);
+                return false;
+            }
+        } else if(nowHour == reserveHour) {
+            int diff = reserveMinute - nowMinute;
+            if (0 <= diff && diff <= 10) {
+                log.info("예약 시 = 현재 시, 입장 가능 : {}", diff);
+                return true;
+            } else{
+                log.info("예약 시 = 현재 시, 입장 불가능 : {}", diff);
+                return false;
+            }
+        } else {
+            log.info("예약 시 < 현재 시, 입장 불가능");
+            return false;
+        }
+    }
 }

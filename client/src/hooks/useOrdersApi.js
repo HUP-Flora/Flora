@@ -2,11 +2,15 @@ import api from "../utils/api";
 
 import { useRecoilState } from "recoil";
 import { ordersState } from "../recoil/order";
+import { useNavigate } from "react-router-dom";
+import { orderDetailState } from "../recoil/orderDetail";
+import { useCallback } from "react";
 
 export const useOrdersApi = () => {
 	const [orders, setOrders] = useRecoilState(ordersState);
+	const [orderDetail, setOrderDetail] = useRecoilState(orderDetailState);
 
-	const oredersApi = (type, size) => {
+	const ordersApi = (type, size) => {
 		let url = "";
 
 		if (type === "customer") {
@@ -26,5 +30,20 @@ export const useOrdersApi = () => {
 				console.log("주문 내역 에러", error);
 			});
 	};
-	return oredersApi;
+
+	const getOrderDetail = useCallback(oId => {
+		api({
+			method: "GET",
+			url: `/orders/${oId}`,
+		})
+			.then(res => {
+				console.log(res.data);
+				setOrderDetail(res.data);
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	}, [setOrderDetail]);
+
+	return { ordersApi, getOrderDetail };
 };

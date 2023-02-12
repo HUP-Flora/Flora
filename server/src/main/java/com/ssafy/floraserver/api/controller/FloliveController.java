@@ -4,6 +4,7 @@ import com.ssafy.floraserver.api.request.ReceiptReq;
 import com.ssafy.floraserver.api.request.ReserveFloliveReq;
 import com.ssafy.floraserver.api.response.ConferenceRes;
 import com.ssafy.floraserver.api.response.ConfirmRes;
+import com.ssafy.floraserver.api.response.ReserveRes;
 import com.ssafy.floraserver.api.response.WaitRes;
 import com.ssafy.floraserver.api.service.FloliveService;
 import com.ssafy.floraserver.common.util.SecurityUtil;
@@ -19,9 +20,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -86,9 +89,9 @@ public class FloliveController {
     public ResponseEntity<?> reserveFlolive(@RequestBody ReserveFloliveReq reserveFloliveReq) throws OpenViduJavaClientException, OpenViduHttpException {
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         log.info("예약 시도");
-        floliveService.reserveFlolive(reserveFloliveReq, authInfo);
+        ReserveRes reserveRes = floliveService.reserveFlolive(reserveFloliveReq, authInfo);
         log.info("예약 성공");
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(reserveRes, HttpStatus.CREATED);
     }
 
     @DeleteMapping("cancle/{oId}")
@@ -152,8 +155,16 @@ public class FloliveController {
     public ResponseEntity<?> findUserConfirmFlolive(Pageable pageable) {
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         Page<Order> userConfirmList = floliveService.findUserConfirmFlolive(pageable, authInfo);
+
+        LocalTime localTime = LocalTime.now();
+        String slocalTime = String.valueOf(localTime);
+        log.info("현재 시각 : {}", slocalTime);
+
         Page<ConfirmRes> userConfirmResList = userConfirmList
-                .map(o -> ConfirmRes.builder().order(o).build());
+                .map(o -> ConfirmRes.builder()
+                        .order(o)
+                        .check(floliveService.checkEntry(localTime, slocalTime, o))
+                        .build());
         log.info("사용자 번호 {} 의 플로라이브 예정 목록", authInfo.get("uId"));
         return new ResponseEntity<>(userConfirmResList, HttpStatus.OK);
     }
@@ -162,8 +173,16 @@ public class FloliveController {
     public ResponseEntity<?> findStoreConfirmFlolive(Pageable pageable) {
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         Page<Order> storeConfirmList = floliveService.findStoreConfirmFlolive(pageable, authInfo);
+
+        LocalTime localTime = LocalTime.now();
+        String slocalTime = String.valueOf(localTime);
+        log.info("현재 시각 : {}", slocalTime);
+
         Page<ConfirmRes> storeConfirmResList = storeConfirmList
-                .map(o -> ConfirmRes.builder().order(o).build());
+                .map(o -> ConfirmRes.builder()
+                        .order(o)
+                        .check(floliveService.checkEntry(localTime, slocalTime, o))
+                        .build());
         log.info("사용자 번호(가게) 의 플로라이브 예정 목록", authInfo.get("uId"));
         return new ResponseEntity<>(storeConfirmResList, HttpStatus.OK);
     }
@@ -175,5 +194,4 @@ public class FloliveController {
         log.info("주문 번호 {} 화상회의 종료 성공", oId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

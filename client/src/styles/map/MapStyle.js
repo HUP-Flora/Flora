@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const MapStyle = {
 	width: "100%",
-	height: "180px",
+	height: "280px",
 };
 
 export const MapMarkerStyle = {
@@ -25,9 +25,6 @@ export const StoreListBottomSheet = styled.div`
 	height: ${props => (props.isLarge ? "calc(100% - 120px)" : "calc(100% - 350px)")};
 	z-index: 1;
 
-	padding-left: 16px;
-	padding-right: 16px;
-
 	transition: all 0.4s ease;
 `;
 
@@ -39,7 +36,8 @@ export const ArrowSection = styled.div`
 
 export const StoreListSection = styled.div`
 	height: 100%;
-	// padding-left: 16px;
-	// padding-right: 16px;
+	padding-top: 16px;
+	padding-left: 16px;
+	padding-right: 16px;
 	overflow-y: auto;
 `;

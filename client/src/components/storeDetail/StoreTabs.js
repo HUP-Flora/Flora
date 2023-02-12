@@ -7,7 +7,7 @@ import StoreProductTab from "./StoreProductTab";
 import StoreReviewTab from "./StoreReviewTab";
 import DoubleTabs from "../common/DoubleTabs";
 
-function StoreTabs(props) {
+function StoreTabs({ sId }) {
 	const [isDefaultTabActive, setIsDefaultTabActive] = useState(true);
 	const reviewCount = useRecoilValue(reviewCountState);
 
@@ -20,7 +20,7 @@ function StoreTabs(props) {
 				otherTabTitle={`리뷰 (${reviewCount})`}
 			/>
 
-			{isDefaultTabActive ? <StoreProductTab /> : <StoreReviewTab />}
+			{isDefaultTabActive ? <StoreProductTab sId={sId} /> : <StoreReviewTab sId={sId} />}
 		</div>
 	);
 }
