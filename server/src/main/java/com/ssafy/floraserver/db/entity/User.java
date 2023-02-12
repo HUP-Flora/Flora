@@ -47,6 +47,9 @@ public class User extends BaseEntity {
     @Column(name = "u_soft_delete", columnDefinition = "TINYINT(1)")
     private boolean softDelete;
 
+    public void deleteUser(){ this.softDelete = true; }
+
+    public void renewUser(){ this.softDelete = false; }
     public void updateRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }

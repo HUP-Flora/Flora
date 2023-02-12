@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Slf4j
 @Transactional
@@ -48,5 +50,10 @@ public class FlowermarksService {
     public Page<Bookmark> findFlowermarks(Long uId, Pageable pageable) {
         Page<Bookmark> bookmarkList = flowermarksRepository.findAllByUId(uId, pageable);
         return bookmarkList;
+    }
+
+    public void deleteFlowermarks(Long uId){
+
+        flowermarksRepository.deleteAllByUId(uId);
     }
 }

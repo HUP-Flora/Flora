@@ -81,4 +81,11 @@ public class AuthController {
         Map<String, String> loginInfo = authService.getLoginInfo(authInfo);
         return loginInfo;
     }
+
+    @PutMapping
+    public ResponseEntity<?> withdrawal(){
+        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
+        authService.withdrawal(authInfo);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
 }

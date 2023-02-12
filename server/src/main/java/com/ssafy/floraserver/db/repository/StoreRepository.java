@@ -14,18 +14,18 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
 
     @Query("select distinct new com.ssafy.floraserver.api.response.RegionRes(s.region_1depth_name, s.region_2depth_name, s.region_3depth_name) " +
             "from Store s " +
-            "where s.address_name like concat('%', :word, '%')")
+            "where s.address_name like concat('%', :word, '%') and s.uId.softDelete = false")
     Page<RegionRes> findAllDtoByWord(@Param("word") String word, Pageable pageable);
 
     @Query(value = "select distinct s from Store s " +
-            "where s.holiday not like %:day1% and s.region_1depth_name = :region_1depth_name and s.region_2depth_name = :region_2depth_name and s.region_3depth_name = :region_3depth_name " +
+            "where s.holiday not like %:day1% and s.region_1depth_name = :region_1depth_name and s.region_2depth_name = :region_2depth_name and s.region_3depth_name = :region_3depth_name and s.uId.softDelete = false " +
             "order by field(s.isOnair, 'ON', 'INPROGRESS', 'OFF') ")
     Page<Store> findAllByRegionDepthName(@Param("day1") String day1, @Param("region_1depth_name") String region_1depth_name, @Param("region_2depth_name") String region_2depth_name, @Param("region_3depth_name") String region_3depth_name, Pageable pageable);
 
-    @Query("select distinct s from Store s join fetch s.start join fetch s.end where s.sId = :sId")
+    @Query("select distinct s from Store s join fetch s.start join fetch s.end where s.sId = :sId and s.uId.softDelete = false")
     Optional<Store> findById(@Param("sId") Long sId);
 
-    @Query("select distinct s from Store s join fetch s.start join fetch s.end where s.uId.uId = :uId")
+    @Query("select distinct s from Store s join fetch s.start join fetch s.end where s.uId.uId = :uId and s.uId.softDelete = false")
     Optional<Store> findByUId(@Param("uId") Long uId);
 
 //    // Dto로 바로 조회하기
