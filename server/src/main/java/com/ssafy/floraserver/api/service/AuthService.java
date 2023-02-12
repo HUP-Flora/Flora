@@ -156,15 +156,15 @@ public class AuthService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         log.info(authInfo.get("role"));
 
-        if(authInfo.get("role").equals("[[ROLE_CUSTOMER]]")){
-            map.put("role", authInfo.get("role"));
+        if(authInfo.get("role").equals("[CUSTOMER]")){
+            map.put("role", "CUSTOMER");
         }else{
             Long uId = Long.parseLong(authInfo.get("uId"));
 
             Store store = storeRepository.findByUId(uId)
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-            map.put("role", authInfo.get("role"));
+            map.put("role", "STORE");
             map.put("sId", store.getSId().toString());
         }
         return map;
