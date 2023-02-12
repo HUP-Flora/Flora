@@ -1,7 +1,7 @@
 import { ChooseHoliday } from "../store/ChooseHoliday";
 import { UploadPicture } from "../store/UploadPicture";
 import { ButtonToolBar } from "../../styles/bar/BarStyle";
-import { Primary400LargeButton } from "../../styles/button/ButtonStyle";
+import { Primary400LargeButton, Primary50LargeButton } from "../../styles/button/ButtonStyle";
 import { BlankSection, BoldText } from "../../styles/common/CommonStyle";
 import { ChooseWorkingTime } from "../common/ChooseWorkingTime";
 import { useNavigate } from "react-router-dom";
@@ -42,8 +42,10 @@ import PostcodeModal from "../common/PostcodeModal";
 import { isDaumPostShowState } from "../../recoil/chatting";
 import { StoreFormApi, useStoreFormApi } from "../../hooks/useStoreFormApi";
 import { locationState } from "../../recoil/map";
+import { useStoreInfoApi } from "../../hooks/useStoreInfoApi";
+import { storeState } from "../../recoil/storeDetail";
 
-export function StoreForm({ nextURL, type }) {
+export function StoreForm({ nextURL, type, sId }) {
 	const [storePhoneNumber, setStorePhoneNumber] = useRecoilState(phoneNumberState);
 	const [storeName, setStoreName] = useRecoilState(storeNameState);
 	const [storeDescription, setStoreDescription] = useRecoilState(storeDescriptionState);
@@ -64,14 +66,82 @@ export function StoreForm({ nextURL, type }) {
 	const storeFormApi = useStoreFormApi();
 	const inputRef = useRef([]);
 
-	const storeRegionDepthName = useRecoilValue(storeRegionDepthNameState);
+	const [storeRegionDepthName, setStoreRegionDepthName] = useRecoilState(storeRegionDepthNameState);
+	const store = useRecoilValue(storeState);
+
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (type === "edit") {
-			// 가게 상세 api 요청
+			const timeList = [
+				"00:00",
+				"00:30",
+				"01:00",
+				"01:30",
+				"02:00",
+				"02:30",
+				"03:00",
+				"03:30",
+				"04:00",
+				"04:30",
+				"05:00",
+				"05:30",
+				"06:00",
+				"06:30",
+				"07:00",
+				"07:30",
+				"08:00",
+				"08:30",
+				"09:00",
+				"09:30",
+				"10:00",
+				"10:30",
+				"11:00",
+				"11:30",
+				"12:00",
+				"12:30",
+				"13:00",
+				"13:30",
+				"14:00",
+				"14:30",
+				"15:00",
+				"15:30",
+				"16:00",
+				"16:30",
+				"17:00",
+				"17:30",
+				"18:00",
+				"18:30",
+				"19:00",
+				"19:30",
+				"20:00",
+				"20:30",
+				"21:00",
+				"21:30",
+				"22:00",
+				"22:30",
+				"23:00",
+				"23:30",
+			];
+
+			const dayList = [false, false, false, false, false, false, false];
+			const days = ["월", "화", "수", "목", "금", "토", "일"];
+			console.log(store.holiday);
+			const holidayList = store.holiday.split(",");
+			const filteredHolidayList = dayList.map((day, index) => holidayList.includes(days[index]));
+
+			const fullNameAddress = store.address_name.split("/");
+			setStoreName(store.name);
+			setStorePhoneNumber(store.phoneNumber);
+			setStoreFirstAddress(fullNameAddress[0]);
+			setStoreSecondAddress(fullNameAddress[1]);
+			setStoreRegionDepthName(store.region_1depth_name);
+			// setStoreDescription(store.desc);
+			setStoreStartTime({ value: timeList.indexOf(store.start), label: store.start });
+			setStoreEndTime({ value: timeList.indexOf(store.end), label: store.end });
+			setStoreHoliday(filteredHolidayList);
 		}
-	}, [type]);
+	}, []);
 
 	useEffect(() => {
 		if (storeFirstAddress) {
@@ -98,7 +168,7 @@ export function StoreForm({ nextURL, type }) {
 				region_1depth_name: storeRegionDepthName.region_1depth_name,
 				region_2depth_name: storeRegionDepthName.region_2depth_name,
 				region_3depth_name: storeRegionDepthName.region_3depth_name,
-				address_name: `${storeFirstAddress} ${storeSecondAddress}`,
+				address_name: `${storeFirstAddress}/${storeSecondAddress}`,
 				lat: location.center.lat,
 				lng: location.center.lng,
 				desc: storeDescription,
@@ -108,6 +178,7 @@ export function StoreForm({ nextURL, type }) {
 			};
 
 			console.log(data);
+			console.log(storeImageFile);
 
 			const formData = new FormData();
 			formData.append("file", storeImageFile);
@@ -128,20 +199,20 @@ export function StoreForm({ nextURL, type }) {
 			// formData.append("start", storeStartTime.value);
 			// formData.append("end", storeEndTime.value);
 
-			storeFormApi(formData);
+			storeFormApi(formData, nextURL);
 			// storeFormApi(data);
 
-			setStoreImageFile("");
-			setStoreBrn("");
-			setStoreName("");
-			setStorePhoneNumber("");
-			setStoreSecondAddress("");
-			setStoreDescription("");
-			setStoreHoliday("");
-			setStoreStartTime({ value: 18, label: "09:00" });
-			setStoreEndTime({ value: 36, label: "18:00" });
+			// setStoreImageFile("");
+			// setStoreBrn("");
+			// setStoreName("");
+			// setStorePhoneNumber("");
+			// setStoreSecondAddress("");
+			// setStoreDescription("");
+			// setStoreHoliday("");
+			// setStoreStartTime({ value: 18, label: "09:00" });
+			// setStoreEndTime({ value: 36, label: "18:00" });
 
-			navigate(nextURL);
+			// navigate(nextURL);
 		}
 	};
 
@@ -299,7 +370,7 @@ export function StoreForm({ nextURL, type }) {
 					value={storeDescription}
 				/>
 				<InputCounterContainer>
-					<InputCounter>{storeDescription.length}/500자</InputCounter>
+					<InputCounter>{storeDescription?.length}/500자</InputCounter>
 				</InputCounterContainer>
 				<BoldText top="56" bottom="16">
 					운영 시간 설정
@@ -311,7 +382,19 @@ export function StoreForm({ nextURL, type }) {
 				<ChooseHoliday />
 				<BlankSection height="104" />
 				<ButtonToolBar>
-					<Primary400LargeButton onClick={handleStoreForm}>가입 완료하기</Primary400LargeButton>
+					<Primary400LargeButton onClick={handleStoreForm}>
+						{type === "edit" ? "수정 완료하기" : "가입 완료하기"}
+					</Primary400LargeButton>
+					<BlankSection height="16" />
+					{type === "edit" && (
+						<Primary50LargeButton
+							onClick={() => {
+								navigate(`/store/${sId}`);
+							}}
+						>
+							취소하기
+						</Primary50LargeButton>
+					)}
 				</ButtonToolBar>
 			</form>
 		</>

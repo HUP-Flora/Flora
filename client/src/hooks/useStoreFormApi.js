@@ -1,7 +1,32 @@
+import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import {
+	phoneNumberState,
+	storeBrnState,
+	storeDescriptionState,
+	storeEndTimeState,
+	storeHolidayState,
+	storeImageFileState,
+	storeNameState,
+	storeSecondAddressState,
+	storeStartTimeState,
+} from "../recoil/signup";
 import api from "../utils/api";
 
 export const useStoreFormApi = () => {
-	const storeFormApi = data => {
+	const setStorePhoneNumber = useSetRecoilState(phoneNumberState);
+	const setStoreName = useSetRecoilState(storeNameState);
+	const setStoreDescription = useSetRecoilState(storeDescriptionState);
+	const setStoreSecondAddress = useSetRecoilState(storeSecondAddressState);
+	const setStoreEndTime = useSetRecoilState(storeEndTimeState);
+	const setStoreHoliday = useSetRecoilState(storeHolidayState);
+	const setStoreStartTime = useSetRecoilState(storeStartTimeState);
+	const setStoreBrn = useSetRecoilState(storeBrnState);
+	const setStoreImageFile = useSetRecoilState(storeImageFileState);
+
+	const navigate = useNavigate();
+
+	const storeFormApi = (data, nextURL) => {
 		api({
 			method: "PUT",
 			url: "/auth/stores",
@@ -11,7 +36,19 @@ export const useStoreFormApi = () => {
 			data,
 		})
 			.then(res => {
-				console.log(res);
+				localStorage.setItem("AccessToken", res.data);
+
+				setStoreImageFile("");
+				setStoreBrn("");
+				setStoreName("");
+				setStorePhoneNumber("");
+				setStoreSecondAddress("");
+				setStoreDescription("");
+				setStoreHoliday([false, false, false, false, false, false, false]);
+				setStoreStartTime({ value: 18, label: "09:00" });
+				setStoreEndTime({ value: 36, label: "18:00" });
+
+				navigate(nextURL);
 			})
 			.catch(err => {
 				console.log(err);

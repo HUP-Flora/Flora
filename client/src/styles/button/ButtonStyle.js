@@ -74,7 +74,7 @@ export const Primary50LargeButton = styled.button`
 
 	// width: ${props => props.width || 168}px;
 	width: 100%;
-	height: 88px;
+	height: ${props => (props.isSmall ? 32 : 44)}px;
 
 	background-color: var(--primary-50);
 	color: var(--primary-400);
