@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import FloLiveWaitingContainer from "../../components/flolive/FloLiveWaitingContainer";
-import useStroeDetail from "../../hooks/useStroeDetail";
+import useStoreDetail from "../../hooks/useStoreDetail";
 import { LliveStatusState, LorderNumberState } from "../../recoil/flolive";
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 function FloliveWaiting() {
 	const LliveStatus = useRecoilValue(LliveStatusState);
 	const LorderNumber = useRecoilValue(LorderNumberState);
-	const { checkLiveStatusAPI } = useStroeDetail();
+	const { checkLiveStatusAPI } = useStoreDetail();
 
 	useEffect(() => {
 		const checkStatusInterval = setInterval(() => {

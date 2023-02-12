@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { PaddingX16 } from "../common/CommonStyle";
 import { SignupPaddingX16Frame } from "../common/FrameStyle";
 
 export const Gray50Container = styled.div`
@@ -7,7 +6,6 @@ export const Gray50Container = styled.div`
 `;
 
 export const WhiteContainer = styled.div`
-	padding-top: 16px;
 	padding-left: 16px;
 	padding-right: 16px;
 `;
@@ -24,4 +22,8 @@ export const SignupPaddingX16Container = styled(SignupPaddingX16Frame)`
 
 export const Padding16Container = styled.div`
 	padding: 16px;
+`;
+
+export const Gray50Padding16Container = styled(Gray50Container)`
+	${Padding16Container}
 `;

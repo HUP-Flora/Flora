@@ -19,3 +19,15 @@ export const LorderNumberState = atom({
 	key: "LorderNumberState",
 	default: "",
 });
+
+export const OrderSuccessDataState = atom({
+	key: "OrderSuccessDataState",
+	default: {
+		sName: "",
+		addressName: "",
+		payment: 0,
+		phoneNumber: "",
+		recType: "",
+		recDeliveryDestination: "",
+	},
+});

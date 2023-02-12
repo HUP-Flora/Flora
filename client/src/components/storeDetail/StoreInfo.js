@@ -18,15 +18,14 @@ import {
 import { BoldText, Text, GrayHr, OnOffToggle, OnOff } from "../../styles/common/CommonStyle";
 
 import dummyImg from "../../assets/store.png";
+import { useParams } from "react-router-dom";
 
 function StoreInfo(props) {
+	const { sId } = useParams();
 	const store = useRecoilValue(storeState);
 
 	const storeApi = useStoreInfoApi();
 	const toggleApi = useToggleApi();
-
-	// 더미 데이터
-	const sId = 8;
 
 	useEffect(() => {
 		storeApi(sId);

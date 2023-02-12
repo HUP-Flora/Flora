@@ -5,19 +5,19 @@ import ModalContainer from "./ModalContainer";
 
 import { Primary50Button, Primary400Button } from "../../styles/button/ButtonStyle";
 import { BottomRowDoubleButtonContainer } from "../../styles/common/CommonStyle";
-import useStroeDetail from "../../hooks/useStroeDetail";
+import useStoreDetail from "../../hooks/useStoreDetail";
 
 function ProductDetailButtons(props) {
 	const navigate = useNavigate();
 
 	const [isModalShow, setIsModalShow] = useState(false);
 
-	const { enterFloliveAPI } = useStroeDetail();
+	const { enterFloliveAPI } = useStoreDetail();
 
 	const enterFloliveHandler = () => {
 		enterFloliveAPI();
 		navigate("/flolive/waiting");
-	}
+	};
 
 	// 더미 데이터
 	const type = "customer";

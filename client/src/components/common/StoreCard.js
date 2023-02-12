@@ -36,7 +36,7 @@ export function StoreCard({
 	const navigate = useNavigate();
 
 	const handleClick = sid => {
-		navigate(`/store/${sid}/detail`);
+		navigate(`/store/${sid}`);
 	};
 
 	const formatStoreTitle = title => {
@@ -56,7 +56,7 @@ export function StoreCard({
 			<StoreCardTextSection>
 				<StoreCardTextTitle>
 					<StoreCardTextTitleSection>
-						<OnOff isOn={isOnair}>{isOnair ? "ON" : "OFF"}</OnOff>
+						<OnOff isOn={isOnair === "ON"}>{isOnair === "ON" ? "ON" : "OFF"}</OnOff>
 						<PaddingLeft16BoldText>{formatStoreTitle(name)}</PaddingLeft16BoldText>
 					</StoreCardTextTitleSection>
 					<StoreCardTextFloMarkSection>

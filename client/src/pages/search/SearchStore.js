@@ -41,7 +41,7 @@ export function SearchStore() {
 	};
 
 	const searchStoresHandler = address => {
-		searchStoresApi(address);
+		// searchStoresApi(address);
 		setIsSearchStoreModal(false);
 	};
 

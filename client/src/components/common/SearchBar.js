@@ -12,7 +12,8 @@ import { SearchBarContainer, SearchBarContent } from "../../styles/bar/BarStyle"
 import { Text, GrayText } from "../../styles/common/CommonStyle";
 import SearchIcon from "../../assets/SearchBarIcon.png";
 import { SearchBarIcon } from "../../styles/icon/IconStyle";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSearchStoresApi } from "../../hooks/useSearchStoresApi";
 
 export function SearchBar({ isMain }) {
 	const [date, setDate] = useRecoilState(dateState);
@@ -23,8 +24,20 @@ export function SearchBar({ isMain }) {
 	const RorderMonth = useRecoilValue(RorderMonthState);
 	const RorderDay = useRecoilValue(RorderDayState);
 	const RorderDayOfWeek = useRecoilValue(RorderDayOfWeekState);
+	const searchStoresApi = useSearchStoresApi();
 
 	const navigate = useNavigate();
+	const location = useLocation();
+
+	const searchHandler = () => {
+		if (RorderDay && address !== "지역 선택") {
+			searchStoresApi(address);
+
+			if (location.pathname === "/") {
+				navigate("/search");
+			}
+		}
+	};
 
 	const formatFirstAddress = firstAddress => {
 		if (isMain && firstAddress.length > 12) {
@@ -39,20 +52,17 @@ export function SearchBar({ isMain }) {
 	return (
 		<SearchBarContainer>
 			<SearchBarContent onClick={() => setIsCalendarModal(true)}>
-				<Text size="13">{date}</Text>
+				<Text size="13">
+					{RorderDay
+						? `${RorderYear}년 ${RorderMonth}월 ${RorderDay}일 ${RorderDayOfWeek}요일`
+						: date}
+				</Text>
 			</SearchBarContent>
 			<GrayText size="13">|</GrayText>
 			<SearchBarContent onClick={() => setIsSearchStoreModal(true)}>
 				<Text size="13">{formatFirstAddress(address)}</Text>
 			</SearchBarContent>
-			{isMain && (
-				<SearchBarIcon
-					src={SearchIcon}
-					onClick={() => {
-						navigate("/search");
-					}}
-				/>
-			)}
+			<SearchBarIcon src={SearchIcon} onClick={searchHandler} />
 		</SearchBarContainer>
 	);
 }

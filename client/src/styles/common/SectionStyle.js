@@ -24,3 +24,10 @@ export const SignupButtonSection = styled.section`
 
 	background-color: white;
 `;
+
+export const PaymentSuccessButtonSection = styled.section`
+	width: 100%;
+	padding: 16px;
+
+	background-color: white;
+`;

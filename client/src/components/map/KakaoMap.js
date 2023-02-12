@@ -21,24 +21,11 @@ export function KakaoMap() {
 	}, [storeList]);
 
 	useEffect(() => {
-		console.log("fff");
-		if (mapRef.current) {
-			mapRef.current.setBounds(bounds);
+		if (storeList.length !== 0) {
+			const map = mapRef.current;
+			if (map) map.setBounds(bounds);
 		}
-	}, [bounds]);
-
-	// const handlePosition = (lat, lng, isPanto) => {
-	// 	setPosition({
-	// 		center: { lat: lat, lng: lng },
-	// 		isPanto: isPanto,
-	// 	});
-	// };
-
-	// const handleSearch = () => {
-	// 	// 1. axios로 위도 경도 데이터 받기
-	// 	// 2. position 변경
-	// 	handlePosition(33.452613, 126.570888, false);
-	// };
+	}, [storeList, bounds]);
 
 	return (
 		<Map // 지도를 표시할 Container
@@ -52,7 +39,7 @@ export function KakaoMap() {
 			ref={mapRef}
 		>
 			{storeList.map(store => (
-				<MapMarker // 마커를 생성합니다
+				<MapMarker // 마커 생성
 					key={store.sid}
 					position={{
 						lat: store.lat,
