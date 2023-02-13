@@ -55,9 +55,9 @@ public class SecurityConfig {
                 // URL 권한 설정
 //                .and()
                 .authorizeRequests()
-//                .antMatchers(HttpMethod.GET, "/api/auth/users").authenticated()
-                .antMatchers(HttpMethod.PUT, "/api/auth/stores").authenticated()
-                .antMatchers(HttpMethod.POST, "/api/reviews").authenticated()
+                .antMatchers(HttpMethod.GET, "/v1/auth/users").authenticated()
+                .antMatchers(HttpMethod.PUT, "/v1/auth/stores").authenticated()
+                .antMatchers(HttpMethod.POST, "/v1/reviews").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .logout()

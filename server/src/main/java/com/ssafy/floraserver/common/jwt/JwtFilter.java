@@ -1,4 +1,5 @@
 package com.ssafy.floraserver.common.jwt;
+import com.ssafy.floraserver.common.exception.CustomException;
 import com.ssafy.floraserver.common.exception.ErrorCode;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -39,17 +40,24 @@ public class JwtFilter extends OncePerRequestFilter {
                 Authentication authentication = jwtProvider.getAuthentication(jwt);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 log.info("Security Context에 '{}' 인증 정보를 저장했습니다, uri: {}", authentication.getName(), requestURI);
+            }else{
+                throw new CustomException(ErrorCode.WRONG_TOKEN);
             }
         }catch (SecurityException | MalformedJwtException e) {
+            log.info("여기1");
             request.setAttribute("exception", ErrorCode.WRONG_TYPE_TOKEN);
         } catch (ExpiredJwtException e) {
+            log.info("여기2");
             request.setAttribute("exception", ErrorCode.EXPIRED_TOKEN);
         } catch (UnsupportedJwtException e) {
+            log.info("여기3");
             request.setAttribute("exception", ErrorCode.UNSUPPORTED_TOKEN);
         } catch (IllegalArgumentException e) {
+            log.info("여기4");
             request.setAttribute("exception", ErrorCode.WRONG_TOKEN);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.info("여기5");
+//            e.printStackTrace();
         }
 
         filterChain.doFilter(request, response);
