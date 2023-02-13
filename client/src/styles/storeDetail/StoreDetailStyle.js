@@ -35,6 +35,7 @@ export const Description = styled.div`
 	font-size: 13px;
 	display: flex;
 	align-items: center;
+	white-space: pre-wrap;
 `;
 
 export const BasicInfoContainer = styled.div`

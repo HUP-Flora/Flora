@@ -2,14 +2,19 @@ import styled from "styled-components";
 import TextareaAutosize from "react-textarea-autosize";
 
 export const UploadPictureWrapper = styled.div`
-	margin: 0 16px;
-	margin-bottom: 32px;
+	// margin: 0 16px;
+	// margin-bottom: 32px;
 	padding: 32px 0;
 
 	background-color: var(--gray-50);
 
-	border: 1px solid var(--gray-500);
+	border: 1px solid ${props => (props.isError ? "var(--primary-500)" : "var(--gray-500)")};
 	border-radius: 5px;
+`;
+
+export const PictureWrapper = styled.div`
+	margin: 0 16px;
+	margin-bottom: 32px;
 `;
 
 export const FormWrapper = styled.div`

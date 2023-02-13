@@ -20,8 +20,6 @@ export const useMypageInfoApi = () => {
 			url: url,
 		})
 			.then(res => {
-				console.log(res.data);
-
 				setUser(res.data);
 			})
 			.catch(error => {

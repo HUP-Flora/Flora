@@ -12,7 +12,6 @@ function Postcode() {
 	const postCodeApi = usePostCodeApi();
 
 	const handleComplete = data => {
-		console.log(data.jibunAddress);
 		postCodeApi(data.jibunAddress);
 		setStoreFirstAddress(data.jibunAddress);
 		setReceiveUserFirstAddress(data.jibunAddress);

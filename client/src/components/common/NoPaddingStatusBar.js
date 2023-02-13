@@ -10,9 +10,17 @@ import { useNavigate } from "react-router-dom";
 export function NoPaddingStatusBar({ text }) {
 	const navigate = useNavigate();
 
+	const ArrowClickHandler = () => {
+		if (text === "꽃집 검색") {
+			navigate("/");
+		} else {
+			navigate(-1);
+		}
+	};
+
 	return (
 		<StatusBarPadding16Container>
-			<LeftArrow onClick={() => navigate(-1)} src={leftArrowImg} alt={leftArrowImg} />
+			<LeftArrow onClick={ArrowClickHandler} src={leftArrowImg} alt={leftArrowImg} />
 			<StatusBarText>{text}</StatusBarText>
 		</StatusBarPadding16Container>
 	);

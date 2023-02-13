@@ -393,6 +393,12 @@ export const BottomBorderInput = styled.input`
 	}
 `;
 
+export const MyPageBottomBorderInput = styled(BottomBorderInput)`
+	padding: 0px;
+	margin-top: 16px;
+	margin-left: 8px;
+`;
+
 // export const EmptyContainer = styled.div`
 // 	width: 100% !important;
 // 	height: 200px;

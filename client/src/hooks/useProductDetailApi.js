@@ -16,8 +16,10 @@ export const useProductDetailApi = () => {
 			url: `/products/${pId}`,
 		})
 			.then(response => {
+				console.log(response.data);
 				setProduct({
 					...response.data,
+					// desc: response.data.desc.replace(/\n/g, `${&#10;}`),
 					price: priceComma(response.data.price)
 						.toString()
 						.replace(/\B(?=(\d{3})+(?!\d))/g, ","),

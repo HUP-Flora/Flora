@@ -24,6 +24,7 @@ function ProductForms() {
 
 	const [nameValidMessage, setNameValidMessage] = useState(true);
 	const [priceValidMessage, setPriceValidMessage] = useState(true);
+	const [pictureValidMessage, setPictureValidMessage] = useState("");
 	const [descriptionValidMessage, setDescriptionValidMessage] = useState(true);
 
 	const productDetailApi = useProductDetailApi();
@@ -41,6 +42,7 @@ function ProductForms() {
 		} else {
 			const reset = () => {
 				resetProduct();
+				setImagePreview("");
 			};
 
 			reset();
@@ -54,6 +56,7 @@ function ProductForms() {
 				nameValidMessage={nameValidMessage}
 				priceValidMessage={priceValidMessage}
 				descriptionValidMessage={descriptionValidMessage}
+				pictureValidMessage={pictureValidMessage}
 			/>
 			<ProductAddBottomButtons
 				type={type}
@@ -62,6 +65,7 @@ function ProductForms() {
 				setNameValidMessage={setNameValidMessage}
 				setPriceValidMessage={setPriceValidMessage}
 				setDescriptionValidMessage={setDescriptionValidMessage}
+				setPictureValidMessage={setPictureValidMessage}
 			/>
 		</>
 	);
