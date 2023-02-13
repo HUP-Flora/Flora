@@ -49,7 +49,6 @@ public class FloliveService {
         // CUSTOMER인지 확인 @PreAuthorize
         // 가게 존재하는지 확인
         Long uId = Long.parseLong(authInfo.get("uId"));
-//        Long uId = Long.valueOf(31); // TODO 테스트용 uID, 나중에 지우기
 
         User user = userRepository.findById(uId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -248,7 +247,6 @@ public class FloliveService {
 
     public ReserveRes reserveFlolive(ReserveFloliveReq reserveFloliveReq, Map<String, String> authInfo) throws OpenViduJavaClientException, OpenViduHttpException {
         Long uId = Long.parseLong(authInfo.get("uId"));
-//        Long uId = Long.valueOf(312); // TODO 테스트용 uID, 나중에 지우기
         String role = authInfo.get("role");
         log.info("예약 정보 - sId : {} ", reserveFloliveReq.getSid());
         log.info("예약 정보 - pId : {} ", reserveFloliveReq.getPid());
@@ -317,14 +315,12 @@ public class FloliveService {
 
     public Page<Order> findUserWaitFlolive(Pageable pageable, Map<String, String> authInfo) {
         Long uId = Long.parseLong(authInfo.get("uId"));
-//        Long uId = Long.valueOf(31); // TODO 테스트용 uID, 나중에 지우기
         Page<Order> orderList = orderRepository.findByUId(uId, OrderStatus.WAITING, pageable);
         return orderList;
     }
 
     public Page<Order> findStoreWaitFlolive(Pageable pageable, Map<String, String> authInfo) {
         Long uId = Long.parseLong(authInfo.get("uId"));
-//        Long uId = Long.valueOf(315); // TODO 테스트용 uID, 나중에 지우기
         Store store = storeRepository.findByUId(uId)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
         log.info("가게 번호 : {}", String.valueOf(store.getSId()));
@@ -335,7 +331,6 @@ public class FloliveService {
 
     public Page<Order> findUserConfirmFlolive(Pageable pageable, Map<String, String> authInfo) {
         Long uId = Long.parseLong(authInfo.get("uId"));
-//        Long uId = Long.valueOf(318); // TODO 테스트용 uID, 나중에 지우기
 
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
@@ -352,7 +347,6 @@ public class FloliveService {
 
     public Page<Order> findStoreConfirmFlolive(Pageable pageable, Map<String, String> authInfo) {
         Long uId = Long.parseLong(authInfo.get("uId"));
-//        Long uId = Long.valueOf(315); // TODO 테스트용 uID, 나중에 지우기
         Store store = storeRepository.findByUId(uId)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
