@@ -22,7 +22,7 @@ import {
 	SearchAddressContainerButton,
 } from "../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
 	isFocusedInputState,
 	phoneNumberState,
@@ -58,6 +58,7 @@ export function StoreForm({ nextURL, type, sId }) {
 	const [storePhoneNumberErrorMessage, setStorePhoneNumberErrorMessage] = useState("");
 	const [storeAddressErrorMessage, setStoreAddressErrorMessage] = useState("");
 	const [isDaumPostShow, setIsDaumPostShow] = useRecoilState(isDaumPostShowState);
+	const setStoreImagePreview = useSetRecoilState(storeImagePreviewState);
 
 	const [storeStartTime, setStoreStartTime] = useRecoilState(storeStartTimeState);
 	const [storeBrn, setStoreBrn] = useRecoilState(storeBrnState);
@@ -140,6 +141,7 @@ export function StoreForm({ nextURL, type, sId }) {
 				region_2depth_name: store.region_2depth_name,
 				region_3depth_name: store.region_3depth_name,
 			});
+			setStoreImagePreview(store.simg);
 			setStoreDescription(store.desc);
 			setStoreStartTime({ value: timeList.indexOf(store.start), label: store.start });
 			setStoreEndTime({ value: timeList.indexOf(store.end), label: store.end });
@@ -208,33 +210,7 @@ export function StoreForm({ nextURL, type, sId }) {
 				"storeExtraInfoReq",
 				new Blob([JSON.stringify(data)], { type: "application/json" })
 			);
-			// formData.append("businessLicense", storeBrn);
-			// formData.append("name", storeName);
-			// formData.append("phoneNumber", storePhoneNumber);
-			// // kebab case 바꾸기
-			// formData.append("region_1depth_name", storeRegionDepthName.region_1depth_name);
-			// formData.append("region_2depth_name", storeRegionDepthName.region_2depth_name);
-			// formData.append("region_3depth_name", storeRegionDepthName.region_3depth_name);
-			// formData.append("address_name", `${storeFirstAddress} ${storeSecondAddress}`);
-			// formData.append("desc", storeDescription);
-			// formData.append("holiday", storeHolidays);
-			// formData.append("start", storeStartTime.value);
-			// formData.append("end", storeEndTime.value);
-
 			storeFormApi(formData, nextURL);
-			// storeFormApi(data);
-
-			// setStoreImageFile("");
-			// setStoreBrn("");
-			// setStoreName("");
-			// setStorePhoneNumber("");
-			// setStoreSecondAddress("");
-			// setStoreDescription("");
-			// setStoreHoliday("");
-			// setStoreStartTime({ value: 18, label: "09:00" });
-			// setStoreEndTime({ value: 36, label: "18:00" });
-
-			// navigate(nextURL);
 		}
 	};
 
@@ -411,7 +387,8 @@ export function StoreForm({ nextURL, type, sId }) {
 					{type === "edit" && (
 						<Primary50LargeButton
 							onClick={() => {
-								navigate(`/store/${sId}`);
+								navigate(-1);
+								// navigate(`/store/${sId}`);
 							}}
 						>
 							취소하기

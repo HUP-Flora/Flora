@@ -125,7 +125,8 @@ function ProductAddBottomButtons({
 		resetProduct();
 		resetImageFile();
 
-		navigate(`/store/${sId}/product/${pId}`);
+		// navigate(`/store/${sId}/product/${pId}`);
+		navigate(-1);
 	};
 
 	return (
