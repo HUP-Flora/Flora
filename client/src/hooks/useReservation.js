@@ -10,11 +10,11 @@ function useReservation() {
 
 	const navigate = useNavigate();
 
-	const getHolidayAPI = useCallback(() => {
+	const getHolidayAPI = useCallback((sId) => {
 		console.log("getHolidayAPI");
 		api({
 			method: "GET",
-			url: "flolive/calendar/8",
+			url: `flolive/calendar/${sId}`,
 		})
 			.then(res => {
 				console.log(res);
@@ -26,11 +26,11 @@ function useReservation() {
 			});
 	}, [setRorderHolidayState]);
 
-	const getAvailableTimeAPI = useCallback(selecteddate => {
+	const getAvailableTimeAPI = useCallback((selecteddate, sId) => {
 		console.log(selecteddate);
 		api({
 			method: "GET",
-			url: `flolive/time/8?date=${selecteddate}`,
+			url: `flolive/time/${sId}?date=${selecteddate}`,
 		})
 			.then(res => {
 				console.log(res.data);
@@ -61,7 +61,7 @@ function useReservation() {
 			.catch(err => {
 				console.log(err);
 			});
-	}, [navigate]);
+	}, []);
 
 	return {
 		getHolidayAPI,

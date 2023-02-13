@@ -46,9 +46,10 @@ function ReservationDate() {
 
 	const { getHolidayAPI, getAvailableTimeAPI, submitReservationAPI } = useReservation();
 
+	const { sId, pId } = useParams();
 	// 휴무일 받아오기
 	useEffect(() => {
-		getHolidayAPI();
+		getHolidayAPI(sId);
 	}, [getHolidayAPI]);
 
 	// 보낼 날짜 가공
@@ -58,12 +59,11 @@ function ReservationDate() {
 
 	// 예약 가능 시간 받아오기
 	useEffect(() => {
-		getAvailableTimeAPI(date);
+		getAvailableTimeAPI(date, sId);
 	}, [getAvailableTimeAPI, date]);
 
 	// 예약 완료 버튼 클릭
 	const navigate = useNavigate();
-	const { sId, pId } = useParams();
 	const dateNextHandler = () => {
 		if (RorderTime === "") {
 			setRisModalShow(true);
@@ -75,6 +75,8 @@ function ReservationDate() {
 			reservationDate: date,
 			reservationTime: RorderTime,
 		};
+
+		console.log(reserveData);
 
 		submitReservationAPI(reserveData);
 	};
