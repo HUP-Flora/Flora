@@ -11,7 +11,7 @@ function Hamster() {
 	return (
 		<>
 		<img src={hamsterImg} alt="hamsterImg" style={{width: "50%", height: "50%"}}/>
-			<button onClick={() => changeOrderStatusAPI(84)}>테스트</button>
+			<button onClick={() => changeOrderStatusAPI(95)}>테스트</button>
 		</>
 	);
 }
