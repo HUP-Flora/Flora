@@ -5,7 +5,7 @@ function useFloliveOwner() {
 		api({
 			method: "GET",
 			// url: `/flolive/${oId}`,
-			url: "/flolive/69",
+			url: "/flolive/76",
 		})
 			.then(res => {
 				console.log(res);
@@ -13,11 +13,11 @@ function useFloliveOwner() {
 			.catch(err => {
 				console.log(err);
 			});
-	}
+	};
 
 	return {
 		accepteFlolive,
-	}
+	};
 }
 
 export default useFloliveOwner;
