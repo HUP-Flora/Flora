@@ -16,7 +16,7 @@ function Flolive() {
 	// 이게 유저 name으로 사용할 유저 타입
 	const myType = userType();
 	// 이게 url에서 따온 세션 아이디
-	const { mySessionId } = useParams();
+	const mySessionId = useParams().conId;
 
 	registerServiceWorker();
 
