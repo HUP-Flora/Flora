@@ -26,9 +26,6 @@ class OpenViduVideo extends Component {
 			mySessionId: this.props.mySessionId,
 			myUserName: this.props.myType,
 			userType: this.props.userType,
-			// mySessionId: this.props.LmySessionId,
-			// myUserName: this.props.LmyType,
-			// session: this.props.LmySessionId,
 			session: undefined,
 			mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
 			publisher: undefined,
@@ -50,10 +47,6 @@ class OpenViduVideo extends Component {
 
 	componentDidMount() {
 		window.addEventListener("beforeunload", this.onbeforeunload);
-
-		// this.setState({
-		// 	subscribers: [],
-		// });
 
 		this.joinSession();
 	}
@@ -122,21 +115,16 @@ class OpenViduVideo extends Component {
 
 					// subscribers.push(subscriber);
 
+					// 참여자를 2인으로 제한
 					subscribers.length = 2;
 
-					console.log("마이유저네임!!:", this.state.myUserName);
-
-					// if (subscribers.length == 2) {
 					// 사장이면 고객을 0번째 인덱스에, 고객이면 사장을 1번째 인덱스에
 					// [고객, 사장]
 					if (this.state.myUserName === "owner") {
-						console.log("사장이라면");
 						subscribers[0] = subscriber;
 					} else if (this.state.myUserName === "customer") {
-						console.log("고객이라면");
 						subscribers[1] = subscriber;
 					}
-					// }
 
 					// Update the state with the new subscribers
 					this.setState({
@@ -288,28 +276,25 @@ class OpenViduVideo extends Component {
 						<SessionHeader>
 							<div>
 								<LeaveSessionButton onClick={this.handleClickExit}>종료</LeaveSessionButton>
-								<input
+								{/* <input
 									className="btn btn-large btn-success"
 									type="button"
 									id="buttonSwitchCamera"
 									onClick={this.switchCamera}
 									value="Switch Camera"
-								/>
+								/> */}
 							</div>
 
 							{this.state.publisher !== undefined ? (
 								<>
-									{/* {this.state.subscribers.map((sub, i) => (
-
-								))} */}
 									{/* 고객 화면 */}
 									{/* 내가 고객이면 내 화면, 내가 사장이면 고객 화면 */}
 									{/* [고객, 사장] */}
-									<CustomerVideo onClick={() => this.handleMainVideoStream(this.state.publisher)}>
-										{/* <UserVideoComponent streamManager={this.state.subscribers[1]} /> */}
+									<CustomerVideo>
+										{/* <CustomerVideo onClick={() => this.handleMainVideoStream(this.state.publisher)}> */}
 										<UserVideoComponent
 											streamManager={
-												this.state.userType === "customer"
+												this.state.myUserName === "customer"
 													? this.state.publisher
 													: this.state.subscribers[0]
 											}
@@ -326,15 +311,13 @@ class OpenViduVideo extends Component {
 								// 내가 사장이면 내 화면, 내가 고객이면 사장 화면
 								// [고객, 사장]
 								<OwnerVideo>
-									{/* <UserVideoComponent streamManager={this.state.subscribers[0]} /> */}
 									<UserVideoComponent
 										streamManager={
-											this.state.userType === "owner"
+											this.state.myUserName === "owner"
 												? this.state.publisher
 												: this.state.subscribers[1]
 										}
 									/>
-									{/* <UserVideoComponent streamManager={this.state.mainStreamManager} /> */}
 									<div style={{ backgroundColor: "red" }}>{userType}</div>
 								</OwnerVideo>
 							) : null}
