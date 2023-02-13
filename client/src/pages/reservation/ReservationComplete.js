@@ -13,7 +13,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 function ReservationComplete() {
 	const navigate = useNavigate();
 
-	const { oid, pimg } = useLocation().state.resData;
+	const { oid, simg } = useLocation().state.resData;
 
 	const onClickOrderInfo = () => {
 		navigate(`/reservation/list`);
@@ -33,7 +33,7 @@ function ReservationComplete() {
 			</RcompleteContent>
 			<ShopInfoContainer>
 				<ShopImage
-					src={pimg}
+					src={simg}
 				/>
 				<ShopName>꽃집이요</ShopName>
 			</ShopInfoContainer>

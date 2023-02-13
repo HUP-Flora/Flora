@@ -11,13 +11,13 @@ function useReservation() {
 	const navigate = useNavigate();
 
 	const getHolidayAPI = useCallback((sId) => {
-		console.log("getHolidayAPI");
+		// console.log("getHolidayAPI");
 		api({
 			method: "GET",
 			url: `flolive/calendar/${sId}`,
 		})
 			.then(res => {
-				console.log(res);
+				// console.log(res);
 				// 응답으로 온 휴무일을 저장
 				setRorderHolidayState(res.data);
 			})
@@ -27,13 +27,13 @@ function useReservation() {
 	}, [setRorderHolidayState]);
 
 	const getAvailableTimeAPI = useCallback((selecteddate, sId) => {
-		console.log(selecteddate);
+		// console.log(selecteddate);
 		api({
 			method: "GET",
 			url: `flolive/time/${sId}?date=${selecteddate}`,
 		})
 			.then(res => {
-				console.log(res.data);
+				// console.log(res.data);
 				// 응답으로 온 예약 가능 시간을 저장
 				setRorderTimeAvailableState(res.data);
 			})
@@ -49,17 +49,17 @@ function useReservation() {
 			data: reserveData,
 		})
 			.then(res => {
-				console.log(res);
+				// console.log(res);
 				// 성공시 예약 완료 페이지로 이동
 				const resData = res.data;
-				navigate("/store/:sId/product/:pId/reservation/complete", {
+				navigate(`/store/${reserveData.sid}/product/${reserveData.pid}/reservation/complete`, {
 					state: {
 						resData,
 					}
 				});
 			})
 			.catch(err => {
-				console.log(err);
+				console.log("예약 완료 api 에러", err);
 			});
 	}, []);
 

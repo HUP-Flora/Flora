@@ -1,5 +1,7 @@
 package com.ssafy.floraserver.api.service;
 
+import com.ssafy.floraserver.common.exception.CustomException;
+import com.ssafy.floraserver.common.exception.ErrorCode;
 import io.openvidu.java.client.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +23,11 @@ public class OpenViduService {
     public String createSession(String customSessionId) throws OpenViduHttpException, OpenViduJavaClientException {
         openVidu.fetch();
         if (openVidu.getActiveSession(customSessionId) != null) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            throw new CustomException(ErrorCode.OPENVIDU_SESSION_EXISTS);
         }
         // customId로 활성화 된 세션 가져옴
         SessionProperties properties = SessionProperties.fromJson(null).customSessionId(customSessionId).build();
+//        SessionProperties properties = SessionProperties.fromJson(null).build();
         // 세션 아이디 돌려줌
         return openVidu.createSession(properties).getSessionId();
     }
@@ -34,6 +37,7 @@ public class OpenViduService {
         openVidu.fetch();
         Session session = openVidu.getActiveSession(sessionId);
 
+        // 세션이 null 이면 세션 만들어 줘야 하는데 안만들었죠?
         if(session == null) {}
 
         ConnectionProperties connectionProperties;
@@ -47,7 +51,7 @@ public class OpenViduService {
         Session session = openVidu.getActiveSession(sessionId);
 
         if(session == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new CustomException(ErrorCode.OPENVIDU_SESSION_NOT_EXISTS);
         }
         session.close();
     }

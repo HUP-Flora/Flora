@@ -3,6 +3,8 @@ package com.ssafy.floraserver.api.service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.ssafy.floraserver.api.vo.FileVO;
+import com.ssafy.floraserver.common.exception.CustomException;
+import com.ssafy.floraserver.common.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,7 +52,7 @@ public class FileService {
 
             log.info(fileVO.toString());
         }catch (Exception e){
-            e.printStackTrace();
+            throw new CustomException(ErrorCode.FILE_UPLOAD_FAIL);
         }
         return fileVO;
     }

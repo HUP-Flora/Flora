@@ -28,8 +28,8 @@ public class WaitRes {
     public WaitRes(Order order) {
         this.userRole = order.getUId().getRole();
         this.oId = order.getOId();
-        this.reservationDate = order.getConId().getReservationDate();
-        this.reservationTime = order.getConId().getReservationTime().getTuId();
+        this.reservationDate = order.getConId() != null ? order.getConId().getReservationDate() : null;
+        this.reservationTime = order.getConId() != null? order.getConId().getReservationTime().getTuId() : null;
         this.sName = order.getSId().getName();
         this.pName = order.getPId().getName();
         this.pImge = order.getPId().getImgPath();
