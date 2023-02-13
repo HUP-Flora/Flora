@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const ReviewsContainer = styled.div`
 	margin: 40px 0;
+	min-height: 477px;
 `;
 
 export const ReviewContainer = styled.div`

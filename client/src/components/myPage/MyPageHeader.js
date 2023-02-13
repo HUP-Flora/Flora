@@ -25,6 +25,7 @@ import {
 	MyPageEditIconFrame,
 	MyPageEditImg,
 	MyPageEditButtonFrame,
+	MyPageStoreHeaderContainer,
 } from "../../styles/myPage/MyPageHeaderStyle";
 import {
 	Text,
@@ -191,14 +192,14 @@ function MyPageHeader(props) {
 				</MyPageHeaderContainer>
 			) : (
 				<>
-					<MyPageHeaderContainer>
+					<MyPageStoreHeaderContainer>
 						<BoldText size="23" font="nexon">
 							{user?.name} 님
 						</BoldText>
 						<div>
 							<img type="STORE" src={user?.simg === null ? defaultImg : user?.simg} alt="" />
 						</div>
-					</MyPageHeaderContainer>
+					</MyPageStoreHeaderContainer>
 				</>
 			)}
 		</>

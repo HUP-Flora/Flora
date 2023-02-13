@@ -201,7 +201,7 @@ export function StoreForm({ nextURL, type, sId }) {
 			}
 
 			const formData = new FormData();
-			formData.append("file", storeImageFile ? storeImageFile : null);
+			formData.append("file", storeImageFile);
 			formData.append(
 				type === "edit" ? "storeInfoReq" : "storeExtraInfoReq",
 				new Blob([JSON.stringify(data)], { type: "application/json" })

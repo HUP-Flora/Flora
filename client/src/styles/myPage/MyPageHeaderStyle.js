@@ -72,6 +72,14 @@ export const MyPageHeaderContainer = styled.div`
 	}
 `;
 
+export const MyPageStoreHeaderContainer = styled(MyPageHeaderContainer)`
+	align-items: center;
+
+	& img {
+		border-radius: 50%;
+	}
+`;
+
 export const MyPageInfoSection = styled.section`
 	width: 70%;
 `;
