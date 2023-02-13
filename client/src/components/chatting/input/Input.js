@@ -13,12 +13,15 @@ import {
 	InputText,
 } from "../../../styles/chatting/input/InputStyle";
 import { LmyTypeState } from "../../../recoil/flolive";
+import { userType } from "../../../utils/user";
 
 function Input({ message, setMessage }) {
-	const LmyType = useRecoilValue(LmyTypeState);
+	// const LmyType = useRecoilValue(LmyTypeState);
+
+	const myType = userType();
 
 	// 여기서 사장인지 체크
-	const isOwner = LmyType === "사장";
+	const isOwner = myType === "사장";
 
 	return (
 		<InputLayout>

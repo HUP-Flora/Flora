@@ -16,7 +16,7 @@ function ReservationComplete() {
 	const { oid, pimg } = useLocation().state.resData;
 
 	const onClickOrderInfo = () => {
-		navigate(`/mypage/order/${oid}`);
+		navigate(`/reservation/list`);
 	};
 
 	const onClickHome = () => {
@@ -37,7 +37,7 @@ function ReservationComplete() {
 				/>
 				<ShopName>꽃집이요</ShopName>
 			</ShopInfoContainer>
-			<OrderInfoButton onClick={onClickOrderInfo}>주문 내역으로 이동하기</OrderInfoButton>
+			<OrderInfoButton onClick={onClickOrderInfo}>예약 내역으로 이동하기</OrderInfoButton>
 			<HomeButton onClick={onClickHome}>홈으로 이동하기</HomeButton>
 		</RcompleteContainer>
 	);

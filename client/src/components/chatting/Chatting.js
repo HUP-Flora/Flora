@@ -9,11 +9,13 @@ import { listenMessage, socketInit, socketJoin } from "../../utils/chatting";
 import { ChatLayout } from "../../styles/chatting/ChattingStyle";
 import ErrorModal from "./errorModal/ErrorModal";
 import { LmySessionIdState, LmyTypeState } from "../../recoil/flolive";
+import { userType } from "../../utils/user";
 
 const ENDPOINT = "http://localhost:5000";
 
 const Chat = () => {
 	const LmyType = useRecoilValue(LmyTypeState);
+	const myType = userType();
 	const LmySessionId = useRecoilValue(LmySessionIdState);
 	const [message, setMessage] = useState("");
 	const [messages, setMessages] = useState([]);
@@ -21,7 +23,7 @@ const Chat = () => {
 	socketInit();
 
 	useEffect(() => {
-		socketJoin(LmyType, LmySessionId);
+		socketJoin(myType, LmySessionId);
 	}, [ENDPOINT, window.location.search]);
 
 	useEffect(() => {
