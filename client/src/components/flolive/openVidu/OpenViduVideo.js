@@ -25,6 +25,7 @@ class OpenViduVideo extends Component {
 		this.state = {
 			mySessionId: "flora-test",
 			myUserName: "갤북",
+			userType: this.props.userType,
 			// mySessionId: this.props.LmySessionId,
 			// myUserName: this.props.LmyType,
 			session: this.props.LmySessionId,
@@ -32,6 +33,8 @@ class OpenViduVideo extends Component {
 			publisher: undefined,
 			subscribers: [],
 		};
+
+		console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", this.state.userType);
 
 		this.joinSession = this.joinSession.bind(this);
 		this.leaveSession = this.leaveSession.bind(this);
@@ -45,6 +48,10 @@ class OpenViduVideo extends Component {
 
 	componentDidMount() {
 		window.addEventListener("beforeunload", this.onbeforeunload);
+
+		// this.setState({
+		// 	subscribers: [],
+		// });
 
 		this.joinSession();
 	}
@@ -254,6 +261,7 @@ class OpenViduVideo extends Component {
 	render() {
 		const mySessionId = this.state.mySessionId;
 		const myUserName = this.state.myUserName;
+		const userType = this.state.userType;
 
 		this.joinSession();
 
@@ -318,19 +326,32 @@ class OpenViduVideo extends Component {
 
 							{/* 내 화면 */}
 							{this.state.publisher !== undefined ? (
+								<>
+								{/* {this.state.subscribers.map((sub, i) => (
+
+								))} */}
 								<CustomerVideo
 									// className="stream-container col-md-6 col-xs-6"
 									onClick={() => this.handleMainVideoStream(this.state.publisher)}
-								>
-									<UserVideoComponent streamManager={this.state.publisher} />
+									>
+									<UserVideoComponent streamManager={this.state.publisher[0]} />
 								</CustomerVideo>
+									</>
 							) : null}
 						</SessionHeader>
 
 						<VideoContainer>
 							{this.state.mainStreamManager !== undefined ? (
 								<OwnerVideo>
-									<UserVideoComponent streamManager={this.state.mainStreamManager} />
+									<UserVideoComponent
+										streamManager={
+											this.state.userType === "STORE"
+												? this.state.publisher
+												: this.state.subscribers[1]
+										}
+									/>
+									{/* <UserVideoComponent streamManager={this.state.mainStreamManager} /> */}
+									<div style={{ backgroundColor: "red" }}>{myUserName}</div>
 								</OwnerVideo>
 							) : null}
 							{/* <div id="video-container" className="col-md-6"> */}
@@ -344,10 +365,12 @@ class OpenViduVideo extends Component {
 								</CustomerVideo>
 							) : null} */}
 							{/* 다른 참여자 화면 */}
-							{console.log(this.state.subscribers)}
+							{console.log("내 이름: ", myUserName)}
+							{console.log("퍼블리셔", this.state.publisher)}
+							{console.log("구독자 0", this.state.subscribers[0])}
 							{/* {this.state.subscribers.map((sub, i) => (
 								<>
-									{console.log(sub.id)}
+									{console.log("서브!!!", sub)}
 									<CustomerVideo
 										key={sub.id}
 										className="stream-container col-md-6 col-xs-6"

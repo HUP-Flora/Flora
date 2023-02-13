@@ -6,6 +6,7 @@ import Chat from "../../components/chatting/Chatting";
 import { LmySessionIdState, LmyTypeState } from "../../recoil/flolive";
 import { useRecoilValue } from "recoil";
 import ModalContainer from "../../components/flolive/openVidu/OpenViduExitModal";
+import { userInfoTypeState } from "../../recoil/userInfo";
 
 function Flolive() {
 	const [isModalShow, setIsModalShow] = useState(false);
@@ -15,10 +16,13 @@ function Flolive() {
 
 	registerServiceWorker();
 
+	const userType = useRecoilValue(userInfoTypeState);
+
 	return (
 		<>
 			<div style={{ height: "100vh" }}>
 				<OpenVidu
+					userType={userType}
 					LmyType={LmyType}
 					LmySessionId={LmySessionId}
 					isModalShow={isModalShow}

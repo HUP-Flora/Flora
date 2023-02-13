@@ -26,7 +26,17 @@ export const ContentContainer = styled.div`
 	display: flex;
 
 	> img {
+		width: 80px;
+		height: 80px;
+
 		margin-right: 32px;
+	}
+
+	> div {
+		display: flex;
+		flex-direction: column;
+		align-content: unset;
+		justify-content: space-evenly;
 	}
 
 	> div > div {

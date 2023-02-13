@@ -70,7 +70,7 @@ function ReservationCard({ type }) {
 							</div>
 							{
 								type === "confirm" &&
-									(reservation?.status === "entrance" ? (
+									(reservation?.check ? (
 										<Primary400SmallButton onClick={() => navigate("/flolive/waiting")}>
 											입장
 										</Primary400SmallButton>
@@ -88,7 +88,7 @@ function ReservationCard({ type }) {
 							<GrayHr />
 						</GrayHrWrapper>
 						<ContentContainer>
-							<img src={reservation?.image} alt="" />
+							<img src={reservation?.pimg} alt="" />
 							<div>
 								<BoldText>{reservation?.sname}</BoldText>
 								<div>{reservation?.pname}</div>
