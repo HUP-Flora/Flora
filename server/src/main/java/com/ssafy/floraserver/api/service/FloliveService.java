@@ -11,6 +11,7 @@ import io.openvidu.java.client.OpenViduHttpException;
 import io.openvidu.java.client.OpenViduJavaClientException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -40,8 +41,9 @@ public class FloliveService {
     private final UserRepository userRepository;
     private final TimeUnitRepository timeUnitRepository;
     private final OpenViduService openViduService;
+    private final AuthService authService;
 
-    public String applyFlolive(Long sId, Map<String, String> authInfo) {
+    public Long applyFlolive(Long sId, Map<String, String> authInfo) {
 
         // CUSTOMER인지 확인 @PreAuthorize
         // 가게 존재하는지 확인
@@ -74,10 +76,10 @@ public class FloliveService {
                         .build()
         );
         log.info(savedOrder.toString());
-        return orderNum;
+        return savedOrder.getOId();
     }
 
-    public void applyFloliveProduct(Long pId, Map<String, String> authInfo) {
+    public Long applyFloliveProduct(Long pId, Map<String, String> authInfo) {
 
         // CUSTOMER인지 확인 @PreAuthorize
         // 가게 존재하는지 확인
@@ -87,6 +89,8 @@ public class FloliveService {
 
         Product product = productRepository.findById(pId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        if(product.getSId() == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
         Store store = storeRepository.findById(product.getSId().getSId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -106,6 +110,8 @@ public class FloliveService {
                         .conId(null)
                         .build()
         );
+
+        return savedOrder.getOId();
     }
 
     // 취소
@@ -128,6 +134,7 @@ public class FloliveService {
         order.updateStatus(OrderStatus.ACCEPT);
 
         String role = authInfo.get("role");
+        log.info("유저 정보 : {}",role);
 
         ConferenceRes conferenceRes = createFloliveRoom(String.valueOf(order.getNum()));
         conferenceRes.setUserRole(role);
@@ -144,6 +151,8 @@ public class FloliveService {
                         .status(ConferenceStatus.WAITING)
                         .build()
         );
+
+        order.updateConference(conference);
         // 유저 타입, 세션 ID, 토큰 반환
         return conferenceRes;
     }
@@ -229,10 +238,10 @@ public class FloliveService {
         return orderList;
     }
 
-    public String checkStatus(String orderNum) {
-        Order order = orderRepository.findByNum(orderNum)
+    public Order checkStatus(Long oId) {
+        Order order = orderRepository.findById(oId)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        return order.getStatus().toString();
+        return order;
     }
 
     public ReserveRes reserveFlolive(ReserveFloliveReq reserveFloliveReq, Map<String, String> authInfo) throws OpenViduJavaClientException, OpenViduHttpException {
@@ -312,8 +321,8 @@ public class FloliveService {
     }
 
     public Page<Order> findStoreWaitFlolive(Pageable pageable, Map<String, String> authInfo) {
-//        Long uId = Long.parseLong(authInfo.get("uId"));
-        Long uId = Long.valueOf(315); // TODO 테스트용 uID, 나중에 지우기
+        Long uId = Long.parseLong(authInfo.get("uId"));
+//        Long uId = Long.valueOf(315); // TODO 테스트용 uID, 나중에 지우기
         Store store = storeRepository.findByUId(uId)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
         log.info("가게 번호 : {}", String.valueOf(store.getSId()));
@@ -323,8 +332,8 @@ public class FloliveService {
     }
 
     public Page<Order> findUserConfirmFlolive(Pageable pageable, Map<String, String> authInfo) {
-//        Long uId = Long.parseLong(authInfo.get("uId"));
-        Long uId = Long.valueOf(318); // TODO 테스트용 uID, 나중에 지우기
+        Long uId = Long.parseLong(authInfo.get("uId"));
+//        Long uId = Long.valueOf(318); // TODO 테스트용 uID, 나중에 지우기
 
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
@@ -334,13 +343,13 @@ public class FloliveService {
         List<TimeUnit> timeUnitList = timeUnitRepository.findByTime(slocalTime, PageRequest.of(0, 1));
         log.info("예약 시각 : {}", String.valueOf(timeUnitList.get(0).getTime()));
 
-        Page<Order> confirmList = orderRepository.findByUIdAndConStatus(uId, ConferenceStatus.WAITING, date, timeUnitList.get(0).getTuId(), pageable);
+        Page<Order> confirmList = orderRepository.findByUIdAndConStatus(uId, OrderStatus.ACCEPT, ConferenceStatus.WAITING, date, timeUnitList.get(0).getTuId(), pageable);
         return confirmList;
     }
 
     public Page<Order> findStoreConfirmFlolive(Pageable pageable, Map<String, String> authInfo) {
-//        Long uId = Long.parseLong(authInfo.get("uId"));
-        Long uId = Long.valueOf(315); // TODO 테스트용 uID, 나중에 지우기
+        Long uId = Long.parseLong(authInfo.get("uId"));
+//        Long uId = Long.valueOf(315); // TODO 테스트용 uID, 나중에 지우기
         Store store = storeRepository.findByUId(uId)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
