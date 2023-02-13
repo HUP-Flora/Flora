@@ -23,14 +23,14 @@ function Flolive() {
 	return (
 		<>
 			<div style={{ height: "100vh" }}>
-				<OpenVidu
-					userType={userType}
-					// myType과 mySessionId을 props로 넘겨줌
-					myType={myType}
-					mySessionId={mySessionId}
-					isModalShow={isModalShow}
-					setIsModalShow={setIsModalShow}
-				/>
+				{/*<OpenVidu*/}
+				{/*	userType={userType}*/}
+				{/*	// myType과 mySessionId을 props로 넘겨줌*/}
+				{/*	myType={myType}*/}
+				{/*	mySessionId={mySessionId}*/}
+				{/*	isModalShow={isModalShow}*/}
+				{/*	setIsModalShow={setIsModalShow}*/}
+				{/*/>*/}
 				<Chat myType={myType} mySessionId={mySessionId} />
 				{isModalShow && (
 					<ModalContainer isModalShow={isModalShow} setIsModalShow={setIsModalShow} />
