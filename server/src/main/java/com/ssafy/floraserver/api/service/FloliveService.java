@@ -237,6 +237,7 @@ public class FloliveService {
 
     public ReserveRes reserveFlolive(ReserveFloliveReq reserveFloliveReq, Map<String, String> authInfo) throws OpenViduJavaClientException, OpenViduHttpException {
         Long uId = Long.parseLong(authInfo.get("uId"));
+//        Long uId = Long.valueOf(312); // TODO 테스트용 uID, 나중에 지우기
         String role = authInfo.get("role");
         log.info("예약 정보 - sId : {} ", reserveFloliveReq.getSid());
         log.info("예약 정보 - pId : {} ", reserveFloliveReq.getPid());
@@ -311,29 +312,47 @@ public class FloliveService {
     }
 
     public Page<Order> findStoreWaitFlolive(Pageable pageable, Map<String, String> authInfo) {
-        Long uId = Long.parseLong(authInfo.get("uId"));
-//        Long uId = Long.valueOf(310); // TODO 테스트용 uID, 나중에 지우기
+//        Long uId = Long.parseLong(authInfo.get("uId"));
+        Long uId = Long.valueOf(315); // TODO 테스트용 uID, 나중에 지우기
         Store store = storeRepository.findByUId(uId)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
         log.info("가게 번호 : {}", String.valueOf(store.getSId()));
-        Page<Order> orderList = orderRepository.findBySId(store.getSId(), OrderStatus.WAITING, pageable);
+        Page<Order> orderList = orderRepository.findBySId(store.getSId(), OrderStatus.WAITING, OrderType.NOW, pageable);
         log.info("수락 대기 목록 개수 : {}", String.valueOf(orderList.getTotalElements()));
         return orderList;
     }
 
     public Page<Order> findUserConfirmFlolive(Pageable pageable, Map<String, String> authInfo) {
-        Long uId = Long.parseLong(authInfo.get("uId"));
-//        Long uId = Long.valueOf(31); // TODO 테스트용 uID, 나중에 지우기
-        Page<Order> confirmList = orderRepository.findByUIdAndConStatus(uId, ConferenceStatus.WAITING, pageable);
+//        Long uId = Long.parseLong(authInfo.get("uId"));
+        Long uId = Long.valueOf(318); // TODO 테스트용 uID, 나중에 지우기
+
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+
+        String slocalTime = String.valueOf(time);
+
+        List<TimeUnit> timeUnitList = timeUnitRepository.findByTime(slocalTime, PageRequest.of(0, 1));
+        log.info("예약 시각 : {}", String.valueOf(timeUnitList.get(0).getTime()));
+
+        Page<Order> confirmList = orderRepository.findByUIdAndConStatus(uId, ConferenceStatus.WAITING, date, timeUnitList.get(0).getTuId(), pageable);
         return confirmList;
     }
 
     public Page<Order> findStoreConfirmFlolive(Pageable pageable, Map<String, String> authInfo) {
-        Long uId = Long.parseLong(authInfo.get("uId"));
-//        Long uId = Long.valueOf(31); // TODO 테스트용 uID, 나중에 지우기
+//        Long uId = Long.parseLong(authInfo.get("uId"));
+        Long uId = Long.valueOf(315); // TODO 테스트용 uID, 나중에 지우기
         Store store = storeRepository.findByUId(uId)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        Page<Order> orderList = orderRepository.findBySIdAndConStatus(store.getSId(), ConferenceStatus.WAITING, pageable);
+
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+
+        String slocalTime = String.valueOf(time);
+
+        List<TimeUnit> timeUnitList = timeUnitRepository.findByTime(slocalTime, PageRequest.of(0, 1));
+        log.info("예약 시각 : {}", String.valueOf(timeUnitList.get(0).getTime()));
+
+        Page<Order> orderList = orderRepository.findBySIdAndConStatus(store.getSId(), ConferenceStatus.WAITING, date, timeUnitList.get(0).getTuId(), pageable);
         return orderList;
     }
 
@@ -393,8 +412,8 @@ public class FloliveService {
                 String.valueOf(nowHour), String.valueOf(nowMinute));
 
         if(nowHour < reserveHour) {
-            int diff = reserveMinute - nowMinute;
-            if(0 >= diff && diff >= -10) {
+            int diff = nowMinute - reserveMinute;
+            if(diff >= 50 || diff == 0) {
                 log.info("예약 시 > 현재 시, 입장 가능 : {}", diff);
                 return true;
             } else {
