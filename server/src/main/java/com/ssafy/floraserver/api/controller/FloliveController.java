@@ -107,9 +107,9 @@ public class FloliveController {
     @DeleteMapping("cancle/{oId}")
     public ResponseEntity<?> deleteFlolice(@PathVariable Long oId) {
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        log.info("주문 번호 {}에 대핸 플로라이브 예약 취소 시도", oId);
+        log.info("주문 번호 {}에 대해 플로라이브 예약 취소 시도", oId);
         floliveService.deleteFlolive(oId, authInfo);
-        log.info("주문 번호 {}에 대핸 플로라이브 예약 취소 성공", oId);
+        log.info("주문 번호 {}에 대해 플로라이브 예약 취소 성공", oId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

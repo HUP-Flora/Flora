@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -76,6 +77,7 @@ public class FloliveService {
                         .build()
         );
         log.info(savedOrder.toString());
+
         return savedOrder.getOId();
     }
 
@@ -338,6 +340,7 @@ public class FloliveService {
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
 
+        log.info("현재 날짜 : {}",String.valueOf(date));
         String slocalTime = String.valueOf(time);
 
         List<TimeUnit> timeUnitList = timeUnitRepository.findByTime(slocalTime, PageRequest.of(0, 1));
