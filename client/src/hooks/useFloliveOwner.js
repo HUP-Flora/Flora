@@ -1,14 +1,19 @@
 import api from "../utils/api";
+import { useNavigate } from "react-router-dom";
 
 function useFloliveOwner() {
-	const accepteFlolive = () => {
+	const navigate = useNavigate();
+
+	const accepteFlolive = (oId) => {
 		api({
 			method: "GET",
-			// url: `/flolive/${oId}`,
-			url: "/flolive/69",
+			url: `/flolive/${oId}`,
 		})
 			.then(res => {
 				console.log(res);
+				const sessionId = res.data.sessionId;
+				const OPENVIDU_TOKEN = res.data.connectionToken;
+				navigate(`/flolive/${oId}/${sessionId}`);
 			})
 			.catch(err => {
 				console.log(err);
