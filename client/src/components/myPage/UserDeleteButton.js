@@ -1,10 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useSignoutApi } from "../../hooks/useSignoutApi";
+import { useCookies } from "react-cookie";
 
 import { Primary400Button } from "../../styles/button/ButtonStyle";
 import { BottomButtonContainer } from "../../styles/common/CommonStyle";
 
 function UerDeleteButton({ isChcked, setIsValid }) {
+	const [cookies, removeCookie] = useCookies(["RefreshToken"]);
+	const signoutApi = useSignoutApi();
 	const navigate = useNavigate();
 
 	const handleClick = () => {
@@ -14,8 +18,12 @@ function UerDeleteButton({ isChcked, setIsValid }) {
 		} else {
 			// (백) 탈퇴 request
 			setIsValid(true);
-
-			// navigate("/");
+			signoutApi();
+			if (cookies.RefreshToken) {
+				removeCookie("RefreshToken");
+			}
+			localStorage.clear();
+			navigate("/");
 		}
 	};
 

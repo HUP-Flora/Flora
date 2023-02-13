@@ -18,7 +18,7 @@ export const useGetUserTypeApi = () => {
 			.then(response => {
 				console.log(response.data);
 				setUserType(response.data.role);
-				setOwnersIdState(response.data.role === "[[ROLE_STORE]]" ? response.data.sId : -1);
+				setOwnersIdState(response.data.role === "STORE" ? response.data.sId : -1);
 			})
 			.catch(error => {
 				console.log("유저타입에러", error);

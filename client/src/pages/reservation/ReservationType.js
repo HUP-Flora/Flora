@@ -17,6 +17,7 @@ import { useRecoilState } from "recoil";
 import { RisModalShowState, RorderTypeState } from "../../recoil/reservation";
 import { useNavigate, useParams } from "react-router-dom";
 import ReservationWarningModal from "../../components/reservation/ReservationWarningModal";
+import NoPaddingStatusBar from "../../components/common/NoPaddingStatusBar";
 
 function ReservationType() {
 	const [orderType, setOrderType] = useRecoilState(RorderTypeState);
@@ -35,9 +36,11 @@ function ReservationType() {
 
 	return (
 		<>
-			<StatusBar text="플로라이브 예약" />
+			<NoPaddingStatusBar text="플로라이브 예약" />
 			<ReserVationTypeContainer>
-				<ReservationTypeTitle>상품을 어떻게 보내시겠어요 <p>?</p></ReservationTypeTitle>
+				<ReservationTypeTitle>
+					상품을 어떻게 보내시겠어요 <p>?</p>
+				</ReservationTypeTitle>
 				<ReservationTypeContent>배송 유형을 선택해주세요</ReservationTypeContent>
 				<FirstWhiteLargeButton
 					onClick={() => setOrderType("DELIVERY")}

@@ -31,7 +31,7 @@ function MainTopBanner(props) {
 							<BoldText font="nexon" size="28">
 								빠른&nbsp;
 							</BoldText>
-							마음,
+							마음
 						</Text>
 					</Text>
 				</TextContainer>

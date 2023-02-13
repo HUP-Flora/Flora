@@ -97,8 +97,8 @@ function AppRouter() {
 				/>
 
 				{/* 플로라이브 페이지 */}
-				{/*<Route path="/flolive" element={<Flolive />} />*/}
-				 <Route path="/flolive/:oId/:sId" element={<Flolive />} />
+				{/* <Route path="/flolive" element={<Flolive />} /> */}
+				<Route path="/flolive/:oId/:sId" element={<Flolive />} />
 				<Route path="/flolive/exit" element={<FloliveExit />} />
 				{/* <Route path="/flolive/:sId/exit" element={<FloliveExit />} /> */}
 				<Route path="/flolive/waiting" element={<FloliveWaiting />} />

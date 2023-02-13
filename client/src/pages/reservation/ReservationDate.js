@@ -29,6 +29,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import ReservationWarningModal from "../../components/reservation/ReservationWarningModal";
 import useReservation from "../../hooks/useReservation";
+import NoPaddingStatusBar from "../../components/common/NoPaddingStatusBar";
 
 function ReservationDate() {
 	const [RorderTime, setRorderTime] = useRecoilState(RorderTimeState);
@@ -68,12 +69,12 @@ function ReservationDate() {
 			setRisModalShow(true);
 			return;
 		}
-		const reserveData ={
+		const reserveData = {
 			sid: sId,
 			pid: pId,
 			reservationDate: date,
 			reservationTime: RorderTime,
-		}
+		};
 
 		submitReservationAPI(reserveData);
 	};
@@ -108,7 +109,7 @@ function ReservationDate() {
 
 	return (
 		<>
-			<StatusBar text="플로라이브 예약" />
+			<NoPaddingStatusBar text="플로라이브 예약" />
 			<ReserVationTypeContainer>
 				<ReservationTypeTitle>
 					플로라이브 날짜를

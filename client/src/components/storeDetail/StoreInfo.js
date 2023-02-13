@@ -51,7 +51,7 @@ function StoreInfo(props) {
 					{store?.name}
 				</BoldText>
 				{/* 조건부 렌더링: 사장님 -> 토글 */}
-				{userInfoType === "[[ROLE_STORE]]" && (
+				{userInfoType === "STORE" && (
 					<OnOffToggle onClick={handleClickToggle} isOn={store.isOnair === "ON" ? true : false}>
 						<OnOff isOn={store.isOnair === "ON" ? true : false}>{store.isOnair}</OnOff>
 					</OnOffToggle>
