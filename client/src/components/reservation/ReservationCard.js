@@ -88,7 +88,7 @@ function ReservationCard({ type }) {
 							<GrayHr />
 						</GrayHrWrapper>
 						<ContentContainer>
-							<img src={reservation?.image} alt="" />
+							<img src={reservation?.pimg} alt="" />
 							<div>
 								<BoldText>{reservation?.sname}</BoldText>
 								<div>{reservation?.pname}</div>
