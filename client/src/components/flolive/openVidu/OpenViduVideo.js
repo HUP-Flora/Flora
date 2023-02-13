@@ -250,9 +250,12 @@ class OpenViduVideo extends Component {
 		this.leaveSession();
 	}
 
+
 	render() {
 		const mySessionId = this.state.mySessionId;
 		const myUserName = this.state.myUserName;
+
+		this.joinSession();
 
 		return (
 			<SessionContainer>

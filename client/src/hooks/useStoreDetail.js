@@ -6,16 +6,18 @@ import {
 } from "../recoil/flolive";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import api from "../utils/api";
+import { RstoreIdState } from "../recoil/reservation";
 
 function useStoreDetail() {
 	const setLmyType = useSetRecoilState(LmyTypeState);
 	const setLmySessionId = useSetRecoilState(LmySessionIdState);
 	const [LiveStatus, setLiveStatus] = useRecoilState(LliveStatusState);
 	const setLorderNumber = useSetRecoilState(LorderNumberState);
+	const [RstoreId, setRstoreId] = useRecoilState(RstoreIdState);
 
 	const enterFloliveAPI = () => {
 		api({
-			url: "/flolive/8",
+			url: `/flolive/${RstoreId}`,
 			method: "POST",
 		})
 			.then(res => {
