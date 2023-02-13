@@ -11,6 +11,8 @@ public class StoreInfoReq {
     private String region_2depth_name;
     private String region_3depth_name;
     private String address_name;
+    private Float lat;
+    private Float lng;
     private String desc;
     private Long start;
     private Long end;
