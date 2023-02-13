@@ -38,9 +38,11 @@ export const useStoreFormApi = () => {
 			data,
 		})
 			.then(res => {
-				localStorage.setItem("AccessToken", res.data);
+				if (nextURL !== -1) {
+					localStorage.setItem("AccessToken", res.data);
 
-				getUserTypeApi(res.data);
+					getUserTypeApi(res.data);
+				}
 				setStoreImageFile("");
 				setStoreBrn("");
 				setStoreName("");

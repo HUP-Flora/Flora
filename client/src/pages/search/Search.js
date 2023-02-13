@@ -41,16 +41,16 @@ export function Search() {
 	const searchStoresApi = useSearchStoresApi();
 
 	useEffect(() => {
+		const currentDate = new Date();
 		const params = new URLSearchParams(window.location.search);
 		const address = params.get("address");
-		const year = params.get("year");
-		const month = params.get("month");
+		const year = params.get("year") && searchBarYear;
+		const month = params.get("month") && searchBarMonth;
 		const day = params.get("day");
 		const dayOfWeek = params.get("dayOfWeek");
-		console.log(searchBarMonth, searchBarYear, year, month);
 		setAddress(address ? address : "");
-		setSearchBarYear(year ? year : searchBarYear);
-		setSearchBarMonth(month ? month : searchBarMonth);
+		setSearchBarYear(year ? year : currentDate.getFullYear());
+		setSearchBarMonth(month ? month : currentDate.getMonth() + 1);
 		setSearchBarDay(day ? day : "");
 		setSearchBarDayOfWeek(dayOfWeek ? dayOfWeek : "");
 		if (address && dayOfWeek) {

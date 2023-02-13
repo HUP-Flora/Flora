@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import NoPaddingStatusBar from "../../components/common/NoPaddingStatusBar";
 import { userInfoTypeState } from "../../recoil/userInfo";
 import { TabMenuBar } from "../../components/common/TabMenuBar";
+import { BlankSection } from "../../styles/common/CommonStyle";
 
 function StoreDetail() {
 	const userType = useRecoilValue(userInfoTypeState);
@@ -23,7 +24,6 @@ function StoreDetail() {
 
 	// 페이지 로드 시, storeId를 저장한다.
 	useEffect(() => {
-		console.log("sId 잘 들어오니?", sId);
 		setRstoreId(sId);
 	}, []);
 
@@ -33,6 +33,7 @@ function StoreDetail() {
 			<StoreInfo sId={sId} />
 			<StoreDetailButtons sId={sId} />
 			<StoreTabs sId={sId} />
+			<BlankSection height="72" />
 			{userType === "STORE" && <TabMenuBar selectedMenu="MyStore" />}
 		</>
 	);

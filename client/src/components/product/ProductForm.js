@@ -15,6 +15,7 @@ import {
 	BottomBorderInput,
 	BorderTextAreaAuto,
 	ValidTextWrapper,
+	PictureWrapper,
 } from "../../styles/product/productForm/ProductFormStyle";
 import { GrayText, ValidText } from "../../styles/common/CommonStyle";
 import { priceComma } from "../../hooks/priceComma";
@@ -29,6 +30,7 @@ function ProductForm({
 	nameValidMessage,
 	priceValidMessage,
 	descriptionValidMessage,
+	pictureValidMessage,
 }) {
 	const [product, setProduct] = useRecoilState(productState);
 	const resetProduct = useResetRecoilState(productState);
@@ -70,14 +72,19 @@ function ProductForm({
 
 	return (
 		<>
-			<UploadPictureWrapper>
-				{/* {console.log(product?.pimg)} */}
-				<UploadPicture img={product?.pimg} />
-			</UploadPictureWrapper>
+			<PictureWrapper>
+				<UploadPictureWrapper isError={pictureValidMessage}>
+					{/* {console.log(product?.pimg)} */}
+					<UploadPicture img={product?.pimg} />
+				</UploadPictureWrapper>
+				{pictureValidMessage && (
+					<ValidTextWrapper>
+						<ValidText>{pictureValidMessage}</ValidText>
+					</ValidTextWrapper>
+				)}
+			</PictureWrapper>
 			<FormWrapper>
 				<InputWrapper>
-					{console.log(product?.name)}
-
 					<BottomBorderInput
 						type="text"
 						placeholder="상품명을 입력해주세요."

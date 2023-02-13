@@ -40,6 +40,7 @@ export const HrWrapper = styled.div`
 export const DescriptionWrapper = styled.div`
 	margin: 0 24px;
 	margin-bottom: 40px;
+	white-space: pre-wrap;
 
 	// bottom buttons padding 포함
 	padding-bottom: 116px;
