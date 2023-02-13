@@ -4,6 +4,8 @@ import com.ssafy.floraserver.api.request.StoreExtraInfoReq;
 import com.ssafy.floraserver.api.request.UserExtraInfoReq;
 import com.ssafy.floraserver.api.response.RoleRes;
 import com.ssafy.floraserver.api.vo.FileVO;
+import com.ssafy.floraserver.common.exception.CustomException;
+import com.ssafy.floraserver.common.exception.ErrorCode;
 import com.ssafy.floraserver.common.jwt.JwtProvider;
 import com.ssafy.floraserver.db.entity.Store;
 import com.ssafy.floraserver.db.entity.User;
@@ -42,9 +44,15 @@ public class AuthService {
     private final FlowermarksService flowermarksService;
 
     public String reissueAccessToken(String oldAccessToken, String refreshToken){
-        if(!jwtProvider.validateToken(refreshToken)){
-            throw new RuntimeException("invalid refresh token");
+
+        try{
+            jwtProvider.validateToken(refreshToken);
+        } catch (Exception e) {
+            throw new CustomException(ErrorCode.REFRESH_NOT_VALID);
         }
+//        if(!jwtProvider.validateToken(refreshToken)){
+//            throw new RuntimeException("invalid refresh token");
+//        }
 
         Authentication authentication = jwtProvider.getAuthentication(oldAccessToken);
 

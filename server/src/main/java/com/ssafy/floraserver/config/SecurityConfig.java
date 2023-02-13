@@ -4,6 +4,7 @@ import com.ssafy.floraserver.common.auth.CustomOAuth2UserService;
 import com.ssafy.floraserver.common.auth.OAuth2LoginSuccessHandler;
 import com.ssafy.floraserver.common.jwt.JwtAccessDeniedHandler;
 import com.ssafy.floraserver.common.jwt.JwtAuthenticationEntryPoint;
+import com.ssafy.floraserver.common.jwt.JwtExceptionFilter;
 import com.ssafy.floraserver.common.jwt.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +30,7 @@ public class SecurityConfig {
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
     private final JwtFilter jwtFilter;
+    private final JwtExceptionFilter jwtExceptionFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
@@ -66,6 +68,7 @@ public class SecurityConfig {
                 // JWT 설정
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtExceptionFilter, JwtFilter.class)
 
                 // 예외 설정
                 .exceptionHandling()

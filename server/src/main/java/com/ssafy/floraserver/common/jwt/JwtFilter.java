@@ -1,4 +1,8 @@
 package com.ssafy.floraserver.common.jwt;
+import com.ssafy.floraserver.common.exception.ErrorCode;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -28,14 +32,24 @@ public class JwtFilter extends OncePerRequestFilter {
         log.info("request method: {}", request.getMethod());
         log.info(jwt);
         log.info("jwt filter");
-
-        // 토큰이 정상적이면 SecurityContext에 set.
-        if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
-            Authentication authentication = jwtProvider.getAuthentication(jwt);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            log.info("Security Context에 '{}' 인증 정보를 저장했습니다, uri: {}", authentication.getName(), requestURI);
-        } else {
-            log.info("유효한 JWT 토큰이 없습니다, uri: {}", requestURI);
+        try{
+            // 토큰이 정상적이면 SecurityContext에 set.
+            jwtProvider.validateToken(jwt);
+            if (StringUtils.hasText(jwt)) {
+                Authentication authentication = jwtProvider.getAuthentication(jwt);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                log.info("Security Context에 '{}' 인증 정보를 저장했습니다, uri: {}", authentication.getName(), requestURI);
+            }
+        }catch (SecurityException | MalformedJwtException e) {
+            request.setAttribute("exception", ErrorCode.WRONG_TYPE_TOKEN);
+        } catch (ExpiredJwtException e) {
+            request.setAttribute("exception", ErrorCode.EXPIRED_TOKEN);
+        } catch (UnsupportedJwtException e) {
+            request.setAttribute("exception", ErrorCode.UNSUPPORTED_TOKEN);
+        } catch (IllegalArgumentException e) {
+            request.setAttribute("exception", ErrorCode.WRONG_TOKEN);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         filterChain.doFilter(request, response);
