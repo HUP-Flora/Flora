@@ -78,8 +78,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "join fetch o.conId conference " +
             "where o.uId.uId = :uId and o.conId.status = :conferenceStatus " +
             "and o.status = :orderStatus " +
-            "and :date <= o.conId.reservationDate " +
-            "and :time <= o.conId.reservationTime.tuId " +
+            "and :date < o.conId.reservationDate " +
+            "or :date = o.conId.reservationDate and :time <= o.conId.reservationTime.tuId " +
             "order by o.conId.reservationDate, o.conId.reservationTime.tuId",
             countQuery = "select count(o) from Order o where o.uId.uId = :uId and o.conId.status = :conferenceStatus")
     Page<Order> findByUIdAndConStatus(@Param("uId") Long uId, OrderStatus orderStatus, ConferenceStatus conferenceStatus, LocalDate date, Long time, Pageable pageable);
@@ -90,8 +90,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "join fetch o.conId conference " +
             "where o.sId.sId = :sId " +
             "and o.conId.status = :status " +
-            "and :date <= o.conId.reservationDate " +
-            "and :time <= o.conId.reservationTime.tuId " +
+            "and :date < o.conId.reservationDate " +
+            "or :date = o.conId.reservationDate and :time <= o.conId.reservationTime.tuId " +
             "order by o.conId.reservationDate, o.conId.reservationTime.tuId",
             countQuery = "select count(o) from Order o where o.sId.sId = :sId and o.conId.status = :status")
     Page<Order> findBySIdAndConStatus(@Param("sId") Long sId, ConferenceStatus status, LocalDate date, Long time, Pageable pageable);

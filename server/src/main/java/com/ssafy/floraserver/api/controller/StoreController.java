@@ -4,6 +4,7 @@ import com.ssafy.floraserver.api.request.StoreExtraInfoReq;
 import com.ssafy.floraserver.api.request.StoreInfoReq;
 import com.ssafy.floraserver.api.response.*;
 import com.ssafy.floraserver.api.service.StoreService;
+import com.ssafy.floraserver.api.vo.FileVO;
 import com.ssafy.floraserver.common.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -71,7 +72,11 @@ public class StoreController {
                                              @RequestPart(value = "file", required = false) MultipartFile file,
                                              @RequestPart("storeInfoReq") StoreInfoReq storeInfoReq){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        storeService.updateStoreInfo(storeInfoReq, file, authInfo);
+        if(file == null) {
+            storeService.updateStoreInfo(storeInfoReq, authInfo);
+        } else {
+            storeService.updateStoreInfo(storeInfoReq, file, authInfo);
+        }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

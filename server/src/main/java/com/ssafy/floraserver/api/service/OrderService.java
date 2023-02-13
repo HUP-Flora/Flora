@@ -94,6 +94,13 @@ public class OrderService {
 //                && order.getRecId().getStatus().equals(ReceiptStatus.UNDONE)){
 //            return 0;
 //        }
+        // 픽업이면서 배송 완료인 경우
+        if(order.getRecId().getType().equals(ReceiptType.PICKUP)
+                && order.getStatus().equals(OrderStatus.ACCEPT)
+                && order.getConId().getStatus().equals(ConferenceStatus.COMPLETED)
+                && order.getPaymentStatus().equals(PaymentStatus.DONE)
+                && order.getRecId().getStatus().equals(ReceiptStatus.DONE))
+            return 5;
 
         if(order.getStatus().equals(OrderStatus.ACCEPT)
             && order.getConId().getStatus().equals(ConferenceStatus.COMPLETED)
@@ -111,6 +118,7 @@ public class OrderService {
                 && order.getRecId().getStatus().equals(ReceiptStatus.DONE)){
             return 3;
         }
+        else
         return 0;
     }
 

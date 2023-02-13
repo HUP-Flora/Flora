@@ -119,6 +119,29 @@ public class StoreService {
         store.updateStoreInfo(store, storeInfoReq, start, end, fileVO);
     }
 
+    public void updateStoreInfo(StoreInfoReq storeInfoReq,
+                                Map<String, String> authInfo) {
+
+        Long uId = Long.parseLong(authInfo.get("uId"));
+
+        // 로그인한 유저
+        User user = userRepository.findById(uId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        // 가게 확인
+        Store store = storeRepository.findByUId(uId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        TimeUnit start = timeUnitRepository.findById(storeInfoReq.getStart())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        TimeUnit end = timeUnitRepository.findById(storeInfoReq.getEnd())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        FileVO fileVO = null;
+
+        store.updateStoreInfo(store, storeInfoReq, start, end, fileVO);
+    }
+
     public void toggleOnair( Map<String, String> authInfo) {
         Long uId = Long.parseLong(authInfo.get("uId"));
 
