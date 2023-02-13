@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 function useFloliveOwner() {
 	const navigate = useNavigate();
 
-	const accepteFlolive = (oId) => {
+	const acceptFlolive = (oId) => {
 		api({
 			method: "GET",
 			url: `/flolive/${oId}`,
@@ -12,7 +12,7 @@ function useFloliveOwner() {
 			.then(res => {
 				console.log(res);
 				const sessionId = res.data.sessionId;
-				const OPENVIDU_TOKEN = res.data.connectionToken;
+				// const OPENVIDU_TOKEN = res.data.connectionToken;
 				navigate(`/flolive/${oId}/${sessionId}`);
 			})
 			.catch(err => {
@@ -21,7 +21,7 @@ function useFloliveOwner() {
 	};
 
 	return {
-		accepteFlolive,
+		accepteFlolive: acceptFlolive,
 	};
 }
 
