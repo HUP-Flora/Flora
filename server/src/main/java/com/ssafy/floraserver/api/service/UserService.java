@@ -2,6 +2,8 @@ package com.ssafy.floraserver.api.service;
 
 import com.ssafy.floraserver.api.request.UserInfoReq;
 import com.ssafy.floraserver.api.response.UserMypageRes;
+import com.ssafy.floraserver.common.exception.CustomException;
+import com.ssafy.floraserver.common.exception.ErrorCode;
 import com.ssafy.floraserver.db.entity.User;
 import com.ssafy.floraserver.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +28,7 @@ public class UserService {
         Long uId = Long.parseLong(authInfo.get("uId"));
 
         User user = userRepository.findById(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
         return UserMypageRes.builder()
                 .user(user)
@@ -38,7 +40,7 @@ public class UserService {
         Long uId = Long.parseLong(authInfo.get("uId"));
 
         User user = userRepository.findById(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
         user.updateNickname(userInfoReq.getNickname());
         user.updatePhoneNumber(userInfoReq.getPhoneNumber());
