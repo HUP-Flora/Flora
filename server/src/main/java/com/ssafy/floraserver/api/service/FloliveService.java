@@ -4,6 +4,8 @@ import com.ssafy.floraserver.api.request.ReceiptReq;
 import com.ssafy.floraserver.api.request.ReserveFloliveReq;
 import com.ssafy.floraserver.api.response.ConferenceRes;
 import com.ssafy.floraserver.api.response.ReserveRes;
+import com.ssafy.floraserver.common.exception.CustomException;
+import com.ssafy.floraserver.common.exception.ErrorCode;
 import com.ssafy.floraserver.db.entity.*;
 import com.ssafy.floraserver.db.entity.enums.*;
 import com.ssafy.floraserver.db.repository.*;
@@ -51,16 +53,16 @@ public class FloliveService {
 //        Long uId = Long.valueOf(31); // TODO 테스트용 uID, 나중에 지우기
 
         User user = userRepository.findById(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         log.info(user.toString());
 
         Store store = storeRepository.findById(sId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
         log.info(store.toString());
 
         String orderNum = createOrderNum(LocalDate.now());
         Product defultProduct = productRepository.findById(Long.valueOf(1))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.PRODUCT_NOT_FOUND));
         log.info(defultProduct.toString());
         // order 저장 상품 X
         Order savedOrder = orderRepository.save(
@@ -85,15 +87,15 @@ public class FloliveService {
         // 가게 존재하는지 확인
         Long uId = Long.parseLong(authInfo.get("uId"));
         User user = userRepository.findById(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
         Product product = productRepository.findById(pId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.PRODUCT_NOT_FOUND));
 
-        if(product.getSId() == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if(product.getSId() == null) throw new CustomException(ErrorCode.PRODUCT_NOT_FOUND);
 
         Store store = storeRepository.findById(product.getSId().getSId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
 
         String orderNum = createOrderNum(LocalDate.now());
 
@@ -117,11 +119,11 @@ public class FloliveService {
     // 취소
     public void deleteFlolive(Long oId, Map<String, String> authInfo) {
         Order order = orderRepository.findById(oId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
 
         if(order.getStatus() != OrderStatus.WAITING) {
             log.info("취소할 수 없는 주문입니다.");
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            throw new CustomException(ErrorCode.ORDER_CANCLE_NOT_ALLOWED);
         }
         orderRepository.deleteById(oId);
     }
@@ -130,7 +132,7 @@ public class FloliveService {
     public ConferenceRes acceptFlolive(Long oId, Map<String, String> authInfo) throws OpenViduJavaClientException, OpenViduHttpException {
         // order status 수정
         Order order = orderRepository.findById(oId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
         order.updateStatus(OrderStatus.ACCEPT);
 
         String role = authInfo.get("role");
@@ -160,7 +162,7 @@ public class FloliveService {
     public void refuseFlolive(Long oId, Map<String, String> authInfo) {
         // order 수정
         Order order = orderRepository.findById(oId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
         order.updateStatus(OrderStatus.REFUSE);
     }
 
@@ -170,18 +172,18 @@ public class FloliveService {
 
         // conId 화상미팅이 유효한지. 주문상태 ACCEPT, 화상미팅상태 WAITING인지
         Conference conference = conferenceRepository.findById(conId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.CONFERENCE_NOT_FOUND));
 
         if (conference.getStatus() != ConferenceStatus.WAITING) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            throw new CustomException(ErrorCode.CONFERENCE_ENTRY_NOT_ALLOWED);
         }
 
         // 화상미팅상태 가게 INPROGRESS로 변경
         Order order = orderRepository.findByConId(conId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
 
         Store store = storeRepository.findById(order.getSId().getSId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
 
         store.updateIsOnair(OnAirType.INPROGRESS);
         conference.updateStatus(ConferenceStatus.INPROGRESS);
@@ -194,7 +196,7 @@ public class FloliveService {
     // 배송정보
     public void createReceipt(Long oId, ReceiptReq receiptReq, Map<String, String> authInfo) {
         Order order = orderRepository.findById(oId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
 
         Receipt receipt = receiptRepository.save(
                 Receipt.builder()
@@ -215,7 +217,7 @@ public class FloliveService {
 
     public String storeCalendar(Long sId) {
         Store store = storeRepository.findById(sId)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(()-> new CustomException(ErrorCode.STORE_NOT_FOUND));
         return store.getHoliday();
     }
 
@@ -225,7 +227,7 @@ public class FloliveService {
         log.info("String -> LocatDate type 변환 : {}", localDate);
 
         Store store = storeRepository.findById(sId)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(()-> new CustomException(ErrorCode.STORE_NOT_FOUND));
         log.info("Store-{} 정보 : {}", sId, store.toString());
 
         Long start = store.getStart().getTuId();
@@ -240,7 +242,7 @@ public class FloliveService {
 
     public Order checkStatus(Long oId) {
         Order order = orderRepository.findById(oId)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(()-> new CustomException(ErrorCode.ORDER_NOT_FOUND));
         return order;
     }
 
@@ -254,19 +256,19 @@ public class FloliveService {
         log.info("예약 정보 - reservationTime : {} ", reserveFloliveReq.getReservationTime());
 
         User user = userRepository.findById(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         log.info(user.toString());
 
         Store store = storeRepository.findById(reserveFloliveReq.getSid())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
         log.info(store.toString());
 
         Product product = productRepository.findById(reserveFloliveReq.getPid())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.PRODUCT_NOT_FOUND));
         log.info(product.toString());
 
         TimeUnit timeUnit = timeUnitRepository.findById(reserveFloliveReq.getReservationTime())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.TIMEUNIT_NOT_FOUND));
         log.info(timeUnit.toString());
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
@@ -324,7 +326,7 @@ public class FloliveService {
         Long uId = Long.parseLong(authInfo.get("uId"));
 //        Long uId = Long.valueOf(315); // TODO 테스트용 uID, 나중에 지우기
         Store store = storeRepository.findByUId(uId)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(()-> new CustomException(ErrorCode.STORE_NOT_FOUND));
         log.info("가게 번호 : {}", String.valueOf(store.getSId()));
         Page<Order> orderList = orderRepository.findBySId(store.getSId(), OrderStatus.WAITING, OrderType.NOW, pageable);
         log.info("수락 대기 목록 개수 : {}", String.valueOf(orderList.getTotalElements()));
@@ -351,7 +353,7 @@ public class FloliveService {
         Long uId = Long.parseLong(authInfo.get("uId"));
 //        Long uId = Long.valueOf(315); // TODO 테스트용 uID, 나중에 지우기
         Store store = storeRepository.findByUId(uId)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(()-> new CustomException(ErrorCode.STORE_NOT_FOUND));
 
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
@@ -393,12 +395,12 @@ public class FloliveService {
     // 미팅 방 종료
     public void closeFlolive(Long oId) throws OpenViduJavaClientException, OpenViduHttpException {
         Order order = orderRepository.findById(oId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
 
         openViduService.closeSession(order.getConId().getSessionId());
 
         Conference conference = conferenceRepository.findById(order.getConId().getConId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.CONFERENCE_NOT_FOUND));
 
         // 화상미팅상태 변경
         conference.updateStatus(ConferenceStatus.COMPLETED);

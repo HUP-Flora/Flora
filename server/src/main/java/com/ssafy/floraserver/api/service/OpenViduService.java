@@ -1,5 +1,7 @@
 package com.ssafy.floraserver.api.service;
 
+import com.ssafy.floraserver.common.exception.CustomException;
+import com.ssafy.floraserver.common.exception.ErrorCode;
 import io.openvidu.java.client.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +23,7 @@ public class OpenViduService {
     public String createSession(String customSessionId) throws OpenViduHttpException, OpenViduJavaClientException {
         openVidu.fetch();
         if (openVidu.getActiveSession(customSessionId) != null) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            throw new CustomException(ErrorCode.OPENVIDU_SESSION_EXISTS);
         }
         // customId로 활성화 된 세션 가져옴
         SessionProperties properties = SessionProperties.fromJson(null).customSessionId(customSessionId).build();
@@ -49,7 +51,7 @@ public class OpenViduService {
         Session session = openVidu.getActiveSession(sessionId);
 
         if(session == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new CustomException(ErrorCode.OPENVIDU_SESSION_NOT_EXISTS);
         }
         session.close();
     }

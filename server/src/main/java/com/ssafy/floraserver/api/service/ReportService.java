@@ -1,6 +1,8 @@
 package com.ssafy.floraserver.api.service;
 
 import com.ssafy.floraserver.api.request.ReportReq;
+import com.ssafy.floraserver.common.exception.CustomException;
+import com.ssafy.floraserver.common.exception.ErrorCode;
 import com.ssafy.floraserver.db.entity.Order;
 import com.ssafy.floraserver.db.entity.Report;
 import com.ssafy.floraserver.db.repository.OrderRepository;
@@ -29,12 +31,12 @@ public class ReportService {
         Long uId = Long.parseLong(authInfo.get("uId"));
 
         Order order = orderRepository.findById(reportReq.getOrder())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
 
         // 주문 상태도 체크?
 
         if(!reportRepository.findByOId(order.getOId()).isEmpty()){
-            throw new ResponseStatusException(HttpStatus.CONFLICT);
+            throw new CustomException(ErrorCode.REPORT_EXISTS);
         }
 
         reportRepository.save(Report.builder()

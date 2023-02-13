@@ -24,7 +24,9 @@ public enum ErrorCode {
 
     OPENVIDU_SESSION_EXISTS(HttpStatus.FORBIDDEN, "이미 생성된 화상미팅입니다."),
     OPENVIDU_SESSION_NOT_EXISTS(HttpStatus.FORBIDDEN, "존재하지 않는 화상미팅입니다."),
-    ORDER_STATUS_CHANGE_NOT_ALLOW(HttpStatus.FORBIDDEN, "주문 상태를 변경할 수 없습니다."),
+    ORDER_STATUS_CHANGE_NOT_ALLOWED(HttpStatus.FORBIDDEN, "주문 상태를 변경할 수 없습니다."),
+    ORDER_CANCLE_NOT_ALLOWED(HttpStatus.FORBIDDEN, "취소할 수 없는 주문입니다."),
+    CONFERENCE_ENTRY_NOT_ALLOWED(HttpStatus.FORBIDDEN, "입장할 수 없는 화상미팅입니다."),
     REPORT_EXISTS(HttpStatus.FORBIDDEN, "이미 신고된 주문입니다."),
     REFRESH_NOT_VALID(HttpStatus.UNAUTHORIZED, "리프레시 토큰이 유효하지 않습니다."),
     EXPIRED_TOKEN(HttpStatus.UNAUTHORIZED, "액세스 토큰이 만료되었습니다."),

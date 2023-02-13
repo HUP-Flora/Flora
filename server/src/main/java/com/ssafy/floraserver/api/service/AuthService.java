@@ -60,10 +60,10 @@ public class AuthService {
         log.info(email);
 
         User findUser = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Not found user"));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
         if(!refreshToken.equals(findUser.getRefreshToken())){
-            throw new RuntimeException("invalid refresh token");
+            throw new CustomException(ErrorCode.REFRESH_NOT_VALID);
         }
 
         return jwtProvider.createAccessToken(authentication, findUser.getUId().toString(), findUser.getRole().toString());
@@ -74,7 +74,7 @@ public class AuthService {
         Long uId = Long.parseLong(authInfo.get("uId"));
         // 닉네임, 전화번호 저장 및 Role CUSTOMER로 바꾸기
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
         user = user.builder()
                 .uId(uId)
@@ -103,7 +103,7 @@ public class AuthService {
 
         // 유저 role STORE 변경
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
         userRepository.save(user.builder()
                         .uId(uId)
@@ -116,9 +116,9 @@ public class AuthService {
 
         // start, end 인덱스 찾아서 저장
         TimeUnit start = timeUnitRepository.findById(storeExtraInfoReq.getStart())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.TIMEUNIT_NOT_FOUND));
         TimeUnit end = timeUnitRepository.findById(storeExtraInfoReq.getEnd())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.TIMEUNIT_NOT_FOUND));
 
         FileVO fileVO = null;
         // 이미지 저장
@@ -161,7 +161,7 @@ public class AuthService {
 
         log.info(String.valueOf(Long.parseLong(authInfo.get("uId"))));
         User user = userRepository.findById(Long.parseLong(authInfo.get("uId")))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         log.info(authInfo.get("role"));
 
         if(authInfo.get("role").contains("CUSTOMER")){
@@ -170,7 +170,7 @@ public class AuthService {
             Long uId = Long.parseLong(authInfo.get("uId"));
 
             Store store = storeRepository.findByUId(uId)
-                            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                            .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
 
             map.put("role", "STORE");
             map.put("sId", store.getSId().toString());
@@ -182,7 +182,7 @@ public class AuthService {
         Long uId = Long.parseLong(authInfo.get("uId"));
 
         User user = userRepository.findById(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
         user.deleteUser();
 
