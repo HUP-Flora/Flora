@@ -23,20 +23,17 @@ class OpenViduVideo extends Component {
 
 		// These properties are in the state's component in order to re-render the HTML whenever their values change
 		this.state = {
-			mySessionId: "flora-test00",
-			mySessionId: "flora-test00",
-			myUserName: "갤북",
+			mySessionId: this.props.mySessionId,
+			myUserName: this.props.myType,
 			userType: this.props.userType,
-			// mySessionId: this.props.LmySessionId,
-			// myUserName: this.props.LmyType,
-			// session: this.props.LmySessionId,
 			session: undefined,
 			mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
 			publisher: undefined,
 			subscribers: [],
 		};
 
-		console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", this.state.userType);
+		console.log("세션아이디", this.state.mySessionId);
+		console.log("유저네임", this.state.myUserName);
 
 		this.joinSession = this.joinSession.bind(this);
 		this.leaveSession = this.leaveSession.bind(this);
@@ -50,10 +47,6 @@ class OpenViduVideo extends Component {
 
 	componentDidMount() {
 		window.addEventListener("beforeunload", this.onbeforeunload);
-
-		// this.setState({
-		// 	subscribers: [],
-		// });
 
 		this.joinSession();
 	}
@@ -119,8 +112,19 @@ class OpenViduVideo extends Component {
 					// so OpenVidu doesn't create an HTML video by its own
 					var subscriber = mySession.subscribe(event.stream, undefined);
 					var subscribers = this.state.subscribers;
-					subscribers.push(subscriber);
-					// subscribers[1] = subscriber;
+
+					// subscribers.push(subscriber);
+
+					// 참여자를 2인으로 제한
+					subscribers.length = 2;
+
+					// 사장이면 고객을 0번째 인덱스에, 고객이면 사장을 1번째 인덱스에
+					// [고객, 사장]
+					if (this.state.myUserName === "owner") {
+						subscribers[0] = subscriber;
+					} else if (this.state.myUserName === "customer") {
+						subscribers[1] = subscriber;
+					}
 
 					// Update the state with the new subscribers
 					this.setState({
@@ -130,7 +134,6 @@ class OpenViduVideo extends Component {
 
 				// On every Stream destroyed...
 				mySession.on("streamDestroyed", event => {
-					console.log("!!!!!!!!!!!!!!!!!디스트로이드");
 					// Remove the stream from 'subscribers' array
 					this.deleteSubscriber(event.stream.streamManager);
 				});
@@ -210,12 +213,13 @@ class OpenViduVideo extends Component {
 		// Empty all properties...
 		this.OV = null;
 		this.setState({
+			mySessionId: this.props.mySessionId,
+			myUserName: this.props.myType,
+			userType: this.props.userType,
 			session: undefined,
-			subscribers: [],
-			mySessionId: "flora-test00",
-			myUserName: "갤북",
 			mainStreamManager: undefined,
 			publisher: undefined,
+			subscribers: [],
 		});
 	}
 
@@ -265,78 +269,32 @@ class OpenViduVideo extends Component {
 		const myUserName = this.state.myUserName;
 		const userType = this.state.userType;
 
-		// this.joinSession();
-
 		return (
 			<SessionContainer>
-				{/*{this.state.session === undefined ? (*/}
-				{/*	<div id="join">*/}
-				{/*		<div id="img-div">*/}
-				{/*			<img src="resources/images/openvidu_grey_bg_transp_cropped.png" alt="OpenVidu logo" />*/}
-				{/*		</div>*/}
-				{/*		<div id="join-dialog" className="jumbotron vertical-center">*/}
-				{/*			<h1> Join a video session </h1>*/}
-				{/*			<form className="form-group" onSubmit={this.joinSession}>*/}
-				{/*				<p>*/}
-				{/*					<label>Participant: </label>*/}
-				{/*					<input*/}
-				{/*						className="form-control"*/}
-				{/*						type="text"*/}
-				{/*						id="userName"*/}
-				{/*						value={myUserName}*/}
-				{/*						onChange={this.handleChangeUserName}*/}
-				{/*						required*/}
-				{/*					/>*/}
-				{/*				</p>*/}
-				{/*				<p>*/}
-				{/*					<label> Session: </label>*/}
-				{/*					<input*/}
-				{/*						className="form-control"*/}
-				{/*						type="text"*/}
-				{/*						id="sessionId"*/}
-				{/*						value={mySessionId}*/}
-				{/*						onChange={this.handleChangeSessionId}*/}
-				{/*						required*/}
-				{/*					/>*/}
-				{/*				</p>*/}
-				{/*				<p className="text-center">*/}
-				{/*					<input*/}
-				{/*						className="btn btn-lg btn-success"*/}
-				{/*						name="commit"*/}
-				{/*						type="submit"*/}
-				{/*						value="JOIN"*/}
-				{/*					/>*/}
-				{/*				</p>*/}
-				{/*			</form>*/}
-				{/*		</div>*/}
-				{/*	</div>*/}
-				{/*) : null}*/}
-
 				{this.state.session !== undefined ? (
 					<SessionWrapper>
 						<SessionHeader>
 							<div>
 								<LeaveSessionButton onClick={this.handleClickExit}>종료</LeaveSessionButton>
-								<input
+								{/* <input
 									className="btn btn-large btn-success"
 									type="button"
 									id="buttonSwitchCamera"
 									onClick={this.switchCamera}
 									value="Switch Camera"
-								/>
+								/> */}
 							</div>
 
 							{this.state.publisher !== undefined ? (
 								<>
-									{/* {this.state.subscribers.map((sub, i) => (
-
-								))} */}
 									{/* 고객 화면 */}
-									{/* 내가 고객이면 내 화면, 내가 고객이 아니면 상대 화면 */}
-									<CustomerVideo onClick={() => this.handleMainVideoStream(this.state.publisher)}>
+									{/* 내가 고객이면 내 화면, 내가 사장이면 고객 화면 */}
+									{/* [고객, 사장] */}
+									<CustomerVideo>
+										{/* <CustomerVideo onClick={() => this.handleMainVideoStream(this.state.publisher)}> */}
 										<UserVideoComponent
 											streamManager={
-												this.state.userType === "CUSTOMER"
+												this.state.myUserName === "customer"
 													? this.state.publisher
 													: this.state.subscribers[0]
 											}
@@ -350,16 +308,16 @@ class OpenViduVideo extends Component {
 						<VideoContainer>
 							{this.state.mainStreamManager !== undefined ? (
 								// 사장 화면
-								// 내가 사장이면 내 화면, 내가 사장이 아니면 상대 화면
+								// 내가 사장이면 내 화면, 내가 고객이면 사장 화면
+								// [고객, 사장]
 								<OwnerVideo>
 									<UserVideoComponent
 										streamManager={
-											this.state.userType === "STORE"
+											this.state.myUserName === "owner"
 												? this.state.publisher
-												: this.state.subscribers[0]
+												: this.state.subscribers[1]
 										}
 									/>
-									{/* <UserVideoComponent streamManager={this.state.mainStreamManager} /> */}
 									<div style={{ backgroundColor: "red" }}>{userType}</div>
 								</OwnerVideo>
 							) : null}
@@ -379,7 +337,7 @@ class OpenViduVideo extends Component {
 							{console.log("구독자", this.state.subscribers)}
 							{/* {this.state.subscribers.map((sub, i) => (
 								<>
-									{console.log("서브!!!", sub)}
+									{console.log("서브!!!", sub?.stream?.connection?.data)}
 									<CustomerVideo
 										key={sub.id}
 										className="stream-container col-md-6 col-xs-6"
@@ -389,7 +347,7 @@ class OpenViduVideo extends Component {
 										<UserVideoComponent streamManager={sub} />
 									</CustomerVideo>
 								</>
-							))}
+							))} */}
 							{/* </div> */}
 						</VideoContainer>
 					</SessionWrapper>

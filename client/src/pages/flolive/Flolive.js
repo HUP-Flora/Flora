@@ -26,7 +26,7 @@ function Flolive() {
 				<OpenVidu
 					userType={userType}
 					// myType과 mySessionId을 props로 넘겨줌
-					myType={myType}
+					myType={myType === '사장' ? 'owner' : 'customer'}
 					mySessionId={mySessionId}
 					isModalShow={isModalShow}
 					setIsModalShow={setIsModalShow}
