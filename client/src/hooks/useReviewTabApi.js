@@ -8,7 +8,7 @@ export const useReviewTabApi = () => {
 	const reviewsApi = async sId => {
 		await api({
 			method: "GET",
-			url: `/reviews/stores/${sId}?page=&size=`,
+			url: `/reviews/stores/${sId}`,
 		})
 			.then(response => {
 				setReviews(response.data.content);
