@@ -52,14 +52,14 @@ function useReservation() {
 				console.log(res);
 				// 성공시 예약 완료 페이지로 이동
 				const resData = res.data;
-				navigate("/store/:sId/product/:pId/reservation/complete", {
+				navigate(`/store/${reserveData.sid}/product/${reserveData.pid}/reservation/complete`, {
 					state: {
 						resData,
 					}
 				});
 			})
 			.catch(err => {
-				console.log(err);
+				console.log("예약 완료 api 에러", err);
 			});
 	}, []);
 

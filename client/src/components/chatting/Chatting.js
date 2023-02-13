@@ -13,17 +13,14 @@ import { userType } from "../../utils/user";
 
 const ENDPOINT = "http://localhost:5000";
 
-const Chat = () => {
-	const LmyType = useRecoilValue(LmyTypeState);
-	const myType = userType();
-	const LmySessionId = useRecoilValue(LmySessionIdState);
+const Chat = ({myType, mySessionId}) => {
 	const [message, setMessage] = useState("");
 	const [messages, setMessages] = useState([]);
 
 	socketInit();
 
 	useEffect(() => {
-		socketJoin(myType, LmySessionId);
+		socketJoin(myType, mySessionId);
 	}, [ENDPOINT, window.location.search]);
 
 	useEffect(() => {
