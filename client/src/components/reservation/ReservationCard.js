@@ -84,11 +84,13 @@ function ReservationCard({ type }) {
 								// )
 							}
 						</Header>
-						<GrayHrWrapper>
-							<GrayHr />
-						</GrayHrWrapper>
+						{type !== "waiting" && userType === "owner" && (
+							<GrayHrWrapper>
+								<GrayHr />
+							</GrayHrWrapper>
+						)}
 						<ContentContainer>
-							<img src={reservation?.pimg} alt="" />
+							{type !== "waiting" && userType === "owner" && <img src={reservation?.pimg} alt="" />}
 							<div>
 								<BoldText>{reservation?.sname}</BoldText>
 								<div>{reservation?.pname}</div>
