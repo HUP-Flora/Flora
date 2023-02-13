@@ -324,16 +324,22 @@ class OpenViduVideo extends Component {
 							{/* 내 화면 */}
 							{this.state.publisher !== undefined ? (
 								<>
-								{/* {this.state.subscribers.map((sub, i) => (
+									{/* {this.state.subscribers.map((sub, i) => (
 
 								))} */}
-								<CustomerVideo
-									// className="stream-container col-md-6 col-xs-6"
-									onClick={() => this.handleMainVideoStream(this.state.publisher)}
+									<CustomerVideo
+										// className="stream-container col-md-6 col-xs-6"
+										onClick={() => this.handleMainVideoStream(this.state.publisher)}
 									>
-									<UserVideoComponent streamManager={this.state.publisher[0]} />
-								</CustomerVideo>
-									</>
+										<UserVideoComponent
+											streamManager={
+												this.state.userType === "CUSTOMER"
+													? this.state.publisher
+													: this.state.subscribers[1]
+											}
+										/>
+									</CustomerVideo>
+								</>
 							) : null}
 						</SessionHeader>
 
