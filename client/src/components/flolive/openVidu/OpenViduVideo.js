@@ -24,7 +24,7 @@ class OpenViduVideo extends Component {
 		// These properties are in the state's component in order to re-render the HTML whenever their values change
 		this.state = {
 			mySessionId: "flora-test00",
-			myUserName: "갤북",
+			myUserName: "임경민",
 			userType: this.props.userType,
 			// mySessionId: this.props.LmySessionId,
 			// myUserName: this.props.LmyType,
@@ -34,8 +34,6 @@ class OpenViduVideo extends Component {
 			publisher: undefined,
 			subscribers: [],
 		};
-
-		console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", this.state.userType);
 
 		this.joinSession = this.joinSession.bind(this);
 		this.leaveSession = this.leaveSession.bind(this);
@@ -118,8 +116,8 @@ class OpenViduVideo extends Component {
 					// so OpenVidu doesn't create an HTML video by its own
 					var subscriber = mySession.subscribe(event.stream, undefined);
 					var subscribers = this.state.subscribers;
+
 					subscribers.push(subscriber);
-					// subscribers[1] = subscriber;
 
 					// Update the state with the new subscribers
 					this.setState({
@@ -129,7 +127,6 @@ class OpenViduVideo extends Component {
 
 				// On every Stream destroyed...
 				mySession.on("streamDestroyed", event => {
-					console.log("!!!!!!!!!!!!!!!!!디스트로이드");
 					// Remove the stream from 'subscribers' array
 					this.deleteSubscriber(event.stream.streamManager);
 				});
@@ -212,7 +209,7 @@ class OpenViduVideo extends Component {
 			session: undefined,
 			subscribers: [],
 			mySessionId: "flora-test00",
-			myUserName: "갤북",
+			myUserName: "임경민",
 			mainStreamManager: undefined,
 			publisher: undefined,
 		});
@@ -337,7 +334,7 @@ class OpenViduVideo extends Component {
 											streamManager={
 												this.state.userType === "CUSTOMER"
 													? this.state.publisher
-													: this.state.subscribers[0]
+													: this.state.subscribers[7]
 											}
 										/>
 										<div style={{ backgroundColor: "green" }}>{userType}</div>
@@ -355,7 +352,7 @@ class OpenViduVideo extends Component {
 										streamManager={
 											this.state.userType === "STORE"
 												? this.state.publisher
-												: this.state.subscribers[0]
+												: this.state.subscribers[7]
 										}
 									/>
 									{/* <UserVideoComponent streamManager={this.state.mainStreamManager} /> */}
@@ -376,9 +373,9 @@ class OpenViduVideo extends Component {
 							{console.log("내 이름: ", myUserName)}
 							{console.log("퍼블리셔", this.state.publisher)}
 							{console.log("구독자", this.state.subscribers)}
-							{/* {this.state.subscribers.map((sub, i) => (
+							{this.state.subscribers.map((sub, i) => (
 								<>
-									{console.log("서브!!!", sub)}
+									{console.log("서브!!!", sub?.stream?.connection?.data)}
 									<CustomerVideo
 										key={sub.id}
 										className="stream-container col-md-6 col-xs-6"
@@ -388,7 +385,7 @@ class OpenViduVideo extends Component {
 										<UserVideoComponent streamManager={sub} />
 									</CustomerVideo>
 								</>
-							))} */}
+							))}
 							{/* </div> */}
 						</VideoContainer>
 					</SessionWrapper>
