@@ -156,7 +156,7 @@ public class AuthService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         log.info(authInfo.get("role"));
 
-        if(authInfo.get("role").equals("[CUSTOMER]")){
+        if(authInfo.get("role").contains("CUSTOMER")){
             map.put("role", "CUSTOMER");
         }else{
             Long uId = Long.parseLong(authInfo.get("uId"));
