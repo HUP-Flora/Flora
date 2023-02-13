@@ -16,7 +16,7 @@ function useFloliveOwner() {
 				navigate(`/flolive/${oId}/${sessionId}`);
 			})
 			.catch(err => {
-				console.log(err);
+				console.log("사장 수락 에러", err);
 			});
 	}
 
