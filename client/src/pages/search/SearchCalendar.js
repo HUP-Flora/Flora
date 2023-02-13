@@ -62,6 +62,10 @@ function SearchCalendar() {
 	);
 
 	useEffect(() => {
+		let currentDate = new Date();
+		setSearchYear(currentDate.getMonth());
+		setSearchMonth(currentDate.getFullYear());
+
 		// 캘린더
 		let calendar = document.querySelector(".calendar");
 
@@ -152,7 +156,6 @@ function SearchCalendar() {
 		};
 
 		let currDate = new Date();
-		console.log(currDate);
 		let curr_month = { value: currDate.getMonth() };
 		let curr_year = { value: currDate.getFullYear() };
 

@@ -34,14 +34,11 @@ export function Search() {
 	const isCalendarModal = useRecoilValue(isCalenderModalState);
 	const setStoreList = useSetRecoilState(storeListState);
 	const setAddress = useSetRecoilState(addressState);
-	const setSearchBarYear = useSetRecoilState(searchBarYearState);
-	const setSearchBarMonth = useSetRecoilState(searchBarMonthState);
+	const [searchBarYear, setSearchBarYear] = useRecoilState(searchBarYearState);
+	const [searchBarMonth, setSearchBarMonth] = useRecoilState(searchBarMonthState);
 	const setSearchBarDay = useSetRecoilState(searchBarDayState);
 	const setSearchBarDayOfWeek = useSetRecoilState(searchBarDayOfWeekState);
 	const searchStoresApi = useSearchStoresApi();
-
-	const searchYear = useRecoilValue(searchBarYearState);
-	const searchMonth = useRecoilValue(searchBarMonthState);
 
 	useEffect(() => {
 		const params = new URLSearchParams(window.location.search);
@@ -50,10 +47,10 @@ export function Search() {
 		const month = params.get("month");
 		const day = params.get("day");
 		const dayOfWeek = params.get("dayOfWeek");
-		console.log(searchMonth, searchYear, year, month);
+		console.log(searchBarMonth, searchBarYear, year, month);
 		setAddress(address ? address : "");
-		setSearchBarYear(year ? year : searchYear);
-		setSearchBarMonth(month ? month : searchMonth);
+		setSearchBarYear(year ? year : searchBarYear);
+		setSearchBarMonth(month ? month : searchBarMonth);
 		setSearchBarDay(day ? day : "");
 		setSearchBarDayOfWeek(dayOfWeek ? dayOfWeek : "");
 		if (address && dayOfWeek) {
