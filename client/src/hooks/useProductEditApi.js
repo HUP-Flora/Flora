@@ -22,7 +22,8 @@ export const useProductEditApi = () => {
 			.then(response => {
 				resetProduct();
 				resetProductImg();
-				navigate(`/store/${sId}/product/${pId}`);
+				// navigate(`/store/${sId}/product/${pId}`);
+				navigate(-1);
 			})
 			.catch(error => {
 				console.log(error);

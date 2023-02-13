@@ -10,7 +10,7 @@ export function StoreEdit() {
 		<>
 			<NoPaddingStatusBar text="꽃집 정보 수정" />
 			<WhiteLayout>
-				<StoreForm nextURL={`/store/${sId}`} sId={sId} type="edit" />
+				<StoreForm nextURL={-1} sId={sId} type="edit" />
 			</WhiteLayout>
 		</>
 	);

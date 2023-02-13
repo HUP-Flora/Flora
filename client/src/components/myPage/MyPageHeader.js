@@ -17,6 +17,11 @@ import {
 	HeaderConianer,
 	EditContainer,
 	ValidTextWrapper,
+	EditFlexContainer,
+	MyPageHeaderContainer,
+	MyPageInfoSection,
+	MyPageEditIconSection,
+	MyPageEditIconFrame,
 } from "../../styles/myPage/MyPageHeaderStyle";
 import {
 	Text,
@@ -56,6 +61,10 @@ function MyPageHeader(props) {
 			// mypageInfoApi(type, sId);
 		}
 	}, []);
+
+	const handleClickValidate = () => {
+		// if ()
+	};
 
 	const handleClickNameEdit = () => {
 		setIsNicknameEdit(true);
@@ -102,10 +111,10 @@ function MyPageHeader(props) {
 	};
 
 	return (
-		<HeaderConianer type={userInfoType}>
+		<MyPageHeaderContainer>
 			{userInfoType === "CUSTOMER" ? (
 				<>
-					{isNameEdit ? (
+					<MyPageInfoSection>
 						<>
 							<EditContainer>
 								<div>
@@ -114,10 +123,10 @@ function MyPageHeader(props) {
 										<GrayText size="11">{user?.nickname?.length} / 25자</GrayText>
 									</TextLimit>
 								</div>
-								<div>
-									<GreenCheckButton onClick={e => handleClickNameEditCheck(e)} marginRight="4" />
-									<Primary50CancelButton onClick={handleClickNameEditCancel} />
-								</div>
+								{/* <div>
+							<GreenCheckButton onClick={e => handleClickNameEditCheck(e)} marginRight="4" />
+							<Primary50CancelButton onClick={handleClickNameEditCancel} />
+						</div> */}
 							</EditContainer>
 							{!isNameValid && (
 								<ValidTextWrapper>
@@ -125,17 +134,6 @@ function MyPageHeader(props) {
 								</ValidTextWrapper>
 							)}
 						</>
-					) : (
-						<>
-							<div>
-								<BoldText size="23" font="nexon">
-									{user?.nickname} 님
-								</BoldText>
-								<img type="CUSTOMER" src={EditIcon} onClick={handleClickNameEdit} alt="editIcon" />
-							</div>
-						</>
-					)}
-					{isPhoneNumberEdit ? (
 						<>
 							<EditContainer>
 								<BottomBorderInput
@@ -147,10 +145,10 @@ function MyPageHeader(props) {
 										.replace(/\-{1,2}$/g, "")}
 									maxLength="13"
 								/>
-								<div>
-									<GreenCheckButton onClick={handleClickPhoneNumberEditCheck} marginRight="4" />
-									<Primary50CancelButton onClick={handleClickPhoneNumberEditCancel} />
-								</div>
+								{/* <div>
+							<GreenCheckButton onClick={handleClickPhoneNumberEditCheck} marginRight="4" />
+							<Primary50CancelButton onClick={handleClickPhoneNumberEditCancel} />
+						</div> */}
 							</EditContainer>
 							{!isPhoneNumberValid && (
 								<ValidTextWrapper>
@@ -158,32 +156,100 @@ function MyPageHeader(props) {
 								</ValidTextWrapper>
 							)}
 						</>
-					) : (
-						<>
-							<div>
-								<Text size="19">
-									{user?.phoneNumber
-										?.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
-										?.replace(/\-{1,2}$/g, "")}
-								</Text>
-								<img type="CUSTOMER" src={EditIcon} onClick={handleClickPhoneNumberEdit} alt="" />
-							</div>
-						</>
-					)}
+					</MyPageInfoSection>
+					<MyPageEditIconSection>
+						<MyPageEditIconFrame>
+							<GreenCheckButton onClick={handleClickValidate} marginRight="4" />
+							<Primary50CancelButton onClick={handleClickPhoneNumberEditCancel} />
+						</MyPageEditIconFrame>
+					</MyPageEditIconSection>
 				</>
 			) : (
-				<>
-					<div>
-						<BoldText size="23" font="nexon">
-							{user?.name} 님
-						</BoldText>
-						<div>
-							<img type="STORE" src={user?.simg === null ? defaultImg : user?.simg} alt="" />
-						</div>
-					</div>
-				</>
+				<></>
 			)}
-		</HeaderConianer>
+		</MyPageHeaderContainer>
+		// <HeaderConianer type={userInfoType}>
+		// 	{userInfoType === "CUSTOMER" ? (
+		// 		<>
+		// 			{isNameEdit ? (
+		// <>
+		// 	<EditContainer>
+		// 		<div>
+		// 			<BottomBorderInput onChange={handleChangeName} value={user?.nickname} />
+		// 			<TextLimit>
+		// 				<GrayText size="11">{user?.nickname?.length} / 25자</GrayText>
+		// 			</TextLimit>
+		// 		</div>
+		// 		<div>
+		// 			<GreenCheckButton onClick={e => handleClickNameEditCheck(e)} marginRight="4" />
+		// 			<Primary50CancelButton onClick={handleClickNameEditCancel} />
+		// 		</div>
+		// 	</EditContainer>
+		// 	{!isNameValid && (
+		// 		<ValidTextWrapper>
+		// 			<ValidText>이름을 입력해주세요.</ValidText>
+		// 		</ValidTextWrapper>
+		// 	)}
+		// </>
+		// 			) : (
+		// <>
+		// 	<div>
+		// 		<BoldText size="23" font="nexon">
+		// 			{user?.nickname} 님
+		// 		</BoldText>
+		// 		<img type="CUSTOMER" src={EditIcon} onClick={handleClickNameEdit} alt="editIcon" />
+		// 	</div>
+		// </>
+		// 			)}
+		// 			{isPhoneNumberEdit ? (
+		// <>
+		// 	<EditContainer>
+		// 		<BottomBorderInput
+		// 			onChange={handleChangePhoneNumber}
+		// 			value={user?.phoneNumber
+		// 				?.replace(/-/g, "")
+		// 				.replace(/[^0-9]/g, "")
+		// 				.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+		// 				.replace(/\-{1,2}$/g, "")}
+		// 			maxLength="13"
+		// 		/>
+		// 		<div>
+		// 			<GreenCheckButton onClick={handleClickPhoneNumberEditCheck} marginRight="4" />
+		// 			<Primary50CancelButton onClick={handleClickPhoneNumberEditCancel} />
+		// 		</div>
+		// 	</EditContainer>
+		// 	{!isPhoneNumberValid && (
+		// 		<ValidTextWrapper>
+		// 			<ValidText>전화번호를 입력해주세요.</ValidText>
+		// 		</ValidTextWrapper>
+		// 	)}
+		// </>
+		// 			) : (
+		// 				<>
+		// 					<div>
+		// 						<Text size="19">
+		// 							{user?.phoneNumber
+		// 								?.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+		// 								?.replace(/\-{1,2}$/g, "")}
+		// 						</Text>
+		// 						<img type="CUSTOMER" src={EditIcon} onClick={handleClickPhoneNumberEdit} alt="" />
+		// 					</div>
+		// 				</>
+		// 			)}
+		// 		</>
+		// 	) : (
+		// 		<>
+		// 			<div>
+		// 				<BoldText size="23" font="nexon">
+		// 					{user?.name} 님
+		// 				</BoldText>
+		// 				<div>
+		// 					<img type="STORE" src={user?.simg === null ? defaultImg : user?.simg} alt="" />
+		// 				</div>
+		// 			</div>
+		// 		</>
+		// 	)}
+		// </HeaderConianer>
 	);
 }
 

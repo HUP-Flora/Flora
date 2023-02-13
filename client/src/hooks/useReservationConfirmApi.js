@@ -8,9 +8,9 @@ export const useReservationConfirmApi = () => {
 
 	const confirmReservationsApi = async (type, page, size) => {
 		let url = "";
-		if (type === "customer") {
+		if (type === "CUSTOMER") {
 			url = `/flolive/confirm/users?page=${page}&size=${size}`;
-		} else if (type === "owner") {
+		} else if (type === "STORE") {
 			url = `/flolive/confirm/stores?page=${page}&size=${size}`;
 		}
 

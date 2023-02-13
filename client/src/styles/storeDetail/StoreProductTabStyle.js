@@ -25,6 +25,7 @@ export const ProductContainer = styled.div`
 `;
 
 export const ProductImageWrapper = styled.div`
+	cursor: pointer;
 	position: relative;
 
 	&::after {

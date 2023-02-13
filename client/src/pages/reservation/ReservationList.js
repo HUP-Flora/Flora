@@ -6,20 +6,29 @@ import ReservationConfirmTab from "../../components/reservation/ReservationConfi
 import ReservationWaitingTab from "../../components/reservation/ReservationWaitingTab";
 import { TabMenuBar } from "../../components/common/TabMenuBar";
 import NoPaddingStatusBar from "../../components/common/NoPaddingStatusBar";
+import { useRecoilValue } from "recoil";
+import { userInfoTypeState } from "../../recoil/userInfo";
 
 function ReservationList(props) {
 	const [isDefaultTabActive, setIsDefaultTabActive] = useState(true);
+	const userType = useRecoilValue(userInfoTypeState);
 
 	return (
 		<div>
-			<NoPaddingStatusBar text="플로라이브 예약 내역" />
-			<DoubleTabs
-				isDefaultTabActive={isDefaultTabActive}
-				setIsDefaultTabActive={setIsDefaultTabActive}
-				defaultTabTitle="예약 확정"
-				otherTabTitle="수락 대기"
-			/>
-			{isDefaultTabActive ? <ReservationConfirmTab /> : <ReservationWaitingTab />}
+			<NoPaddingStatusBar text="플로라이브 예정" />
+			{userType === "STORE" ? (
+				<>
+					<DoubleTabs
+						isDefaultTabActive={isDefaultTabActive}
+						setIsDefaultTabActive={setIsDefaultTabActive}
+						defaultTabTitle="실시간 내역"
+						otherTabTitle="예약 내역"
+					/>
+					{isDefaultTabActive ? <ReservationWaitingTab /> : <ReservationConfirmTab />}
+				</>
+			) : (
+				<ReservationConfirmTab />
+			)}
 			<TabMenuBar selectedMenu="FloLive" />
 		</div>
 	);

@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
-import { useRecoilState, useResetRecoilState } from "recoil";
-import { storeImageFileState } from "../../recoil/signup";
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
+import { storeImageFileState, storeImagePreviewState } from "../../recoil/signup";
 
 import { productState } from "../../recoil/productForms";
 
@@ -27,7 +27,7 @@ function ProductForms() {
 	const [descriptionValidMessage, setDescriptionValidMessage] = useState(true);
 
 	const productDetailApi = useProductDetailApi();
-
+	const setImagePreview = useSetRecoilState(storeImagePreviewState);
 	const path = location.pathname.split("/");
 	const type = path[path.length - 1];
 

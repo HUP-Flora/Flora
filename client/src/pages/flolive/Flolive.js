@@ -6,12 +6,17 @@ import Chat from "../../components/chatting/Chatting";
 import { LmySessionIdState, LmyTypeState } from "../../recoil/flolive";
 import { useRecoilValue } from "recoil";
 import ModalContainer from "../../components/flolive/openVidu/OpenViduExitModal";
+import { userInfoTypeState } from "../../recoil/userInfo";
+import { userType } from "../../utils/user";
+import { useParams } from "react-router-dom";
 
 function Flolive() {
 	const [isModalShow, setIsModalShow] = useState(false);
 
-	const LmyType = useRecoilValue(LmyTypeState);
-	const LmySessionId = useRecoilValue(LmySessionIdState);
+	// 이게 유저 name으로 사용할 유저 타입
+	const myType = userType();
+	// 이게 url에서 따온 세션 아이디
+	const { mySessionId } = useParams();
 
 	registerServiceWorker();
 
@@ -19,12 +24,14 @@ function Flolive() {
 		<>
 			<div style={{ height: "100vh" }}>
 				<OpenVidu
-					LmyType={LmyType}
-					LmySessionId={LmySessionId}
+					userType={userType}
+					// myType과 mySessionId을 props로 넘겨줌
+					myType={myType}
+					mySessionId={mySessionId}
 					isModalShow={isModalShow}
 					setIsModalShow={setIsModalShow}
 				/>
-				<Chat />
+				<Chat myType={myType} mySessionId={mySessionId} />
 				{isModalShow && (
 					<ModalContainer isModalShow={isModalShow} setIsModalShow={setIsModalShow} />
 				)}

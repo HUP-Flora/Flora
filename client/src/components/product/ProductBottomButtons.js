@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { SetRecoilState, useRecoilState, useResetRecoilState } from "recoil";
 import { nameState, productState } from "../../recoil/productForms";
-import { storeImageFileState } from "../../recoil/signup";
+import { storeImageFileState, storeImagePreviewState } from "../../recoil/signup";
 
 import { useProductAddApi } from "../../hooks/useProductAddApi";
 import { useProductEditApi } from "../../hooks/useProductEditApi";
@@ -28,6 +28,7 @@ function ProductAddBottomButtons({
 	const resetProduct = useResetRecoilState(productState);
 	const [imageFile, setImageFile] = useRecoilState(storeImageFileState);
 	const resetImageFile = useResetRecoilState(storeImageFileState);
+	const setImagePreview = useResetRecoilState(storeImagePreviewState);
 
 	const productAddApi = useProductAddApi();
 	const productEditApi = useProductEditApi();
@@ -124,8 +125,10 @@ function ProductAddBottomButtons({
 	const handleClickCancel = () => {
 		resetProduct();
 		resetImageFile();
+		setImagePreview("");
 
-		navigate(`/store/${sId}/product/${pId}`);
+		// navigate(`/store/${sId}/product/${pId}`);
+		navigate(-1);
 	};
 
 	return (

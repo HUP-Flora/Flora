@@ -15,11 +15,15 @@ import {
 	YourMessageTime,
 } from "../../../../styles/chatting/Messages/Message/MessageStyle";
 import { LmyTypeState } from "../../../../recoil/flolive";
+import { userType } from "../../../../utils/user";
 
 function Message({ message: { user, text, type, time } }) {
 	const LmyType = useRecoilValue(LmyTypeState);
-	const isSentByCurrentUser = user.trim().toLowerCase() === LmyType.trim().toLowerCase();
-	console.log(user, LmyType, isSentByCurrentUser);
+
+	const myType = userType();
+
+	const isSentByCurrentUser = user.trim().toLowerCase() === myType.trim().toLowerCase();
+	console.log(user, myType, isSentByCurrentUser);
 
 	return (
 		<div>

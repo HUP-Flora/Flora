@@ -1,12 +1,14 @@
 import api from "../utils/api";
 
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { productState } from "../recoil/productForms";
 
 import { priceComma } from "./priceComma";
+import { storeImagePreviewState } from "../recoil/signup";
 
 export const useProductDetailApi = () => {
 	const [product, setProduct] = useRecoilState(productState);
+	const setImagePreview = useSetRecoilState(storeImagePreviewState);
 
 	const productDetail = async pId => {
 		await api({
@@ -14,14 +16,14 @@ export const useProductDetailApi = () => {
 			url: `/products/${pId}`,
 		})
 			.then(response => {
-				console.log("111", response.data);
-
 				setProduct({
 					...response.data,
 					price: priceComma(response.data.price)
 						.toString()
 						.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
 				});
+				console.log(response.data.pimg);
+				setImagePreview(response.data.pimg);
 			})
 			.catch(error => {
 				console.log(error);

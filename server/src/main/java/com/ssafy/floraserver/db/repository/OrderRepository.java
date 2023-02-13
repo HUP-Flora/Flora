@@ -5,6 +5,7 @@ import com.ssafy.floraserver.db.entity.Order;
 import com.ssafy.floraserver.db.entity.TimeUnit;
 import com.ssafy.floraserver.db.entity.enums.ConferenceStatus;
 import com.ssafy.floraserver.db.entity.enums.OrderStatus;
+import com.ssafy.floraserver.db.entity.enums.OrderType;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,26 +68,32 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "select o from Order o " +
             "join fetch o.sId store " +
             "join fetch o.pId product " +
-            "join fetch o.conId conference " +
-            "where o.sId.sId = :sId and o.status = :status and o.conId = 'null'",
-            countQuery = "select count(o) from Order o where o.sId.sId = :uId and o.status = :status")
-    Page<Order> findBySId(@Param("sId") Long sId, OrderStatus status, Pageable pageable);
+            "where o.sId.sId = :sId and o.status = :status and o.type = :type",
+            countQuery = "select count(o) from Order o")
+    Page<Order> findBySId(@Param("sId") Long sId, OrderStatus status, OrderType type, Pageable pageable);
 
     @Query(value = "select o from Order o " +
             "join fetch o.sId store " +
             "join fetch o.pId product " +
             "join fetch o.conId conference " +
-            "where o.uId.uId = :uId and o.conId.status = :status",
-            countQuery = "select count(o) from Order o where o.uId.uId = :uId and o.conId.status = :status")
-    Page<Order> findByUIdAndConStatus(@Param("uId") Long uId, ConferenceStatus status, Pageable pageable);
+            "where o.uId.uId = :uId and o.conId.status = :conferenceStatus " +
+            "and o.status = :orderStatus " +
+            "and :date <= o.conId.reservationDate " +
+            "and :time <= o.conId.reservationTime.tuId ",
+            countQuery = "select count(o) from Order o where o.uId.uId = :uId and o.conId.status = :conferenceStatus")
+    Page<Order> findByUIdAndConStatus(@Param("uId") Long uId, OrderStatus orderStatus, ConferenceStatus conferenceStatus, LocalDate date, Long time, Pageable pageable);
 
     @Query(value = "select o from Order o " +
             "join fetch o.sId store " +
             "join fetch o.pId product " +
             "join fetch o.conId conference " +
-            "where o.sId.sId = :sId and o.conId.status = :status",
+            "where o.sId.sId = :sId " +
+            "and o.conId.status = :status " +
+            "and :date <= o.conId.reservationDate " +
+            "and :time <= o.conId.reservationTime.tuId " +
+            "order by o.conId.reservationDate, o.conId.reservationTime.tuId",
             countQuery = "select count(o) from Order o where o.sId.sId = :sId and o.conId.status = :status")
-    Page<Order> findBySIdAndConStatus(@Param("sId") Long sId, ConferenceStatus status, Pageable pageable);
+    Page<Order> findBySIdAndConStatus(@Param("sId") Long sId, ConferenceStatus status, LocalDate date, Long time, Pageable pageable);
 
     @Query(value = "select o from Order o " +
             "join fetch o.sId store " +
