@@ -3,6 +3,8 @@ package com.ssafy.floraserver.api.service;
 import com.ssafy.floraserver.api.request.StoreInfoReq;
 import com.ssafy.floraserver.api.response.*;
 import com.ssafy.floraserver.api.vo.FileVO;
+import com.ssafy.floraserver.common.exception.CustomException;
+import com.ssafy.floraserver.common.exception.ErrorCode;
 import com.ssafy.floraserver.db.entity.Product;
 import com.ssafy.floraserver.db.entity.Store;
 import com.ssafy.floraserver.db.entity.TimeUnit;
@@ -61,7 +63,7 @@ public class StoreService {
     public StoreRes findStore(Long sId) {
 
         Store store = storeRepository.findById(sId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
 
         return StoreRes.builder().store(store).build();
     }
@@ -82,7 +84,7 @@ public class StoreService {
 
         // 가게 확인
         Store store = storeRepository.findByUId(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
 
         return StoreMypageRes.builder()
                 .store(store)
@@ -97,16 +99,16 @@ public class StoreService {
 
         // 로그인한 유저
         User user = userRepository.findById(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
         // 가게 확인
         Store store = storeRepository.findByUId(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
 
         TimeUnit start = timeUnitRepository.findById(storeInfoReq.getStart())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.TIMEUNIT_NOT_FOUND));
         TimeUnit end = timeUnitRepository.findById(storeInfoReq.getEnd())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.TIMEUNIT_NOT_FOUND));
 
         FileVO fileVO = null;
         // 이미지 저장
@@ -122,7 +124,7 @@ public class StoreService {
 
         // 가게 확인
         Store store = storeRepository.findByUId(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
 
         // IsOnairType ON, OFF
         store.updateIsOnair(store.getIsOnair() == OnAirType.ON ? OnAirType.OFF : OnAirType.ON);

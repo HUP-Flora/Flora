@@ -113,4 +113,6 @@ public class Order extends BaseEntity{
     public void updatePaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
+
+    public void updateConference(Conference conference) { this.conId = conference; }
 }
