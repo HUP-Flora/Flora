@@ -50,3 +50,31 @@ export const ValidTextWrapper = styled.div`
 	margin-top: 0px !important;
 	margin-bottom: 16px;
 `;
+
+export const EditFlexContainer = styled.div`
+	display: flex;
+`;
+
+export const MyPageHeaderContainer = styled.div`
+	display: flex;
+`;
+
+export const MyPageInfoSection = styled.section`
+	width: 70%;
+	margin: 56px 24px;
+`;
+
+export const MyPageEditIconSection = styled.section`
+	width: 30%;
+
+	position: relative;
+`;
+
+export const MyPageEditIconFrame = styled.div`
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	display: flex;
+`;

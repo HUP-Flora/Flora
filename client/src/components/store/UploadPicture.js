@@ -8,10 +8,10 @@ import {
 import EmptyPhoto from "../../assets/photo/Photo.png";
 import PlusButton from "../../assets/photo/PlusButton.png";
 import { useCallback, useRef } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { storeImageFileState, storeImagePreviewState } from "../../recoil/signup";
 
-export function UploadPicture(img) {
+export function UploadPicture() {
 	const [imageFile, setImageFile] = useRecoilState(storeImageFileState);
 	const [imagePreview, setImagePreview] = useRecoilState(storeImagePreviewState);
 	const imageRef = useRef();

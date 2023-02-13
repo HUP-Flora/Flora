@@ -18,11 +18,11 @@ function useFloliveOwner() {
 			.catch(err => {
 				console.log("사장 수락 에러", err);
 			});
-	}
+	};
 
 	return {
 		accepteFlolive,
-	}
+	};
 }
 
 export default useFloliveOwner;

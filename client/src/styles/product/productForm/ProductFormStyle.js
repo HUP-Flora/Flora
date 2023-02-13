@@ -101,9 +101,11 @@ export const BorderTextArea = styled.textarea`
 
 export const TextLimit = styled.div`
 	margin-top: 4px;
+	margin-left: 8px;
 
 	display: block;
 	float: right;
+	width: 50px;
 `;
 
 export const ValidTextWrapper = styled.div`
