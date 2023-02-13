@@ -23,7 +23,7 @@ class OpenViduVideo extends Component {
 
 		// These properties are in the state's component in order to re-render the HTML whenever their values change
 		this.state = {
-			mySessionId: "flora-test",
+			mySessionId: "flora-test00",
 			myUserName: "갤북",
 			userType: this.props.userType,
 			// mySessionId: this.props.LmySessionId,
@@ -209,7 +209,7 @@ class OpenViduVideo extends Component {
 		this.setState({
 			session: undefined,
 			subscribers: [],
-			mySessionId: "flora-test",
+			mySessionId: "flora-test00",
 			myUserName: "갤북",
 			mainStreamManager: undefined,
 			publisher: undefined,
@@ -374,7 +374,7 @@ class OpenViduVideo extends Component {
 							{console.log("내 이름: ", myUserName)}
 							{console.log("퍼블리셔", this.state.publisher)}
 							{console.log("구독자 0", this.state.subscribers[0])}
-							{/* {this.state.subscribers.map((sub, i) => (
+							 {this.state.subscribers.map((sub, i) => (
 								<>
 									{console.log("서브!!!", sub)}
 									<CustomerVideo
@@ -386,7 +386,7 @@ class OpenViduVideo extends Component {
 										<UserVideoComponent streamManager={sub} />
 									</CustomerVideo>
 								</>
-							))} */}
+							))}
 							{/* </div> */}
 						</VideoContainer>
 					</SessionWrapper>

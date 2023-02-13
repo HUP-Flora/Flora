@@ -20,6 +20,8 @@ const Chat = ({myType, mySessionId}) => {
 	socketInit();
 
 	useEffect(() => {
+		console.log("myType", myType);
+		console.log("mySessionId", mySessionId);
 		socketJoin(myType, mySessionId);
 	}, [ENDPOINT, window.location.search]);
 
