@@ -31,7 +31,7 @@ public class OrderRes {
         this.pImg = order.getPId().getImgPath();
         this.paymentNum = order.getPaymentNum();
         this.payment = order.getPayment();
-        this.receiptType = order.getRecId().getType().toString();
+        this.receiptType = order.getRecId() != null ?order.getRecId().getType().toString() : null;
         this.status = status;
     }
 }
