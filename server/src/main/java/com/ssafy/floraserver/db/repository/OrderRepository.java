@@ -79,7 +79,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "where o.uId.uId = :uId and o.conId.status = :conferenceStatus " +
             "and o.status = :orderStatus " +
             "and :date <= o.conId.reservationDate " +
-            "and :time <= o.conId.reservationTime.tuId ",
+            "and :time <= o.conId.reservationTime.tuId " +
+            "order by o.conId.reservationDate, o.conId.reservationTime.tuId",
             countQuery = "select count(o) from Order o where o.uId.uId = :uId and o.conId.status = :conferenceStatus")
     Page<Order> findByUIdAndConStatus(@Param("uId") Long uId, OrderStatus orderStatus, ConferenceStatus conferenceStatus, LocalDate date, Long time, Pageable pageable);
 
