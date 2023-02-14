@@ -1,21 +1,26 @@
 import StatusBar from "../../components/common/StatusBar";
 import { OrderDetailContainer, RepaymentButton } from "../../styles/orderDetail/OrderDetailStyle";
 import OrderDetailHeader from "../../components/orderDetail/OrderDetailHeader";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { orderDetailState } from "../../recoil/orderDetail";
 import { useEffect } from "react";
 import ProgressBar from "../../components/orderDetail/ProgressBar";
 import OrderDetailContent from "../../components/orderDetail/OrderDetailContent";
 import { useOrdersApi } from "../../hooks/useOrdersApi";
 import { useParams } from "react-router-dom";
+import NoPaddingStatusBar from "../../components/common/NoPaddingStatusBar";
+import { userTypeState } from "../../recoil/signup";
+import { userInfoTypeState } from "../../recoil/userInfo";
+import { KakaoPaymentButton } from "../../styles/button/ButtonStyle";
+import { KakaoPayment } from "../kakaoPayment/KakaoPayment";
 
 function OrderDetail() {
 	const [orderDetail, setOrderDetail] = useRecoilState(orderDetailState);
 	const { getOrderDetail } = useOrdersApi();
+	const userInfoType = useRecoilValue(userInfoTypeState);
 	const { oId } = useParams();
 
 	useEffect(() => {
-		console.log("oid", oId);
 		getOrderDetail(oId);
 	}, [getOrderDetail, oId]);
 
@@ -23,12 +28,15 @@ function OrderDetail() {
 
 	return (
 		<>
-			<StatusBar text="주문 상세" />
+			<NoPaddingStatusBar text="주문 상세" />
 			<OrderDetailContainer>
 				<OrderDetailHeader />
 				<ProgressBar />
 				<OrderDetailContent />
-				{orderDetail?.status === 0 && user === "손님" && <RepaymentButton>{orderDetail.flowerPrice} 재결제하기</RepaymentButton>}
+				{orderDetail?.status === 0 && userInfoType === "CUSTOMER" && (
+					// <RepaymentButton>{orderDetail.flowerPrice} 재결제하기</RepaymentButton>
+					<KakaoPayment oId={oId} />
+				)}
 			</OrderDetailContainer>
 		</>
 	);
