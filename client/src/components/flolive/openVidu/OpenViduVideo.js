@@ -381,7 +381,9 @@ class OpenViduVideo extends Component {
 			APPLICATION_SERVER_URL + "openvidu/api/sessions",
 			{ customSessionId: sessionId },
 			{
-				headers: { "Content-Type": "application/json" },
+				headers: {
+					"Content-Type": "application/json",
+				},
 			}
 		);
 		return response.data; // The sessionId
