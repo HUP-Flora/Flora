@@ -2,33 +2,27 @@ package com.ssafy.floraserver.api.service;
 
 import com.ssafy.floraserver.api.request.StoreExtraInfoReq;
 import com.ssafy.floraserver.api.request.UserExtraInfoReq;
-import com.ssafy.floraserver.api.response.RoleRes;
 import com.ssafy.floraserver.api.vo.FileVO;
 import com.ssafy.floraserver.common.exception.CustomException;
 import com.ssafy.floraserver.common.exception.ErrorCode;
 import com.ssafy.floraserver.common.jwt.JwtProvider;
 import com.ssafy.floraserver.db.entity.Store;
-import com.ssafy.floraserver.db.entity.User;
 import com.ssafy.floraserver.db.entity.TimeUnit;
+import com.ssafy.floraserver.db.entity.User;
 import com.ssafy.floraserver.db.entity.enums.Role;
 import com.ssafy.floraserver.db.repository.StoreRepository;
 import com.ssafy.floraserver.db.repository.TimeUnitRepository;
 import com.ssafy.floraserver.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @Slf4j

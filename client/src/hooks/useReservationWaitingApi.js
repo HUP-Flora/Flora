@@ -9,9 +9,11 @@ export const useReservationWaitingApi = () => {
 	const waitingReservationsApi = async (type, page, size) => {
 		let url = "";
 		if (type === "CUSTOMER") {
-			url = `/flolive/wait/user?page=${page}&size=${size}`;
+			// url = `/flolive/wait/user?page=${page}&size=${size}`;
+			url = `/flolive/wait/user`;
 		} else if (type === "STORE") {
-			url = `/flolive/wait/stores?page=${page}&size=${size}`;
+			// url = `/flolive/wait/stores?page=${page}&size=${size}`;
+			url = `/flolive/wait/stores`;
 		}
 
 		await api({

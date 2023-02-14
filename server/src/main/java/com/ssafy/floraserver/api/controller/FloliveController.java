@@ -8,14 +8,12 @@ import com.ssafy.floraserver.api.response.ReserveRes;
 import com.ssafy.floraserver.api.response.WaitRes;
 import com.ssafy.floraserver.api.service.FloliveService;
 import com.ssafy.floraserver.common.util.SecurityUtil;
-import com.ssafy.floraserver.db.entity.Conference;
 import com.ssafy.floraserver.db.entity.Order;
 import com.ssafy.floraserver.db.entity.enums.OrderStatus;
 import io.openvidu.java.client.OpenViduHttpException;
 import io.openvidu.java.client.OpenViduJavaClientException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -26,7 +24,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor

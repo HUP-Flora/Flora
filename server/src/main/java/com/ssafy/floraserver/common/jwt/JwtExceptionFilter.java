@@ -2,7 +2,8 @@ package com.ssafy.floraserver.common.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.floraserver.common.exception.ErrorCode;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
