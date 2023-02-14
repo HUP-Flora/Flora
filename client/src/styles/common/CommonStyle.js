@@ -393,6 +393,10 @@ export const BottomBorderInput = styled.input`
 	}
 `;
 
+export const MyPageBottomBorderNameInput = styled(BottomBorderInput)`
+	font-size: 19px;
+`;
+
 export const MyPageBottomBorderInput = styled(BottomBorderInput)`
 	padding: 0px;
 	margin-top: 16px;
