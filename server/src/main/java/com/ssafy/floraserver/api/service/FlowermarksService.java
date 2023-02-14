@@ -1,6 +1,5 @@
 package com.ssafy.floraserver.api.service;
 
-import com.ssafy.floraserver.api.response.StoreRes;
 import com.ssafy.floraserver.common.exception.CustomException;
 import com.ssafy.floraserver.common.exception.ErrorCode;
 import com.ssafy.floraserver.db.entity.Bookmark;
@@ -15,8 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Slf4j

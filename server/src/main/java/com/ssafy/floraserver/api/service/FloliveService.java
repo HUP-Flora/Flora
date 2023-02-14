@@ -16,10 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -50,16 +48,16 @@ public class FloliveService {
 
         User user = userRepository.findById(uId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
-        log.info(user.toString());
+        log.info("user 정보가 있습니다 : ", user.toString());
 
         Store store = storeRepository.findById(sId)
                 .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
-        log.info(store.toString());
+        log.info("store 정보가 있습니다 : ", store.toString());
 
         String orderNum = createOrderNum(LocalDate.now());
         Product defultProduct = productRepository.findById(Long.valueOf(1))
                 .orElseThrow(() -> new CustomException(ErrorCode.PRODUCT_NOT_FOUND));
-        log.info(defultProduct.toString());
+        log.info("defultProduct 정보가 있습니다 : ", defultProduct.toString());
         // order 저장 상품 X
         Order savedOrder = orderRepository.save(
                 Order.builder()
@@ -253,19 +251,19 @@ public class FloliveService {
 
         User user = userRepository.findById(uId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
-        log.info(user.toString());
+        log.info("user 정보가 있습니다 : ", user.toString());
 
         Store store = storeRepository.findById(reserveFloliveReq.getSid())
                 .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
-        log.info(store.toString());
+        log.info("store 정보가 있습니다 : ", store.toString());
 
         Product product = productRepository.findById(reserveFloliveReq.getPid())
                 .orElseThrow(() -> new CustomException(ErrorCode.PRODUCT_NOT_FOUND));
-        log.info(product.toString());
+        log.info("product 정보가 있습니다 : ", product.toString());
 
         TimeUnit timeUnit = timeUnitRepository.findById(reserveFloliveReq.getReservationTime())
                 .orElseThrow(() -> new CustomException(ErrorCode.TIMEUNIT_NOT_FOUND));
-        log.info(timeUnit.toString());
+        log.info("timeUnit 정보가 있습니다 : ", timeUnit.toString());
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
         LocalDate localDate = LocalDate.parse(reserveFloliveReq.getReservationDate());
