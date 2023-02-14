@@ -35,6 +35,7 @@ public class OpenViduService {
         openVidu.fetch();
         Session session = openVidu.getActiveSession(sessionId);
 
+        log.info("sessionId : {} 가 활성화 되어있습니다.",String.valueOf(openVidu.getActiveSession(sessionId)));
         // 세션이 null 이면 세션 만들어 줘야 하는데 안만들었죠?
         if(session == null) {}
 
