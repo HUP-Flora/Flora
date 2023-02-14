@@ -378,7 +378,7 @@ class OpenViduVideo extends Component {
 
 	async createSession(sessionId) {
 		const response = await axios.post(
-			APPLICATION_SERVER_URL + "api/sessions",
+			APPLICATION_SERVER_URL + "/openvidu/api/sessions",
 			{ customSessionId: sessionId },
 			{
 				headers: { "Content-Type": "application/json" },
