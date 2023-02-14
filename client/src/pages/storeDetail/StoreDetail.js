@@ -9,11 +9,12 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import NoPaddingStatusBar from "../../components/common/NoPaddingStatusBar";
-import { userInfoTypeState } from "../../recoil/userInfo";
+import { ownersIdState, userInfoTypeState } from "../../recoil/userInfo";
 import { TabMenuBar } from "../../components/common/TabMenuBar";
 import { BlankSection } from "../../styles/common/CommonStyle";
 
 function StoreDetail() {
+	const ownersId = useRecoilValue(ownersIdState);
 	const userType = useRecoilValue(userInfoTypeState);
 
 	const { sId } = useParams();
@@ -30,9 +31,9 @@ function StoreDetail() {
 	return (
 		<>
 			<NoPaddingStatusBar text="가게 상세" />
-			<StoreInfo sId={sId} />
-			<StoreDetailButtons sId={sId} />
-			<StoreTabs sId={sId} />
+			<StoreInfo isMyStore={ownersId === sId} />
+			<StoreDetailButtons sId={sId} isMyStore={ownersId === sId} />
+			<StoreTabs sId={sId} isMyStore={ownersId === sId} />
 			<BlankSection height="72" />
 			{userType === "STORE" && <TabMenuBar selectedMenu="MyStore" />}
 		</>

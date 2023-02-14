@@ -34,6 +34,7 @@ import {
 	ValidText,
 	GrayText,
 	MyPageBottomBorderInput,
+	MyPageBottomBorderNameInput,
 } from "../../styles/common/CommonStyle";
 import { GreenCheckButton, Primary50CancelButton } from "../../styles/button/ButtonStyle";
 import { TextLimit } from "../../styles/product/productForm/ProductFormStyle";
@@ -46,8 +47,8 @@ function MyPageHeader(props) {
 	const [user, setUser] = useRecoilState(userState);
 	const userInfoType = useRecoilValue(userInfoTypeState);
 	const ownersId = useRecoilValue(ownersIdState);
-	const setMyPageNickname = useSetRecoilState(MyPageNicknameState);
-	const setMyPagePhoneNumber = useSetRecoilState(MyPagePhoneNumberState);
+	const [myPageNickname, setMyPageNickname] = useRecoilState(MyPageNicknameState);
+	const [myPagePhoneNumber, setMyPagePhoneNumber] = useRecoilState(MyPagePhoneNumberState);
 
 	// edit 여부로 편집창 open / close
 	const [isEdit, setIsEdit] = useRecoilState(isEditState);
@@ -114,7 +115,10 @@ function MyPageHeader(props) {
 								<>
 									<EditContainer>
 										<div>
-											<BottomBorderInput onChange={handleChangeName} value={user?.nickname} />
+											<MyPageBottomBorderNameInput
+												onChange={handleChangeName}
+												value={myPageNickname}
+											/>
 											<TextLimit>
 												<GrayText size="11">{user?.nickname?.length} / 25자</GrayText>
 											</TextLimit>
@@ -135,7 +139,7 @@ function MyPageHeader(props) {
 										<MyPageBottomBorderInput
 											width="74"
 											onChange={handleChangePhoneNumber}
-											value={user?.phoneNumber
+											value={myPagePhoneNumber
 												?.replace(/-/g, "")
 												.replace(/[^0-9]/g, "")
 												.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
