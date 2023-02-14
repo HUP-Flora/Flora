@@ -1,10 +1,17 @@
 import api from "../utils/api";
 
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { isNicknameValidState, isEditState, userState } from "../recoil/mypage";
+import {
+	isNicknameValidState,
+	isEditState,
+	userState,
+	MyPageNicknameState,
+	MyPagePhoneNumberState,
+} from "../recoil/mypage";
 
 export const useUserInfoEditApi = () => {
-	const user = useRecoilValue(userState);
+	const myPageNickname = useRecoilValue(MyPageNicknameState);
+	const myPagePhoneNumber = useRecoilValue(MyPagePhoneNumberState);
 	const setIsNicknameValid = useSetRecoilState(isNicknameValidState);
 	const setIsEdit = useSetRecoilState(isEditState);
 
@@ -13,12 +20,11 @@ export const useUserInfoEditApi = () => {
 			method: "PUT",
 			url: `/users`,
 			data: {
-				nickname: user.user.nickname,
-				phoneNumber: user.user.phoneNumber,
+				nickname: myPageNickname,
+				phoneNumber: myPagePhoneNumber,
 			},
 		})
 			.then(res => {
-				console.log(res);
 				setIsNicknameValid(true);
 				setIsEdit(false);
 			})
