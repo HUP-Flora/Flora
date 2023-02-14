@@ -13,19 +13,19 @@ import { userType } from "../../utils/user";
 
 const ENDPOINT = "http://localhost:5000";
 
-const Chat = ({myType, mySessionId}) => {
+const Chat = ({ myType, mySessionId }) => {
 	const [message, setMessage] = useState("");
 	const [messages, setMessages] = useState([]);
 
-	const [LmyType, setLmyType] = useRecoilState(LmyTypeState);
-	const [LmySessionId, setLmySessionId] = useRecoilState(LmySessionIdState);
+	const [isShowChat, setIsShowChat] = useState(false);
+	const [isFirstLoad, setIsFirstLoad] = useState(true);
 
 	socketInit();
 
 	useEffect(() => {
 		console.log("myType", myType);
 		console.log("mySessionId", mySessionId);
-		socketJoin(LmyType, LmySessionId);
+		socketJoin(myType, mySessionId);
 	}, [ENDPOINT, window.location.search]);
 
 	useEffect(() => {
@@ -35,11 +35,18 @@ const Chat = ({myType, mySessionId}) => {
 	const isErrorModalShow = useRecoilValue(isErrorModalShowState);
 
 	return (
-		<ChatLayout>
-			<Messages messages={messages} />
-			<Input message={message} setMessage={setMessage} />
+		<>
+			{!isShowChat && <button onClick={()=> {
+				setIsFirstLoad(false);
+				setIsShowChat(true);
+			}}>나타나라</button>}
+			{!isFirstLoad && (<ChatLayout isShowChat={isShowChat}>
+				<button onClick={() => setIsShowChat(false)}>숨기기</button>
+				<Messages messages={messages} />
+				<Input message={message} setMessage={setMessage} />
+			</ChatLayout>)}
 			{isErrorModalShow && <ErrorModal />}
-		</ChatLayout>
+		</>
 	);
 };
 

@@ -4,12 +4,12 @@ const ENDPOINT = process.env.REACT_APP_SIGNALING_SERVER_URL;
 
 // let socket = io(ENDPOINT);
 
-// let socket = io("https://i8b203.p.ssafy.io:4000")
-
 let socket = io('https://i8b203.p.ssafy.io:3001', {
 	path: '/socket.io',
 	transports: ['websocket'],
 });
+
+// let socket = io("http://localhost:3001");
 
 console.log(socket);
 

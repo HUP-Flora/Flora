@@ -4,7 +4,7 @@ import spinner from "../../assets/flolive/spinner.png";
 import { GrayText } from "../../styles/common/CommonStyle";
 import { Container } from "../../styles/flolive/FloliveWaitingContainerStyle";
 
-function FloLiveWaitingContainer(props) {
+function FloLiveWaitingContainer() {
 	return (
 		<Container>
 			<div>
