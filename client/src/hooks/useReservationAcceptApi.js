@@ -12,7 +12,7 @@ export const useReservationAcceptApi = () => {
 			.then(response => {
 				// console.log(response);
 				const sessionId = response.data.sessionId;
-				navigate(`flolive/${oId}/${sessionId}`);
+				navigate(`/flolive/${oId}/${sessionId}`);
 			})
 			.catch(error => {
 				console.log("예약 수락 에러", error);
