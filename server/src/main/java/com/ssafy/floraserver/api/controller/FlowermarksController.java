@@ -31,9 +31,15 @@ public class FlowermarksController {
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         Long uId = Long.parseLong(authInfo.get("uId"));
         Page<Bookmark> bookmarkList = flowermarksService.findFlowermarks(uId, pageable);
-        System.out.println(bookmarkList.getContent().get(0).getSId());
-        Page<BookmarkStoreRes> bookmarkStoreRes = bookmarkList
-                .map(b -> BookmarkStoreRes.builder().bookmark(b).build());
+        log.info("꽃갈피 개수 : {}", bookmarkList.getTotalElements());
+        Page<BookmarkStoreRes> bookmarkStoreRes;
+        if(bookmarkList.getTotalElements() != 0) {
+            bookmarkStoreRes = bookmarkList
+                    .map(b -> BookmarkStoreRes.builder().bookmark(b).build());
+        } else {
+            bookmarkStoreRes = bookmarkList
+                    .map(b -> BookmarkStoreRes.builder().bookmark(b).build());
+        }
         log.info("고객 번호 {} 에 대한 꽃갈피 목록 출력", uId);
         return bookmarkStoreRes;
     }

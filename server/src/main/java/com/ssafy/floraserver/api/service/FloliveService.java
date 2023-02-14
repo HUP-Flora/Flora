@@ -13,12 +13,10 @@ import io.openvidu.java.client.OpenViduHttpException;
 import io.openvidu.java.client.OpenViduJavaClientException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -26,7 +24,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +41,6 @@ public class FloliveService {
     private final UserRepository userRepository;
     private final TimeUnitRepository timeUnitRepository;
     private final OpenViduService openViduService;
-    private final AuthService authService;
 
     public Long applyFlolive(Long sId, Map<String, String> authInfo) {
 
@@ -77,7 +73,7 @@ public class FloliveService {
                         .conId(null)
                         .build()
         );
-        log.info(savedOrder.toString());
+        log.info("order에 데이터가 저장되었습니다: {}",savedOrder.toString());
 
         return savedOrder.getOId();
     }
@@ -293,7 +289,7 @@ public class FloliveService {
                         .build()
         );
 
-        log.info(String.valueOf(conference.getConId()));
+        log.info("플로라이브 입장 번호 : {}", String.valueOf(conference.getConId()));
 
         // order 저장 상품 O
         Order savedOrder = orderRepository.save(
