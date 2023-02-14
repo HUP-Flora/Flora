@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { FullScreenFrame } from "../../styles/payment/KakaoPaymentStyle";
@@ -9,9 +9,9 @@ import api from "../../utils/api";
 import { useRecoilValue } from "recoil";
 import { orderStatesState } from "../../recoil/chatting";
 
-export function KakaoPayment({ oId }) {
+export function KakaoPayment() {
 	const [redirectUrl, setRedirectUrl] = useState("");
-
+	const { oId } = useParams();
 	const orderStates = useRecoilValue(orderStatesState);
 
 	const handleKakaoPayment = () => {
