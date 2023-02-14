@@ -15,7 +15,6 @@ export const usePostCodeApi = () => {
 	const setIsDaumPostShowState = useSetRecoilState(isDaumPostShowState);
 
 	const postCodeApi = data => {
-		console.log(data);
 		axios({
 			method: "GET",
 			url: `https://dapi.kakao.com/v2/local/search/address.json?&query=${data}`,
@@ -24,7 +23,6 @@ export const usePostCodeApi = () => {
 			},
 		})
 			.then(response => {
-				console.log(response.data);
 				const { address_name, region_1depth_name, region_2depth_name, region_3depth_name, x, y } =
 					response.data.documents[0].address;
 				setLocation({ center: { lat: y, lng: x }, isPanto: true });
