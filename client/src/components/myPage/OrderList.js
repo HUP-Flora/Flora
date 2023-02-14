@@ -65,6 +65,7 @@ function OrderList({ size }) {
 			) : (
 				orders.map((order, index) => (
 					<ShadowCardWrapper key={index} onClick={() => handleClickOrder(order.oid)}>
+					{/*// <ShadowCardWrapper key={index}>*/}
 						<ShadowCard display="flex" isSpaceBetween={false} marginBottom="16">
 							{order.simg === null && order.pimg === null ? (
 								<img src={defaultImg} alt="product-img" />
@@ -82,12 +83,10 @@ function OrderList({ size }) {
 									{type === "customer" ? (
 										<>
 											{order?.review ? (
-												<WhiteSmallButton
-													onClick={e => {
-														e.stopPropagation();
-														navigate("/mypage/review/list");
-													}}
-												>
+												<WhiteSmallButton onClick={(e) => {
+													e.stopPropagation();
+													navigate("/mypage/review/list")
+												}}>
 													리뷰 보기
 												</WhiteSmallButton>
 											) : (

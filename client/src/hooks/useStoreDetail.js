@@ -32,7 +32,7 @@ function useStoreDetail() {
 
 	const checkLiveStatusAPI = LorderNumber => {
 		api({
-			url: `/flolive/res?ordernum=${LorderNumber}`,
+			url: `/flolive/res/${LorderNumber}`,
 			method: "GET",
 		})
 			.then(res => {

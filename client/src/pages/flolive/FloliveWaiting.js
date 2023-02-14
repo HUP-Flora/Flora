@@ -19,15 +19,16 @@ function FloliveWaiting() {
 		return () => {
 			clearInterval(checkStatusInterval);
 		};
-	}, [LorderNumber]);
+	}, [LorderNumber, LliveStatus, checkLiveStatusAPI]);
 
 	const navigate = useNavigate();
 	useEffect(() => {
 		console.log("LliveStatus", LliveStatus);
 		// 라이브 신청이 수락하면 작동할 로직.
-		// if (LliveStatus === "live") {
-		// navigate("/flolive");
-	}, [LliveStatus]);
+		if (LliveStatus.sessionId) {
+			navigate(`/flolive/${LorderNumber}/${LliveStatus.sessionId}`);
+		}}, [LliveStatus, navigate, LorderNumber]);
+
 
 	return <FloLiveWaitingContainer />;
 }
