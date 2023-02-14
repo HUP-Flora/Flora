@@ -24,7 +24,6 @@ function ProductInfo({ pId }) {
 	const productDetailApi = useProductDetailApi();
 
 	useEffect(() => {
-		console.log("testtest", pId);
 		productDetailApi(pId);
 	}, []);
 

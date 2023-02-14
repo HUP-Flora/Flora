@@ -3,6 +3,8 @@ package com.ssafy.floraserver.api.service;
 import com.ssafy.floraserver.api.request.StoreInfoReq;
 import com.ssafy.floraserver.api.response.*;
 import com.ssafy.floraserver.api.vo.FileVO;
+import com.ssafy.floraserver.common.exception.CustomException;
+import com.ssafy.floraserver.common.exception.ErrorCode;
 import com.ssafy.floraserver.db.entity.Product;
 import com.ssafy.floraserver.db.entity.Store;
 import com.ssafy.floraserver.db.entity.TimeUnit;
@@ -14,7 +16,10 @@ import com.ssafy.floraserver.db.repository.TimeUnitRepository;
 import com.ssafy.floraserver.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +28,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Objects;
 
 @Service
 @Slf4j
@@ -61,7 +65,7 @@ public class StoreService {
     public StoreRes findStore(Long sId) {
 
         Store store = storeRepository.findById(sId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
 
         return StoreRes.builder().store(store).build();
     }
@@ -82,7 +86,7 @@ public class StoreService {
 
         // 가게 확인
         Store store = storeRepository.findByUId(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
 
         return StoreMypageRes.builder()
                 .store(store)
@@ -91,6 +95,33 @@ public class StoreService {
 
     public void updateStoreInfo(StoreInfoReq storeInfoReq,
                                 MultipartFile file,
+                                Map<String, String> authInfo) {
+
+        Long uId = Long.parseLong(authInfo.get("uId"));
+
+        // 로그인한 유저
+        User user = userRepository.findById(uId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        // 가게 확인
+        Store store = storeRepository.findByUId(uId)
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
+
+        TimeUnit start = timeUnitRepository.findById(storeInfoReq.getStart())
+                .orElseThrow(() -> new CustomException(ErrorCode.TIMEUNIT_NOT_FOUND));
+        TimeUnit end = timeUnitRepository.findById(storeInfoReq.getEnd())
+                .orElseThrow(() -> new CustomException(ErrorCode.TIMEUNIT_NOT_FOUND));
+
+        FileVO fileVO = null;
+        // 이미지 저장
+        if(!file.isEmpty()){
+            fileVO = fileService.uploadFile(file);
+        }
+
+        store.updateStoreInfo(store, storeInfoReq, start, end, fileVO);
+    }
+
+    public void updateStoreInfo(StoreInfoReq storeInfoReq,
                                 Map<String, String> authInfo) {
 
         Long uId = Long.parseLong(authInfo.get("uId"));
@@ -109,10 +140,6 @@ public class StoreService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         FileVO fileVO = null;
-        // 이미지 저장
-        if(!file.isEmpty()){
-            fileVO = fileService.uploadFile(file);
-        }
 
         store.updateStoreInfo(store, storeInfoReq, start, end, fileVO);
     }
@@ -122,7 +149,7 @@ public class StoreService {
 
         // 가게 확인
         Store store = storeRepository.findByUId(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
 
         // IsOnairType ON, OFF
         store.updateIsOnair(store.getIsOnair() == OnAirType.ON ? OnAirType.OFF : OnAirType.ON);

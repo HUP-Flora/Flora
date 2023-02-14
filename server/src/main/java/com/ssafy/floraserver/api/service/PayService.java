@@ -3,16 +3,16 @@ package com.ssafy.floraserver.api.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.floraserver.api.response.PaySuccessRes;
 import com.ssafy.floraserver.api.vo.PayReadyResVo;
+import com.ssafy.floraserver.common.exception.CustomException;
+import com.ssafy.floraserver.common.exception.ErrorCode;
 import com.ssafy.floraserver.db.entity.Order;
 import com.ssafy.floraserver.db.entity.enums.PaymentStatus;
 import com.ssafy.floraserver.db.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.io.*;
 import java.net.*;
@@ -52,7 +52,7 @@ public class PayService {
 //                    .orElseThrow(() -> new RuntimeException());
 
             Order order = orderRepository.findById(oId)
-                    .orElseThrow(() -> new RuntimeException("주문 내역이 없습니다."));
+                    .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
 
             // 상품 이름 인코딩
             String pnameEncode = URLEncoder.encode(order.getPId().getName(), "utf-8");
@@ -109,7 +109,7 @@ public class PayService {
 
     public int payApproval(PayReadyResVo payReadyResVo, String pg_token, Long oId) {
         Order order = orderRepository.findById(oId)
-                .orElseThrow(() -> new RuntimeException("주문 내역이 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
 
         int res = 0;
 
@@ -156,7 +156,7 @@ public class PayService {
 
     public PaySuccessRes paySuccess(Long oId) {
         Order order = orderRepository.findByOId(oId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
 
         PaySuccessRes paySucessRes = new PaySuccessRes(order);
         return paySucessRes;

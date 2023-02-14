@@ -4,6 +4,7 @@ import com.ssafy.floraserver.db.entity.User;
 import com.ssafy.floraserver.db.entity.enums.Role;
 import lombok.Builder;
 import lombok.Getter;
+
 import java.util.Map;
 
 @Getter

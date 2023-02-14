@@ -7,7 +7,6 @@ export const useGetUserTypeApi = () => {
 	const setOwnersIdState = useSetRecoilState(ownersIdState);
 
 	const getUserTypeApi = token => {
-		console.log(token);
 		api({
 			method: "GET",
 			url: "/auth/role",
@@ -16,7 +15,6 @@ export const useGetUserTypeApi = () => {
 			},
 		})
 			.then(response => {
-				console.log(response.data);
 				setUserType(response.data.role);
 				setOwnersIdState(response.data.role === "STORE" ? response.data.sId : -1);
 			})

@@ -1,13 +1,11 @@
 package com.ssafy.floraserver.api.controller;
 
-import com.ssafy.floraserver.api.request.StoreExtraInfoReq;
 import com.ssafy.floraserver.api.request.StoreInfoReq;
 import com.ssafy.floraserver.api.response.*;
 import com.ssafy.floraserver.api.service.StoreService;
 import com.ssafy.floraserver.common.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -71,7 +69,11 @@ public class StoreController {
                                              @RequestPart(value = "file", required = false) MultipartFile file,
                                              @RequestPart("storeInfoReq") StoreInfoReq storeInfoReq){
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        storeService.updateStoreInfo(storeInfoReq, file, authInfo);
+        if(file == null) {
+            storeService.updateStoreInfo(storeInfoReq, authInfo);
+        } else {
+            storeService.updateStoreInfo(storeInfoReq, file, authInfo);
+        }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

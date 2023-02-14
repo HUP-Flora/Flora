@@ -4,7 +4,6 @@ import com.ssafy.floraserver.common.jwt.JwtProvider;
 import com.ssafy.floraserver.common.util.SecurityUtil;
 import com.ssafy.floraserver.db.entity.User;
 import com.ssafy.floraserver.db.entity.enums.Role;
-import javax.servlet.http.Cookie;
 import com.ssafy.floraserver.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -78,12 +78,14 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             if(oAuth2User.getRole() == Role.GUEST){
                 log.info("GUEST");
                 // http://localhost:3000/signup?token={accessToken}
-                targetUrl = UriComponentsBuilder.fromUriString("http://localhost:3000/signup")
+                targetUrl = UriComponentsBuilder.fromUriString("https://i8b203.p.ssafy.io/signup")
+//                targetUrl = UriComponentsBuilder.fromUriString("http://localhost:3000/signup")
                         .queryParam("token", accessToken)
                         .build().toUriString();
             }else {
                 log.info("CUSTOMER OR STORE");
-                targetUrl = UriComponentsBuilder.fromUriString(redirectUri.orElse("http://localhost:3000"))
+//                targetUrl = UriComponentsBuilder.fromUriString(redirectUri.orElse("http://localhost:3000"))
+                targetUrl = UriComponentsBuilder.fromUriString(redirectUri.orElse("https://i8b203.p.ssafy.io"))
                         .queryParam("token", accessToken)
                         .build().toUriString();
             }

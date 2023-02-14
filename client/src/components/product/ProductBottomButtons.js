@@ -21,6 +21,7 @@ function ProductAddBottomButtons({
 	setNameValidMessage,
 	setPriceValidMessage,
 	setDescriptionValidMessage,
+	setPictureValidMessage,
 }) {
 	const navigate = useNavigate();
 
@@ -67,12 +68,22 @@ function ProductAddBottomButtons({
 		}
 	};
 
+	const isPictureValid = () => {
+		if (imageFile === "") {
+			setPictureValidMessage("상품 사진을 추가해주세요.");
+			return false;
+		} else {
+			setPictureValidMessage("");
+			return true;
+		}
+	};
+
 	const handleClickSubmit = () => {
 		setNameValidMessage("");
 		setPriceValidMessage("");
 		setDescriptionValidMessage("");
 
-		if (isNameValid() && isPriceValid() && isDescriptionValid()) {
+		if (isPictureValid() && isNameValid() && isPriceValid() && isDescriptionValid()) {
 			// 유효성 검사 통과
 			if (type === "add") {
 				const data = {
@@ -83,12 +94,12 @@ function ProductAddBottomButtons({
 
 				const formData = new FormData();
 
-				if (imageFile === "") {
-					const file = new File(["null"], "null.png", {});
-					formData.append("file", file);
-				} else {
-					formData.append("file", imageFile);
-				}
+				// if (imageFile === "") {
+				// 	const file = new File(["null"], "null.png", {});
+				// 	formData.append("file", file);
+				// } else {
+				formData.append("file", imageFile);
+				// }
 
 				formData.append(
 					"productReq",

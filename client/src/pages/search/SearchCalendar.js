@@ -34,6 +34,12 @@ function SearchCalendar() {
 		);
 	};
 
+	useEffect(() => {
+		let currentDate = new Date();
+		setSearchYear(currentDate.getMonth() + 1);
+		setSearchMonth(currentDate.getFullYear());
+	}, []);
+
 	// 현재 날짜에 대한 요일을 구하는 함수
 	const getDayOfWeek = useCallback(
 		(year, month, day) => {
@@ -62,9 +68,11 @@ function SearchCalendar() {
 	);
 
 	useEffect(() => {
-		let currentDate = new Date();
-		setSearchYear(currentDate.getMonth());
-		setSearchMonth(currentDate.getFullYear());
+		// let currentDate = new Date();
+		// console.log(currentDate, currentDate.getMonth() + 1);
+		// setSearchYear(currentDate.getMonth() + 1);
+		// setSearchMonth(currentDate.getFullYear());
+		// console.log(searchYear, searchMonth);
 
 		// 캘린더
 		let calendar = document.querySelector(".calendar");

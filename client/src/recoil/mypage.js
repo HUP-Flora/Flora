@@ -3,8 +3,21 @@ import { atom } from "recoil";
 export const userState = atom({
 	key: "userState",
 	default: {
-		user: {},
+		user: {
+			nickname: "",
+			phoneNumber: "",
+		},
 	},
+});
+
+export const MyPageNicknameState = atom({
+	key: "MyPageNicknameState",
+	default: "",
+});
+
+export const MyPagePhoneNumberState = atom({
+	key: "MyPageNumberState",
+	default: "",
 });
 
 export const isNicknameValidState = atom({
@@ -17,12 +30,7 @@ export const isPhoneNumberValidState = atom({
 	default: true,
 });
 
-export const isNicknameEditState = atom({
-	key: "isNicknameEditState",
-	default: false,
-});
-
-export const isPhoneNumberEditState = atom({
-	key: "isPhoneNumberEditState",
+export const isEditState = atom({
+	key: "isEditState",
 	default: false,
 });

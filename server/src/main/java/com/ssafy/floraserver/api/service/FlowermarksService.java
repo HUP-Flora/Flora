@@ -1,6 +1,7 @@
 package com.ssafy.floraserver.api.service;
 
-import com.ssafy.floraserver.api.response.StoreRes;
+import com.ssafy.floraserver.common.exception.CustomException;
+import com.ssafy.floraserver.common.exception.ErrorCode;
 import com.ssafy.floraserver.db.entity.Bookmark;
 import com.ssafy.floraserver.db.entity.Store;
 import com.ssafy.floraserver.db.entity.User;
@@ -13,8 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Slf4j
@@ -34,16 +33,16 @@ public class FlowermarksService {
 
     public void createFlowermark(Long uId, Long sId) {
         User user = userRepository.findById(uId)
-                .orElseThrow(() -> new RuntimeException("유저 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         Store store = storeRepository.findById(sId)
-                .orElseThrow(() -> new RuntimeException("가게 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
         Bookmark bookmark = new Bookmark(user, store);
         flowermarksRepository.save(bookmark);
     }
 
     public void deleteFlowermark(Long uId, Long sId) {
         Bookmark bookmark = flowermarksRepository.findByUIdAndSId(uId, sId)
-                .orElseThrow(() -> new RuntimeException("꽃갈피 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.BOOKMARK_NOT_FOUND));
         flowermarksRepository.deleteById(bookmark.getBId());
     }
 

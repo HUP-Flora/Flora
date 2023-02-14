@@ -16,6 +16,7 @@ import {
 	Primary400SmallButton,
 	WhiteSmallButton,
 	GraySmallButton,
+	ReviewWhiteSmallButton,
 } from "../../styles/button/ButtonStyle";
 import { Text, BoldText, GrayText, ShadowCard } from "../../styles/common/CommonStyle";
 import {
@@ -39,7 +40,7 @@ function OrderList({ size }) {
 	const [oId, setOId] = useState("");
 
 	// 주문 상세 류원창이 수정합니다.
-	const handleClickOrder = (oid) => {
+	const handleClickOrder = oid => {
 		navigate(`/mypage/order/${oid}`);
 	};
 
@@ -90,9 +91,9 @@ function OrderList({ size }) {
 												</WhiteSmallButton>
 											) : (
 												<Primary50SmallButton
-													onClick={(e) => {
+													onClick={e => {
 														e.stopPropagation();
-														handleClickReviewAdd(order?.oid, order?.sid)
+														handleClickReviewAdd(order?.oid, order?.sid);
 													}}
 												>
 													리뷰 작성

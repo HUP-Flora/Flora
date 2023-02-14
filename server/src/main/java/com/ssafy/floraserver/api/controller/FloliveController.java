@@ -9,11 +9,11 @@ import com.ssafy.floraserver.api.response.WaitRes;
 import com.ssafy.floraserver.api.service.FloliveService;
 import com.ssafy.floraserver.common.util.SecurityUtil;
 import com.ssafy.floraserver.db.entity.Order;
+import com.ssafy.floraserver.db.entity.enums.OrderStatus;
 import io.openvidu.java.client.OpenViduHttpException;
 import io.openvidu.java.client.OpenViduJavaClientException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,23 +38,31 @@ public class FloliveController {
     public ResponseEntity<?> applyFlolive(@PathVariable Long sId) {
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
         log.info("가게 번호 {}에 대한 고객 번호 {} 의 플로라이브 신청 시도", sId, authInfo.get("uId"));
-        String orderNum = floliveService.applyFlolive(sId, authInfo);
-        log.info("가게 번호 {}에 대한 고객 번호 {} 의 플로라이브 신청 완료 : {}", sId, authInfo.get("uId"), orderNum);
-        return new ResponseEntity<>(orderNum, HttpStatus.CREATED);
+        Long oId= floliveService.applyFlolive(sId, authInfo);
+        log.info("가게 번호 {}에 대한 고객 번호 {} 의 플로라이브 신청 완료 : {}", sId, authInfo.get("uId"), oId);
+        return new ResponseEntity<>(oId, HttpStatus.CREATED);
     }
 
     @PostMapping("/detail/{pId}") // 상품에서 바로 신청
     public ResponseEntity<?> applyFloliveProduct(@PathVariable Long pId) {
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        floliveService.applyFloliveProduct(pId, authInfo);
-        log.info("상품 번호 {} 에 대한 고객 번호 {} 플로라이브 신청", pId, authInfo.get("uId"));
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        log.info("상품 번호 {}에 대한 고객 번호 {} 의 플로라이브 신청 시도", pId, authInfo.get("uId"));
+        Long oId = floliveService.applyFloliveProduct(pId, authInfo);
+        log.info("상품 번호 {} 에 대한 고객 번호 {} 플로라이브 신청 완료 : {}", pId, authInfo.get("uId"), oId);
+        return new ResponseEntity<>(oId, HttpStatus.CREATED);
     }
 
-    @GetMapping("/res")
-    public ResponseEntity<?> checkStatus(@RequestParam String ordernum) {
-        String status = floliveService.checkStatus(ordernum);
-        return new ResponseEntity<>(status, HttpStatus.OK);
+    @GetMapping("/res/{oId}")
+    public ResponseEntity<?> checkStatus(@PathVariable Long oId) {
+        Map<String, String> authInfo = SecurityUtil.getCurrentUser();
+        Order order = floliveService.checkStatus(oId);
+        log.info("수락 여부 확인 : {}", order.getStatus());
+        if (order.getStatus() == OrderStatus.ACCEPT) {
+            ConferenceRes conferenceRes = new ConferenceRes(authInfo.get("role"), order.getConId().getSessionId(), order.getConId().getToken());
+            return new ResponseEntity<>(conferenceRes, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(order.getStatus(), HttpStatus.OK);
+        }
     }
 
     @GetMapping("/{oId}") // 수락, 토큰, 세션 ID 리턴
@@ -97,9 +104,9 @@ public class FloliveController {
     @DeleteMapping("cancle/{oId}")
     public ResponseEntity<?> deleteFlolice(@PathVariable Long oId) {
         Map<String, String> authInfo = SecurityUtil.getCurrentUser();
-        log.info("주문 번호 {}에 대핸 플로라이브 예약 취소 시도", oId);
+        log.info("주문 번호 {}에 대해 플로라이브 예약 취소 시도", oId);
         floliveService.deleteFlolive(oId, authInfo);
-        log.info("주문 번호 {}에 대핸 플로라이브 예약 취소 성공", oId);
+        log.info("주문 번호 {}에 대해 플로라이브 예약 취소 성공", oId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

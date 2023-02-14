@@ -57,11 +57,31 @@ export const EditFlexContainer = styled.div`
 
 export const MyPageHeaderContainer = styled.div`
 	display: flex;
+	justify-content: space-between;
+	// align-items: center;
+	margin: 56px 24px;
+
+	& img {
+		width: ${props => (props.type === "CUSTOMER" ? "16px" : "88px")};
+		height: ${props => (props.type === "CUSTOMER" ? "auto" : "88px")};
+
+		// margin-left: ${props => props.type === "CUSTOMER" && 16}px;
+		float: ${props => props.type === "CUSTOMER" && "right"};
+
+		border-radius: ${props => props.type === "STORE" && "50%"};
+	}
+`;
+
+export const MyPageStoreHeaderContainer = styled(MyPageHeaderContainer)`
+	align-items: center;
+
+	& img {
+		border-radius: 50%;
+	}
 `;
 
 export const MyPageInfoSection = styled.section`
 	width: 70%;
-	margin: 56px 24px;
 `;
 
 export const MyPageEditIconSection = styled.section`
@@ -71,10 +91,20 @@ export const MyPageEditIconSection = styled.section`
 `;
 
 export const MyPageEditIconFrame = styled.div`
+	float: right;
+`;
+
+export const MyPageEditButtonFrame = styled.div`
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 
 	display: flex;
+`;
+
+export const MyPageEditImg = styled.img`
+	cursor: pointer;
+	width: 24px !important;
+	height: 24px !important;
 `;
