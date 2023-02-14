@@ -24,7 +24,7 @@ function OrderDetail() {
 		getOrderDetail(oId);
 	}, [getOrderDetail, oId]);
 
-	const user = "사장";
+	// const user = "사장";
 
 	return (
 		<>
