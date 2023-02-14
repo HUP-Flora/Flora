@@ -388,21 +388,24 @@ class OpenViduVideo extends Component {
 					// Authorization: `Basic T1BFTlZJRFVBUFAgOiBNWV9TRUNSRVQ=`,
 					'Authorization': "Basic " + window.btoa("OPENVIDUAPP:" + process.env.REACT_APP_OPENVIDU_SERVER_SECRET),
 					// Authorization: "Basic " + encodedString,
-
+					
 					// Authorization: `Basic EncodeBase64(OPENVIDUAPP:MY_SECRET)`,
 					"Content-Type": "application/json",
 				},
 			}
-		);
-		return response.data; // The sessionId
-	}
-
-	async createToken(sessionId) {
-		const response = await axios.post(
-			APPLICATION_SERVER_URL + "api/sessions/" + sessionId + "/connections",
-			{},
-			{
-				headers: { "Content-Type": "application/json" },
+			);
+			return response.data; // The sessionId
+		}
+		
+		async createToken(sessionId) {
+			const response = await axios.post(
+				APPLICATION_SERVER_URL + "openvidu/api/sessions/" + sessionId + "/connection",
+				{},
+				{
+					headers: { 
+						'Authorization': "Basic " + window.btoa("OPENVIDUAPP:" + process.env.REACT_APP_OPENVIDU_SERVER_SECRET),
+						"Content-Type": "application/json"
+					 },
 			}
 		);
 		return response.data; // The token
