@@ -19,7 +19,6 @@ export function KakaoPayment({ oId }) {
 			method: "GET",
 			url: `/orders/${oId}`,
 		}).then(response => {
-			console.log(response);
 			const { pName } = response.data;
 			const params = {
 				cid: "TC0ONETIME",
@@ -34,6 +33,7 @@ export function KakaoPayment({ oId }) {
 				fail_url: process.env.REACT_APP_URL + `/mypage/order/${oId}`,
 				cancel_url: process.env.REACT_APP_URL + `/mypage/order/${oId}`,
 			};
+
 			api({
 				url: `/pay/${oId}`,
 				method: "POST",
