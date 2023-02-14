@@ -12,6 +12,7 @@ export const useStoreInfoApi = () => {
 			url: `/stores/${sId}`,
 		})
 			.then(response => {
+				console.log(response.data);
 				setStore(response.data);
 			})
 			.catch(error => console.log("가게 정보 에러", error));

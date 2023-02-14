@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { reservationsState } from "../../recoil/reservations";
 
 import { useReservationWaitingApi } from "../../hooks/useReservationWaitingApi";
@@ -19,6 +19,7 @@ import {
 
 import image from "../../assets/store.png";
 import { GraySmallButton, Primary400SmallButton } from "../../styles/button/ButtonStyle";
+import { userInfoTypeState } from "../../recoil/userInfo";
 
 function ReservationCard({ type }) {
 	const navigate = useNavigate();
@@ -28,30 +29,33 @@ function ReservationCard({ type }) {
 	const reservationEntranceApi = useReservationEntranceApi();
 	const reservationAcceptApi = useReservationAcceptApi();
 
+	const userType = useRecoilValue(userInfoTypeState);
 	const [reservations, setReservations] = useRecoilState(reservationsState);
 
 	// 더미 데이터
-	const userType = "owner";
+	// const userType = "owner";
 	// const userType = "customer";
 
-	const oId = "0000";
-	const conId = "0000";
+	// const oId = "0000";
+	// const conId = "0000";
 
-	const handleClickEntrance = () => {
-		reservationEntranceApi(userType, conId);
-	};
+	// const handleClickEntrance = () => {
+	// 	reservationEntranceApi(userType, conId);
+	// };
 
-	const handleClickCancel = () => {};
+	// const handleClickCancel = () => {};
 
-	const handleClickAccept = () => {
+	const handleClickAccept = oId => {
 		reservationAcceptApi(oId);
-		reservationWaitingApi(type, 0, 5);
-		reservationWaitingApi();
+		// 일단 무한스크롤 없이 전체 불러오게 했습니다(희제)
+		// reservationWaitingApi(type, 0, 5);
+		// reservationWaitingApi();
 	};
 
-	const handleClickRefuse = () => {
+	const handleClickRefuse = oId => {
 		reservationRefuseApi(oId);
-		reservationWaitingApi(type, 0, 5);
+		// 일단 무한스크롤 없이 전체 불러오게 했습니다(희제)
+		// reservationWaitingApi(type, 0, 5);
 	};
 
 	return (
@@ -71,7 +75,9 @@ function ReservationCard({ type }) {
 							{
 								type === "confirm" &&
 									(reservation?.check ? (
-										<Primary400SmallButton onClick={() => navigate("/flolive/waiting")}>
+										<Primary400SmallButton
+											onClick={() => navigate(`/flolive/${reservation.oid}/${reservation.conId}`)}
+										>
 											입장
 										</Primary400SmallButton>
 									) : (
@@ -84,22 +90,35 @@ function ReservationCard({ type }) {
 								// )
 							}
 						</Header>
-						{type !== "waiting" && userType === "owner" && (
+						{type !== "waiting" && userType === "STORE" && (
 							<GrayHrWrapper>
 								<GrayHr />
 							</GrayHrWrapper>
 						)}
 						<ContentContainer>
-							{type !== "waiting" && userType === "owner" && <img src={reservation?.pimg} alt="" />}
+							{/* {type !== "waiting" && userType === "STORE" && <img src={reservation?.pimg} alt="" />} */}
+							<img src={reservation?.pimg} alt="" />
 							<div>
 								<BoldText>{reservation?.sname}</BoldText>
 								<div>{reservation?.pname}</div>
 							</div>
 						</ContentContainer>
-						{type === "waiting" && userType === "owner" && (
+						{type === "waiting" && userType === "STORE" && (
 							<OwnerButtonsContainer>
-								<Primary400SmallButton onClick={handleClickAccept}>수락</Primary400SmallButton>
-								<GraySmallButton onClick={handleClickRefuse}>거절</GraySmallButton>
+								<Primary400SmallButton
+									onClick={() => {
+										handleClickAccept(reservation.oid);
+									}}
+								>
+									수락
+								</Primary400SmallButton>
+								<GraySmallButton
+									onClick={() => {
+										handleClickRefuse(reservation.oid);
+									}}
+								>
+									거절
+								</GraySmallButton>
 							</OwnerButtonsContainer>
 						)}
 					</ShadowCard>
