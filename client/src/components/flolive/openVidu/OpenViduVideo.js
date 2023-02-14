@@ -14,8 +14,8 @@ import {
 	VideoContainer,
 } from "../../../styles/flolive/OpenViduStyle";
 
-const APPLICATION_SERVER_URL =
-	process.env.NODE_ENV === "production" ? "" : "https://demos.openvidu.io/";
+const APPLICATION_SERVER_URL = "https://i8b203.p.ssafy.io:8445/";
+// process.env.NODE_ENV === "production" ? "" : "https://demos.openvidu.io/";
 
 class OpenViduVideo extends Component {
 	constructor(props) {
