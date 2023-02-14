@@ -22,7 +22,7 @@ import floMarkPinkSrc from "../../assets/floMarkPink.png";
 import liveTvSrc from "../../assets/live-tv-white.png";
 import { userInfoTypeState } from "../../recoil/userInfo";
 
-function StoreDetailButtons({ sId }) {
+function StoreDetailButtons({ sId, isMyStore }) {
 	const navigate = useNavigate();
 
 	const [store, setStore] = useRecoilState(storeState);
@@ -64,7 +64,7 @@ function StoreDetailButtons({ sId }) {
 	return (
 		<>
 			{/* 사장, 고객 조건부 렌더링 */}
-			{userInfoType === "STORE" ? (
+			{isMyStore ? (
 				<ButtonsContainer isCustomer={false}>
 					<>
 						<Primary400Button onClick={() => navigate(`/store/${sId}/edit`)}>

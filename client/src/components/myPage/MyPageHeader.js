@@ -34,6 +34,7 @@ import {
 	ValidText,
 	GrayText,
 	MyPageBottomBorderInput,
+	MyPageBottomBorderNameInput,
 } from "../../styles/common/CommonStyle";
 import { GreenCheckButton, Primary50CancelButton } from "../../styles/button/ButtonStyle";
 import { TextLimit } from "../../styles/product/productForm/ProductFormStyle";
@@ -114,7 +115,10 @@ function MyPageHeader(props) {
 								<>
 									<EditContainer>
 										<div>
-											<BottomBorderInput onChange={handleChangeName} value={user?.nickname} />
+											<MyPageBottomBorderNameInput
+												onChange={handleChangeName}
+												value={user?.nickname}
+											/>
 											<TextLimit>
 												<GrayText size="11">{user?.nickname?.length} / 25자</GrayText>
 											</TextLimit>

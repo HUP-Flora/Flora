@@ -20,9 +20,9 @@ import { BoldText, Text, GrayHr, OnOffToggle, OnOff } from "../../styles/common/
 
 import defaultImg from "../../assets/default-store.png";
 import { useParams } from "react-router-dom";
-import { userInfoTypeState } from "../../recoil/userInfo";
+import { ownersIdState, userInfoTypeState } from "../../recoil/userInfo";
 
-function StoreInfo(props) {
+function StoreInfo({ isMyStore }) {
 	const { sId } = useParams();
 	const store = useRecoilValue(storeState);
 	const userInfoType = useRecoilValue(userInfoTypeState);
@@ -51,7 +51,7 @@ function StoreInfo(props) {
 					{store?.name}
 				</BoldText>
 				{/* 조건부 렌더링: 사장님 -> 토글 */}
-				{userInfoType === "STORE" && (
+				{isMyStore && (
 					<OnOffToggle onClick={handleClickToggle} isOn={store.isOnair === "ON" ? true : false}>
 						<OnOff isOn={store.isOnair === "ON" ? true : false}>{store.isOnair}</OnOff>
 					</OnOffToggle>
