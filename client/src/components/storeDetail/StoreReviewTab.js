@@ -37,8 +37,8 @@ function StoreReview({ sId }) {
 			{reviews.length === 0 ? (
 				<StoreTabEmpty type="review" />
 			) : (
-				reviews.map(review => (
-					<>
+				reviews.map((review, index) => (
+					<div key={`${review.name}-${index}`}>
 						<ReviewContainer>
 							<LeftContainer>
 								<HeaderContainer>
@@ -59,7 +59,7 @@ function StoreReview({ sId }) {
 						<GrayHrWrapper>
 							<GrayHr />
 						</GrayHrWrapper>
-					</>
+					</div>
 				))
 			)}
 		</ReviewsContainer>

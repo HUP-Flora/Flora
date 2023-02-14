@@ -12,7 +12,6 @@ export const useIsFloMarkApi = () => {
 			url: `/flowermarks/${sId}`,
 		})
 			.then(response => {
-				console.log(response.data);
 				setIsFloMarkClicked(response.data);
 			})
 			.catch(error => {

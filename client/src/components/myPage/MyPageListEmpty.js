@@ -12,8 +12,6 @@ function MyPageListEmpty({ text }) {
 
 	useEffect(() => {
 		setIsList(location.pathname.includes("list"));
-
-		console.log(isList);
 	}, []);
 
 	return (

@@ -9,12 +9,12 @@ import api from "../../utils/api";
 import { useRecoilValue } from "recoil";
 import { orderStatesState } from "../../recoil/chatting";
 
-export function KakaoPayment() {
+export function KakaoPayment({ oId }) {
 	const [redirectUrl, setRedirectUrl] = useState("");
 
 	const orderStates = useRecoilValue(orderStatesState);
 
-	const handleKakaoPayment = oId => {
+	const handleKakaoPayment = () => {
 		api({
 			method: "GET",
 			url: `/orders/${oId}`,

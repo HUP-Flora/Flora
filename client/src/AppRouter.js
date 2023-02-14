@@ -54,10 +54,12 @@ import { KakaoPayment } from "./pages/kakaoPayment/KakaoPayment";
 import ReservationList from "./pages/reservation/ReservationList";
 import Hamster from "./pages/temp/hamster";
 import { StoreEdit } from "./pages/storeDetail/StoreEdit";
+import ScrollToTop from "./components/common/ScrollToTop";
 
 function AppRouter() {
 	return (
 		<Router>
+			<ScrollToTop />
 			<Routes>
 				{/* 메인페이지 */}
 				<Route path="/" exact={true} element={<Main />} />

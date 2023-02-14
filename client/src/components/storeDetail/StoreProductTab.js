@@ -40,7 +40,7 @@ function StoreProductTab({ sId }) {
 					<ProductContainer key={index} onClick={() => navigate(`product/${product.pid}`)}>
 						<ProductImageWrapper>
 							<img
-								src={product?.pimg.split("-")[10] === "null.png" ? defaultImg : product?.pimg}
+								src={product?.pimg?.split("-")[10] === "null.png" ? defaultImg : product?.pimg}
 								alt="product-img"
 							/>
 						</ProductImageWrapper>

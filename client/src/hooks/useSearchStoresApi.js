@@ -11,7 +11,6 @@ export const useSearchStoresApi = () => {
 			url: `/stores?address=${address}&day=${dayOfWeek}`,
 		})
 			.then(response => {
-				console.log(response.data);
 				setStoreList(response.data.content);
 			})
 			.catch(error => {

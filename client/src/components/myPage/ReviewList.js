@@ -30,8 +30,8 @@ function ReviewList({ size }) {
 			{reviews.length === 0 ? (
 				<MyPageListEmpty text="등록된 리뷰가" />
 			) : (
-				reviews.map(review => (
-					<ShadowCardWrapper>
+				reviews.map((review, index) => (
+					<ShadowCardWrapper key={`${review.name}-${index}`}>
 						<ShadowCard marginBottom="16" display="flex" isSpaceBetween={true}>
 							<div>
 								<HeaderContainer>
@@ -48,7 +48,7 @@ function ReviewList({ size }) {
 								<div>{review?.content}</div>
 							</div>
 							<div>
-								<img src={review?.rimg} />
+								<img src={review?.rimg} alt="" />
 							</div>
 						</ShadowCard>
 					</ShadowCardWrapper>

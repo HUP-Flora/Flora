@@ -4,6 +4,8 @@ import com.ssafy.floraserver.api.request.ReviewReq;
 import com.ssafy.floraserver.api.response.StoreReviewRes;
 import com.ssafy.floraserver.api.response.UserReviewRes;
 import com.ssafy.floraserver.api.vo.FileVO;
+import com.ssafy.floraserver.common.exception.CustomException;
+import com.ssafy.floraserver.common.exception.ErrorCode;
 import com.ssafy.floraserver.db.entity.*;
 import com.ssafy.floraserver.db.repository.OrderRepository;
 import com.ssafy.floraserver.db.repository.ReviewRepository;
@@ -62,13 +64,13 @@ public class ReviewService {
         Long uId = Long.parseLong(authInfo.get("uId"));
 
         User user = userRepository.findById(uId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
         Store store = storeRepository.findById((long) reviewReq.getStore())
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                        .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
 
         Order order = orderRepository.findById(reviewReq.getOrder())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
 
         FileVO fileVO = null;
         // 이미지 저장
@@ -95,7 +97,7 @@ public class ReviewService {
 
         // 삭제할 리뷰
         Review review = reviewRepository.findById(revId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.REVIEW_NOT_FOUND));
 
         review.deleteReview();
     }

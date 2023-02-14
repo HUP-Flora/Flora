@@ -7,11 +7,12 @@ import { Primary50Button, Primary400Button } from "../../styles/button/ButtonSty
 import { BottomRowDoubleButtonContainer } from "../../styles/common/CommonStyle";
 import useStoreDetail from "../../hooks/useStoreDetail";
 import { useRecoilValue } from "recoil";
-import { userInfoTypeState } from "../../recoil/userInfo";
+import { ownersIdState, userInfoTypeState } from "../../recoil/userInfo";
 
 function ProductDetailButtons({ pId, sId }) {
 	const [isModalShow, setIsModalShow] = useState(false);
 	const userType = useRecoilValue(userInfoTypeState);
+	const ownersId = useRecoilValue(ownersIdState);
 	const { enterFloliveAPI } = useStoreDetail();
 
 	const navigate = useNavigate();
@@ -23,7 +24,7 @@ function ProductDetailButtons({ pId, sId }) {
 
 	return (
 		<BottomRowDoubleButtonContainer>
-			{userType === "STORE" ? (
+			{ownersId === sId ? (
 				<>
 					{/* 사장 */}
 					<Primary400Button onClick={() => navigate(`/store/${sId}/product/${pId}/edit`)}>

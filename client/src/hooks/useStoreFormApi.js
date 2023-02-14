@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
 	phoneNumberState,
 	storeBrnState,
@@ -11,6 +11,7 @@ import {
 	storeSecondAddressState,
 	storeStartTimeState,
 } from "../recoil/signup";
+import { ownersIdState } from "../recoil/userInfo";
 import api from "../utils/api";
 import { useGetUserTypeApi } from "./useGetUserTypeApi";
 
@@ -25,6 +26,7 @@ export const useStoreFormApi = () => {
 	const setStoreBrn = useSetRecoilState(storeBrnState);
 	const setStoreImageFile = useSetRecoilState(storeImageFileState);
 	const getUserTypeApi = useGetUserTypeApi();
+	const ownersId = useRecoilValue(ownersIdState);
 
 	const navigate = useNavigate();
 
@@ -38,9 +40,11 @@ export const useStoreFormApi = () => {
 			data,
 		})
 			.then(res => {
-				localStorage.setItem("AccessToken", res.data);
+				if (nextURL !== -1) {
+					localStorage.setItem("AccessToken", res.data);
 
-				getUserTypeApi(res.data);
+					getUserTypeApi(res.data);
+				}
 				setStoreImageFile("");
 				setStoreBrn("");
 				setStoreName("");
@@ -50,8 +54,7 @@ export const useStoreFormApi = () => {
 				setStoreHoliday([false, false, false, false, false, false, false]);
 				setStoreStartTime({ value: 18, label: "09:00" });
 				setStoreEndTime({ value: 36, label: "18:00" });
-
-				navigate(nextURL);
+				navigate(`/store/${ownersId}`);
 			})
 			.catch(err => {
 				console.log(err);

@@ -16,7 +16,7 @@ function Flolive() {
 	// 이게 유저 name으로 사용할 유저 타입
 	const myType = userType();
 	// 이게 url에서 따온 세션 아이디
-	const { mySessionId } = useParams();
+	const mySessionId = useParams().conId;
 
 	registerServiceWorker();
 
@@ -26,7 +26,7 @@ function Flolive() {
 				<OpenVidu
 					userType={userType}
 					// myType과 mySessionId을 props로 넘겨줌
-					myType={myType}
+					myType={myType === '사장' ? 'owner' : 'customer'}
 					mySessionId={mySessionId}
 					isModalShow={isModalShow}
 					setIsModalShow={setIsModalShow}

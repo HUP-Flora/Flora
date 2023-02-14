@@ -127,7 +127,6 @@ export function StoreForm({ nextURL, type, sId }) {
 
 			const dayList = [false, false, false, false, false, false, false];
 			const days = ["월", "화", "수", "목", "금", "토", "일"];
-			console.log(store.holiday);
 			const holidayList = store.holiday.split(",");
 			const filteredHolidayList = dayList.map((day, index) => holidayList.includes(days[index]));
 
@@ -201,13 +200,10 @@ export function StoreForm({ nextURL, type, sId }) {
 				};
 			}
 
-			console.log(data);
-			console.log(storeImageFile);
-
 			const formData = new FormData();
 			formData.append("file", storeImageFile);
 			formData.append(
-				"storeExtraInfoReq",
+				type === "edit" ? "storeInfoReq" : "storeExtraInfoReq",
 				new Blob([JSON.stringify(data)], { type: "application/json" })
 			);
 			storeFormApi(formData, nextURL);
@@ -226,7 +222,6 @@ export function StoreForm({ nextURL, type, sId }) {
 	);
 
 	const storeAddressValidate = address => {
-		console.log(address);
 		if (!address.trim()) {
 			setStoreAddressErrorMessage("배송지를 설정해주세요.");
 			return false;
