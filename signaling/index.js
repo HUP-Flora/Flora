@@ -9,8 +9,7 @@ const { addUser, removeUser, getUser, getUsersInRoom } = require('./users')
 const PORT = process.env.PORT || 3001
 
 const app = express();
-const server = http.createServer(app)
-const io = socketio(server)
+
 
 // ssl 위한 준비
 
@@ -18,6 +17,29 @@ const https = require('https')
 const fs = require('fs')
 // .env 파일에 환경 변수를 불러올 수 있도록 합니다.
 require("dotenv").config();
+
+const KEY_URL = process.env.KEY_URL
+const options = {
+  key: fs.readFileSync(KEY_URL + '/privkey.pem'),
+  cert: fs.readFileSync(KEY_URL + '/cert.pem'),
+  ca: fs.readFileSync(KEY_URL + '/chain.pem')
+}
+
+// https 서버를 생성합니다.
+// key 파일 옵션과 라우팅 정보 등이 들어있는 app을 함께 넘깁니다.
+// https 포트 번호는 3001입니다.
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://i8b203.p.ssafy.io'],
+  transports: ['websocket', 'polling', "ws", "wss"],
+  credentials: true
+}));
+const server = https.createServer(options, app);
+server.listen(3001, () => {
+  console.log(`3001번 포트 도는 중`);
+});
+
+// const server = http.createServer(app)
+const io = socketio(server)
 
 app.use(router)
 io.on('connection', (socket) => {
@@ -74,25 +96,6 @@ io.on('connection', (socket) => {
   })
 })
 
-const KEY_URL = process.env.KEY_URL
-const options = {
-  key: fs.readFileSync(KEY_URL + '/privkey.pem'),
-  cert: fs.readFileSync(KEY_URL + '/cert.pem'),
-  ca: fs.readFileSync(KEY_URL + '/chain.pem')
-}
 
-// https 서버를 생성합니다.
-// key 파일 옵션과 라우팅 정보 등이 들어있는 app을 함께 넘깁니다.
-// https 포트 번호는 3001입니다.
-app.use(cors({
-  origin: ['http://localhost:3000', 'https://i8b203.p.ssafy.io'],
-  transports: ['websocket', 'polling', "ws", "wss"],
-  credentials: true
-}));
-https.createServer(options, app).listen(4000, () => {
-  console.log(`3001번 포트 도는 중`);
-});
-
-console.log(process.env.NODE_ENV)
 
 // server.listen(PORT,()=>console.log(`서버가 ${PORT} 에서 시작되었어요`))

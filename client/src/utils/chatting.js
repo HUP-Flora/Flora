@@ -4,16 +4,23 @@ const ENDPOINT = process.env.REACT_APP_SIGNALING_SERVER_URL;
 
 // let socket = io(ENDPOINT);
 
-let socket = io('https://i8b203.p.ssafy.io:4000', {
+// let socket = io("https://i8b203.p.ssafy.io:4000")
+
+let socket = io('https://i8b203.p.ssafy.io:3001', {
 	path: '/socket.io',
-	transports: ['websocket', "ws", "wss"],
+	transports: ['websocket'],
 });
+
+console.log(socket);
+
+// let socket = io("https://i8b203.p.ssafy.io:3001")
 
 export const socketInit = () => {
 
 };
 
 export const socketJoin = (name, room) => {
+	console.log("socketJoin");
 	socket.emit("join", { name, room }, error => {
 		if (error) {
 			alert(error);

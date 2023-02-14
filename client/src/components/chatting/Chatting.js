@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Input from "./input/Input";
 import Messages from "./messages/Messages";
 
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { isErrorModalShowState } from "../../recoil/chatting";
 import { listenMessage, socketInit, socketJoin } from "../../utils/chatting";
 import { ChatLayout } from "../../styles/chatting/ChattingStyle";
@@ -17,12 +17,15 @@ const Chat = ({myType, mySessionId}) => {
 	const [message, setMessage] = useState("");
 	const [messages, setMessages] = useState([]);
 
+	const [LmyType, setLmyType] = useRecoilState(LmyTypeState);
+	const [LmySessionId, setLmySessionId] = useRecoilState(LmySessionIdState);
+
 	socketInit();
 
 	useEffect(() => {
 		console.log("myType", myType);
 		console.log("mySessionId", mySessionId);
-		socketJoin(myType, mySessionId);
+		socketJoin(LmyType, LmySessionId);
 	}, [ENDPOINT, window.location.search]);
 
 	useEffect(() => {
