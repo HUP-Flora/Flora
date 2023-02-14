@@ -386,8 +386,8 @@ class OpenViduVideo extends Component {
 			{
 				headers: {
 					// Authorization: `Basic T1BFTlZJRFVBUFAgOiBNWV9TRUNSRVQ=`,
-					// Authorization: "Basic " + btoa("OPENVIDUAPP:" + OPENVIDU_SERVER_SECRET),
-					Authorization: "Basic " + encodedString,
+					Authorization: "Basic " + window.btoa("OPENVIDUAPP:" + process.env.REACT_APP_OPENVIDU_SERVER_SECRET),
+					// Authorization: "Basic " + encodedString,
 
 					// Authorization: `Basic EncodeBase64(OPENVIDUAPP:MY_SECRET)`,
 					"Content-Type": "application/json",
