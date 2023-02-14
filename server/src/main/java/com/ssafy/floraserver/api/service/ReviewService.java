@@ -6,7 +6,10 @@ import com.ssafy.floraserver.api.response.UserReviewRes;
 import com.ssafy.floraserver.api.vo.FileVO;
 import com.ssafy.floraserver.common.exception.CustomException;
 import com.ssafy.floraserver.common.exception.ErrorCode;
-import com.ssafy.floraserver.db.entity.*;
+import com.ssafy.floraserver.db.entity.Order;
+import com.ssafy.floraserver.db.entity.Review;
+import com.ssafy.floraserver.db.entity.Store;
+import com.ssafy.floraserver.db.entity.User;
 import com.ssafy.floraserver.db.repository.OrderRepository;
 import com.ssafy.floraserver.db.repository.ReviewRepository;
 import com.ssafy.floraserver.db.repository.StoreRepository;
@@ -15,14 +18,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @Slf4j

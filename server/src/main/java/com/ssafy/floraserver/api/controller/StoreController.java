@@ -1,14 +1,11 @@
 package com.ssafy.floraserver.api.controller;
 
-import com.ssafy.floraserver.api.request.StoreExtraInfoReq;
 import com.ssafy.floraserver.api.request.StoreInfoReq;
 import com.ssafy.floraserver.api.response.*;
 import com.ssafy.floraserver.api.service.StoreService;
-import com.ssafy.floraserver.api.vo.FileVO;
 import com.ssafy.floraserver.common.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

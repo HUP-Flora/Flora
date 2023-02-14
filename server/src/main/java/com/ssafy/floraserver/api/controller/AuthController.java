@@ -2,21 +2,17 @@ package com.ssafy.floraserver.api.controller;
 
 import com.ssafy.floraserver.api.request.StoreExtraInfoReq;
 import com.ssafy.floraserver.api.request.UserExtraInfoReq;
-import com.ssafy.floraserver.api.response.RoleRes;
 import com.ssafy.floraserver.api.service.AuthService;
 import com.ssafy.floraserver.common.util.SecurityUtil;
-import com.ssafy.floraserver.db.entity.Store;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
