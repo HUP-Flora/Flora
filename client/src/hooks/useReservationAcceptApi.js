@@ -10,7 +10,7 @@ export const useReservationAcceptApi = () => {
 			url: `flolive/${oId}`,
 		})
 			.then(response => {
-				// console.log(response);
+				console.log(response.data);
 				const sessionId = response.data.sessionId;
 				navigate(`/flolive/${oId}/${sessionId}`);
 			})
