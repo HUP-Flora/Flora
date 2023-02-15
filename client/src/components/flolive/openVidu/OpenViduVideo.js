@@ -36,7 +36,6 @@ class OpenViduVideo extends Component {
 		console.log("유저네임", this.state.myUserName);
 
 		this.joinSession = this.joinSession.bind(this);
-		this.leaveSession = this.leaveSession.bind(this);
 		this.switchCamera = this.switchCamera.bind(this);
 		this.handleChangeSessionId = this.handleChangeSessionId.bind(this);
 		this.handleChangeUserName = this.handleChangeUserName.bind(this);
@@ -56,7 +55,6 @@ class OpenViduVideo extends Component {
 	}
 
 	onbeforeunload(event) {
-		this.leaveSession();
 	}
 
 	handleChangeSessionId(e) {
@@ -201,7 +199,6 @@ class OpenViduVideo extends Component {
 		);
 	}
 
-	leaveSession() {
 		// --- 7) Leave the session by calling 'disconnect' method over the Session object ---
 
 		const mySession = this.state.session;
@@ -261,7 +258,6 @@ class OpenViduVideo extends Component {
 
 	handleClickExit() {
 		this.props.setIsModalShow(true);
-		this.leaveSession();
 	}
 
 	render() {
