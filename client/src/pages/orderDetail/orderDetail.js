@@ -23,7 +23,7 @@ function OrderDetail() {
 
 	useEffect(() => {
 		getOrderDetail(oId);
-	}, [getOrderDetail, oId]);
+	}, []);
 
 	// const user = "사장";
 
