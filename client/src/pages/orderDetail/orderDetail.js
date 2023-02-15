@@ -13,6 +13,7 @@ import { userTypeState } from "../../recoil/signup";
 import { userInfoTypeState } from "../../recoil/userInfo";
 import { KakaoPaymentButton } from "../../styles/button/ButtonStyle";
 import { KakaoPayment } from "../kakaoPayment/KakaoPayment";
+import { KakaoPaymentButtonSection } from "../../styles/common/CommonStyle";
 
 function OrderDetail() {
 	const [orderDetail, setOrderDetail] = useRecoilState(orderDetailState);
@@ -35,7 +36,9 @@ function OrderDetail() {
 				<OrderDetailContent />
 				{orderDetail?.status === 0 && userInfoType === "CUSTOMER" && (
 					// <RepaymentButton>{orderDetail.flowerPrice} 재결제하기</RepaymentButton>
-					<KakaoPayment oId={oId} />
+					<KakaoPaymentButtonSection>
+						<KakaoPayment oId={oId} isLargeButton={true} />
+					</KakaoPaymentButtonSection>
 				)}
 			</OrderDetailContainer>
 		</>

@@ -9,7 +9,8 @@ export const useReviewsApi = () => {
 	const reviewsApi = size => {
 		api({
 			method: "GET",
-			url: `/reviews/users?page=0&size=${size}`,
+			url: `/reviews/users`,
+			// url: `/reviews/users?page=0&size=${size}`,
 		})
 			.then(response => {
 				console.log(response.data.content);
