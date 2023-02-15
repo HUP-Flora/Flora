@@ -16,11 +16,14 @@ import {
 import { useOrderStates } from "../../../../../hooks/useOrderStates";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { orderStatesState } from "../../../../../recoil/chatting";
+import { KakaoPayment } from "../../../../../pages/kakaoPayment/KakaoPayment";
+import { useParams } from "react-router-dom";
 
 function ThirdPickUpForm({ time }) {
 	const textarea = useRef();
 	const setOrderStates = useSetRecoilState(orderStatesState);
 	const orderStates = useRecoilValue(orderStatesState);
+	const { oId } = useParams();
 
 	const { type, sendUser, sendUserPhone, giftCard, paymentAmount } = useOrderStates();
 
@@ -67,9 +70,10 @@ function ThirdPickUpForm({ time }) {
 						<FormFooterMessage>결제 금액</FormFooterMessage>
 						<FormFooterMessage>{OpaymentAmount}원</FormFooterMessage>
 					</FormFooterMessageContainer>
-					<SubmitPaymentButton onClick={e => console.log(orderStates)}>
+					<KakaoPayment oId={oId} />
+					{/* <SubmitPaymentButton onClick={e => console.log(orderStates)}>
 						결제하기
-					</SubmitPaymentButton>
+					</SubmitPaymentButton> */}
 				</FormFooter>
 			</FormWrapper>
 			<FormTime>{time}</FormTime>
