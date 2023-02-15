@@ -72,7 +72,7 @@ public class AuthService {
 
         user = user.builder()
                 .uId(uId)
-                .role(Role.CUSTOMER)
+                .role(Role.ROLE_CUSTOMER)
                 .nickname(userExtraInfoReq.getNickname())
                 .phoneNumber(userExtraInfoReq.getPhoneNumber())
                 .refreshToken(user.getRefreshToken())
@@ -102,7 +102,7 @@ public class AuthService {
         userRepository.save(user.builder()
                         .uId(uId)
                         .email(email)
-                        .role(Role.STORE)
+                        .role(Role.ROLE_STORE)
                         .refreshToken(user.getRefreshToken())
                         .build());
 
@@ -181,6 +181,7 @@ public class AuthService {
         user.deleteUser();
 
         // 꽃갈피 삭제
-        flowermarksService.deleteFlowermarks(uId);
+        if(user.getRole().getKey().contains("CUSTOMER"))
+            flowermarksService.deleteFlowermarks(uId);
     }
 }
