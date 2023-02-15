@@ -71,7 +71,7 @@ function ThirdPickUpForm({ time }) {
 						<FormFooterMessage>결제 금액</FormFooterMessage>
 						<FormFooterMessage>{OpaymentAmount}원</FormFooterMessage>
 					</FormFooterMessageContainer>
-					<KakaoPaymentButtonSection>
+					<KakaoPaymentButtonSection isPayment={true}>
 						<KakaoPayment oId={oId} />
 					</KakaoPaymentButtonSection>
 					{/* <SubmitPaymentButton onClick={e => console.log(orderStates)}>

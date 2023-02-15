@@ -52,7 +52,7 @@ function ReservationCard({ type }) {
 					예약된 플로라이브가 없어요.
 				</EmptyContainer>
 			) : (
-				reservations.map((reservation, index) => (
+				reservations.reverse().map((reservation, index) => (
 					<ShadowCard key={index} marginBottom="16">
 						<Header>
 							<div>

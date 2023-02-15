@@ -455,4 +455,5 @@ export const BodyFrame = styled.div`
 
 export const KakaoPaymentButtonSection = styled.div`
 	text-align: center;
+	margin-top: ${props => (props.isPayment ? "16" : "0")}px;
 `;
