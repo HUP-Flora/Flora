@@ -52,3 +52,8 @@ export const MainImgWrapper = styled.div`
 		height: 100%;
 	}
 `;
+
+export const KakaoATag = styled.a`
+	color: black;
+	text-decoration: none;
+`;
