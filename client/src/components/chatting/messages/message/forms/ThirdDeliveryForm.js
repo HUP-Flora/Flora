@@ -19,6 +19,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { orderStatesState } from "../../../../../recoil/chatting";
 import { KakaoPayment } from "../../../../../pages/kakaoPayment/KakaoPayment";
 import { useParams } from "react-router-dom";
+import { KakaoPaymentButtonSection } from "../../../../../styles/common/CommonStyle";
 
 function ThirdDeliveryForm({ time }) {
 	const { oId } = useParams();
@@ -116,7 +117,9 @@ function ThirdDeliveryForm({ time }) {
 						<FormFooterMessage>결제 금액</FormFooterMessage>
 						<FormFooterMessage>{OpaymentAmount}원</FormFooterMessage>
 					</FormFooterMessageContainer>
-					<KakaoPayment oId={oId} />
+					<KakaoPaymentButtonSection isPayment={true}>
+						<KakaoPayment oId={oId} />
+					</KakaoPaymentButtonSection>
 					{/* <SubmitPaymentButton onClick={e => console.log(orderStates)}>
 						결제하기
 					</SubmitPaymentButton> */}

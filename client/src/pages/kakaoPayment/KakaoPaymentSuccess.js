@@ -15,25 +15,31 @@ import { PaymentSuccessButtonSection } from "../../styles/common/SectionStyle";
 export function KakaoPaymentSuccess() {
 	const { oId } = useParams();
 	const loadOrderDataApi = useLoadOrderDataApi();
-	const { sName, addressName, payment, phoneNumber, recType, recDeliveryDestination } =
+	const { sname, addressName, payment, phoneNumber, recType, recDeliveryDestination } =
 		useRecoilValue(OrderSuccessDataState);
 
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		loadOrderDataApi(oId);
-	}, [loadOrderDataApi, oId]);
+	}, []);
+
 	return (
 		<Gray50Padding16Container>
 			<MessageCard />
 			<BlankSection height="16" />
-			<InfoCard type="가게 정보" content1={sName} content2={addressName} content3={phoneNumber} />
+			<InfoCard
+				type="가게 정보"
+				content1={sname}
+				content2={addressName ? addressName.replace("/", " ") : "-"}
+				content3={phoneNumber}
+			/>
 			<BlankSection height="16" />
 			<InfoCard
 				type="주문 정보"
 				content1={recType}
-				content2={recDeliveryDestination}
-				content3={payment}
+				content2={recDeliveryDestination.replace("/", " ")}
+				content3={payment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
 			/>
 			<BlankSection height="16" />
 			<PaymentSuccessButtonSection>

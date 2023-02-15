@@ -25,8 +25,12 @@ import {
 	TextInput,
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import useInputValidate from "../../../../../hooks/useInputValidate";
+import useChattingAPI from "../../../../../hooks/useChattingAPI";
+import { useParams } from "react-router-dom";
 
 function SecondPickUpForm({ time }) {
+	const { oId } = useParams();
+
 	const setOrderType = useSetRecoilState(orderTypeState);
 	const [sendUser, setSendUser] = useRecoilState(sendUserState);
 	const [sendUserPhone, setSendUserPhone] = useRecoilState(sendUserPhoneState);
@@ -34,6 +38,7 @@ function SecondPickUpForm({ time }) {
 	const [paymentAmount, setPaymentAmount] = useRecoilState(paymentAmountState);
 	const setIsErrorModalShow = useSetRecoilState(isErrorModalShowState);
 	const setIsSubmit = useSetRecoilState(isSubmitState);
+	const chattingAPI = useChattingAPI();
 
 	useEffect(() => {
 		setOrderType("PICKUP");
@@ -76,6 +81,19 @@ function SecondPickUpForm({ time }) {
 				return;
 			}
 		}
+
+		const data = {
+			type: "PICKUP",
+			orderer: sendUser,
+			ordererPhoneNumber: sendUserPhone,
+			recipient: "",
+			receipientPhoneNumber: "",
+			deliveryDestination: "",
+			giftMessage: giftCard,
+			payment: paymentAmount,
+		};
+
+		chattingAPI(data, oId);
 		setIsSubmit(true);
 		sendThirdPickUpFormMessage(e);
 	};

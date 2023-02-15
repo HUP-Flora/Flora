@@ -115,4 +115,6 @@ public class Order extends BaseEntity{
     }
 
     public void updateConference(Conference conference) { this.conId = conference; }
+
+    public void updateReceipt(Receipt receipt) { this.recId = receipt; }
 }
