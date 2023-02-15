@@ -14,7 +14,7 @@ import {
 	VideoContainer,
 } from "../../../styles/flolive/OpenViduStyle";
 
-const APPLICATION_SERVER_URL = "https://i8b203.p.ssafy.io:8445/";
+const APPLICATION_SERVER_URL = "https://i8b203.p.ssafy.io:8445";
 // process.env.NODE_ENV === "production" ? "" : "https://demos.openvidu.io/";
 
 class OpenViduVideo extends Component {
@@ -34,7 +34,6 @@ class OpenViduVideo extends Component {
 
 		console.log("세션아이디", this.state.mySessionId);
 		console.log("유저네임", this.state.myUserName);
-
 		this.joinSession = this.joinSession.bind(this);
 		this.leaveSession = this.leaveSession.bind(this);
 		this.switchCamera = this.switchCamera.bind(this);
@@ -261,7 +260,6 @@ class OpenViduVideo extends Component {
 
 	handleClickExit() {
 		this.props.setIsModalShow(true);
-		this.leaveSession();
 	}
 
 	render() {
@@ -276,13 +274,13 @@ class OpenViduVideo extends Component {
 						<SessionHeader>
 							<div>
 								<LeaveSessionButton onClick={this.handleClickExit}>종료</LeaveSessionButton>
-								{/* <input
+								<input
 									className="btn btn-large btn-success"
 									type="button"
 									id="buttonSwitchCamera"
 									onClick={this.switchCamera}
 									value="Switch Camera"
-								/> */}
+								/>
 							</div>
 
 							{this.state.publisher !== undefined ? (
@@ -377,25 +375,88 @@ class OpenViduVideo extends Component {
 	}
 
 	async createSession(sessionId) {
-		const response = await axios.post(
-			APPLICATION_SERVER_URL + "openvidu/api/sessions",
-			{ customSessionId: sessionId },
-			{
-				headers: { "Content-Type": "application/json" },
-			}
-		);
-		return response.data; // The sessionId
+		// const response = await axios
+		// 	.post(
+		// 		APPLICATION_SERVER_URL + "openvidu/api/sessions",
+		// 		{ customSessionId: sessionId },
+		// 		{
+		// 			headers: {
+		// 				// Authorization: `Basic T1BFTlZJRFVBUFAgOiBNWV9TRUNSRVQ=`,
+		// 				Authorization:
+		// 					"Basic " + window.btoa("OPENVIDUAPP:" + process.env.REACT_APP_OPENVIDU_SERVER_SECRET),
+		// 				// Authorization: "Basic " + encodedString,
+
+		// 				// Authorization: `Basic EncodeBase64(OPENVIDUAPP:MY_SECRET)`,
+		// 				"Content-Type": "application/json",
+		// 			},
+		// 		}
+		// 	)
+		// 	.then(response => {
+		// 		console.log("세션 생성", response.data);
+		// 		console.log("세션 아이디", response.data.sessionId);
+		// 	})
+		// 	.catch(error => {
+		// 		console.log("세션 생성 에러", error);
+		// 	});
+
+		// console.log(response);
+
+		// return response?.data?.sessionId; // The sessionId
+
+		return new Promise((resolve, reject) => {
+			let data = JSON.stringify({ customSessionId: sessionId });
+			axios
+				.post(`${APPLICATION_SERVER_URL}/openvidu/api/sessions`, data, {
+					headers: {
+						Authorization: `Basic ${window.btoa(
+							`OPENVIDUAPP:${process.env.REACT_APP_OPENVIDU_SERVER_SECRET}`
+						)}`,
+						"Content-Type": "application/json",
+					},
+				})
+				.then(response => {
+					resolve(response.data.id);
+				})
+				.catch(response => {
+					let error = { ...response };
+					if (error?.response?.status === 409) {
+						resolve(sessionId);
+					}
+				});
+		});
 	}
 
 	async createToken(sessionId) {
-		const response = await axios.post(
-			APPLICATION_SERVER_URL + "api/sessions/" + sessionId + "/connections",
-			{},
-			{
-				headers: { "Content-Type": "application/json" },
-			}
-		);
-		return response.data; // The token
+		// console.log("토큰 생성", sessionId);
+		// const response = await axios.post(
+		// 	APPLICATION_SERVER_URL + "openvidu/api/sessions/" + sessionId + "/connection",
+		// 	{},
+		// 	{
+		// 		headers: {
+		// 			Authorization:
+		// 				"Basic " + window.btoa("OPENVIDUAPP:" + process.env.REACT_APP_OPENVIDU_SERVER_SECRET),
+		// 			"Content-Type": "application/json",
+		// 		},
+		// 	}
+		// );
+		// return response.data; // The token
+
+		return new Promise((resolve, reject) => {
+			let data = {};
+			axios
+				.post(`${APPLICATION_SERVER_URL}/openvidu/api/sessions/${sessionId}/connection`, data, {
+					headers: {
+						Authorization: `Basic ${window.btoa(
+							`OPENVIDUAPP:${process.env.REACT_APP_OPENVIDU_SERVER_SECRET}`
+						)}`,
+						"Content-Type": "application/json",
+					},
+				})
+				.then(response => {
+					resolve(response.data.token);
+				})
+				.catch(error => reject(error));
+		});
 	}
 }
 

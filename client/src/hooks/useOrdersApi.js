@@ -23,7 +23,6 @@ export const useOrdersApi = () => {
 			url: url,
 		})
 			.then(response => {
-				console.log(response.data.content);
 				setOrders(response.data.content);
 			})
 			.catch(error => {
@@ -31,19 +30,21 @@ export const useOrdersApi = () => {
 			});
 	};
 
-	const getOrderDetail = useCallback(oId => {
-		api({
-			method: "GET",
-			url: `/orders/${oId}`,
-		})
-			.then(res => {
-				console.log(res.data);
-				setOrderDetail(res.data);
+	const getOrderDetail = useCallback(
+		oId => {
+			api({
+				method: "GET",
+				url: `/orders/${oId}`,
 			})
-			.catch(err => {
-				console.log(err);
-			});
-	}, [setOrderDetail]);
+				.then(res => {
+					setOrderDetail(res.data);
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		},
+		[setOrderDetail]
+	);
 
 	return { ordersApi, getOrderDetail };
 };

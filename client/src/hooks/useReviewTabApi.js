@@ -11,7 +11,7 @@ export const useReviewTabApi = () => {
 			url: `/reviews/stores/${sId}`,
 		})
 			.then(response => {
-				setReviews(response.data.content);
+				setReviews(response.data.content.reverse());
 			})
 			.catch(error => console.log("리뷰 정보 에러", error));
 	};

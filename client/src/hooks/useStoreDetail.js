@@ -30,9 +30,9 @@ function useStoreDetail() {
 			});
 	};
 
-	const checkLiveStatusAPI = LorderNumber => {
+	const checkLiveStatusAPI = (LorderNumber, LliveStatus) => {
 		api({
-			url: `/flolive/res?ordernum=${LorderNumber}`,
+			url: `/flolive/res/${LorderNumber}`,
 			method: "GET",
 		})
 			.then(res => {
