@@ -34,6 +34,7 @@ import {
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import PostcodeModal from "../../../../common/PostcodeModal";
 import useChattingAPI from "../../../../../hooks/useChattingAPI";
+import { useParams } from "react-router-dom";
 
 function SecondDeliveryForm({ time }) {
 	const [orderType, setOrderType] = useRecoilState(orderTypeState);
@@ -48,6 +49,7 @@ function SecondDeliveryForm({ time }) {
 	const [giftCard, setGiftCard] = useRecoilState(giftCardState);
 	const [paymentAmount, setPaymentAmount] = useRecoilState(paymentAmountState);
 
+	const { oId } = useParams();
 	const setIsErrorModalShow = useSetRecoilState(isErrorModalShowState);
 	const [isDaumPostShow, setIsDaumPostShow] = useRecoilState(isDaumPostShowState);
 	const [isReceiveUserFistAddressHasError, setIsReceiveUserFistAddressHasError] = useState(false);
@@ -154,7 +156,7 @@ function SecondDeliveryForm({ time }) {
 
 		// console.log(orederFormData);
 
-		sendFormDataAPI(orederFormData);
+		sendFormDataAPI(orederFormData, oId);
 
 		sendThirdDeliveryFormMessage(e);
 	};

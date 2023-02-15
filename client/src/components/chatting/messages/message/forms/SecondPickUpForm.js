@@ -26,6 +26,7 @@ import {
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import useInputValidate from "../../../../../hooks/useInputValidate";
 import useChattingAPI from "../../../../../hooks/useChattingAPI";
+import { useParams } from "react-router-dom";
 
 function SecondPickUpForm({ time }) {
 	const [orderType, setOrderType] = useRecoilState(orderTypeState);
@@ -35,6 +36,7 @@ function SecondPickUpForm({ time }) {
 	const [paymentAmount, setPaymentAmount] = useRecoilState(paymentAmountState);
 	const setIsErrorModalShow = useSetRecoilState(isErrorModalShowState);
 	const setIsSubmit = useSetRecoilState(isSubmitState);
+	const { oId } = useParams();
 
 	useEffect(() => {
 		setOrderType("PICKUP");
@@ -63,7 +65,6 @@ function SecondPickUpForm({ time }) {
 		toggleHasError: VpaymentAmountToggleHasError,
 	} = useInputValidate(isNotEmpty);
 
-
 	const { sendFormDataAPI } = useChattingAPI();
 	const ThirdPickUpFormHandler = e => {
 		const formData = [
@@ -90,10 +91,10 @@ function SecondPickUpForm({ time }) {
 			deliveryDestination: null,
 			giftMessage: giftCard ? giftCard : null,
 			payment: paymentAmount,
-		}
+		};
 
 		// console.log(orederFormData);
-		sendFormDataAPI(orederFormData);
+		sendFormDataAPI(orederFormData, oId);
 
 		sendThirdPickUpFormMessage(e);
 	};
