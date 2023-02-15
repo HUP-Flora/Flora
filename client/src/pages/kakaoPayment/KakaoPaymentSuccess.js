@@ -22,12 +22,18 @@ export function KakaoPaymentSuccess() {
 
 	useEffect(() => {
 		loadOrderDataApi(oId);
-	}, [loadOrderDataApi, oId]);
+	}, []);
+
 	return (
 		<Gray50Padding16Container>
 			<MessageCard />
 			<BlankSection height="16" />
-			<InfoCard type="가게 정보" content1={sName} content2={addressName} content3={phoneNumber} />
+			<InfoCard
+				type="가게 정보"
+				content1={sName}
+				content2={addressName ? addressName : "-"}
+				content3={phoneNumber}
+			/>
 			<BlankSection height="16" />
 			<InfoCard
 				type="주문 정보"
