@@ -24,32 +24,29 @@ function ReviewList({ size }) {
 			{reviews.length === 0 ? (
 				<MyPageListEmpty text="등록된 리뷰가" />
 			) : (
-				reviews
-					.reverse()
-					.slice(0, size)
-					.map((review, index) => (
-						<ShadowCardWrapper key={`${review.name}-${index}`}>
-							<ShadowCard marginBottom="16" display="flex" isSpaceBetween={true}>
-								<div>
-									<HeaderContainer>
-										<BoldText>{review?.name}</BoldText>
-										<div>
-											<GrayText size="13" weight="bold">
-												{review?.createDate}
-											</GrayText>
-											<GrayText size="13" weight="bold">
-												{review?.time}
-											</GrayText>
-										</div>
-									</HeaderContainer>
-									<div>{review?.content}</div>
-								</div>
-								<div>
-									<img src={review?.rimg} alt="" />
-								</div>
-							</ShadowCard>
-						</ShadowCardWrapper>
-					))
+				reviews.slice(0, size).map((review, index) => (
+					<ShadowCardWrapper key={`${review.name}-${index}`}>
+						<ShadowCard marginBottom="16" display="flex" isSpaceBetween={true}>
+							<div>
+								<HeaderContainer>
+									<BoldText>{review?.name}</BoldText>
+									<div>
+										<GrayText size="13" weight="bold">
+											{review?.createDate}
+										</GrayText>
+										<GrayText size="13" weight="bold">
+											{review?.time}
+										</GrayText>
+									</div>
+								</HeaderContainer>
+								<div>{review?.content}</div>
+							</div>
+							<div>
+								<img src={review?.rimg} alt="" />
+							</div>
+						</ShadowCard>
+					</ShadowCardWrapper>
+				))
 			)}
 		</div>
 	);
