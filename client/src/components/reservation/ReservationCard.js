@@ -32,19 +32,6 @@ function ReservationCard({ type }) {
 	const userType = useRecoilValue(userInfoTypeState);
 	const [reservations, setReservations] = useRecoilState(reservationsState);
 
-	// 더미 데이터
-	// const userType = "owner";
-	// const userType = "customer";
-
-	// const oId = "0000";
-	// const conId = "0000";
-
-	// const handleClickEntrance = () => {
-	// 	reservationEntranceApi(userType, conId);
-	// };
-
-	// const handleClickCancel = () => {};
-
 	const handleClickAccept = oId => {
 		reservationAcceptApi(oId);
 		// 일단 무한스크롤 없이 전체 불러오게 했습니다(희제)
@@ -97,7 +84,7 @@ function ReservationCard({ type }) {
 						)}
 						<ContentContainer>
 							{/* {type !== "waiting" && userType === "STORE" && <img src={reservation?.pimg} alt="" />} */}
-							<img src={reservation?.pimg} alt="" />
+							{type === "confirm" && <img src={reservation?.pimg} alt="" />}
 							<div>
 								<BoldText>{reservation?.sname}</BoldText>
 								<div>{reservation?.pname}</div>
