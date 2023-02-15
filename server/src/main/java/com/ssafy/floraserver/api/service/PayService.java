@@ -66,9 +66,9 @@ public class PayService {
                     "&quantity=1" +
                     "&total_amount=" + order.getPayment() +
                     "&tax_free_amount=0" +
-                    "&approval_url=" + react_url + "/flolive/kakao-payment/success" +
-                    "&cancel_url=" + react_url + "/mypage/order/${oId}" +
-                    "&fail_url=" + react_url + "/mypage/order/${oId}";
+                    "&approval_url=" + react_url + "/flolive/"+ oId +"/kakao-payment/success" +
+                    "&cancel_url=" + react_url + "/mypage/order/" + oId +
+                    "&fail_url=" + react_url + "/mypage/order/" + oId;
 
             log.info("PARAM : {}", param);
 
@@ -167,6 +167,9 @@ public class PayService {
     public PaySuccessRes paySuccess(Long oId) {
         Order order = orderRepository.findByOId(oId)
                 .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
+
+        // 결제 완료 여부 변경 : DONE(ENUM)
+        order.updatePaymentStatus(PaymentStatus.DONE);
 
         PaySuccessRes paySucessRes = new PaySuccessRes(order);
         return paySucessRes;

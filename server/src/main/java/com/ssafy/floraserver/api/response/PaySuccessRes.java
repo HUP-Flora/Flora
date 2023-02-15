@@ -16,7 +16,7 @@ public class PaySuccessRes {
     private String addressName;
     private int payment;
     private String phoneNumber;
-    private ReceiptType recType;
+    private String recType;
     private String recDeliveryDestination;
 
     public PaySuccessRes(Order order) {
@@ -24,7 +24,7 @@ public class PaySuccessRes {
         this.phoneNumber = order.getSId().getPhoneNumber();
         this.addressName = order.getSId().getAddress_name();
         this.payment = order.getPayment();
-        this.recType = order.getRecId().getType();
+        this.recType = order.getRecId().getType() == ReceiptType.DEILIVERY ? "배달":"픽업";
         this.recDeliveryDestination = order.getRecId().getDeliveryDestination();
     }
 }
