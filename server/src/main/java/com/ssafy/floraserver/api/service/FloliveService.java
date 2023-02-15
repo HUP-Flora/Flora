@@ -208,6 +208,7 @@ public class FloliveService {
         );
 
         order.updatePayment(receiptReq.getPayment());
+        order.updateReceipt(receipt);
     }
 
     public String storeCalendar(Long sId) {
