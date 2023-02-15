@@ -23,10 +23,11 @@ export const useMypageInfoApi = () => {
 			url: url,
 		})
 			.then(res => {
-				console.log(res.data);
 				setUser(res.data);
-				setMyPageNicknameState(res.data.user.nickname);
-				setMyPagePhoneNumberState(res.data.user.phoneNumber);
+				if (type === "CUSTOMER") {
+					setMyPageNicknameState(res.data.user.nickname);
+					setMyPagePhoneNumberState(res.data.user.phoneNumber);
+				}
 			})
 			.catch(error => {
 				console.log("유저 기본 정보 에러", error);

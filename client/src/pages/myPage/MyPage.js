@@ -13,7 +13,7 @@ import { useReviewsApi } from "../../hooks/useReviewsApi";
 
 function MyPage(props) {
 	const userInfoType = useRecoilValue(userInfoTypeState);
-	const ordersApi = useOrdersApi();
+	const { ordersApi } = useOrdersApi();
 	const reviewsApi = useReviewsApi();
 
 	useEffect(() => {

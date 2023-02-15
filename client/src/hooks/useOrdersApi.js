@@ -10,7 +10,7 @@ export const useOrdersApi = () => {
 	const [orders, setOrders] = useRecoilState(ordersState);
 	const [orderDetail, setOrderDetail] = useRecoilState(orderDetailState);
 
-	const ordersApi = (type, size) => {
+	const ordersApi = type => {
 		let url = "";
 
 		if (type === "CUSTOMER") {
