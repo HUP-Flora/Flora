@@ -67,6 +67,8 @@ export const SessionHeader = styled.div`
 `;
 
 export const LeaveSessionButton = styled.button`
+	height: fit-content;
+
 	padding: 5px 13px;
 
 	background-color: #f03e3e;
@@ -78,4 +80,32 @@ export const LeaveSessionButton = styled.button`
 	border-radius: 13px;
 
 	filter: drop-shadow(0px 0px 5px rgba(240, 62, 62, 0.5));
+`;
+
+export const SwitchCameraWrapper = styled.div`
+	width: fit-content;
+	height: fit-content;
+
+	display: flex;
+
+	background: rgba(0, 0, 0, 0.3);
+	backdrop-filter: blur(3px);
+
+	border-radius: 50%;
+
+	> img {
+		width: 20px;
+		height: 20px;
+
+		margin: 8px;
+	}
+`;
+
+export const ButtonsContainer = styled.div`
+	width: 80%;
+
+	display: flex;
+	justify-content: space-between;
+
+	padding-right: 16px;
 `;
