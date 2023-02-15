@@ -452,3 +452,7 @@ export const PaddingX16 = styled.div`
 export const BodyFrame = styled.div`
 	height: calc(100% - 40px);
 `;
+
+export const KakaoPaymentButtonSection = styled.div`
+	text-align: center;
+`;
