@@ -39,6 +39,7 @@ export const useOrdersApi = () => {
 				url: `/orders/${oId}`,
 			})
 				.then(res => {
+					console.log(res.data);
 					setOrderDetail(res.data);
 				})
 				.catch(err => {
