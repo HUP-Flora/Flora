@@ -10,7 +10,7 @@ import { orderDetailState } from "../../recoil/orderDetail";
 import StatusChange from "./StatusChange";
 import { decideOrderStatus, decideProgressInfo } from "../../utils/orderDetail";
 
-function ProgressBar() {
+function ProgressBar({oId}) {
 	const { receiptType, status } = useRecoilValue(orderDetailState);
 	const [barWidth, setBarWidth] = useState("12%");
 	const [first, setFirst] = useState(false);
@@ -34,7 +34,7 @@ function ProgressBar() {
 
 	return (
 		<>
-			<StatusChange />
+			<StatusChange oId={oId} />
 			<OrderStatusContainer>
 				<OrderStatusText isNow={first}>결제 전</OrderStatusText>
 				<OrderStatusText isNow={second}>결제 완료</OrderStatusText>

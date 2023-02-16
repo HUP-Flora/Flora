@@ -148,6 +148,10 @@ export const SearchAddressInput = styled(MarginBottom8TextInput)`
 	}
 `;
 
+export const FormSearchAddressInput = styled(SearchAddressInput)`
+	width: 208px;
+`;
+
 export const SearchAddressContainerButton = styled.button`
 	background: none;
 	border: none;

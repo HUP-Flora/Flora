@@ -34,6 +34,8 @@ public class PayService {
     private String client_id;
     @Value("${kakao-pay.domain}")
     private String domain;
+    @Value("${kakao-pay.react-url}")
+    private String react_url;
 
     public Map<String, Object> payReady(Long oId) {
 
@@ -64,9 +66,14 @@ public class PayService {
                     "&quantity=1" +
                     "&total_amount=" + order.getPayment() +
                     "&tax_free_amount=0" +
-                    "&approval_url=" + domain + "approval" +
-                    "&cancel_url=" + domain + "cancel" +
-                    "&fail_url=" + domain + "fail";
+                    "&approval_url=" + react_url + "/flolive/"+ oId +"/kakao-payment/success" +
+                    "&cancel_url=" + react_url + "/mypage/order/" + oId +
+                    "&fail_url=" + react_url + "/mypage/order/" + oId;
+
+            log.info("PARAM : {}", param);
+
+            String kurl = "https://kapi.kakao.com/v1/payment/ready?"+param;
+            log.info("url : {}", kurl);
 
             OutputStream output = conn.getOutputStream();
             DataOutputStream dataOutput = new DataOutputStream(output);
@@ -75,12 +82,15 @@ public class PayService {
 
             int res = conn.getResponseCode();
             InputStream input;
+            log.info("res : {}", res);
 
             if (res == 200) {
                 input = conn.getInputStream();
             } else {
                 input = conn.getErrorStream();
             }
+
+            log.info("POST REST API");
 
             InputStreamReader inputStreamReader = new InputStreamReader(input);
             BufferedReader br = new BufferedReader(inputStreamReader);
@@ -157,6 +167,9 @@ public class PayService {
     public PaySuccessRes paySuccess(Long oId) {
         Order order = orderRepository.findByOId(oId)
                 .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
+
+        // 결제 완료 여부 변경 : DONE(ENUM)
+        order.updatePaymentStatus(PaymentStatus.DONE);
 
         PaySuccessRes paySucessRes = new PaySuccessRes(order);
         return paySucessRes;

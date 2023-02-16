@@ -10,13 +10,15 @@ export const useOrdersApi = () => {
 	const [orders, setOrders] = useRecoilState(ordersState);
 	const [orderDetail, setOrderDetail] = useRecoilState(orderDetailState);
 
-	const ordersApi = (type, size) => {
+	const ordersApi = type => {
 		let url = "";
 
-		if (type === "customer") {
-			url = `/orders/users?page=&size=${size}`;
+		if (type === "CUSTOMER") {
+			url = `/orders/users`;
+			// url = `/orders/users?page=&size=${size}`;
 		} else {
-			url = `/orders/stores?page=&size=${size}`;
+			url = `/orders/stores`;
+			// url = `/orders/stores?page=&size=${size}`;
 		}
 		api({
 			method: "GET",
@@ -37,6 +39,7 @@ export const useOrdersApi = () => {
 				url: `/orders/${oId}`,
 			})
 				.then(res => {
+					console.log(res.data);
 					setOrderDetail(res.data);
 				})
 				.catch(err => {

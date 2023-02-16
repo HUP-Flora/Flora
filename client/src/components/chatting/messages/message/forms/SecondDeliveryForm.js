@@ -20,6 +20,7 @@ import {
 	ErrorMessage,
 	FormContent,
 	FormHeaderContainer,
+	FormSearchAddressInput,
 	FormTime,
 	FormWrapper,
 	GiftMessageInput,
@@ -34,6 +35,8 @@ import {
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import PostcodeModal from "../../../../common/PostcodeModal";
 import useChattingAPI from "../../../../../hooks/useChattingAPI";
+import { useParams } from "react-router-dom";
+import { LpaymentAmountState } from "../../../../../recoil/flolive";
 
 function SecondDeliveryForm({ time }) {
 	const [orderType, setOrderType] = useRecoilState(orderTypeState);
@@ -48,10 +51,13 @@ function SecondDeliveryForm({ time }) {
 	const [giftCard, setGiftCard] = useRecoilState(giftCardState);
 	const [paymentAmount, setPaymentAmount] = useRecoilState(paymentAmountState);
 
+	const { oId } = useParams();
 	const setIsErrorModalShow = useSetRecoilState(isErrorModalShowState);
 	const [isDaumPostShow, setIsDaumPostShow] = useRecoilState(isDaumPostShowState);
 	const [isReceiveUserFistAddressHasError, setIsReceiveUserFistAddressHasError] = useState(false);
 	const setIsSubmit = useSetRecoilState(isSubmitState);
+
+	const LpaymentAmount = useRecoilValue(LpaymentAmountState);
 
 	useEffect(() => {
 		setOrderType("DEILIVERY");
@@ -99,13 +105,6 @@ function SecondDeliveryForm({ time }) {
 		toggleHasError: VreceiveUserPhoneToggleHasError,
 	} = useInputValidate(isNotEmpty);
 
-	const {
-		hasError: VpaymentAmountHasError,
-		valueChangeHandler: VpaymentAmountChangeHandler,
-		inputBlurHandler: VpaymentAmountBlurHandler,
-		toggleHasError: VpaymentAmountToggleHasError,
-	} = useInputValidate(isNotEmpty);
-
 	// 수령 정보 API 보내기
 	const { sendFormDataAPI } = useChattingAPI();
 
@@ -114,32 +113,31 @@ function SecondDeliveryForm({ time }) {
 	};
 
 	const ThirdDeliveryFormHandler = e => {
-		// const formData = [
-		// 	{ key: "sendUser", value: sendUser, toggleError: VsendUserToggleHasError },
-		// 	{ key: "sendUserPhone", value: sendUserPhone, toggleError: VsendUserPhoneToggleHasError },
-		// 	{ key: "receiveUser", value: receiveUser, toggleError: VreceiveUserToggleHasError },
-		// 	{
-		// 		key: "receiveUserPhone",
-		// 		value: receiveUserPhone,
-		// 		toggleError: VreceiveUserPhoneToggleHasError,
-		// 	},
-		// 	{ key: "paymentAmount", value: paymentAmount, toggleError: VpaymentAmountToggleHasError },
-		// ];
-		//
-		// for (const data of formData) {
-		// 	if (!isNotEmpty(data.value)) {
-		// 		data.toggleError();
-		// 		setIsErrorModalShow(true);
-		// 		return;
-		// 	}
-		// }
-		//
-		// if (!isNotEmpty(receiveUserFirstAddress)) {
-		// 	setIsReceiveUserFistAddressHasError(true);
-		// 	setIsErrorModalShow(true);
-		// 	return;
-		// }
-		// setIsSubmit(true);
+		const formData = [
+			{ key: "sendUser", value: sendUser, toggleError: VsendUserToggleHasError },
+			{ key: "sendUserPhone", value: sendUserPhone, toggleError: VsendUserPhoneToggleHasError },
+			{ key: "receiveUser", value: receiveUser, toggleError: VreceiveUserToggleHasError },
+			{
+				key: "receiveUserPhone",
+				value: receiveUserPhone,
+				toggleError: VreceiveUserPhoneToggleHasError,
+			},
+		];
+
+		for (const data of formData) {
+			if (!isNotEmpty(data.value)) {
+				data.toggleError();
+				setIsErrorModalShow(true);
+				return;
+			}
+		}
+
+		if (!isNotEmpty(receiveUserFirstAddress)) {
+			setIsReceiveUserFistAddressHasError(true);
+			setIsErrorModalShow(true);
+			return;
+		}
+		setIsSubmit(true);
 
 		const orederFormData = {
 			type: orderType,
@@ -149,12 +147,12 @@ function SecondDeliveryForm({ time }) {
 			receipientPhoneNumber: reFormatPhoneNumber(receiveUserPhone),
 			deliveryDestination: receiveUserFirstAddress + "/" + receiveUserSecondAddress,
 			giftMessage: giftCard ? giftCard : null,
-			payment: paymentAmount,
+			payment: LpaymentAmount,
 		};
 
 		// console.log(orederFormData);
 
-		sendFormDataAPI(orederFormData);
+		sendFormDataAPI(orederFormData, oId);
 
 		sendThirdDeliveryFormMessage(e);
 	};
@@ -197,7 +195,7 @@ function SecondDeliveryForm({ time }) {
 					/>
 					<InputCounterContainer>
 						{VsendUserHasError && <ErrorMessage>보내는 분을 입력해주세요.</ErrorMessage>}
-						<InputCounter isError={VsendUserHasError}>{sendUser.length}/25자</InputCounter>
+						<InputCounter isError={VsendUserHasError}>{sendUser?.length}/25자</InputCounter>
 					</InputCounterContainer>
 					<InputLabel htmlFor="sendUserPhone">보내는 분 전화번호</InputLabel>
 					<MarginBottom16TextInput
@@ -247,7 +245,7 @@ function SecondDeliveryForm({ time }) {
 					{VreceiveUserPhoneHasError && <ErrorMessage>전화번호를 입력해주세요.</ErrorMessage>}
 					<InputLabel htmlFor="receiveUserAddress">배송지</InputLabel>
 					<SearchAddressContainerButton onClick={daumPostHandler}>
-						<SearchAddressInput
+						<FormSearchAddressInput
 							type="text"
 							id="receiveUserAddress"
 							placeholder="내용을 입력해주세요."
@@ -272,7 +270,7 @@ function SecondDeliveryForm({ time }) {
 						value={giftCard}
 						maxLength="99"
 					/>
-					<InputCounter>{giftCard.length}/100자</InputCounter>
+					<InputCounter>{giftCard?.length}/100자</InputCounter>
 					<InputLabel htmlFor="paymentAmount">결제 금액</InputLabel>
 					<TextInput
 						type="text"
@@ -280,13 +278,10 @@ function SecondDeliveryForm({ time }) {
 						placeholder="내용을 입력해주세요."
 						onChange={e => {
 							setPaymentAmount(e.target.value);
-							VpaymentAmountChangeHandler(e);
 						}}
-						value={paymentAmount}
-						onBlur={VpaymentAmountBlurHandler}
-						HasError={VpaymentAmountHasError}
+						value={LpaymentAmount}
 					/>
-					{VpaymentAmountHasError && <ErrorMessage>결제 금액을 입력해주세요.</ErrorMessage>}
+					{/*{VpaymentAmountHasError && <ErrorMessage>결제 금액을 입력해주세요.</ErrorMessage>}*/}
 					<SubmitPaymentButton
 						onClick={e => {
 							ThirdDeliveryFormHandler(e);

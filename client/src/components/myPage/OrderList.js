@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { ordersState } from "../../recoil/order";
 
 import { useOrdersApi } from "../../hooks/useOrdersApi";
@@ -27,17 +27,19 @@ import {
 
 import defaultImg from "../../assets/default-flower.png";
 import image from "../../assets/store.png";
+import { userInfoTypeState } from "../../recoil/userInfo";
 
 function OrderList({ size }) {
 	const navigate = useNavigate();
 
 	const { ordersApi, getOrderDetail } = useOrdersApi();
-
 	const [orders, setOrders] = useRecoilState(ordersState);
 
 	const [isModalShow, setIsModalShow] = useState(false);
 	const [sId, setSId] = useState("");
 	const [oId, setOId] = useState("");
+
+	const userInfoType = useRecoilValue(userInfoTypeState);
 
 	// 주문 상세 류원창이 수정합니다.
 	const handleClickOrder = oid => {
@@ -51,21 +53,17 @@ function OrderList({ size }) {
 	};
 
 	// 더미 데이터
-	const type = "customer";
+	// const type = "customer";
 	// const type = "owner";
-
-	useEffect(() => {
-		ordersApi(type, size);
-	}, []);
 
 	return (
 		<div>
 			{orders.length === 0 ? (
 				<MyPageListEmpty text="주문 내역이" />
 			) : (
-				orders.map((order, index) => (
+				orders.slice(0, size).map((order, index) => (
 					<ShadowCardWrapper key={index} onClick={() => handleClickOrder(order.oid)}>
-					{/*// <ShadowCardWrapper key={index}>*/}
+						{/*// <ShadowCardWrapper key={index}>*/}
 						<ShadowCard display="flex" isSpaceBetween={false} marginBottom="16">
 							{order.simg === null && order.pimg === null ? (
 								<img src={defaultImg} alt="product-img" />
@@ -80,13 +78,15 @@ function OrderList({ size }) {
 									) : (
 										<BoldText>{order?.sname || order?.pname}</BoldText>
 									)}
-									{type === "customer" ? (
+									{userInfoType === "CUSTOMER" ? (
 										<>
 											{order?.review ? (
-												<WhiteSmallButton onClick={(e) => {
-													e.stopPropagation();
-													navigate("/mypage/review/list")
-												}}>
+												<WhiteSmallButton
+													onClick={e => {
+														e.stopPropagation();
+														navigate("/mypage/review/list");
+													}}
+												>
 													리뷰 보기
 												</WhiteSmallButton>
 											) : (

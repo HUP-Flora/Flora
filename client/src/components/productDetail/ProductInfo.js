@@ -40,7 +40,7 @@ function ProductInfo({ pId }) {
 				<BoldText size="23" font="nexon">
 					{product?.name}
 				</BoldText>
-				<Text>{product?.price}원</Text>
+				<Text>{product?.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</Text>
 			</Header>
 			<HrWrapper>
 				<GrayHr />

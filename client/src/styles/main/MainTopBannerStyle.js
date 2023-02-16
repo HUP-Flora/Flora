@@ -55,7 +55,7 @@ export const LogoWrapper = styled.div`
 	justify-content: center;
 
 	> img {
-		height: 36px;
+		height: 80px;
 	}
 `;
 

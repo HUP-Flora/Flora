@@ -55,6 +55,8 @@ import ReservationList from "./pages/reservation/ReservationList";
 import Hamster from "./pages/temp/hamster";
 import { StoreEdit } from "./pages/storeDetail/StoreEdit";
 import ScrollToTop from "./components/common/ScrollToTop";
+import ThirdDeliveryForm from "./components/chatting/messages/message/forms/ThirdDeliveryForm";
+import SecondDeliveryForm from "./components/chatting/messages/message/forms/SecondDeliveryForm";
 
 function AppRouter() {
 	return (
@@ -115,7 +117,7 @@ function AppRouter() {
 				<Route path="/mypage" element={<MyPage />} />
 				<Route path="/mypage/order/list" element={<OrdersList />} />
 				<Route path="/mypage/order/:oId" element={<OrderDetail />} />
-				<Route path="/mypage/order/detail" element={<OrderDetail />} />
+				{/* <Route path="/mypage/order/detail" element={<OrderDetail />} /> */}
 				<Route path="/mypage/review/list" element={<Review />} />
 				<Route path="/mypage/signout" element={<UserDelete />} />
 

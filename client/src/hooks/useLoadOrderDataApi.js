@@ -8,7 +8,7 @@ export const useLoadOrderDataApi = () => {
 	const loadOrderDataApi = oId => {
 		api({
 			method: "GET",
-			url: `/pay/${oId}/sucess`,
+			url: `/pay/${oId}/success`,
 		})
 			.then(response => {
 				console.log(response);

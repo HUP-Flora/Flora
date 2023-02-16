@@ -19,12 +19,15 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { orderStatesState } from "../../../../../recoil/chatting";
 import { KakaoPayment } from "../../../../../pages/kakaoPayment/KakaoPayment";
 import { useParams } from "react-router-dom";
+import { KakaoPaymentButtonSection } from "../../../../../styles/common/CommonStyle";
+import { LpaymentAmountState } from "../../../../../recoil/flolive";
 
 function ThirdDeliveryForm({ time }) {
 	const { oId } = useParams();
 	const textarea = useRef();
 	const setOrderStates = useSetRecoilState(orderStatesState);
 	const orderStates = useRecoilValue(orderStatesState);
+	const LpaymentAmount = useRecoilValue(LpaymentAmountState);
 
 	const {
 		type,
@@ -77,7 +80,7 @@ function ThirdDeliveryForm({ time }) {
 	const numberWithCommas = x => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	};
-	const OpaymentAmount = numberWithCommas(paymentAmount);
+	const LOpaymentAmount = numberWithCommas(LpaymentAmount);
 
 	return (
 		<>
@@ -114,9 +117,11 @@ function ThirdDeliveryForm({ time }) {
 				<FormFooter>
 					<FormFooterMessageContainer>
 						<FormFooterMessage>결제 금액</FormFooterMessage>
-						<FormFooterMessage>{OpaymentAmount}원</FormFooterMessage>
+						<FormFooterMessage>{LOpaymentAmount}원</FormFooterMessage>
 					</FormFooterMessageContainer>
-					<KakaoPayment oId={oId} />
+					<KakaoPaymentButtonSection isPayment={true}>
+						<KakaoPayment oId={oId} />
+					</KakaoPaymentButtonSection>
 					{/* <SubmitPaymentButton onClick={e => console.log(orderStates)}>
 						결제하기
 					</SubmitPaymentButton> */}

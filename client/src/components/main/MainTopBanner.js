@@ -13,6 +13,7 @@ import {
 import { BoldText, Text } from "../../styles/common/CommonStyle";
 
 import Logo from "../../assets/logo-flower.png";
+import Logo_White from "../../assets/logo-main-white.png";
 import MainTopBanner1 from "../../assets/main/main-top-banner-1.gif";
 import MainTopBanner2 from "../../assets/main/main-top-banner-2.gif";
 
@@ -36,7 +37,8 @@ function MainTopBanner(props) {
 					</Text>
 				</TextContainer>
 				<LogoWrapper>
-					<img src={Logo} alt="logo" />
+					{/* <img src={Logo} alt="logo" /> */}
+					<img src={Logo_White} alt="logo" />
 				</LogoWrapper>
 				<img src={MainTopBanner1} alt="main-top-banner-1" />
 				<img src={MainTopBanner2} alt="main-top-banner-2" />

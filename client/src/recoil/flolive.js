@@ -31,3 +31,8 @@ export const OrderSuccessDataState = atom({
 		recDeliveryDestination: "",
 	},
 });
+
+export const LpaymentAmountState = atom({
+	key: "LpaymentAmountState",
+	default: 0,
+});

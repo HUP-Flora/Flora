@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
 	giftCardState,
 	isErrorModalShowState,
@@ -26,6 +26,8 @@ import {
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import useInputValidate from "../../../../../hooks/useInputValidate";
 import useChattingAPI from "../../../../../hooks/useChattingAPI";
+import { useParams } from "react-router-dom";
+import { LpaymentAmountState } from "../../../../../recoil/flolive";
 
 function SecondPickUpForm({ time }) {
 	const [orderType, setOrderType] = useRecoilState(orderTypeState);
@@ -35,6 +37,10 @@ function SecondPickUpForm({ time }) {
 	const [paymentAmount, setPaymentAmount] = useRecoilState(paymentAmountState);
 	const setIsErrorModalShow = useSetRecoilState(isErrorModalShowState);
 	const setIsSubmit = useSetRecoilState(isSubmitState);
+
+	const LpaymentAmount = useRecoilValue(LpaymentAmountState);
+
+	const { oId } = useParams();
 
 	useEffect(() => {
 		setOrderType("PICKUP");
@@ -56,20 +62,15 @@ function SecondPickUpForm({ time }) {
 	const { hasError: VsendUserPhoneHasError, toggleHasError: VsendUserPhoneToggleHasError } =
 		useInputValidate(isNotEmpty);
 
-	const {
-		hasError: VpaymentAmountHasError,
-		valueChangeHandler: VpaymentAmountChangeHandler,
-		inputBlurHandler: VpaymentAmountBlurHandler,
-		toggleHasError: VpaymentAmountToggleHasError,
-	} = useInputValidate(isNotEmpty);
-
+	const reFormatPhoneNumber = phone => {
+		return phone.replace(/-/g, "");
+	};
 
 	const { sendFormDataAPI } = useChattingAPI();
 	const ThirdPickUpFormHandler = e => {
 		const formData = [
 			{ key: "sendUser", value: sendUser, toggleError: VsendUserToggleHasError },
 			{ key: "sendUserPhone", value: sendUserPhone, toggleError: VsendUserPhoneToggleHasError },
-			{ key: "paymentAmount", value: paymentAmount, toggleError: VpaymentAmountToggleHasError },
 		];
 
 		for (const data of formData) {
@@ -84,16 +85,16 @@ function SecondPickUpForm({ time }) {
 		const orederFormData = {
 			type: orderType,
 			orderer: sendUser,
-			ordererPhoneNumber: sendUserPhone,
+			ordererPhoneNumber: reFormatPhoneNumber(sendUserPhone),
 			recipient: null,
-			recipientPhoneNumber: null,
+			receipientPhoneNumber: null,
 			deliveryDestination: null,
 			giftMessage: giftCard ? giftCard : null,
-			payment: paymentAmount,
-		}
+			payment: LpaymentAmount,
+		};
 
 		// console.log(orederFormData);
-		sendFormDataAPI(orederFormData);
+		sendFormDataAPI(orederFormData, oId);
 
 		sendThirdPickUpFormMessage(e);
 	};
@@ -115,7 +116,7 @@ function SecondPickUpForm({ time }) {
 					/>
 					<InputCounterContainer>
 						{VsendUserHasError && <ErrorMessage>보내는 분을 입력해주세요.</ErrorMessage>}
-						<InputCounter>{sendUser.length}/25자</InputCounter>
+						<InputCounter>{sendUser?.length}/25자</InputCounter>
 					</InputCounterContainer>
 					<InputLabel htmlFor="sendUserPhone">보내는 분 전화번호</InputLabel>
 					<MarginBottom16TextInput
@@ -137,7 +138,7 @@ function SecondPickUpForm({ time }) {
 						onChange={e => setGiftCard(e.target.value)}
 						value={giftCard}
 					/>
-					<InputCounter>{giftCard.length}/100자</InputCounter>
+					<InputCounter>{giftCard?.length}/100자</InputCounter>
 					<InputLabel htmlFor="paymentAmount">결제 금액</InputLabel>
 					<TextInput
 						type="text"
@@ -145,13 +146,10 @@ function SecondPickUpForm({ time }) {
 						placeholder="내용을 입력해주세요."
 						onChange={e => {
 							setPaymentAmount(e.target.value);
-							VpaymentAmountChangeHandler(e);
 						}}
-						value={paymentAmount}
-						onBlur={VpaymentAmountBlurHandler}
-						HasError={VpaymentAmountHasError}
+						value={LpaymentAmount}
 					/>
-					{VpaymentAmountHasError && <ErrorMessage>결제 금액을 입력해주세요.</ErrorMessage>}
+					{/*{VpaymentAmountHasError && <ErrorMessage>결제 금액을 입력해주세요.</ErrorMessage>}*/}
 					<SubmitPaymentButton onClick={e => ThirdPickUpFormHandler(e)}>
 						작성 완료
 					</SubmitPaymentButton>

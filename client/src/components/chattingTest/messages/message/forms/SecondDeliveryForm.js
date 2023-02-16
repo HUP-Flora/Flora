@@ -33,8 +33,11 @@ import {
 	TextInput,
 } from "../../../../../styles/chatting/Messages/Message/forms/OtherFormStyle";
 import PostcodeModal from "../../../../common/PostcodeModal";
+import useChattingAPI from "../../../../../hooks/useChattingAPI";
+import { useParams } from "react-router-dom";
 
 function SecondDeliveryForm({ time }) {
+	const { oId } = useParams();
 	const setOrderType = useSetRecoilState(orderTypeState);
 	const [sendUser, setSendUser] = useRecoilState(sendUserState);
 	const [sendUserPhone, setSendUserPhone] = useRecoilState(sendUserPhoneState);
@@ -51,6 +54,7 @@ function SecondDeliveryForm({ time }) {
 	const [isDaumPostShow, setIsDaumPostShow] = useRecoilState(isDaumPostShowState);
 	const [isReceiveUserFistAddressHasError, setIsReceiveUserFistAddressHasError] = useState(false);
 	const setIsSubmit = useSetRecoilState(isSubmitState);
+	const chattingAPI = useChattingAPI();
 
 	useEffect(() => {
 		setOrderType("DELIVERY");
@@ -131,6 +135,19 @@ function SecondDeliveryForm({ time }) {
 			setIsErrorModalShow(true);
 			return;
 		}
+
+		const data = {
+			type: "DEILIVERY",
+			orderer: sendUser,
+			ordererPhoneNumber: sendUserPhone,
+			recipient: receiveUser,
+			receipientPhoneNumber: receiveUserPhone,
+			deliveryDestination: receiveUserFirstAddress + " " + receiveUserSecondAddress,
+			giftMessage: giftCard,
+			payment: paymentAmount,
+		};
+
+		chattingAPI(data, oId);
 		setIsSubmit(true);
 		sendThirdDeliveryFormMessage(e);
 	};

@@ -32,19 +32,6 @@ function ReservationCard({ type }) {
 	const userType = useRecoilValue(userInfoTypeState);
 	const [reservations, setReservations] = useRecoilState(reservationsState);
 
-	// 더미 데이터
-	// const userType = "owner";
-	// const userType = "customer";
-
-	// const oId = "0000";
-	// const conId = "0000";
-
-	// const handleClickEntrance = () => {
-	// 	reservationEntranceApi(userType, conId);
-	// };
-
-	// const handleClickCancel = () => {};
-
 	const handleClickAccept = oId => {
 		reservationAcceptApi(oId);
 		// 일단 무한스크롤 없이 전체 불러오게 했습니다(희제)
@@ -65,7 +52,7 @@ function ReservationCard({ type }) {
 					예약된 플로라이브가 없어요.
 				</EmptyContainer>
 			) : (
-				reservations.map((reservation, index) => (
+				reservations.reverse().map((reservation, index) => (
 					<ShadowCard key={index} marginBottom="16">
 						<Header>
 							<div>

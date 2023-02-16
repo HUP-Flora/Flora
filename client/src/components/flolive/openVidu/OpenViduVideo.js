@@ -12,7 +12,11 @@ import {
 	SessionWrapper,
 	SessionHeader,
 	VideoContainer,
+	SwitchCameraWrapper,
+	ButtonsContainer,
 } from "../../../styles/flolive/OpenViduStyle";
+
+import switchCamera from "../../../assets/flolive/switch-camera.png";
 
 const APPLICATION_SERVER_URL = "https://i8b203.p.ssafy.io:8445";
 // process.env.NODE_ENV === "production" ? "" : "https://demos.openvidu.io/";
@@ -34,7 +38,6 @@ class OpenViduVideo extends Component {
 
 		console.log("세션아이디", this.state.mySessionId);
 		console.log("유저네임", this.state.myUserName);
-
 		this.joinSession = this.joinSession.bind(this);
 		this.leaveSession = this.leaveSession.bind(this);
 		this.switchCamera = this.switchCamera.bind(this);
@@ -261,7 +264,6 @@ class OpenViduVideo extends Component {
 
 	handleClickExit() {
 		this.props.setIsModalShow(true);
-		this.leaveSession();
 	}
 
 	render() {
@@ -274,16 +276,25 @@ class OpenViduVideo extends Component {
 				{this.state.session !== undefined ? (
 					<SessionWrapper>
 						<SessionHeader>
-							<div>
+							<ButtonsContainer>
 								<LeaveSessionButton onClick={this.handleClickExit}>종료</LeaveSessionButton>
-								<input
+								{/* <input
 									className="btn btn-large btn-success"
 									type="button"
 									id="buttonSwitchCamera"
 									onClick={this.switchCamera}
 									value="Switch Camera"
-								/>
-							</div>
+								/> */}
+								<SwitchCameraWrapper
+									className="btn btn-large btn-success"
+									type="button"
+									id="buttonSwitchCamera"
+									onClick={this.switchCamera}
+									value="Switch Camera"
+								>
+									<img src={switchCamera} />
+								</SwitchCameraWrapper>
+							</ButtonsContainer>
 
 							{this.state.publisher !== undefined ? (
 								<>

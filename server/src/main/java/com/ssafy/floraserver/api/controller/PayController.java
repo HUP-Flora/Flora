@@ -33,13 +33,14 @@ public class PayController {
     }
 
     @GetMapping("/approval")
-    public void payApproval(HttpServletResponse response, @RequestParam String pg_token) {
+    public int payApproval(HttpServletResponse response, @RequestParam String pg_token) {
         PayReadyResVo payReadyResVo = (PayReadyResVo) map.get("PayReadyResVo");
         log.info("결제 번호 {} 에 대한 결제 승인", payReadyResVo.getTid());
         log.info("Approval: " + payReadyResVo.getTid());
         log.info("pg_token : "+pg_token);
         Long oId = ((Order) map.get("Order")).getOId();
-        payService.payApproval(payReadyResVo, pg_token, oId);
+        int res = payService.payApproval(payReadyResVo, pg_token, oId);
+        return res;
     }
 
     @GetMapping("{oId}/success")

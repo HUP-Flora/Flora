@@ -12,7 +12,7 @@ export const useProductsApi = () => {
 			url: `/stores/${sId}/products?page=0&size=100`,
 		})
 			.then(response => {
-				setProducts(response.data.content.reverse());
+				setProducts(response.data.content);
 			})
 			.catch(error => console.log("상품 정보 에러", error));
 	};

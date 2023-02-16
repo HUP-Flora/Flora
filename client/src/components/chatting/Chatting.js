@@ -3,19 +3,23 @@ import { useState, useEffect } from "react";
 import Input from "./input/Input";
 import Messages from "./messages/Messages";
 
-import { useRecoilValue } from "recoil";
-import { isErrorModalShowState } from "../../recoil/chatting";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { isErrorModalShowState, sendUserPhoneState, sendUserState } from "../../recoil/chatting";
 import { listenMessage, socketInit, socketJoin } from "../../utils/chatting";
 import { ChatLayout } from "../../styles/chatting/ChattingStyle";
 import ErrorModal from "./errorModal/ErrorModal";
 import { LmySessionIdState, LmyTypeState } from "../../recoil/flolive";
 import { userType } from "../../utils/user";
+import useChattingAPI from "../../hooks/useChattingAPI";
 
 const ENDPOINT = "http://localhost:5000";
 
 const Chat = ({myType, mySessionId}) => {
 	const [message, setMessage] = useState("");
 	const [messages, setMessages] = useState([]);
+	const [sendUser, setSendUser] = useRecoilState(sendUserState);
+	const [sendUserPhone, setSendUserPhone] = useRecoilState(sendUserPhoneState);
+	const { getMyNickPhone } = useChattingAPI();
 
 	socketInit();
 
@@ -27,6 +31,10 @@ const Chat = ({myType, mySessionId}) => {
 
 	useEffect(() => {
 		listenMessage(setMessages);
+	}, []);
+
+	useEffect(() => {
+		getMyNickPhone(setSendUser, setSendUserPhone);
 	}, []);
 
 	const isErrorModalShow = useRecoilValue(isErrorModalShowState);
