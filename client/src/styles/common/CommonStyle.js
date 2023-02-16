@@ -139,7 +139,7 @@ export const KakaoPayText = styled.div`
 	white-space: nowrap;
 	position: absolute;
 	top: 50%;
-	left: ${props => (props.isLargeButton ? "50" : "63")}%;
+	left: ${props => (props.isLargeButton ? "55" : "63")}%;
 	transform: translate(-50%, -50%);
 `;
 
@@ -456,4 +456,8 @@ export const BodyFrame = styled.div`
 export const KakaoPaymentButtonSection = styled.div`
 	text-align: center;
 	margin-top: ${props => (props.isPayment ? "16" : "0")}px;
+`;
+
+export const NoShowPTag = styled.p`
+	cursor: pointer;
 `;

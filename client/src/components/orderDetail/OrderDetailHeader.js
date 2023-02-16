@@ -8,6 +8,7 @@ import { useRecoilValue } from "recoil";
 import reportImg from "../../assets/orderDetail/siren.png";
 import { decideTitle, decideOrderStatus } from "../../utils/orderDetail";
 import { userType } from "../../utils/user";
+import { NoShowPTag } from "../../styles/common/CommonStyle";
 
 function OrderDetailHeader() {
 	const orderDetail = useRecoilValue(orderDetailState);
@@ -28,7 +29,7 @@ function OrderDetailHeader() {
 			{nowStatus === "결제 전" && user === "사장" && (
 				<ReportContainer>
 					<img src={reportImg} alt="reportImg" />
-					<p>no-show 신고하기</p>
+					<NoShowPTag>no-show 신고하기</NoShowPTag>
 				</ReportContainer>
 			)}
 		</>
