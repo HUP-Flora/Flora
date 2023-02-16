@@ -41,6 +41,8 @@
 
 <br />
 
+<br />
+
 ## 4️⃣ 프로젝트 환경
 
 <br />
@@ -50,6 +52,8 @@
 <br />
 
 <img src="https://user-images.githubusercontent.com/89143804/219456258-71b9b29b-8df4-4f7e-ae1a-ded71873971d.png" />
+
+<br />
 
 <br />
 
