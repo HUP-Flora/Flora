@@ -29,16 +29,16 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "select o from Order o " +
             "join fetch o.uId " +
             "join fetch o.sId " +
-            "where o.sId.sId = :sId and o.recId is not null",
+            "where o.sId.sId = :sId and o.recId is not null " +
+            "order by o.num desc",
             countQuery = "select count(o) from Order o where o.sId.sId = :sId")
     Page<Order> findAllByStore(@Param("sId") Long sId, Pageable pageable);
 
-    // TODO 주문목록, 리뷰목록 최신순 정렬 추가
     @Query(value = "select o from Order o " +
             "join fetch o.uId " +
             "join fetch o.sId " +
             "where o.uId.uId = :uId and o.recId is not null " +
-            "order by o.conId.reservationDate desc, o.conId.reservationDate desc",
+            "order by o.num desc ",
             countQuery = "select count(o) from Order o where o.sId.sId = :sId")
     Page<Order> findAllByUser(@Param("uId") Long uId, Pageable pageable);
 

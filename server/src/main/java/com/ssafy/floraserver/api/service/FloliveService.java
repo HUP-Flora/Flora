@@ -172,7 +172,6 @@ public class FloliveService {
         if (conference.getStatus() != ConferenceStatus.WAITING) {
             throw new CustomException(ErrorCode.CONFERENCE_ENTRY_NOT_ALLOWED);
         }
-
         // 화상미팅상태 가게 INPROGRESS로 변경
         Order order = orderRepository.findByConId(conId)
                 .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
