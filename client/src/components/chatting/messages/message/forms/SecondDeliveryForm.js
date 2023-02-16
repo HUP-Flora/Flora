@@ -195,7 +195,7 @@ function SecondDeliveryForm({ time }) {
 					/>
 					<InputCounterContainer>
 						{VsendUserHasError && <ErrorMessage>보내는 분을 입력해주세요.</ErrorMessage>}
-						<InputCounter isError={VsendUserHasError}>{sendUser.length}/25자</InputCounter>
+						<InputCounter isError={VsendUserHasError}>{sendUser?.length}/25자</InputCounter>
 					</InputCounterContainer>
 					<InputLabel htmlFor="sendUserPhone">보내는 분 전화번호</InputLabel>
 					<MarginBottom16TextInput
@@ -270,7 +270,7 @@ function SecondDeliveryForm({ time }) {
 						value={giftCard}
 						maxLength="99"
 					/>
-					<InputCounter>{giftCard.length}/100자</InputCounter>
+					<InputCounter>{giftCard?.length}/100자</InputCounter>
 					<InputLabel htmlFor="paymentAmount">결제 금액</InputLabel>
 					<TextInput
 						type="text"
