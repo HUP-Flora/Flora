@@ -86,7 +86,7 @@ function ReservationDate() {
 		placeholder = "휴무일 입니다";
 	}
 
-	const options = [
+	const initOptions = [
 		{ value: 18, label: "09:00 ~ 09:30" },
 		{ value: 19, label: "09:30 ~ 10:00" },
 		{ value: 20, label: "10:00 ~ 10:30" },
@@ -106,6 +106,32 @@ function ReservationDate() {
 		{ value: 34, label: "17:00 ~ 17:30" },
 		{ value: 35, label: "17:30 ~ 18:00" },
 	];
+
+	let options = initOptions;
+	let today;
+	useEffect(() => {
+		const currentDate = new Date(); // 현재 날짜와 시간을 가져옴
+		const currentHour = currentDate.getHours(); // 현재 시간(시)을 가져옴
+		const currentMinute = currentDate.getMinutes(); // 현재 시간(분)을 가져옴
+
+		// 현재 시간을 분 단위로 계산
+		const currentTotalMinutes = currentHour * 60 + currentMinute;
+
+		// initOptions 배열의 첫 번째 요소(09:00 ~ 09:30)의 value 값이 18이므로,
+		// 현재 시간에서 9시(540분)를 빼고, 30분 간격으로 나눈 몫과 나머지를 계산하여
+		// initOptions 배열의 요소와 일치하는 값을 구할 수 있음
+		const currentValue = Math.floor((currentTotalMinutes - 540) / 30) + 18;
+
+		const NformatRorderMonth = currentDate.getMonth() < 10 ? `0${currentDate.getMonth()}` : currentDate.getMonth();
+		const NformatRoderDay = currentDate.getDate() < 10 ? `0${currentDate.getDate()}` : currentDate.getDate();
+		today = currentDate.getFullYear() + "-" + NformatRorderMonth + "-" + NformatRoderDay;
+
+		// RorderYear, RorderMonth, RorderDay가 현재 날짜면 현재 시간 이전의 시간은 예약 불가
+		if (today === date) {
+			options = initOptions.filter((option) => option.value >= currentValue);
+		}
+
+	}, [RorderYear, RorderMonth, RorderDay]);
 
 	return (
 		<>
