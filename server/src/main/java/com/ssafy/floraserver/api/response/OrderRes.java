@@ -3,6 +3,7 @@ package com.ssafy.floraserver.api.response;
 import com.ssafy.floraserver.db.entity.Order;
 import com.ssafy.floraserver.db.entity.enums.PaymentStatus;
 import com.ssafy.floraserver.db.entity.enums.ReceiptStatus;
+import com.ssafy.floraserver.db.entity.enums.ReceiptType;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -31,7 +32,7 @@ public class OrderRes {
         this.pImg = order.getPId().getImgPath();
         this.paymentNum = order.getPaymentNum();
         this.payment = order.getPayment();
-        this.receiptType = order.getRecId() != null ?order.getRecId().getType().toString() : null;
+        this.receiptType = order.getRecId() != null ? order.getRecId().getType() == ReceiptType.DEILIVERY ? "배달":"픽업" : null;
         this.status = status;
     }
 }
