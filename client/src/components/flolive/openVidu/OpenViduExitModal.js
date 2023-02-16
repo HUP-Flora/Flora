@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PortalReactDom from "react-dom";
 
 import GrayWarning from "../../../assets/flolive/gray-warning.png";
@@ -14,12 +14,22 @@ import {
 } from "../../../styles/common/modal/ModalStyle";
 import { Primary400Button, Primary50Button } from "../../../styles/button/ButtonStyle";
 import { ExitInfoContainer } from "../../../styles/flolive/OpenViduExitModalStyle";
+import { useFloliveExitApi } from "../../../hooks/useFloliveExitApi";
 
 function OpenViduExitModal({ setIsModalShow }) {
 	const navigate = useNavigate();
 
+	let { oId } = useParams();
+
+	const floliveExitApi = useFloliveExitApi();
+
 	const toggleModal = () => {
 		setIsModalShow(false);
+	};
+
+	const handleClickExit = () => {
+		floliveExitApi(oId);
+		navigate("/");
 	};
 
 	return (
@@ -42,7 +52,7 @@ function OpenViduExitModal({ setIsModalShow }) {
 							<div>이로 인한 불이익은 책임지지 않습니다.</div>
 						</ExitInfoContainer>
 						<DoubleButtonContainer>
-							<Primary400Button onClick={() => navigate("/")}>네</Primary400Button>
+							<Primary400Button onClick={handleClickExit}>네</Primary400Button>
 							<Primary50Button onClick={() => setIsModalShow(false)}>아니오</Primary50Button>
 						</DoubleButtonContainer>
 					</Modal>
