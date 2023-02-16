@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FullScreenFrame } from "../../styles/payment/KakaoPaymentStyle";
 import { KakaoPaymentButton } from "../../styles/button/ButtonStyle";
 import KakaoPayLogoImg from "../../assets/kakao/KakaoPayLogo.png";
+import MediumKakaoPayLogoImg from "../../assets/kakao/MediumKakaoPayLogo.png";
 import { KakaoPayLogo, KakaoPayText } from "../../styles/common/CommonStyle";
 import api from "../../utils/api";
 import { useRecoilValue } from "recoil";
@@ -54,9 +55,13 @@ export function KakaoPayment({ oId, isLargeButton }) {
 	};
 
 	return (
-		<KakaoPaymentButton isLargeButton={true} onClick={handleKakaoPayment}>
-			<KakaoPayLogo src={KakaoPayLogoImg} alt="KakaoPayLogo" />
-			<KakaoPayText>결제 및 종료</KakaoPayText>
+		<KakaoPaymentButton isLargeButton={isLargeButton} onClick={handleKakaoPayment}>
+			<KakaoPayLogo
+				isLargeButton={isLargeButton}
+				src={isLargeButton ? MediumKakaoPayLogoImg : KakaoPayLogoImg}
+				alt="KakaoPayLogo"
+			/>
+			<KakaoPayText isLargeButton={isLargeButton}>결제 및 종료</KakaoPayText>
 		</KakaoPaymentButton>
 	);
 }

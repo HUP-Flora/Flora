@@ -59,7 +59,7 @@ export function SearchBar({ isMain }) {
 			<SearchBarContent onClick={() => setIsCalendarModal(true)}>
 				<Text size="13">
 					{searchBarDay
-						? `${searchBarYear?.slice(
+						? `${String(searchBarYear)?.slice(
 								2
 						  )}년 ${searchBarMonth}월 ${searchBarDay}일 ${searchBarDayOfWeek}요일`
 						: "날짜 선택"}

@@ -14,6 +14,7 @@ export const useUserInfoEditApi = () => {
 	const myPagePhoneNumber = useRecoilValue(MyPagePhoneNumberState);
 	const setIsNicknameValid = useSetRecoilState(isNicknameValidState);
 	const setIsEdit = useSetRecoilState(isEditState);
+	const setUser = useSetRecoilState(userState);
 
 	const userInfoEditApi = () => {
 		api({
@@ -27,6 +28,7 @@ export const useUserInfoEditApi = () => {
 			.then(res => {
 				setIsNicknameValid(true);
 				setIsEdit(false);
+				setUser({ nickname: myPageNickname, phoneNumber: myPagePhoneNumber });
 			})
 			.catch(error => {
 				console.log("유저 닉네임 수정 에러 ", error);
