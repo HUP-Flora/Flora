@@ -116,7 +116,7 @@ function SecondPickUpForm({ time }) {
 					/>
 					<InputCounterContainer>
 						{VsendUserHasError && <ErrorMessage>보내는 분을 입력해주세요.</ErrorMessage>}
-						<InputCounter>{sendUser.length}/25자</InputCounter>
+						<InputCounter>{sendUser?.length}/25자</InputCounter>
 					</InputCounterContainer>
 					<InputLabel htmlFor="sendUserPhone">보내는 분 전화번호</InputLabel>
 					<MarginBottom16TextInput
