@@ -7,7 +7,7 @@ export const useReservationAcceptApi = () => {
 	const reservationAcceptApi = async oId => {
 		await api({
 			method: "GET",
-			url: `flolive/${oId}`,
+			url: `/flolive/${oId}`,
 		})
 			.then(response => {
 				console.log(response.data);

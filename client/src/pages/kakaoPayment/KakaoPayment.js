@@ -56,11 +56,7 @@ export function KakaoPayment({ oId, isLargeButton }) {
 
 	return (
 		<KakaoPaymentButton isLargeButton={isLargeButton} onClick={handleKakaoPayment}>
-			<KakaoPayLogo
-				isLargeButton={isLargeButton}
-				src={isLargeButton ? MediumKakaoPayLogoImg : KakaoPayLogoImg}
-				alt="KakaoPayLogo"
-			/>
+			<KakaoPayLogo isLargeButton={isLargeButton} src={KakaoPayLogoImg} alt="KakaoPayLogo" />
 			<KakaoPayText isLargeButton={isLargeButton}>결제 및 종료</KakaoPayText>
 		</KakaoPaymentButton>
 	);

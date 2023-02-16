@@ -31,8 +31,7 @@
 
 ### 1. 로그인 페이지
 
-<img src="https://user-images.githubusercontent.com/89143804/219360162-0014b28a-1ea5-4fb9-9f63-b694428969da.gif" style="width: 300px;height: 600px;border:10px solid black;border-radius:40px;"/>
-
-<img src="https://user-images.githubusercontent.com/89143804/219360289-5c3a0a59-33c2-4760-bdaf-74377492f303.gif" style="width: 300px;height: 600px;"/>
-
 <img src="https://user-images.githubusercontent.com/89143804/219363730-95c9b57d-59b7-4d97-a9a6-84a555b90648.gif" />
+
+### 2. 메인 페이지
+

@@ -8,7 +8,7 @@ export const useReservationRefuseApi = () => {
 	const reservationRefuseApi = async oId => {
 		await api({
 			method: "PUT",
-			url: `flolive/${oId}`,
+			url: `/flolive/${oId}`,
 		})
 			.then(response => {
 				console.log(response);
