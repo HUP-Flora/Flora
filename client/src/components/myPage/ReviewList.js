@@ -28,11 +28,11 @@ function ReviewList({ size }) {
 									<BoldText>{review?.name}</BoldText>
 									<div>
 										<GrayText size="13" weight="bold">
-											{review?.createDate}
+											{review?.createDate?.replace("T", " ")}
 										</GrayText>
-										<GrayText size="13" weight="bold">
-											{review?.time?.replace("T", " ")}
-										</GrayText>
+										{/* <GrayText size="13" weight="bold">
+											{review?.time}
+										</GrayText> */}
 									</div>
 								</HeaderContainer>
 								<div>{review?.content}</div>
