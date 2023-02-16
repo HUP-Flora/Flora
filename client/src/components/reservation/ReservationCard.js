@@ -32,6 +32,11 @@ function ReservationCard({ type }) {
 	const userType = useRecoilValue(userInfoTypeState);
 	const [reservations, setReservations] = useRecoilState(reservationsState);
 
+	const handleClickEntrance = reservation => {
+		reservationEntranceApi(reservation.conId);
+		navigate(`/flolive/${reservation.oid}/${reservation.conId}`);
+	};
+
 	const handleClickAccept = oId => {
 		reservationAcceptApi(oId);
 		// 일단 무한스크롤 없이 전체 불러오게 했습니다(희제)
@@ -62,9 +67,7 @@ function ReservationCard({ type }) {
 							{
 								type === "confirm" &&
 									(reservation?.check ? (
-										<Primary400SmallButton
-											onClick={() => navigate(`/flolive/${reservation.oid}/${reservation.conId}`)}
-										>
+										<Primary400SmallButton onClick={reservation => handleClickEntrance}>
 											입장
 										</Primary400SmallButton>
 									) : (

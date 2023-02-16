@@ -29,6 +29,7 @@ function ReviewList({ size }) {
 									<div>
 										<GrayText size="13" weight="bold">
 											{review?.createDate?.replace("T", " ")}
+											{console.log(review?.createDate?.replace("T", " "))}
 										</GrayText>
 										{/* <GrayText size="13" weight="bold">
 											{review?.time}
@@ -38,7 +39,10 @@ function ReviewList({ size }) {
 								<div>{review?.content}</div>
 							</div>
 							<div>
-								<img src={review?.rimg} alt="" />
+								<img
+									src={review?.rimg?.split("-")[10] === "null.png" ? defaultImg : review?.pimg}
+									alt="review-img"
+								/>
 							</div>
 						</ShadowCard>
 					</ShadowCardWrapper>
