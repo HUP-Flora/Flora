@@ -4,7 +4,7 @@ export const useReservationEntranceApi = () => {
 	const reservationEntranceApi = async conId => {
 		await api({
 			method: "GET",
-			url: `flolive/${conId}`,
+			url: `/flolive/${conId}`,
 		})
 			.then(response => {
 				console.log(response);

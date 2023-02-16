@@ -21,6 +21,7 @@ import { KakaoPayment } from "../../../../../pages/kakaoPayment/KakaoPayment";
 import { useParams } from "react-router-dom";
 import { KakaoPaymentButtonSection } from "../../../../../styles/common/CommonStyle";
 import { LpaymentAmountState } from "../../../../../recoil/flolive";
+import { useFloliveExitApi } from "../../../../../hooks/useFloliveExitApi";
 
 function ThirdDeliveryForm({ time }) {
 	const { oId } = useParams();
@@ -28,6 +29,7 @@ function ThirdDeliveryForm({ time }) {
 	const setOrderStates = useSetRecoilState(orderStatesState);
 	const orderStates = useRecoilValue(orderStatesState);
 	const LpaymentAmount = useRecoilValue(LpaymentAmountState);
+	const { floliveExitApi } = useFloliveExitApi();
 
 	const {
 		type,
@@ -82,6 +84,10 @@ function ThirdDeliveryForm({ time }) {
 	};
 	const LOpaymentAmount = numberWithCommas(LpaymentAmount);
 
+	const paymentClickHandler = () => {
+		floliveExitApi(oId);
+	};
+
 	return (
 		<>
 			<FormWrapper>
@@ -119,7 +125,7 @@ function ThirdDeliveryForm({ time }) {
 						<FormFooterMessage>결제 금액</FormFooterMessage>
 						<FormFooterMessage>{LOpaymentAmount}원</FormFooterMessage>
 					</FormFooterMessageContainer>
-					<KakaoPaymentButtonSection isPayment={true}>
+					<KakaoPaymentButtonSection onClick={paymentClickHandler} isPayment={true}>
 						<KakaoPayment oId={oId} />
 					</KakaoPaymentButtonSection>
 					{/* <SubmitPaymentButton onClick={e => console.log(orderStates)}>
