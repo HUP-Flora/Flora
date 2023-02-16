@@ -131,7 +131,7 @@ export const KakaoLogo = styled.img`
 export const KakaoPayLogo = styled.img`
 	position: absolute;
 	top: 50%;
-	left: ${props => (props.isLargeButton ? "30" : "20")}%;
+	left: 20%;
 	transform: translate(-50%, -50%);
 `;
 
@@ -139,7 +139,7 @@ export const KakaoPayText = styled.div`
 	white-space: nowrap;
 	position: absolute;
 	top: 50%;
-	left: ${props => (props.isLargeButton ? "55" : "63")}%;
+	left: 63%;
 	transform: translate(-50%, -50%);
 `;
 
