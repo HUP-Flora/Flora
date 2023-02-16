@@ -9,6 +9,19 @@
 	--primary-700: #990752;
 	--primary-800: #77003d;
 	--primary-900: #55002c;
+
+	/* 회색 한 단계씩 짙게 한 버전 */
+	/* --gray-50: #f1f3f5;
+	--gray-100: #e9ecef;
+	--gray-200: #dee2e6;
+	--gray-300: #ced4da;
+	--gray-400: #adb5bd;
+	--gray-500: #868e96;
+	--gray-600: #495057;
+	--gray-700: #343a40;
+	--gray-800: #212529;
+	--gray-900: #000000; */
+
 	--gray-50: #f8f9fa;
 	--gray-100: #f1f3f5;
 	--gray-200: #e9ecef;
