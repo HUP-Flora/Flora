@@ -32,7 +32,7 @@ function OrderDetail() {
 			<NoPaddingStatusBar text="주문 상세" />
 			<OrderDetailContainer>
 				<OrderDetailHeader />
-				<ProgressBar />
+				<ProgressBar oId={oId} />
 				<OrderDetailContent />
 				{orderDetail?.status === 0 && userInfoType === "CUSTOMER" && (
 					// <RepaymentButton>{orderDetail.flowerPrice} 재결제하기</RepaymentButton>
