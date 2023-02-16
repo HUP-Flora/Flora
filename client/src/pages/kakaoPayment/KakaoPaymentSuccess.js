@@ -38,7 +38,7 @@ export function KakaoPaymentSuccess() {
 			<InfoCard
 				type="주문 정보"
 				content1={recType}
-				content2={recDeliveryDestination.replace("/", " ")}
+				content2={recDeliveryDestination ? recDeliveryDestination.replace("/", " ") : "-"}
 				content3={payment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
 			/>
 			<BlankSection height="16" />

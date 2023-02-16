@@ -55,6 +55,8 @@ import ReservationList from "./pages/reservation/ReservationList";
 import Hamster from "./pages/temp/hamster";
 import { StoreEdit } from "./pages/storeDetail/StoreEdit";
 import ScrollToTop from "./components/common/ScrollToTop";
+import ThirdDeliveryForm from "./components/chatting/messages/message/forms/ThirdDeliveryForm";
+import SecondDeliveryForm from "./components/chatting/messages/message/forms/SecondDeliveryForm";
 
 function AppRouter() {
 	return (

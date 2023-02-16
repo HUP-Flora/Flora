@@ -20,6 +20,7 @@ import {
 	ErrorMessage,
 	FormContent,
 	FormHeaderContainer,
+	FormSearchAddressInput,
 	FormTime,
 	FormWrapper,
 	GiftMessageInput,
@@ -249,7 +250,7 @@ function SecondDeliveryForm({ time }) {
 					{VreceiveUserPhoneHasError && <ErrorMessage>전화번호를 입력해주세요.</ErrorMessage>}
 					<InputLabel htmlFor="receiveUserAddress">배송지</InputLabel>
 					<SearchAddressContainerButton onClick={daumPostHandler}>
-						<SearchAddressInput
+						<FormSearchAddressInput
 							type="text"
 							id="receiveUserAddress"
 							placeholder="내용을 입력해주세요."
