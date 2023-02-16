@@ -1,6 +1,7 @@
 import lottie from "lottie-web";
 import React from "react";
 import { NotFoundContainer } from "../../styles/notFound/NotFoundStyle";
+import { useNavigate } from "react-router-dom";
 
 function NotFound() {
 	const loadingLottie = React.useRef();
@@ -14,12 +15,13 @@ function NotFound() {
 		});
 	}, []);
 
+	const navigate = useNavigate();
+
 	return (
 		<NotFoundContainer>
 			<div ref={loadingLottie}></div>
 			<p>죄송합니다.<br/>페이지를 찾을 수 없습니다.</p>
-			<button>홈으로 돌아가기</button>
-
+			<button onClick={() => navigate("/")}>홈으로 돌아가기</button>
 		</NotFoundContainer>
 	);
 }
