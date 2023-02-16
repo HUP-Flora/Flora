@@ -45,7 +45,7 @@ public class OrderController {
     }
 
     // 상태 변경 API
-    @PostMapping("changestatus/{oId}")
+    @PutMapping("changestatus/{oId}")
     public ResponseEntity<?> changeToDelivery(@PathVariable Long oId) {
         log.info("주문 번호 {} 주문 상태 변경 시도", oId);
         orderService.changeOrderStatus(oId);
