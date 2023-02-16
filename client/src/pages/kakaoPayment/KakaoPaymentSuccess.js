@@ -46,7 +46,7 @@ export function KakaoPaymentSuccess() {
 				<WidthDoubleButtonToolBar>
 					<Primary50Button
 						onClick={() => {
-							navigate(`/orders/${oId}`);
+							navigate(`/mypage/order/${oId}`);
 						}}
 					>
 						주문 상세 보기
