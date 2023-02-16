@@ -15,13 +15,13 @@ import image from "../../assets/store.png";
 import ReviewList from "./ReviewList";
 
 function MyPageReview(props) {
-	const navegate = useNavigate();
+	const navigate = useNavigate();
 
 	return (
 		<ListContiner>
 			<ListHeader>
 				<BoldText size="19">리뷰 관리</BoldText>
-				<PointerText color="gray" onClick={() => navegate("review/list")} weight="bold">
+				<PointerText color="gray" onClick={() => navigate("review/list")} weight="bold">
 					더보기
 				</PointerText>
 			</ListHeader>
