@@ -18,6 +18,7 @@ import {
 import { BoldText, GrayText, GrayHr } from "../../styles/common/CommonStyle";
 
 import productImgSrc from "../../assets/store.png";
+import defaultFlower from "../../assets/default-flower.png";
 
 function StoreReview({ sId }) {
 	const store = useRecoilValue(storeState);
@@ -44,7 +45,7 @@ function StoreReview({ sId }) {
 								<HeaderContainer>
 									<BoldText right="16">{review?.nickname}</BoldText>
 									<GrayText size="13" weight="bold" right="4">
-										{review?.createDate}
+										{review?.createDate?.replace("T", " ")}
 									</GrayText>
 									<GrayText size="13" weight="bold" right="4">
 										{/* {review?.time} */}
@@ -53,7 +54,7 @@ function StoreReview({ sId }) {
 								<div>{review?.content}</div>
 							</LeftContainer>
 							<ImageWrapper>
-								<img src={review?.rimg} alt="product-img" />
+								<img src={review?.rimg ? review.rimg : defaultFlower} alt="product-img" />
 							</ImageWrapper>
 						</ReviewContainer>
 						<GrayHrWrapper>
