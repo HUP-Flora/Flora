@@ -138,7 +138,7 @@ function SecondPickUpForm({ time }) {
 						onChange={e => setGiftCard(e.target.value)}
 						value={giftCard}
 					/>
-					<InputCounter>{giftCard.length}/100자</InputCounter>
+					<InputCounter>{giftCard?.length}/100자</InputCounter>
 					<InputLabel htmlFor="paymentAmount">결제 금액</InputLabel>
 					<TextInput
 						type="text"
