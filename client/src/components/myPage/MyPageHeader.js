@@ -71,12 +71,12 @@ function MyPageHeader(props) {
 	}, []);
 
 	const handleClickValidate = () => {
-		if (user?.nickname === "") {
+		if (myPageNickname === "") {
 			setIsNicknameValid(false);
 			return;
 		}
 
-		if (user.phoneNumber === "") {
+		if (myPagePhoneNumber === "") {
 			setIsPhoneNumberValid(false);
 			return;
 		}
