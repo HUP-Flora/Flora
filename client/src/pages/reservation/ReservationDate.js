@@ -128,7 +128,7 @@ function ReservationDate() {
 	today = currentDate.getFullYear() + "-" + NformatRorderMonth + "-" + NformatRoderDay;
 
 	// RorderYear, RorderMonth, RorderDay가 현재 날짜면 현재 시간 이전의 시간은 예약 불가
-	if (today === date) {
+	if (today >= date) {
 		options = initOptions.filter(option => option.value >= currentValue);
 	}
 
