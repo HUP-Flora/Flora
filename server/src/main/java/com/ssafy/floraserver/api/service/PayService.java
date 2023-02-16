@@ -6,6 +6,7 @@ import com.ssafy.floraserver.api.vo.PayReadyResVo;
 import com.ssafy.floraserver.common.exception.CustomException;
 import com.ssafy.floraserver.common.exception.ErrorCode;
 import com.ssafy.floraserver.db.entity.Order;
+import com.ssafy.floraserver.db.entity.enums.ConferenceStatus;
 import com.ssafy.floraserver.db.entity.enums.PaymentStatus;
 import com.ssafy.floraserver.db.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -100,6 +101,7 @@ public class PayService {
 
             // order에 결제 번호 세팅
             order.updatePaymentNum(payReadyResVo.getTid());
+            order.getConId().updateStatus(ConferenceStatus.COMPLETED);
 
             Map<String, Object> map = new HashMap<>();
             map.put("PayReadyResVo", payReadyResVo);
