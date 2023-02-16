@@ -14,12 +14,12 @@ export const decideTitle = (orderStatus, orderType, user) => {
 		titleText = "꽃 결제가 완료되었어요.";
 		if (user === "사장") {
 			subTitleText = "고객님이 상품 결제를 완료하셨어요.<br />배송 후에 배송 상태를 변경해주세요!";
-			if (orderType === "PICKUP") {
+			if (orderType === "픽업") {
 				subTitleText = "고객님이 상품 결제를 완료하셨어요.<br />고객님이 수령을 완료하면 상태를 변경해주세요!";
 			}
 		} else if (user === "손님") {
 			subTitleText = "선택하신 날짜에 맞춰 배송이 시작될 예정이에요."
-			if (orderType === "PICKUP") {
+			if (orderType === "픽업") {
 				subTitleText = "선택하신 날짜에 맞춰 준비가 완료될 예정이에요."
 			}
 		}
@@ -27,7 +27,7 @@ export const decideTitle = (orderStatus, orderType, user) => {
 		titleText = "꽃이 배송되고 있어요.";
 		if (user === "사장") {
 			subTitleText = "안전하게 전달된 예정이에요.<br />배송이 완료되면 배송 상태를 변경해주세요!";
-			if (orderType === "PICKUP") {
+			if (orderType === "픽업") {
 				subTitleText = "고객님이 수령을 완료하면 상태를 변경해주세요!";
 			}
 		} else if (user === "손님") {
@@ -35,7 +35,7 @@ export const decideTitle = (orderStatus, orderType, user) => {
 		}
 	} else if (orderStatus === "배송 완료" || orderStatus === "수령 완료") {
 		titleText = "꽃 배송이 완료되었어요.";
-		if (orderType === "PICKUP") {
+		if (orderType === "픽업") {
 			titleText = "꽃 수령이 완료되었어요.";
 		}
 		if (user === "사장") {
@@ -49,13 +49,13 @@ export const decideTitle = (orderStatus, orderType, user) => {
 
 export const decideLeftSize = (orderType, orderStatus) => {
 	let leftSize;
-	if (orderType === "DELIVERY") {
+	if (orderType === "배달") {
 		if (orderStatus === "결제 완료") {
 			leftSize = "57%";
 		} else {
 			leftSize = "86%";
 		}
-	} else if (orderType === "PICKUP") {
+	} else if (orderType === "픽업") {
 		if (orderStatus === "결제 완료") {
 			leftSize = "86%";
 		}
@@ -64,7 +64,7 @@ export const decideLeftSize = (orderType, orderStatus) => {
 }
 
 export const decideProgressInfo = (orderType, orderStatus, setStates) => {
-	if (orderType === "DELIVERY") {
+	if (orderType === "배달") {
 		switch (orderStatus) {
 			case "결제 전":
 				setStates(true, false, false, false, "12%");
@@ -81,7 +81,7 @@ export const decideProgressInfo = (orderType, orderStatus, setStates) => {
 			default:
 				break;
 		}
-	} else if (orderType === "PICKUP") {
+	} else if (orderType === "픽업") {
 		switch (orderStatus) {
 			case "결제 전":
 				setStates(true, false, false, false, "12%");
