@@ -57,6 +57,7 @@ import { StoreEdit } from "./pages/storeDetail/StoreEdit";
 import ScrollToTop from "./components/common/ScrollToTop";
 import ThirdDeliveryForm from "./components/chatting/messages/message/forms/ThirdDeliveryForm";
 import SecondDeliveryForm from "./components/chatting/messages/message/forms/SecondDeliveryForm";
+import NotFound from "./pages/notFound/NotFound";
 
 function AppRouter() {
 	return (
@@ -136,6 +137,9 @@ function AppRouter() {
 
 				{/*햄스터*/}
 				<Route path="/hamsu" element={<Hamster />} />
+
+				{/* 404페이지	*/}
+				<Route path="*" element={<NotFound />} />
 			</Routes>
 		</Router>
 	);
