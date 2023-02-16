@@ -27,8 +27,10 @@ export const useMypageInfoApi = () => {
 				if (type === "CUSTOMER") {
 					setMyPageNicknameState(res.data.nickname);
 					setMyPagePhoneNumberState(res.data.phoneNumber);
+					setUser({ nickname: res.data.nickname, phoneNumber: res.data.phoneNumber });
+				} else {
+					setUser({ name: res.data.name, simg: res.data.simg });
 				}
-				setUser({ nickname: res.data.nickname, phoneNumber: res.data.phoneNumber });
 			})
 			.catch(error => {
 				console.log("유저 기본 정보 에러", error);
