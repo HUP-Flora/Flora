@@ -15,7 +15,7 @@ function FloliveWaiting() {
 		const checkStatusInterval = setInterval(() => {
 			// 5초마다 라이브 상태를 확인한다.
 			checkLiveStatusAPI(LorderNumber, LliveStatus);
-		}, 5000);
+		}, 2500);
 		return () => {
 			clearInterval(checkStatusInterval);
 		};
