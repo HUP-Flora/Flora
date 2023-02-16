@@ -108,7 +108,7 @@ export const decideOrderStatus = (status) => {
 		nowStatus = "배송 중";
 	} else if (status === 3) {
 		nowStatus = "배송 완료";
-	} else if (status === 4) {
+	} else if (status === 5) {
 		nowStatus = "수령 완료";
 	}
 	return nowStatus;
