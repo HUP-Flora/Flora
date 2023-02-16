@@ -40,7 +40,7 @@ function ReviewList({ size }) {
 							</div>
 							<div>
 								<img
-									src={review?.rimg?.split("-")[10] === "null.png" ? defaultImg : review?.pimg}
+									src={review?.rimg?.split("-")[10] === "null.png" ? defaultImg : review?.rimg}
 									alt="review-img"
 								/>
 							</div>
