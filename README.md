@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/89143804/219278728-8bf7f6da-0cb9-4821-8588-ee7a3bfaa4b4.png" />
+<img src="https://user-images.githubusercontent.com/89143804/219459768-2b6af8eb-7916-4579-8861-d8082a08d437.png" />
 
 <br />
 
@@ -27,7 +27,70 @@
 
   - 온라인 꽃배달을 이용하려는 사용자들에게 쉽고 빠른 주문 서비스를 제공하고, 온라인으로도 상품 구성을 원하는 대로 변경하여 꽃 선물에 정성과 의미를 담아 보낼 수 있게 함을 목적으로 합니다.
 
-## 3️⃣ 서비스 화면
+## 3️⃣ 팀원 소개
+
+<br />
+
+<img src="https://user-images.githubusercontent.com/89143804/219464594-4f8079cf-9350-462b-9a1a-02f6896dabef.png" />
+
+
+## 4️⃣ 프로젝트 환경
+
+<br />
+
+### **디렉토리 구조**
+
+<br />
+
+<img src="https://user-images.githubusercontent.com/89143804/219456258-71b9b29b-8df4-4f7e-ae1a-ded71873971d.png" />
+
+<br />
+
+### **개발 환경**
+
+<br />
+
+<img src="https://user-images.githubusercontent.com/89143804/219456729-95879e07-68f2-49eb-a553-8a16280167e2.png" />
+
+<img src="https://user-images.githubusercontent.com/89143804/219456995-fa47ff1a-f399-4371-85b0-d3e93bb903e1.png" />
+
+
+## 5️⃣ 설계
+
+<br />
+
+### **기술 스택**
+
+<br />
+
+<img src="https://user-images.githubusercontent.com/89143804/219460001-545e83bd-17ac-438e-99fe-7b76a31719ce.png" />
+
+<br />
+
+### **ERD**
+
+<br />
+
+<img src="https://user-images.githubusercontent.com/89143804/219458257-fe94696c-8fe3-4d28-8c35-d7851b0f8473.png" />
+
+링크 : [Flora_ERD](https://www.erdcloud.com/d/3nCdBkv5uTrdcWrom)
+
+<br />
+
+### **ProtoType**
+
+<br />
+
+<img src="https://user-images.githubusercontent.com/89143804/219458653-db35269a-10f4-44da-be5c-7ac27af3791f.png" />
+<img src="https://user-images.githubusercontent.com/89143804/219458874-70309d74-8072-4b23-ad49-84bcb581f1d6.png" />
+
+링크 : [Flora_ProtoType](https://www.figma.com/file/YsAf1u8pbz4To7Y1SG0GbJ/ssafy_3%ED%8C%80_%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C?node-id=352%3A6&t=04nX8r3t9uLi3Bw7-1)
+
+<br />
+
+## 6️⃣ 서비스 화면
+
+<br />
 
 ### **1. 로그인 및 메인 페이지**
 
@@ -36,7 +99,6 @@
   
 <img src="https://user-images.githubusercontent.com/89143804/219421974-137e0bab-fef2-46d4-8d4d-8763b66d2cb7.gif" />
 
-<hr />
 <br/>
 
 ### **2. 꽃집 검색 페이지**
@@ -46,7 +108,6 @@
 
 <img src="https://user-images.githubusercontent.com/89143804/219425347-312e7852-3ba0-42e1-abbe-44fd3d63c9cd.gif" />
 
-<hr />
 <br/>
 
 ### **3. 꽃집 상세 및 상품 상세 페이지**
@@ -56,7 +117,6 @@
 
 <img src="https://user-images.githubusercontent.com/89143804/219425762-40926ed6-2074-4be2-879e-0772bc59dcee.gif" />
 
-<hr />
 <br/>
 
 ### **4. 플로라이브 - 즉시 신청
@@ -65,7 +125,6 @@
 
 <img src="https://user-images.githubusercontent.com/89143804/219431709-46061687-440e-4d7c-9b85-f7663909c92d.gif" />
 
-<hr />
 <br/>
 
 ### **5. 플로라이브 - 예약**
@@ -74,7 +133,6 @@
 
 <img src="https://user-images.githubusercontent.com/89143804/219433053-d3e5bb47-72cb-4c5e-b767-bed5037d65b8.gif" />
 
-<hr />
 <br/>
 
 ### **6. 플로라이브 - 라이브 진행**
@@ -85,11 +143,15 @@
 
 - 추후 업로드
 
+<br />
+
 ### **7. 플로라이브 - 폼 작성 및 확인**
 
 - 사장님께서 폼 버튼을 누르면 결제 폼이 채팅창에 표시되고, 이를 모두 적어 확인 창에서 결제하기를 누르면 카카오 결제 api로 redirect됩니다.
 
 - 추후 업로드
+
+<br />
 
 ### **8. 플로라이브 - 결제 및 주문 완료**
 
@@ -97,27 +159,26 @@
 
 - 추후 업로드
 
+<br />
+
 ### **9. 마이페이지**
 
 <img src="https://user-images.githubusercontent.com/89143804/219435194-b496f1de-2ad2-4dff-bd69-c9d9e20fb14b.gif" />
 
-<hr />
 <br/>
 
 ### **10. 리뷰 작성 페이지**
 
 <img src="https://user-images.githubusercontent.com/89143804/219436195-edb8c0c2-8eb6-4396-a4ae-3ad86cc1a471.gif" />
 
-<hr />
 <br/>
 
 ### **11. 사용자 주문 상세 페이지 (재결제)**
 
 - 추후 업로드
 
+<br />
+
 ### **12. 사장님 주문 상세 페이지**
 
 <img src="https://user-images.githubusercontent.com/89143804/219439328-c0e641a1-c4e1-4a9d-a4db-3c911aafb6bc.gif" />
-
-<hr />
-<br/>
