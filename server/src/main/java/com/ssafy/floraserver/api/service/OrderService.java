@@ -105,17 +105,17 @@ public class OrderService {
             && order.getConId().getStatus().equals(ConferenceStatus.COMPLETED)
             && order.getPaymentStatus().equals(PaymentStatus.DONE)
             && order.getRecId().getStatus().equals(ReceiptStatus.UNDONE)){
-            return 1;
+            return 1; // 결제완료
         }else if(order.getStatus().equals(OrderStatus.ACCEPT)
                 && order.getConId().getStatus().equals(ConferenceStatus.COMPLETED)
                 && order.getPaymentStatus().equals(PaymentStatus.DONE)
                 && order.getRecId().getStatus().equals(ReceiptStatus.INPROGRESS)){
-            return 2;
-        }else if(order.getStatus().equals(OrderStatus.ACCEPT)
+            return 2; // 배송중
+        }else if(order.getStatus().equals(OrderStatus.COMPLETED)
                 && order.getConId().getStatus().equals(ConferenceStatus.COMPLETED)
                 && order.getPaymentStatus().equals(PaymentStatus.DONE)
                 && order.getRecId().getStatus().equals(ReceiptStatus.DONE)){
-            return 3;
+            return 3; // 배송완료
         }
         else
         return 0;
