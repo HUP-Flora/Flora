@@ -33,17 +33,9 @@
 
 <br />
 
-## 3️⃣ 팀원 소개
-
 <br />
 
-<img src="https://user-images.githubusercontent.com/89143804/219464594-4f8079cf-9350-462b-9a1a-02f6896dabef.png" />
-
-<br />
-
-<br />
-
-## 4️⃣ 프로젝트 환경
+## 3️⃣ 프로젝트 환경
 
 <br />
 
@@ -67,7 +59,7 @@
 
 <br />
 
-## 5️⃣ 설계
+## 4️⃣ 설계
 
 <br />
 
@@ -100,7 +92,7 @@
 
 <br />
 
-## 6️⃣ 서비스 화면
+## 5️⃣ 서비스 화면
 
 <br />
 
@@ -194,3 +186,12 @@
 ### **12. 사장님 주문 상세 페이지**
 
 <img src="https://user-images.githubusercontent.com/89143804/219439328-c0e641a1-c4e1-4a9d-a4db-3c911aafb6bc.gif" />
+
+
+<br />
+
+## 6️⃣ 팀원 소개
+
+<br />
+
+<img src="https://user-images.githubusercontent.com/89143804/219464594-4f8079cf-9350-462b-9a1a-02f6896dabef.png" />
