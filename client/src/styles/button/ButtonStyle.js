@@ -139,7 +139,7 @@ export const KakaoLoginButton = styled.button`
 `;
 
 export const KakaoPaymentButton = styled.button`
-	width: ${props => (props.isLargeButton ? "100%" : "168px")};
+	width: ${props => (props.isLargeButton ? "50%" : "168px")};
 	height: ${props => (props.isLargeButton ? "44" : "32")}px;
 	border: none;
 	border-radius: 5px;

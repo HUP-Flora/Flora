@@ -45,10 +45,10 @@ export function SearchBar({ isMain }) {
 	const formatFirstAddress = firstAddress => {
 		if (!firstAddress) {
 			return "지역 선택";
-		} else if (isMain && firstAddress.length > 12) {
-			return firstAddress.slice(0, 12) + "...";
-		} else if (firstAddress?.length > 15) {
-			return firstAddress.slice(0, 15) + "...";
+		} else if (isMain && firstAddress.length > 11) {
+			return firstAddress.slice(0, 11) + "...";
+		} else if (firstAddress?.length > 14) {
+			return firstAddress.slice(0, 14) + "...";
 		}
 
 		return firstAddress;
