@@ -9,6 +9,8 @@ let socket = io('https://i8b203.p.ssafy.io:4000', {
 	transports: ['websocket', "ws", "wss"],
 });
 
+// let socket = io("http://localhost:3001")
+
 export const socketInit = () => {
 
 };
