@@ -54,7 +54,12 @@ function StoreReview({ sId }) {
 								<div>{review?.content}</div>
 							</LeftContainer>
 							<ImageWrapper>
-								<img src={review?.rimg ? review.rimg : defaultFlower} alt="product-img" />
+								{/* <img src={review?.rimg ? review.rimg : defaultFlower} alt="product-img" /> */}
+								{console.log(review)}
+								<img
+									src={review?.rimg?.split("-")[10] === "null.png" ? defaultFlower : review?.rimg}
+									alt="review-img"
+								/>
 							</ImageWrapper>
 						</ReviewContainer>
 						<GrayHrWrapper>
