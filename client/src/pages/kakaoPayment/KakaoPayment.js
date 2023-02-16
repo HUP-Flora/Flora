@@ -9,7 +9,7 @@ import api from "../../utils/api";
 import { useRecoilValue } from "recoil";
 import { orderStatesState } from "../../recoil/chatting";
 
-export function KakaoPayment({ oId }) {
+export function KakaoPayment({ oId, isLargeButton }) {
 	const [redirectUrl, setRedirectUrl] = useState("");
 	// const { oId } = useParams();
 	const orderStates = useRecoilValue(orderStatesState);
@@ -54,7 +54,7 @@ export function KakaoPayment({ oId }) {
 	};
 
 	return (
-		<KakaoPaymentButton onClick={handleKakaoPayment}>
+		<KakaoPaymentButton isLargeButton={true} onClick={handleKakaoPayment}>
 			<KakaoPayLogo src={KakaoPayLogoImg} alt="KakaoPayLogo" />
 			<KakaoPayText>결제 및 종료</KakaoPayText>
 		</KakaoPaymentButton>
