@@ -30,7 +30,7 @@ function ThirdPickUpForm({ time }) {
 
 	const { type, sendUser, sendUserPhone, giftCard, paymentAmount } = useOrderStates();
 
-	const sendUserPhoneNumber = sendUserPhone.replace(/-/gi, "");
+	const sendUserPhoneNumber = sendUserPhone?.replace(/-/gi, "");
 
 	useEffect(() => {
 		textarea.current.style.height = "auto"; //height 초기화
@@ -46,7 +46,7 @@ function ThirdPickUpForm({ time }) {
 	}, [setOrderStates, type, sendUser, sendUserPhoneNumber, giftCard, paymentAmount]);
 
 	const numberWithCommas = x => {
-		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		return x?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	};
 	const LOpaymentAmount = numberWithCommas(LpaymentAmount);
 

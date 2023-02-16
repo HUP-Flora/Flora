@@ -37,7 +37,7 @@ function MainTopBanner(props) {
 					</Text>
 				</TextContainer>
 				<LogoWrapper>
-					{/*<img src={Logo} alt="logo" />*/}
+					{/* <img src={Logo} alt="logo" /> */}
 					<img src={Logo_White} alt="logo" />
 				</LogoWrapper>
 				<img src={MainTopBanner1} alt="main-top-banner-1" />

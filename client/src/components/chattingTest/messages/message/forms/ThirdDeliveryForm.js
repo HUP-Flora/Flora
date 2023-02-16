@@ -35,8 +35,8 @@ function ThirdDeliveryForm({ time }) {
 		receiveUserSecondAddress,
 	} = useOrderStates();
 
-	const sendUserPhoneNumber = sendUserPhone.replace(/-/gi, "");
-	const receiveUserPhoneNumber = receiveUserPhone.replace(/-/gi, "");
+	const sendUserPhoneNumber = sendUserPhone?.replace(/-/gi, "");
+	const receiveUserPhoneNumber = receiveUserPhone?.replace(/-/gi, "");
 	let receiveUserAddress;
 
 	if (receiveUserSecondAddress) {
@@ -72,7 +72,7 @@ function ThirdDeliveryForm({ time }) {
 	]);
 
 	const numberWithCommas = x => {
-		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		return x?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	};
 	const OpaymentAmount = numberWithCommas(paymentAmount);
 
