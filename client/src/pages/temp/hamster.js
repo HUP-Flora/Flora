@@ -47,20 +47,14 @@ function Hamster() {
 
 	const options = initOptions.filter((option) => option.value >= currentValue);
 
-	currentDate.getFullYear()
-	currentDate.getMonth()
-	currentDate.getDate()
-	// 위에거 로그
-	console.log(currentDate.getFullYear());
-	console.log(currentDate.getMonth());
-	console.log(currentDate.getDate());
-
 	// 보낼 날짜 가공
-	const formatRorderMonth = currentDate.getMonth() < 10 ? `0${currentDate.getMonth()}` : currentDate.getMonth();
+	const formatRorderMonth = currentDate.getMonth() < 10 ? `0${currentDate.getMonth()+1}` : currentDate.getMonth()+1;
 	const formatRoderDay = currentDate.getDate() < 10 ? `0${currentDate.getDate()}` : currentDate.getDate();
 	const date = currentDate.getFullYear() + "-" + formatRorderMonth + "-" + formatRoderDay;
 
 	console.log(date);
+
+	console.log("date >= 2023-02-17", date >= "2023-02-17");
 
 	return (
 		<>
