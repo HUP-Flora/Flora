@@ -95,7 +95,7 @@ public class OrderService {
 //        }
         // 픽업이면서 배송 완료인 경우
         if(order.getRecId().getType().equals(ReceiptType.PICKUP)
-                && order.getStatus().equals(OrderStatus.ACCEPT)
+                && order.getStatus().equals(OrderStatus.COMPLETED)
                 && order.getConId().getStatus().equals(ConferenceStatus.COMPLETED)
                 && order.getPaymentStatus().equals(PaymentStatus.DONE)
                 && order.getRecId().getStatus().equals(ReceiptStatus.DONE))
