@@ -22,12 +22,12 @@ function StatusChange({oId}) {
 		// 1. 처음 orderDetail이 렌더링 되면 orderStatus의 모든 정보를 가져오고(orderDetail.js의 useEffect 참고)
 
 		// 2. 현재 recoil로 관리하고 있는 orderDetail안의 orderStatus를 변경한다.
-		if (receiptType === "DELIVERY") {
+		if (receiptType === "배달") {
 			setOrderDetail({
 				...orderDetail,
 				status: status === 1 ? 2 : 3,
 			});
-		} else if (receiptType === "PICKUP") {
+		} else if (receiptType === "픽업") {
 			setOrderDetail({
 				...orderDetail,
 				status: status === 1 ? 5 : 5,

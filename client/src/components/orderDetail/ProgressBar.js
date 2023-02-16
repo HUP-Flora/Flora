@@ -38,13 +38,13 @@ function ProgressBar({oId}) {
 			<OrderStatusContainer>
 				<OrderStatusText isNow={first}>결제 전</OrderStatusText>
 				<OrderStatusText isNow={second}>결제 완료</OrderStatusText>
-				{receiptType === "DELIVERY" && (
+				{receiptType === "배달" && (
 					<>
 						<OrderStatusText isNow={third}>배송 중</OrderStatusText>
 						<OrderStatusText isNow={fourth}>배송 완료</OrderStatusText>
 					</>
 				)}
-				{receiptType === "PICKUP" && <OrderStatusText isNow={third}>수령 완료</OrderStatusText>}
+				{receiptType === "픽업" && <OrderStatusText isNow={third}>수령 완료</OrderStatusText>}
 			</OrderStatusContainer>
 			<OrderStatusLine>
 				<OrderStatusLineNow width={barWidth} />
