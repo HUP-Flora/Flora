@@ -15,10 +15,6 @@ import defaultImg from "../../assets/default-flower.png";
 function ReviewList({ size }) {
 	const [reviews, setReviews] = useRecoilState(reviewsState);
 
-	// 더미 데이터
-	// const sId = "1111";
-	// 더미 데이터 끝 --------------------
-
 	return (
 		<div>
 			{reviews.length === 0 ? (
@@ -35,7 +31,7 @@ function ReviewList({ size }) {
 											{review?.createDate}
 										</GrayText>
 										<GrayText size="13" weight="bold">
-											{review?.time}
+											{review?.time?.replace("T", " ")}
 										</GrayText>
 									</div>
 								</HeaderContainer>
