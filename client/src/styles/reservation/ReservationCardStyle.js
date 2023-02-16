@@ -54,7 +54,7 @@ export const GrayHrWrapper = styled.div`
 `;
 
 export const OwnerButtonsContainer = styled.div`
-	margin: 0 64px;
+	margin: 0 8px;
 	margin-top: 24px;
 
 	display: flex;

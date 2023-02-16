@@ -42,7 +42,7 @@ function StoreReview({ sId }) {
 						<ReviewContainer>
 							<LeftContainer>
 								<HeaderContainer>
-									<BoldText right="16">{review?.name}</BoldText>
+									<BoldText right="16">{review?.nickname}</BoldText>
 									<GrayText size="13" weight="bold" right="4">
 										{review?.createDate}
 									</GrayText>
@@ -53,7 +53,7 @@ function StoreReview({ sId }) {
 								<div>{review?.content}</div>
 							</LeftContainer>
 							<ImageWrapper>
-								<img src={review?.rImg} alt="product-img" />
+								<img src={review?.rimg} alt="product-img" />
 							</ImageWrapper>
 						</ReviewContainer>
 						<GrayHrWrapper>
