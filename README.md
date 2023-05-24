@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/89143804/219468504-887cdaf7-7ab6-4f7c-a17c-5ded7d71ed33.png" />
+<img src="https://github.com/HUP-Flora/Flora/assets/89143804/ad849daf-ee74-4b45-8bfb-8bbd70ed52c9" />
 
 <br />
 
