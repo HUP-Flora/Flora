@@ -152,7 +152,11 @@
 
 - 사장님께서 폼 버튼을 누르면 결제 폼이 채팅창에 표시되고, 이를 모두 적어 확인 창에서 결제하기를 누르면 카카오 결제 api로 redirect됩니다.
 
-- 추후 업로드
+<p align="center">
+	<img src="https://i.postimg.cc/brCVsvbJ/1.png" width="258px">
+	<img src="https://i.postimg.cc/sxD0jWMq/2.png" width="270px">
+	<img src="https://i.postimg.cc/pVq60s7H/3.png" width="270px">
+</p>
 
 <br />
 
