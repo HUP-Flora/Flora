@@ -154,8 +154,8 @@
 
 <p align="center">
 	<img src="https://i.postimg.cc/brCVsvbJ/1.png" width="258px">
-	<img src="https://i.postimg.cc/sxD0jWMq/2.png" width="270px">
-	<img src="https://i.postimg.cc/pVq60s7H/3.png" width="270px">
+	<img src="https://i.postimg.cc/sxD0jWMq/2.png" width="275px">
+	<img src="https://i.postimg.cc/sDBv6Dm4/4.png" width="258px">
 </p>
 
 <br />
